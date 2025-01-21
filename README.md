@@ -1,8 +1,8 @@
 # Aconfmgr Configuration
 
-This repository contains my configuration files for using with the [aconfmgr](https://github.com/CyberShadow/aconfmgr) tool, which automates the management of an Arch Linux system's configuration.
+This repository contains my system configuration files for use with the [aconfmgr](https://github.com/CyberShadow/aconfmgr) tool.
 
-Below is an overview of the structure, usage, and key customization aspects of this repository.
+Below is an overview of this repository's structure, usage, and key customization aspects.
 
 ## Repository Structure
 
@@ -10,7 +10,7 @@ Below is an overview of the structure, usage, and key customization aspects of t
 
 ## Usage
 
-Make sure you have `aconfmgr` installed. Follow the steps in the [official documentation](https://github.com/CyberShadow/aconfmgr/blob/master/README.md) if you're new to the tool.
+Make sure you have `aconfmgr` installed. If you're new to the tool, follow the steps in the [official documentation](https://github.com/CyberShadow/aconfmgr/blob/master/README.md).
 
 ### Clone this repository
 
