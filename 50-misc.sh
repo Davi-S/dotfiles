@@ -21,10 +21,16 @@ AddPackage openssh # SSH protocol implementation for remote login, command execu
 # For creating and restoring snapshots
 AddPackage timeshift # A system restore utility for Linux
 
+### Foreign ###
+
 # The aconfmgr it self
 AddPackage --foreign aconfmgr-git # A configuration manager for Arch Linux
 
-#############
+# Main package manager
+AddPackage --foreign paru # Feature packed AUR helper
+AddPackage --foreign paru-debug # Detached debugging symbols for paru
+
+###############
 
 # Timeshift configuration
 CopyFile /etc/timeshift/timeshift.json
