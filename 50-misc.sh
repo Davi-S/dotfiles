@@ -34,3 +34,4 @@ AddPackage --foreign paru-debug # Detached debugging symbols for paru
 
 # Timeshift configuration
 CopyFile /etc/timeshift/timeshift.json
+# Remember to correct the device uuid for the machine
