@@ -1,6 +1,6 @@
 # Aconfmgr Configuration
 
-This repository contains my system configuration files for use with the [aconfmgr](https://github.com/CyberShadow/aconfmgr) tool.
+This repository contains my dotfiles and system configuration files for use with the [aconfmgr](https://github.com/CyberShadow/aconfmgr) tool.
 
 Below is an overview of this repository's structure, usage, and key customization aspects.
 
