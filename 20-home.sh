@@ -1,6 +1,5 @@
 # New / changed files
 
-CopyFile /home/davi/.bash_history 600 davi davi
 CopyFile /home/davi/.bash_logout '' davi davi
 CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi

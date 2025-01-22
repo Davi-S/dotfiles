@@ -229,3 +229,206 @@ git push
 clear
 exit
 poweroff
+cd .config/aconfigmgr
+cd .config/aconfmgr
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+ls ~
+[A
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+nano 99-unsorted.sh
+export TERM=xterm
+clear
+cd .config/aconfmgr
+ls
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+aconfmgr save
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 05-helpers.sh
+aconfmgr save
+nano 05-helpers.sh
+nano 10-ignore.sh
+nano 10-ignore.sh
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+ls
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+rm 99-unsorted.sh
+aconfmgr save
+nano 10-ignore.sh
+rm 99-unsorted.sh
+aconfmgr save
+touch ~/test
+rm 99-unsorted.sh
+aconfmgr save
+rm 99-unsorted.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+aconfmgr save
+rm 99-unsorted.sh
+ls
+aconfmgr save
+nano 10-ignore.sh
+aconfmgr save
+ls
+rm -rf files
+aconfmgr save
+ls
+git pull
+ls
+mkdir -p files/etc/timeshift/
+nanop files/etc/timeshift/timeshift.json
+nano files/etc/timeshift/timeshift.json
+aconfmgr save
+rm -rf files
+nano 10-ignore.sh
+ls
+rm 99-unsorted.sh
+aconfmgr save
+ls
+nano 10-ignore.sh
+aconfmgr save
+aconfmgr save
+ls
+mkdir -p files/etc/timeshift
+nano files/etc/timeshift/timeshift.json
+ls
+ls files
+ls files/ets
+ls files/etc
+ls files/etc/timeshift
+cat files/etc/timeshift/timeshift.json
+clear
+aconfmgr save
+nano 50-misc.sh
+ls
+rm 99-unsorted.sh
+ls
+nano 05-helpers.sh
+nano 10-ignore.sh
+aconfmgr save
+rm 99-unsorted.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+rm 99-unsorted.sh
+aconfmgr save
+nano 10-ignore.sh
+rm 99-unsorted.sh
+aconfmgr save
+rm 99-unsorted.sh
+nano 10-ignore.sh
+aconfmgr save
+nano 10-ignore.sh
+aconfmgr save
+rm ~/test
+rm 99-unsorted.sh
+aconfmgr save
+ls
+nano 20-home.sh
+rm 99-unsorted.sh
+aconfmgr save
+nano 99-unsorted.sh
+nano 20-home.sh
+nano 20-home.sh
+rm 99-unsorted.sh
+ls
+clear
+ls
+mv 05-helpers.sh 00-helpers.sh
+ls
+10-ignore.sh
+nano10-ignore.sh
+nano 10-ignore.sh
+rm 99-unsorted.sh
+aconfmgr save
+git status
+clear
+git status
+git add .
+git status
+git status --help
+git --help
+git help -a
+clear
+ls"
+ls
+mv 00-helpers.sh ~/
+ls
+aconfmgr save
+ls
+rm 99-unsorted.sh
+ls
+rm ~/00-helpers.sh
+aconfmgr save
+git add .
+git commit -a -m "add home"
+git push
+ls
+clear
+ls ~
+ls ~/
+aconfmgr save
+git add .
+git status
+cd files
+ls
+cd home/dave
+cd home/davi
+ls
+ls -a
+rm 00-helpers.sh
+ls
+ls -a
+cd ~/.config/aconfmgr
+ls
+clear
+aconfmgr save
+aconfmgr apply
+aconfmgr apply
+clear
+paru
+paru -Sy vim
+clear
+ls
+git add .
+git commit -a -m "cleanup"
+git push
+ls
+nano README.md
+git commit -a -m "cleanup"
+git reset HEAD~
+git commit -a -m "update README"
+git push
+sudo poweroff

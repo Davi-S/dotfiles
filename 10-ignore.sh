@@ -41,6 +41,7 @@ ignore_paths=(
 
 IgnorePath "/home/davi/.config/aconfmgr/*"
 IgnorePath "/home/davi/.cargo/*"
+IgnorePath "/home/davi/.bash_history"
 
 IgnorePath "/boot/amd-ucode.img"
 IgnorePath "/boot/EFI/*"
