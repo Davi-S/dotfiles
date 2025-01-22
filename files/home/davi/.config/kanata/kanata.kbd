@@ -1,0 +1,90 @@
+;; This is made for the br-abnt2 keyboard
+
+(deflocalkeys-linux
+  ´ 26
+  [ 27
+  ç 39
+  ~ 40
+  ' 41
+  ] 43
+  ; 53
+  \ 86
+  / 89
+)
+
+(defsrc 
+  esc  f1    f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  '    1     2    3    4    5    6    7    8    9    0    -    =   bspc
+  tab  q     w    e    r    t    y    u    i    o    p    ´    [   ret
+  caps a     s    d    f    g    h    j    k    l    ç    ~    ]
+  lsft \     z    x    c    v    b    n    m    ,    .    ;    rsft
+  lctl       lmet lalt           spc            ralt      /
+)
+
+(deflayer customcolemaklayer
+  _     _    _    _    _    _    _      _      _     _     _      _      _ 
+  _     _    _    _    _    _    _      _      _     _     _      _      _     _
+  lctl  q    w    f    p    b    ´      j      l     u     y      @dqfsq XX    _
+  @caps a    r    s    t    g    ~      m      n     e     i      o      lctl
+  _     z    x    c    d    v    @ccfem @qtfmi k     h     @coflp @pefrp @rsft
+  _          _    _              _                   @ralt        _
+)
+
+(deflayer altcustomcolemaklayer
+  _    _     _    _    _    _    _    _    _    _     _     _     _
+  _    _     _    _    _    _    _    _    _    _     _     _     _   _
+  _    @ast  @lss @grt ;    @at  @end @pct @lpr @rpr  @lcb  @rcb  _   _
+  _    1     2    3    4    5    6    7    8    9     0     XX    _   
+  _    /     @bar \    @cln @nsg @pls @exc =    @und  @aps  @dll  _
+  _          _    _              _              _           _
+)
+
+;; TODO: make alt+shift layer for special and unusual characters
+
+(deflayer capscustomcolemaklayer
+  _     _     _    _    _    _    _    _    _    _    _    _     _
+  _     _     _    _    _    _    _    _    _    _    _    _     _    _ 
+  _     esc   _    _    _    _    lrld pgup home up   end  del   _    _ 
+  _     lalt  lmet lsft lctl _    _    tab  left down rght bspc  _   
+  _     _     _    _    _    _    _    _    pgdn _    _    _     _ 
+  _           _    _              ret            _         _ 
+)
+
+
+(defalias
+  emd (unicode —)    ;; — emdash
+  end (unicode –)    ;; – endash
+  exc S-1            ;; ! exclamation
+   at S-2            ;; @ at
+  nsg S-3            ;; # numbersign
+  dll S-4            ;; $ dollar
+  pct S-5            ;; % percent
+  aps S-7            ;; & ampersand
+  ast S-8            ;; * asterisk
+  lpr S-9            ;; ( parentheses left
+  rpr S-0            ;; ) parentheses right
+  und S--            ;; _ underscore
+  pls S-=            ;; + plus
+  bar S-\            ;; | bar
+  qst S-/            ;; ? question
+  dbq S-'            ;; " double quotes
+  grt S-.            ;; > greater
+  lss S-,            ;; < less
+  lcb S-[            ;; { left curly bracket
+  rcb S-]            ;; } right curly bracket
+  cln S-;            ;; : colon
+)
+
+(defalias
+  ralt (layer-toggle altcustomcolemaklayer)
+  caps (layer-toggle capscustomcolemaklayer)
+
+  rsft (tap-dance 200 (rsft caps))            ;; Two taps to toggle capslock
+
+  dqfsq (fork @dbq (unshift ') (lsft rsft))   ;; Double quotes (") without shift, simple quote         (') with shift
+  ccfem (fork ç    @emd        (lsft rsft))   ;; ccedila       (ç) without shift, emdash               (—) with shift
+  qtfmi (fork @qst (unshift -) (lsft rsft))   ;; question      (?) without shift, minus                (-) with shift
+  coflp (fork ,    (unshift [) (lsft rsft))   ;; comma         (,) without shift, left square bracket  ([) with shift
+  pefrp (fork .    (unshift ]) (lsft rsft))   ;; period        (.) without shift, right square bracket (]) with shift
+)
+    
