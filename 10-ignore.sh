@@ -98,7 +98,11 @@ IgnorePath "/swap/*"
 
 IgnorePath "/usr/bin/*"
 IgnorePath "/usr/lib/*"
-IgnorePath "/usr/share/*"
+IgnorePath "/usr/share/applications/*"
+IgnorePath "/usr/share/glib-2.0/*"
+IgnorePath "/usr/share/icons/*"
+IgnorePath "/usr/share/info/*"
+IgnorePath "/usr/share/mime/*"
 
 IgnorePath "/var/.updated"
 IgnorePath "/var/db/*"

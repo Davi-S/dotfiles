@@ -33,6 +33,9 @@ AddPackage sddm # QML based X11 and Wayland display manager
 # For qt5 support on sddm
 AddPackage layer-shell-qt5 # Qt 5 component to allow applications to make use of the Wayland wl-layer-shell protocol
 
+# For using qt5 themes on sddm
+AddPackage qt5-quickcontrols2 # Next generation user interface controls based on Qt Quick
+
 
 ################# Foreign #################
 
@@ -47,7 +50,7 @@ AddPackage --foreign paru-debug # Detached debugging symbols for paru
 AddPackage --foreign uwsm # A standalone Wayland session manager
 
 
-###########################################
+################# Files ###################
 
 # Timeshift configuration
 CopyFile /etc/timeshift/timeshift.json
@@ -56,5 +59,26 @@ CopyFile /etc/timeshift/timeshift.json
 # Changed to allow hibernating
 CopyFile /etc/mkinitcpio.conf.d/hooks.conf
 
-# Sets SDDM itself to run on wayland
+# Set SDDM itself to run on wayland
 CopyFile /etc/sddm.conf.d/10-wayland.conf
+
+# Set SDDM theme
+CopyFile /etc/sddm.conf.d/20-theme.conf
+
+# Sddm themes files
+CopyFile /usr/share/sddm/themes/minesddm/Main.qml
+CopyFile /usr/share/sddm/themes/minesddm/components/CustomButton.qml
+CopyFile /usr/share/sddm/themes/minesddm/components/CustomText.qml
+CopyFile /usr/share/sddm/themes/minesddm/components/PasswordTextField.qml
+CopyFile /usr/share/sddm/themes/minesddm/components/SessionHandler.qml
+CopyFile /usr/share/sddm/themes/minesddm/components/TextFieldBackground.qml
+CopyFile /usr/share/sddm/themes/minesddm/components/UsernameTextField.qml
+CopyFile /usr/share/sddm/themes/minesddm/images/background.png
+CopyFile /usr/share/sddm/themes/minesddm/images/button_background.png
+CopyFile /usr/share/sddm/themes/minesddm/images/disabled_button_background.png
+CopyFile /usr/share/sddm/themes/minesddm/images/selected_button_background.png
+CopyFile /usr/share/sddm/themes/minesddm/metadata.desktop
+CopyFile /usr/share/sddm/themes/minesddm/minesddm_preview_3.png
+CopyFile /usr/share/sddm/themes/minesddm/resources/MinecraftRegular-Bmg3.otf
+CopyFile /usr/share/sddm/themes/minesddm/resources/Monocraft.otf
+CopyFile /usr/share/sddm/themes/minesddm/theme.conf
