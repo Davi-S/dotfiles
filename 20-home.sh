@@ -16,6 +16,9 @@ CopyFile /home/davi/.gitconfig '' davi davi
 
 CopyFile /home/davi/.config/uwsm/env '' davi davi
 
+# Start hyprpolkitagent if using UWSM (https://wiki.hyprland.org/Hypr-Ecosystem/hyprpolkitagent/)
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprpolkitagent.service /usr/lib/systemd/user/hyprpolkitagent.service davi davi
+
 
 ######################### New file properties #########################
 
@@ -35,3 +38,13 @@ SetFileProperty /home/davi/.config/hypr owner davi
 
 SetFileProperty /home/davi/.config/uwsm group davi
 SetFileProperty /home/davi/.config/uwsm owner davi
+
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprpolkitagent.service /usr/lib/systemd/user/hyprpolkitagent.service davi davi
+CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
+
+SetFileProperty /home/davi/.config/systemd/user/graphical-session.target.wants group davi
+SetFileProperty /home/davi/.config/systemd/user/graphical-session.target.wants owner davi
+SetFileProperty /home/davi/.config/systemd/user group davi
+SetFileProperty /home/davi/.config/systemd/user owner davi
+SetFileProperty /home/davi/.config/systemd group davi
+SetFileProperty /home/davi/.config/systemd owner davi

@@ -50,6 +50,9 @@ AddPackage wireplumber # Session / policy manager implementation for PipeWire
 # XDG Desktop Portal for hyprland
 AddPackage xdg-desktop-portal-hyprland # xdg-desktop-portal backend for hyprland
 
+# Authenticatior agent for hyprland
+AddPackage hyprpolkitagent # Simple polkit authentication agent for Hyprland, written in QT/QML
+
 
 ################# Foreign #################
 
@@ -96,6 +99,3 @@ CopyFile /usr/share/sddm/themes/minesddm/minesddm_preview_3.png
 CopyFile /usr/share/sddm/themes/minesddm/resources/MinecraftRegular-Bmg3.otf
 CopyFile /usr/share/sddm/themes/minesddm/resources/Monocraft.otf
 CopyFile /usr/share/sddm/themes/minesddm/theme.conf
-
-# Hyprland config
-CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
