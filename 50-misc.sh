@@ -36,6 +36,9 @@ AddPackage layer-shell-qt5 # Qt 5 component to allow applications to make use of
 # For using qt5 themes on sddm
 AddPackage qt5-quickcontrols2 # Next generation user interface controls based on Qt Quick
 
+# Notification deamon
+AddPackage swaync # A simple GTK based notification daemon for Sway
+
 
 ################# Foreign #################
 
@@ -82,3 +85,6 @@ CopyFile /usr/share/sddm/themes/minesddm/minesddm_preview_3.png
 CopyFile /usr/share/sddm/themes/minesddm/resources/MinecraftRegular-Bmg3.otf
 CopyFile /usr/share/sddm/themes/minesddm/resources/Monocraft.otf
 CopyFile /usr/share/sddm/themes/minesddm/theme.conf
+
+# Hyprland config
+CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
