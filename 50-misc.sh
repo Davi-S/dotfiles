@@ -39,6 +39,14 @@ AddPackage qt5-quickcontrols2 # Next generation user interface controls based on
 # Notification deamon
 AddPackage swaync # A simple GTK based notification daemon for Sway
 
+# Bellow are pipiwire and related packages recomended by the Arch Wiki
+AddPackage pipewire # Low-latency audio/video router and processor
+AddPackage pipewire-alsa # Low-latency audio/video router and processor - ALSA configuration
+AddPackage pipewire-audio # Low-latency audio/video router and processor - Audio support
+AddPackage pipewire-jack # Low-latency audio/video router and processor - JACK replacement
+AddPackage pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
+AddPackage wireplumber # Session / policy manager implementation for PipeWire
+
 
 ################# Foreign #################
 
