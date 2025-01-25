@@ -30,6 +30,9 @@ AddPackage kitty # A modern, hackable, featureful, OpenGL-based terminal emulato
 # My primary display manager
 AddPackage sddm # QML based X11 and Wayland display manager
 
+# For qt5 support on sddm
+AddPackage layer-shell-qt5 # Qt 5 component to allow applications to make use of the Wayland wl-layer-shell protocol
+
 
 ################# Foreign #################
 
@@ -52,3 +55,6 @@ CopyFile /etc/timeshift/timeshift.json
 
 # Changed to allow hibernating
 CopyFile /etc/mkinitcpio.conf.d/hooks.conf
+
+# Sets SDDM itself to run on wayland
+CopyFile /etc/sddm.conf.d/10-wayland.conf
