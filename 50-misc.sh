@@ -1,4 +1,4 @@
-### Packages ###
+################# Packages #################
 
 # For building from source
 AddPackage base-devel # Basic tools to build Arch Linux packages
@@ -21,7 +21,17 @@ AddPackage openssh # SSH protocol implementation for remote login, command execu
 # For creating and restoring snapshots
 AddPackage timeshift # A system restore utility for Linux
 
-### Foreign ###
+# My primary wayland compositor
+AddPackage hyprland # a highly customizable dynamic tiling Wayland compositor
+
+# My primary terminal emulator
+AddPackage kitty # A modern, hackable, featureful, OpenGL-based terminal emulator
+
+# My primary display manager
+AddPackage sddm # QML based X11 and Wayland display manager
+
+
+################# Foreign #################
 
 # The aconfmgr it self
 AddPackage --foreign aconfmgr-git # A configuration manager for Arch Linux
@@ -30,7 +40,11 @@ AddPackage --foreign aconfmgr-git # A configuration manager for Arch Linux
 AddPackage --foreign paru # Feature packed AUR helper
 AddPackage --foreign paru-debug # Detached debugging symbols for paru
 
-###############
+# For managing hyprland and systemd
+AddPackage --foreign uwsm # A standalone Wayland session manager
+
+
+###########################################
 
 # Timeshift configuration
 CopyFile /etc/timeshift/timeshift.json
