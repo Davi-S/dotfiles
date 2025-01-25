@@ -30,11 +30,10 @@ AddPackage kitty # A modern, hackable, featureful, OpenGL-based terminal emulato
 # My primary display manager
 AddPackage sddm # QML based X11 and Wayland display manager
 
-# For qt5 support on sddm
+# For qt5 support on sddm (and suport on general stuf)
 AddPackage layer-shell-qt5 # Qt 5 component to allow applications to make use of the Wayland wl-layer-shell protocol
-
-# For using qt5 themes on sddm
 AddPackage qt5-quickcontrols2 # Next generation user interface controls based on Qt Quick
+AddPackage layer-shell-qt # Qt component to allow applications to make use of the Wayland wl-layer-shell protocol
 
 # Notification deamon
 AddPackage swaync # A simple GTK based notification daemon for Sway
@@ -52,7 +51,7 @@ AddPackage xdg-desktop-portal-hyprland # xdg-desktop-portal backend for hyprland
 
 # Authenticatior agent for hyprland
 AddPackage hyprpolkitagent # Simple polkit authentication agent for Hyprland, written in QT/QML
-
+# Remember to enabled hyprpolkitagent service (https://wiki.hyprland.org/Hypr-Ecosystem/hyprpolkitagent/)
 
 ################# Foreign #################
 

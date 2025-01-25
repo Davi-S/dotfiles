@@ -16,9 +16,6 @@ CopyFile /home/davi/.gitconfig '' davi davi
 
 CopyFile /home/davi/.config/uwsm/env '' davi davi
 
-# Start hyprpolkitagent if using UWSM (https://wiki.hyprland.org/Hypr-Ecosystem/hyprpolkitagent/)
-CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprpolkitagent.service /usr/lib/systemd/user/hyprpolkitagent.service davi davi
-
 
 ######################### New file properties #########################
 
