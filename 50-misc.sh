@@ -47,6 +47,9 @@ AddPackage pipewire-jack # Low-latency audio/video router and processor - JACK r
 AddPackage pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
 AddPackage wireplumber # Session / policy manager implementation for PipeWire
 
+# XDG Desktop Portal for hyprland
+AddPackage xdg-desktop-portal-hyprland # xdg-desktop-portal backend for hyprland
+
 
 ################# Foreign #################
 
