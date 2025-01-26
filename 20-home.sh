@@ -31,8 +31,6 @@ SetFileProperty /home/davi/.config/dconf owner davi
 SetFileProperty /home/davi/.config/hypr group davi
 SetFileProperty /home/davi/.config/hypr owner davi
 
-CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprpolkitagent.service /usr/lib/systemd/user/hyprpolkitagent.service davi davi
-
 SetFileProperty /home/davi/.config/systemd/user/graphical-session.target.wants group davi
 SetFileProperty /home/davi/.config/systemd/user/graphical-session.target.wants owner davi
 SetFileProperty /home/davi/.config/systemd/user group davi

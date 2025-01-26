@@ -53,6 +53,7 @@ AddPackage xdg-desktop-portal-hyprland # xdg-desktop-portal backend for hyprland
 AddPackage hyprpolkitagent # Simple polkit authentication agent for Hyprland, written in QT/QML
 # Remember to enabled hyprpolkitagent service (https://wiki.hyprland.org/Hypr-Ecosystem/hyprpolkitagent/)
 
+
 ################# Foreign #################
 
 # The aconfmgr it self
