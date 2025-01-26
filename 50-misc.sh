@@ -75,8 +75,9 @@ CopyFile /etc/timeshift/timeshift.json
 # Changed to allow hibernating
 CopyFile /etc/mkinitcpio.conf.d/hooks.conf
 
-# Set SDDM itself to run on wayland
+# Set SDDM itself to run on wayland (with hyprland) and set hyprland config
 CopyFile /etc/sddm.conf.d/10-wayland.conf
+CopyFile /etc/sddm.conf.d/15-hyprland.conf
 
 # Set SDDM theme
 CopyFile /etc/sddm.conf.d/20-theme.conf
