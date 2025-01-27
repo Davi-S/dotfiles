@@ -69,10 +69,6 @@ AddPackage --foreign uwsm # A standalone Wayland session manager
 
 ################# Files ###################
 
-# Timeshift configuration
-CopyFile /etc/timeshift/timeshift.json
-# Remember to correct the device uuid for the machine
-
 # Changed to allow hibernating
 CopyFile /etc/mkinitcpio.conf.d/hooks.conf
 
@@ -82,6 +78,10 @@ CopyFile /etc/sddm.conf.d/15-hyprland.conf
 
 # Set SDDM theme
 CopyFile /etc/sddm.conf.d/20-theme.conf
+
+# Timeshift configuration
+CopyFile /etc/timeshift/timeshift.json
+# Remember to correct the device uuid for the machine
 
 # Sddm themes files
 CopyFile /usr/share/sddm/themes/minesddm/Main.qml
@@ -100,6 +100,3 @@ CopyFile /usr/share/sddm/themes/minesddm/minesddm_preview_3.png
 CopyFile /usr/share/sddm/themes/minesddm/resources/MinecraftRegular-Bmg3.otf
 CopyFile /usr/share/sddm/themes/minesddm/resources/Monocraft.otf
 CopyFile /usr/share/sddm/themes/minesddm/theme.conf
-
-# Environment variables for UWSM
-CopyFile /etc/profile.d/uwsm.sh

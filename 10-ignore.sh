@@ -45,6 +45,7 @@ IgnorePath "/home/davi/.bash_history"
 IgnorePath "/home/davi/.cache/*"
 IgnorePath "/home/davi/.local/share/*"
 IgnorePath "/home/davi/.local/state/*"
+IgnorePath "/home/davi/.config/systemd/*"
 
 IgnorePath "/boot/amd-ucode.img"
 IgnorePath "/boot/EFI/*"
