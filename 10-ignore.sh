@@ -19,8 +19,8 @@ IgnorePackage sudo
 
 ################### New / changed files ###################
 
-# This is the redefinition of the initial ignore path list from the source code
-# Comented out "home"
+# This is the redefinition of the initial ignore path list from the aconfmgr source code
+# I have comented out "home". This includes it on the configuration
 ignore_paths=(
     '/dev'
     # '/home'
