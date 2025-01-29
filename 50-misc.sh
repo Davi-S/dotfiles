@@ -21,6 +21,12 @@ AddPackage openssh # SSH protocol implementation for remote login, command execu
 # For creating and restoring snapshots
 AddPackage timeshift # A system restore utility for Linux
 
+# Ok browser
+AddPackage firefox # Fast, Private & Safe Web Browser
+
+# Very customizable app launcher
+AddPackage rofi # A window switcher, application launcher and dmenu replacement
+# If Albert laucher app have a option to app a prefix (for use with uwsm) it is best than rofi
 
 ################# Foreign #################
 
