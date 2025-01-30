@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# This is used to see what is the type of the hyprland slice
+# It is usually "app.slice" or "session.slice".
+# "session.slice" is the recommended acording to uwsm 
+# Reference: https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#3-applications-and-slices
+
+#############################################
+
+
+# Find the Hyprland process
+HYPRLAND_PID=$(pgrep -x Hyprland)
+
+if [[ -z "$HYPRLAND_PID" ]]; then
+    echo "Hyprland is not running."
+    exit 1
+fi
+
+# Get the cgroup for the Hyprland process
+CGROUP=$(ps -o cgroup= -p "$HYPRLAND_PID")
+
+# Extract the slice from the cgroup
+if [[ "$CGROUP" == *"session.slice"* ]]; then
+    SLICE="session.slice"
+elif [[ "$CGROUP" == *"app.slice"* ]]; then
+    SLICE="app.slice"
+else
+    SLICE="unknown"
+fi
+
+# Output the result
+echo $SLICE

@@ -9,6 +9,9 @@
 
 # This is used to see which apps are beeing managed by uwsm, and control these systemd services
 
+#############################################
+
+
 set -e
 
 SELF="${0##*/}"

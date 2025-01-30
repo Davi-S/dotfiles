@@ -10,9 +10,9 @@
 #
 # Tip: use `this-script | grep -i app-name` to get info on a specific app
 
-########################################################################################
+#############################################
 
-# Function to get unit details
+
 get_unit_details() {
     local unit=$1
     local unit_type=$(echo "$unit" | awk -F'.' '{print $NF}')  # Extract scope/service from unit name
@@ -22,7 +22,7 @@ get_unit_details() {
     echo "----------------------------------------"
 }
 
-# Get list of all user units (scopes and services)
+# Get list of all user units
 units=$(systemctl --user list-units --all --no-legend | awk '{print $1}')
 
 # Iterate through each unit and get details

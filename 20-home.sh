@@ -15,7 +15,8 @@ CopyFile /home/davi/.bashrc '' davi davi
 
 
 CopyFile /home/davi/bin/uuctl '' davi davi
-CopyFile /home/davi/bin/list-user-units '' davi davi
+CopyFile /home/davi/bin/check-hyprland-slice '' davi davi
+CopyFile /home/davi/bin/list-user-units-type '' davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
