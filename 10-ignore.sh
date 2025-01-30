@@ -47,6 +47,7 @@ IgnorePath "/home/davi/.local/share/*"
 IgnorePath "/home/davi/.local/state/*"
 IgnorePath "/home/davi/.config/systemd/*"
 IgnorePath "/home/davi/.mozilla/*"
+IgnorePath "/home/davi/.histfile"
 
 IgnorePath "/boot/amd-ucode.img"
 IgnorePath "/boot/EFI/*"
@@ -95,6 +96,7 @@ IgnorePath "/etc/sudoers"
 # Systemd services
 IgnorePath "/etc/systemd/*"
 IgnorePath "/etc/vconsole.conf"
+IgnorePath "/etc/passwd.OLD"
 
 IgnorePath "/swap/*"
 

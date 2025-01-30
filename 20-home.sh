@@ -14,6 +14,15 @@ CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
 
+CopyFile /home/davi/.zcompdump '' davi davi
+CopyFile /home/davi/.zprofile '' davi davi
+CopyFile /home/davi/.zshenv '' davi davi
+CopyFile /home/davi/.zshrc '' davi davi
+
+
+CopyFile /home/davi/.gitconfig '' davi davi
+
+
 CopyFile /home/davi/bin/uuctl '' davi davi
 CopyFile /home/davi/bin/check-hyprland-slice '' davi davi
 CopyFile /home/davi/bin/list-user-units-type '' davi davi
@@ -42,9 +51,4 @@ SetFileProperty /home/davi/.config/kanata group davi
 SetFileProperty /home/davi/.config/kanata owner davi
 
 
-CopyFile /home/davi/.gitconfig '' davi davi
-
-
 CreateDir /home/davi/.config/kitty '' davi davi
-
-

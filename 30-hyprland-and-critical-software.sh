@@ -27,4 +27,4 @@ AddPackage hyprpolkitagent # Simple polkit authentication agent for Hyprland, wr
 # Remember to enabled hyprpolkitagent service (https://wiki.hyprland.org/Hypr-Ecosystem/hyprpolkitagent/)
 
 # For managing hyprland into systemd unities
-AddPackage --foreign uwsm # A standalone Wayland session manager
+AddPackage uwsm # A standalone Wayland session manager
