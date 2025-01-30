@@ -9,7 +9,6 @@ SetFileProperty /home/davi/.config group davi
 SetFileProperty /home/davi/.config owner davi
 
 
-CopyFile /home/davi/.bash_logout '' davi davi
 CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
