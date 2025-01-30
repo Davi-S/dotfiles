@@ -15,6 +15,7 @@ CopyFile /home/davi/.bashrc '' davi davi
 
 
 CopyFile /home/davi/bin/uuctl '' davi davi
+CopyFile /home/davi/bin/list-user-units '' davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
@@ -23,6 +24,11 @@ CopyFile /home/davi/.config/dconf/user '' davi davi
 SetFileProperty /home/davi/.config/dconf group davi
 SetFileProperty /home/davi/.config/dconf mode 700
 SetFileProperty /home/davi/.config/dconf owner davi
+
+
+CopyFile /home/davi/.config/environment.d/uwsm.conf '' davi davi
+SetFileProperty /home/davi/.config/environment.d group davi
+SetFileProperty /home/davi/.config/environment.d owner davi
 
 
 CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi

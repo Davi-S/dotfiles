@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Function to get unit details
+get_unit_details() {
+    local unit=$1
+    local unit_type=$(echo "$unit" | awk -F'.' '{print $NF}')  # Extract scope/service from unit name
+    local status=$(systemctl --user status "$unit" 2>/dev/null)
+
+    if [ -z "$status" ]; then
+        echo "Unit: $unit (Type: $unit_type) - Not found or inactive"
+        return
+    fi
+
+    # Print unit details
+    echo "Unit: $unit (Type: $unit_type)"
+    echo "----------------------------------------"
+}
+
+# Get list of all user units (scopes and services)
+units=$(systemctl --user list-units --all --no-legend | awk '{print $1}')
+
+# Iterate through each unit and get details
+for unit in $units; do
+    get_unit_details "$unit"
+done
