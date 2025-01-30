@@ -46,3 +46,10 @@ CopyFile /etc/mkinitcpio.conf.d/hooks.conf
 # Timeshift configuration
 CopyFile /etc/timeshift/timeshift.json
 # Remember to correct the device uuid for the machine
+
+# To make hyprland service itself to be placed into "session.slice" instead of "app.slice"
+CopyFile /usr/share/wayland-sessions/hyprland-uwsm.desktop
+# Reference: https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#3-applications-and-slices
+# This is the recommended by UWSM.
+# I tried to use environment variables but they weren't working, so I added the "-S"
+# option in the ".desktop" file

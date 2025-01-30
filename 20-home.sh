@@ -35,11 +35,6 @@ SetFileProperty /home/davi/.config/kanata group davi
 SetFileProperty /home/davi/.config/kanata owner davi
 
 
-CopyFile /home/davi/.config/uwsm/env '' davi davi
-SetFileProperty /home/davi/.config/uwsm group davi
-SetFileProperty /home/davi/.config/uwsm owner davi
-
-
 CopyFile /home/davi/.gitconfig '' davi davi
 
 
