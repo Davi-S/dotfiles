@@ -14,6 +14,11 @@ CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
 
+CopyFile /home/davi/bin/uuctl '' davi davi
+SetFileProperty /home/davi/bin group davi
+SetFileProperty /home/davi/bin owner davi
+
+
 CopyFile /home/davi/.config/dconf/user '' davi davi
 SetFileProperty /home/davi/.config/dconf group davi
 SetFileProperty /home/davi/.config/dconf mode 700
