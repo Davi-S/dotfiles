@@ -1,15 +1,21 @@
 #!/bin/bash
 
+# This is used to see what is the unit type of launched apps.
+#
+# You can set the unity type of an app by using `t service|scope` argument
+# or setting its default via UWSM_APP_UNIT_TYPE environment variable.
+# Reference: https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#3-applications-and-slices
+#
+# If you are unsure if these methods are working as expected, use this script to check.
+#
+# Tip: use `this-script | grep -i app-name` to get info on a specific app
+
+########################################################################################
+
 # Function to get unit details
 get_unit_details() {
     local unit=$1
     local unit_type=$(echo "$unit" | awk -F'.' '{print $NF}')  # Extract scope/service from unit name
-    local status=$(systemctl --user status "$unit" 2>/dev/null)
-
-    if [ -z "$status" ]; then
-        echo "Unit: $unit (Type: $unit_type) - Not found or inactive"
-        return
-    fi
 
     # Print unit details
     echo "Unit: $unit (Type: $unit_type)"

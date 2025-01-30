@@ -5,6 +5,9 @@
 # Part of UWSM, but does not depend on it.
 # https://github.com/Vladimir-csp/uwsm
 # https://gitlab.freedesktop.org/Vladimir-csp/uwsm
+# https://github.com/Vladimir-csp/uwsm/blob/master/scripts/uuctl.sh
+
+# This is used to see which apps are beeing managed by uwsm, and control these systemd services
 
 set -e
 
