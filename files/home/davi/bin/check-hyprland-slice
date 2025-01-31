@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This is used to see what is the type of the hyprland slice
 # It is usually "app.slice" or "session.slice".
