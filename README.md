@@ -2,15 +2,13 @@
 
 This repository contains my dotfiles and system configuration files for use with the [aconfmgr](https://github.com/CyberShadow/aconfmgr) tool.
 
-Below is an overview of this repository's structure, usage, and key customization aspects.
-
 ## Repository Structure
 
 <!-- TODO: add repository structure and overview -->
 
 ## Usage
 
-Make sure you have `aconfmgr` installed. If you're new to the tool, follow the steps in the [official documentation](https://github.com/CyberShadow/aconfmgr/blob/master/README.md).
+Make sure you have `aconfmgr` installed. If you're new to the tool, follow the steps in the [aconfmgr documentation](https://github.com/CyberShadow/aconfmgr).
 
 ### Clone this repository
 
