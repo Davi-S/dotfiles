@@ -55,8 +55,10 @@ SetFileProperty /home/davi/.config/fontconfig group davi
 SetFileProperty /home/davi/.config/fontconfig owner davi
 
 
-CreateDir /home/davi/.config/kitty '' davi davi
-
+CopyFile /home/davi/.config/kitty/colors.conf '' davi davi
+CopyFile /home/davi/.config/kitty/kitty.conf '' davi davi
+SetFileProperty /home/davi/.config/kitty group davi
+SetFileProperty /home/davi/.config/kitty owner davi
 
 CopyFile /home/davi/colorschemes/aphelion '' davi davi
 CopyFile /home/davi/colorschemes/lovelace '' davi davi
