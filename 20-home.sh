@@ -66,3 +66,7 @@ SetFileProperty /home/davi/colorschemes group davi
 SetFileProperty /home/davi/colorschemes owner davi
 
 
+CopyFile /home/davi/.config/rofi/colors.rasi '' davi davi
+CopyFile /home/davi/.config/rofi/config.rasi '' davi davi
+SetFileProperty /home/davi/.config/rofi group davi
+SetFileProperty /home/davi/.config/rofi owner davi

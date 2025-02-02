@@ -1,0 +1,107 @@
+window {
+    background-color: @xbg;
+    border-color: @x0;
+}
+
+mainbox {
+    border-color: @x0;
+}
+
+message {
+    background-color: @x0;
+}
+
+textbox {
+    text-color: @x7;
+}
+
+listview {
+    border-color: @x6;
+}
+
+element normal.normal {
+    background-color: rgba (0,0,0,0%);
+    text-color:       @xfg;
+}
+
+element normal.urgent {
+    background-color: rgba (0,0,0,0%);
+    text-color:       @x1;
+}
+
+element normal.active {
+    background-color: rgba (0,0,0,0%);
+    text-color:       @x5;
+}
+
+element selected.normal {
+    background-color: @x0;
+    text-color:       @x4;
+}
+
+element selected.urgent {
+    background-color: @x0;
+    text-color:       @x4;
+}
+
+element selected.active {
+    background-color: @x0;
+    text-color:       @x4;
+}
+
+element alternate.normal {
+    background-color: rgba (0,0,0,0%);
+    text-color:       @xfg;
+}
+
+element alternate.urgent {
+    background-color: rgba (0,0,0,0%);
+    text-color:       @x1;
+}
+
+element alternate.active {
+    background-color: rgba (0,0,0,0%);
+    text-color:       @x5;
+}
+
+scrollbar {
+    handle-color: @xfg;
+}
+
+sidebar {
+    border-color: @x4;
+}
+
+button {
+  background-color: @x0;
+  text-color: @x8;
+  border-color: @x8;
+}
+
+button selected {
+    background-color: @x0;
+    text-color: @x7;
+    border-color: @x7;
+}
+
+inputbar {
+    background-color: @xbg;
+}
+
+case-indicator {
+    text-color: @xfg;
+}
+
+entry {
+    text-color: @xfg;
+}
+
+prompt {
+    text-color: @x1;
+}
+
+textbox-prompt-colon {
+    text-color: inherit;
+}
+
+@import "colors.rasi"
