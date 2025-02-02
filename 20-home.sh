@@ -51,3 +51,10 @@ SetFileProperty /home/davi/.config/kanata owner davi
 
 
 CreateDir /home/davi/.config/kitty '' davi davi
+
+
+CopyFile /home/davi/.config/rofi/README.md '' davi davi
+CopyFile /home/davi/.config/rofi/colors.rasi '' davi davi
+CopyFile /home/davi/.config/rofi/config.rasi '' davi davi
+SetFileProperty /home/davi/.config/rofi group davi
+SetFileProperty /home/davi/.config/rofi owner davi
