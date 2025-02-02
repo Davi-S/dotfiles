@@ -50,15 +50,17 @@ SetFileProperty /home/davi/.config/kanata group davi
 SetFileProperty /home/davi/.config/kanata owner davi
 
 
-CopyFile /home/davi/.config/kitty/README.md '' davi davi
-CopyFile /home/davi/.config/kitty/colors.conf '' davi davi
-CopyFile /home/davi/.config/kitty/kitty.conf '' davi davi
-SetFileProperty /home/davi/.config/kitty group davi
-SetFileProperty /home/davi/.config/kitty owner davi
+CreateFile /home/davi/.config/fontconfig/fonts.conf '' davi davi > /dev/null
+SetFileProperty /home/davi/.config/fontconfig group davi
+SetFileProperty /home/davi/.config/fontconfig owner davi
 
 
-CopyFile /home/davi/.config/rofi/README.md '' davi davi
-CopyFile /home/davi/.config/rofi/colors.rasi '' davi davi
-CopyFile /home/davi/.config/rofi/config.rasi '' davi davi
-SetFileProperty /home/davi/.config/rofi group davi
-SetFileProperty /home/davi/.config/rofi owner davi
+CreateDir /home/davi/.config/kitty '' davi davi
+
+
+CopyFile /home/davi/colorschemes/aphelion '' davi davi
+CopyFile /home/davi/colorschemes/lovelace '' davi davi
+SetFileProperty /home/davi/colorschemes group davi
+SetFileProperty /home/davi/colorschemes owner davi
+
+
