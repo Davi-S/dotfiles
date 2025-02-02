@@ -50,7 +50,7 @@ SetFileProperty /home/davi/.config/kanata group davi
 SetFileProperty /home/davi/.config/kanata owner davi
 
 
-CreateFile /home/davi/.config/fontconfig/fonts.conf '' davi davi > /dev/null
+CopyFile /home/davi/.config/fontconfig/fonts.conf '' davi davi
 SetFileProperty /home/davi/.config/fontconfig group davi
 SetFileProperty /home/davi/.config/fontconfig owner davi
 
