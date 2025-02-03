@@ -34,6 +34,7 @@ AddPackage zsh # A very advanced and programmable command interpreter (shell) fo
 # Some good nerd font
 AddPackage ttf-jetbrains-mono-nerd # Patched font JetBrains Mono from nerd fonts library
 
+
 ################# Foreign #################
 
 # The aconfmgr it self
@@ -42,6 +43,9 @@ AddPackage --foreign aconfmgr-git # A configuration manager for Arch Linux
 # Main package manager
 AddPackage --foreign paru # Feature packed AUR helper
 AddPackage --foreign paru-debug # Detached debugging symbols for paru
+
+# For using systemd timer instead of cron jobs for timeshift
+AddPackage --foreign timeshift-systemd-timer # Add systemd support for timeshift
 
 
 ################# Files ###################
