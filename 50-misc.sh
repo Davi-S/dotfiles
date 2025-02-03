@@ -34,6 +34,11 @@ AddPackage zsh # A very advanced and programmable command interpreter (shell) fo
 # Some good nerd font
 AddPackage ttf-jetbrains-mono-nerd # Patched font JetBrains Mono from nerd fonts library
 
+# For changing wallpaper
+AddPackage hyprpaper # a blazing fast wayland wallpaper utility with IPC controls
+# Remember to start the service `systemctl --user enable --now hyprpaper.service`.
+# Reference: https://wiki.hyprland.org/Hypr-Ecosystem/hyprpaper/
+
 
 ################# Foreign #################
 

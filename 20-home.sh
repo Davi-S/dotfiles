@@ -1,12 +1,18 @@
 # This file contains my home folder and personal dotfiles
 
 
-# Set the properties for my home folder in general
 SetFileProperty /home/davi group davi
 SetFileProperty /home/davi mode 700
 SetFileProperty /home/davi owner davi
-SetFileProperty /home/davi/.config group davi
-SetFileProperty /home/davi/.config owner davi
+
+
+SetFileProperty /home/davi/Pictures group davi
+SetFileProperty /home/davi/Pictures owner davi
+
+
+CopyFile /home/davi/Pictures/wallpapers/wallpaper_1.png '' davi davi
+SetFileProperty /home/davi/Pictures/wallpapers group davi
+SetFileProperty /home/davi/Pictures/wallpapers owner davi
 
 
 CopyFile /home/davi/.bash_profile '' davi davi
@@ -36,6 +42,10 @@ SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
 
+SetFileProperty /home/davi/.config group davi
+SetFileProperty /home/davi/.config owner davi
+
+
 CopyFile /home/davi/.config/dconf/user '' davi davi
 SetFileProperty /home/davi/.config/dconf group davi
 SetFileProperty /home/davi/.config/dconf mode 700
@@ -48,6 +58,7 @@ SetFileProperty /home/davi/.config/environment.d owner davi
 
 
 CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
+CopyFile /home/davi/.config/hypr/hyprpaper.conf '' davi davi
 SetFileProperty /home/davi/.config/hypr group davi
 SetFileProperty /home/davi/.config/hypr owner davi
 
@@ -72,3 +83,6 @@ CopyFile /home/davi/.config/rofi/colors.rasi '' davi davi
 CopyFile /home/davi/.config/rofi/config.rasi '' davi davi
 SetFileProperty /home/davi/.config/rofi group davi
 SetFileProperty /home/davi/.config/rofi owner davi
+
+
+
