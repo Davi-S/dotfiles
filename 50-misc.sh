@@ -46,7 +46,7 @@ AddPackage --foreign paru-debug # Detached debugging symbols for paru
 
 # For using systemd timer instead of cron jobs for timeshift
 AddPackage --foreign timeshift-systemd-timer # Add systemd support for timeshift
-
+# Remember to enable `sudo systemctl enable --now timeshift-hourly.timer`
 
 ################# Files ###################
 
