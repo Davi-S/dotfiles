@@ -86,6 +86,7 @@ SetFileProperty /home/davi/.config/rofi owner davi
 
 CopyFile /home/davi/.config/swaync/config.json '' davi davi
 CopyFile /home/davi/.config/swaync/style.css '' davi davi
+CopyFile /home/davi/.config/swaync/README.md '' davi davi
 SetFileProperty /home/davi/.config/swaync group davi
 SetFileProperty /home/davi/.config/swaync owner davi
 
