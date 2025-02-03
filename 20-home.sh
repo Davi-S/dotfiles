@@ -6,15 +6,6 @@ SetFileProperty /home/davi mode 700
 SetFileProperty /home/davi owner davi
 
 
-SetFileProperty /home/davi/Pictures group davi
-SetFileProperty /home/davi/Pictures owner davi
-
-
-CopyFile /home/davi/Pictures/wallpapers/wallpaper_1.png '' davi davi
-SetFileProperty /home/davi/Pictures/wallpapers group davi
-SetFileProperty /home/davi/Pictures/wallpapers owner davi
-
-
 CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
@@ -26,6 +17,14 @@ CopyFile /home/davi/.zshrc '' davi davi
 
 
 CopyFile /home/davi/.gitconfig '' davi davi
+
+
+CopyFile /home/davi/Pictures/wallpapers/wallpaper_1.png '' davi davi
+CopyFile /home/davi/Pictures/wallpapers/wallpaper_2.png '' davi davi
+SetFileProperty /home/davi/Pictures group davi
+SetFileProperty /home/davi/Pictures owner davi
+SetFileProperty /home/davi/Pictures/wallpapers group davi
+SetFileProperty /home/davi/Pictures/wallpapers owner davi
 
 
 CopyFile /home/davi/colorschemes/aphelion '' davi davi
@@ -85,4 +84,8 @@ SetFileProperty /home/davi/.config/rofi group davi
 SetFileProperty /home/davi/.config/rofi owner davi
 
 
+CopyFile /home/davi/.config/swaync/config.json '' davi davi
+CopyFile /home/davi/.config/swaync/style.css '' davi davi
+SetFileProperty /home/davi/.config/swaync group davi
+SetFileProperty /home/davi/.config/swaync owner davi
 

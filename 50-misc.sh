@@ -39,6 +39,9 @@ AddPackage hyprpaper # a blazing fast wayland wallpaper utility with IPC control
 # Remember to start the service `systemctl --user enable --now hyprpaper.service`.
 # Reference: https://wiki.hyprland.org/Hypr-Ecosystem/hyprpaper/
 
+# For sending notifications
+AddPackage libnotify # Library for sending desktop notifications
+
 
 ################# Foreign #################
 

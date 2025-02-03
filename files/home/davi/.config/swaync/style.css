@@ -1,0 +1,176 @@
+/* Special */
+@define-color background rgba(16, 19, 25, 1);
+@define-color foreground rgba(244, 243, 238, 1);
+@define-color cursor rgba(244, 243, 238, 1);
+
+/* Colors */
+@define-color color0 rgba(23, 27, 36, 1);
+@define-color color1 rgba(227, 79, 79, 1);
+@define-color color2 rgba(105, 191, 206, 1);
+@define-color color3 rgba(227, 126, 79, 1);
+@define-color color4 rgba(86, 121, 227, 1);
+@define-color color5 rgba(149, 109, 202, 1);
+@define-color color6 rgba(85, 153, 226, 1);
+@define-color color7 rgba(244, 243, 238, 1);
+@define-color color8 rgba(58, 67, 90, 1);
+@define-color color9 rgba(222, 43, 43, 1);
+@define-color color10 rgba(86, 183, 200, 1);
+@define-color color11 rgba(222, 100, 43, 1);
+@define-color color12 rgba(62, 102, 224, 1);
+@define-color color13 rgba(136, 90, 196, 1);
+@define-color color14 rgba(63, 140, 222, 1);
+@define-color color15 rgba(221, 219, 207, 1);
+
+.control-center {
+  background: transparent;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.1;
+}
+
+/* Window behind control center and on all other monitors */
+.blank-window {
+  background: transparent;
+}
+
+/* .floating-notifications > scrolledwindow > viewport > box { */
+/*   margin-top: 50px; */
+/* } */
+
+/* applies only to floating block, not the notifications in control center */
+.floating-notifications .notification-row {
+  padding: 0;
+}
+
+.notification-row {
+  outline: none;
+  margin: 0;
+  padding: 0px;
+  /* BellotaText 13, Comfortaa 13, Jura 14, montserrat alternates 13 */
+  font: 1em shantell sans;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+  background: alpha(@color6, 0.2);
+}
+
+.notification-group-headers {
+  /* font: 1em shantell sans; */
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: @foreground;
+  letter-spacing: 2px;
+  font: bold 1em Megrim;
+}
+
+.notification-group-icon {
+  color: alpha(@color13, 0.7);
+  margin-right: 8px;
+  /* border: 1px solid @color3 */
+}
+
+.notification-group-collapse-button {
+  background: transparent;
+  border: none;
+}
+
+.notification-group-collapse-button:hover {
+  background: alpha(@color6, 0.2);
+}
+
+.notification-group-close-all-button {
+  background: transparent;
+  border: none;
+}
+
+.notification-group-close-all-button:hover {
+  background: alpha(@color6, 0.2);
+}
+
+.notification {
+  padding: 0.2em; /* 6px? */
+  box-shadow: 3px 3px 0 0 @color6;
+  border-radius: 15px;
+  background: @background;
+}
+
+.low {
+  border: 1px solid @color3;
+}
+.normal {
+  border: 1px solid @color13;
+} /* or color5 */
+.notification.critical {
+  background: alpha(black, 0.89);
+  border: 1px solid white;
+  color: #eeeeee;
+}
+
+.notification-content {
+  padding: 5px 0;
+  margin-left: 10px;
+  color: @foreground;
+  background: transparent;
+}
+
+/* no mouse, ty */
+.close-button,
+.close-button:hover {
+  background: transparent;
+  color: transparent;
+}
+
+/* yet another useless wrapper */
+.notification-default-action,
+.notification-action,
+.notification-default-action:hover,
+.notification-action:hover {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+}
+
+.image {
+  margin-left: -3px;
+  margin-right: 8px; /* 1em? */
+  min-width: 68px;
+  min-height: 68px;
+  border-radius: 7px;
+}
+
+.body-image {
+  /* margin-top: 6px; */
+  background-color: white;
+  /* border-radius: 12px; */
+}
+
+.summary {
+  font-size: 1.2em;
+  font-weight: bold;
+  background: transparent;
+  color: @color3;
+  text-shadow: none;
+}
+
+.time {
+  font-size: 1.2em;
+  font-weight: normal;
+  color: @color8;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.body {
+  font-size: 12pt;
+  font-weight: normal;
+  background: transparent;
+  color: @foreground;
+}
