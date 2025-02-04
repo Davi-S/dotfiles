@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Battery Manager
+# ===============
+# A centralized script to manage battery-related tasks by calling modular scripts.
+#
+# Usage:
+#   battery-manager [OPTIONS]
+#
+# Options:
+#   --add-scripts "script1 arg1 arg2" "script2 arg1 arg2" ...
+#       Appends scripts and their arguments to the list of scripts to execute.
+#   --set-scripts "script1 arg1 arg2" "script2 arg1 arg2" ...
+#       Replaces the in-code scripts with the provided list of scripts and arguments.
+#
+# Positional Arguments Passed to Each Script:
+#   $1: Battery level (percentage)
+#   $2: Charging status ("Charging" or empty)
+#   $3: Remaining time (e.g., "01:23:45")
+#
+# Example:
+#   battery-manager --add-scripts "notify.sh 2" "brightness.sh 30"
+#   battery-manager --set-scripts "notify.sh 1" "brightness.sh 50"
+#
+
+# Get battery information using acpi
+BATTERY_INFO=$(acpi -b)
+
+# Extract battery percentage, charging status, and remaining time
+BATTERY_PERCENT=$(echo "$BATTERY_INFO" | grep -P -o '[0-9]+(?=%)')
+BATTERY_CHARGING=$(echo "$BATTERY_INFO" | grep -o "Charging")
+BATTERY_TIME=$(echo "$BATTERY_INFO" | grep -P -o '\d{2}:\d{2}:\d{2}')
+
+# Default scripts to call (can be overridden with --set-scripts or appended with --add-scripts)
+SCRIPTS=(
+    "battery-notify"
+)
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --add-scripts)
+            shift
+            while [[ $# -gt 0 && ! "$1" == --* ]]; do
+                SCRIPTS+=("$1")
+                shift
+            done
+            ;;
+        --set-scripts)
+            shift
+            SCRIPTS=()
+            while [[ $# -gt 0 && ! "$1" == --* ]]; do
+                SCRIPTS+=("$1")
+                shift
+            done
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            exit 1
+            ;;
+    esac
+done
+
+# Call each script with battery information and extra arguments
+for SCRIPT_ARG in "${SCRIPTS[@]}"; do
+    # Split the script and its extra arguments
+    IFS=' ' read -r -a SCRIPT_SPLIT <<< "$SCRIPT_ARG"
+    SCRIPT="${SCRIPT_SPLIT[0]}"
+    EXTRA_ARGS=("${SCRIPT_SPLIT[@]:1}")
+
+    # Call the script with battery info and extra arguments
+    "$SCRIPT" "$BATTERY_PERCENT" "$BATTERY_CHARGING" "$BATTERY_TIME" "${EXTRA_ARGS[@]}"
+done

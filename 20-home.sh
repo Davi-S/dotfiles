@@ -19,10 +19,12 @@ CopyFile /home/davi/.zshrc '' davi davi
 CopyFile /home/davi/.gitconfig '' davi davi
 
 
-CopyFile /home/davi/Pictures/wallpapers/wallpaper_1.png '' davi davi
-CopyFile /home/davi/Pictures/wallpapers/wallpaper_2.png '' davi davi
 SetFileProperty /home/davi/Pictures group davi
 SetFileProperty /home/davi/Pictures owner davi
+
+
+CopyFile /home/davi/Pictures/wallpapers/wallpaper_1.png '' davi davi
+CopyFile /home/davi/Pictures/wallpapers/wallpaper_2.png '' davi davi
 SetFileProperty /home/davi/Pictures/wallpapers group davi
 SetFileProperty /home/davi/Pictures/wallpapers owner davi
 
@@ -34,9 +36,11 @@ SetFileProperty /home/davi/colorschemes group davi
 SetFileProperty /home/davi/colorschemes owner davi
 
 
-CopyFile /home/davi/bin/uuctl '' davi davi
-CopyFile /home/davi/bin/check-hyprland-slice '' davi davi
-CopyFile /home/davi/bin/list-user-units-type '' davi davi
+CopyFile /home/davi/bin/uuctl 755 davi davi
+CopyFile /home/davi/bin/check-hyprland-slice 755 davi davi
+CopyFile /home/davi/bin/list-user-units-type 755 davi davi
+CopyFile /home/davi/bin/battery-manager 755 davi davi
+CopyFile /home/davi/bin/battery-notify 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 

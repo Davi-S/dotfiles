@@ -42,6 +42,10 @@ AddPackage hyprpaper # a blazing fast wayland wallpaper utility with IPC control
 # For sending notifications
 AddPackage libnotify # Library for sending desktop notifications
 
+# For getting battery info
+AddPackage acpi # Client for battery, power, and thermal readings
+# primarilly used as a dependency for the battery user scripts
+
 
 ################# Foreign #################
 

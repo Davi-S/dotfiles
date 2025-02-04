@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Positional arguments
+LEVEL=$1
+CHARGING=$2
+REMAINING_TIME=$3
+
+# Extra arguments (if any)
+EXTRA_ARGS=("${@:4}")
+
+# Notification settings
+MULTIPLIER=${EXTRA_ARGS[0]:-1}  # Default multiplier is 1
+NORMAL_TIMEOUT=$((1000 * MULTIPLIER))
+CRITICAL_TIMEOUT=$((100000000 * MULTIPLIER))
+
+# Send notifications based on battery level and charging status
+if [[ -z "$CHARGING" ]]; then
+    if [[ "$LEVEL" -lt 15 ]]; then
+        notify-send -u critical -t $CRITICAL_TIMEOUT "Battery Critical" "Battery is at $LEVEL% ($REMAINING_TIME remaining). Connect the charger!"
+    elif [[ "$LEVEL" -lt 30 ]]; then
+        notify-send -t $NORMAL_TIMEOUT "Battery Low" "Battery is at $LEVEL% ($REMAINING_TIME remaining)."
+    else
+        notify-send -t $NORMAL_TIMEOUT "Battery Status" "Battery is at $LEVEL% ($REMAINING_TIME remaining)."
+    fi
+else
+    notify-send -t $NORMAL_TIMEOUT "Battery Status" "Battery is at $LEVEL% (Charging)."
+fi
