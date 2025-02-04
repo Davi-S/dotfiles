@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Auto Battery Notify
+# ======================
+# Depends on `battery-manager`
+# 
+# This is a wrapper script for `battery-notify`. It calls `battery-notify` only 
+# for some battery percentages and prevents duplicate notifications for the same
+# battery percentage.
+#
+# Can be called manually by passing itself as a parameter to `battery-manager` (see `battery-manager`
+# comments)
+#
+# This script will be called by battery-manager sytemd timer/service.
+#
+# Usage:
+#   Called by `battery-manager` with the following arguments:
+#   $1: Battery level (percentage)
+#   $2: Charging status ("Charging" or empty)
+#   $3: Remaining time (e.g., "01:23:45")
+#   $4+: Extra arguments passed to `battery-notify`
+#
+# Behavior:
+#   - Sends notifications only when the battery level is a multiple of 10 (e.g., 100%, 90%, 80%, ...).
+#   - Sends notifications when the battery level is a multiple of 5 and below 20% (e.g., 20%, 15%, 10%, 5%).
+#   - Prevents duplicate notifications for the same battery percentage by storing the last notified
+#     percentage in a state file (~/.local/share/auto-battery-notify-state).
+
+
+# Positional arguments
+LEVEL=$1
+CHARGING=$2
+REMAINING_TIME=$3
+
+# Extra arguments (if any)
+EXTRA_ARGS=("${@:4}")
+
+# Path to the state file
+STATE_DIR="$HOME/.local/share"
+STATE_FILE="$STATE_DIR/auto-battery-notify-state.txt"
+
+# Ensure the state directory exists
+mkdir -p "$STATE_DIR"
+
+# Check if the battery level is a multiple of 10
+is_multiple_of_10() {
+    [[ $((LEVEL % 10)) -eq 0 ]]
+}
+
+# Check if the battery level is a multiple of 5 and below 20%
+is_multiple_of_5_below_20() {
+    [[ $((LEVEL % 5)) -eq 0 && $LEVEL -le 20 ]]
+}
+
+# Read the last notified battery percentage from the state file
+LAST_NOTIFIED_PERCENT=0
+if [[ -f "$STATE_FILE" ]]; then
+    LAST_NOTIFIED_PERCENT=$(cat "$STATE_FILE")
+fi
+
+# Call the original battery-notify script if conditions are met and the percentage has changed
+if (is_multiple_of_10 || is_multiple_of_5_below_20) && [[ "$LEVEL" -ne "$LAST_NOTIFIED_PERCENT" ]]; then
+    battery-notify "$LEVEL" "$CHARGING" "$REMAINING_TIME" "${EXTRA_ARGS[@]}"
+    # Update the state file with the current battery percentage
+    echo "$LEVEL" > "$STATE_FILE"
+fi

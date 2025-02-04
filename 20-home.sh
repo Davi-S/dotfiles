@@ -41,6 +41,7 @@ CopyFile /home/davi/bin/check-hyprland-slice 755 davi davi
 CopyFile /home/davi/bin/list-user-units-type 755 davi davi
 CopyFile /home/davi/bin/battery-manager 755 davi davi
 CopyFile /home/davi/bin/battery-notify 755 davi davi
+CopyFile /home/davi/bin/auto-battery-notify 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
@@ -93,6 +94,7 @@ CopyFile /home/davi/.config/swaync/style.css '' davi davi
 CopyFile /home/davi/.config/swaync/README.md '' davi davi
 SetFileProperty /home/davi/.config/swaync group davi
 SetFileProperty /home/davi/.config/swaync owner davi
+
 
 CopyFile /home/davi/.config/systemd/user/battery-manager.service '' davi davi
 CopyFile /home/davi/.config/systemd/user/battery-manager.timer '' davi davi

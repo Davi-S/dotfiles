@@ -4,6 +4,12 @@
 # ===============
 # A centralized script to manage battery-related tasks by calling modular scripts.
 #
+# If you want to run battery related scripts, you need to run this script passing
+# the intended script as a parameter. Battery related script have a descritivi name
+# or a comment on the file
+#
+# You can run this script manully or make a systemd timer to run it periodially
+#
 # Usage:
 #   battery-manager [OPTIONS]
 #
@@ -33,7 +39,7 @@ BATTERY_TIME=$(echo "$BATTERY_INFO" | grep -P -o '\d{2}:\d{2}:\d{2}')
 
 # Default scripts to call (can be overridden with --set-scripts or appended with --add-scripts)
 SCRIPTS=(
-    "battery-notify"
+
 )
 
 # Parse command-line arguments

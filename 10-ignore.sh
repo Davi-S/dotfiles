@@ -54,6 +54,7 @@ IgnorePath "/home/davi/.config/systemd/user/graphical-session.target.wants/*"
 IgnorePath "/home/davi/.mozilla/*"
 IgnorePath "/home/davi/.histfile"
 IgnorePath "/home/davi/.bash_logout"
+IgnorePath "/home/davi/.local/share/auto-battery-notify-state.txt"
 
 IgnorePath "/boot/amd-ucode.img"
 IgnorePath "/boot/EFI/*"

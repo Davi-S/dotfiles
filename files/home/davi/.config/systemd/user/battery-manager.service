@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/home/davi/bin/battery-manager
+ExecStart=/home/davi/bin/battery-manager --set-scripts "auto-battery-notify 2"
 Environment=PATH=/home/davi/bin:/usr/local/bin:/usr/bin:/bin
 Restart=on-failure
 
