@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Battery Manager Every 5 Minutes
+
+[Timer]
+OnBootSec=1min      
+OnUnitActiveSec=1m  
+Unit=battery-manager.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Battery Manager Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/davi/bin/battery-manager
+Environment=PATH=/home/davi/bin:/usr/local/bin:/usr/bin:/bin
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

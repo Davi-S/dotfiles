@@ -94,3 +94,9 @@ CopyFile /home/davi/.config/swaync/README.md '' davi davi
 SetFileProperty /home/davi/.config/swaync group davi
 SetFileProperty /home/davi/.config/swaync owner davi
 
+CopyFile /home/davi/.config/systemd/user/battery-manager.service '' davi davi
+CopyFile /home/davi/.config/systemd/user/battery-manager.timer '' davi davi
+SetFileProperty /home/davi/.config/systemd/user group davi
+SetFileProperty /home/davi/.config/systemd/user owner davi
+SetFileProperty /home/davi/.config/systemd group davi
+SetFileProperty /home/davi/.config/systemd owner davi
