@@ -1,5 +1,6 @@
 # This file contains SDDM, temes, and related pakages
 
+# Sddm itself
 AddPackage sddm # QML based X11 and Wayland display manager
 
 # For qt5 support on sddm (and suport on general stuf)
@@ -7,9 +8,9 @@ AddPackage layer-shell-qt5 # Qt 5 component to allow applications to make use of
 AddPackage qt5-quickcontrols2 # Next generation user interface controls based on Qt Quick
 AddPackage layer-shell-qt # Qt component to allow applications to make use of the Wayland wl-layer-shell protocol
 
-# Set SDDM itself to run on wayland with hyprland as compositor, and set the hyprland config
+# Set SDDM itself to run on wayland with hyprland as compositor, and set the hyprland config it will use to render itself
 CopyFile /etc/sddm.conf.d/10-wayland.conf
-CopyFile /etc/sddm.conf.d/15-hyprland.conf
+CopyFile /etc/hypr/hyprland-sddm.conf
 
 # Set the current SDDM theme
 CopyFile /etc/sddm.conf.d/20-theme.conf
