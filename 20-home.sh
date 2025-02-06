@@ -71,6 +71,7 @@ SetFileProperty /home/davi/.config/dconf owner davi
 
 
 CopyFile /home/davi/.config/environment.d/uwsm.conf '' davi davi
+CopyFile /home/davi/.config/environment.d/cursor.conf '' davi davi
 SetFileProperty /home/davi/.config/environment.d group davi
 SetFileProperty /home/davi/.config/environment.d owner davi
 
