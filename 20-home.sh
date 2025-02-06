@@ -25,6 +25,7 @@ SetFileProperty /home/davi/Pictures owner davi
 
 CopyFile /home/davi/Pictures/wallpapers/wallpaper_1.png '' davi davi
 CopyFile /home/davi/Pictures/wallpapers/wallpaper_2.png '' davi davi
+CopyFile /home/davi/Pictures/wallpapers/wallpaper_3.png '' davi davi
 SetFileProperty /home/davi/Pictures/wallpapers group davi
 SetFileProperty /home/davi/Pictures/wallpapers owner davi
 
