@@ -19,6 +19,9 @@ CopyFile /home/davi/.zshrc '' davi davi
 CopyFile /home/davi/.gitconfig '' davi davi
 
 
+CopyFile /home/davi/.gtkrc-2.0 '' davi davi
+
+
 SetFileProperty /home/davi/Pictures group davi
 SetFileProperty /home/davi/Pictures owner davi
 
@@ -45,6 +48,16 @@ CopyFile /home/davi/bin/battery-notify 755 davi davi
 CopyFile /home/davi/bin/auto-battery-notify 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
+
+
+SetFileProperty /home/davi/.local group davi
+SetFileProperty /home/davi/.local owner davi
+SetFileProperty /home/davi/.local/share group davi
+SetFileProperty /home/davi/.local/share owner davi
+
+CreateLink /home/davi/.local/share/icons/Bibata-Modern-Ice /usr/share/icons/Bibata-Modern-Ice/ davi davi
+SetFileProperty /home/davi/.local/share/icons group davi
+SetFileProperty /home/davi/.local/share/icons owner davi
 
 
 SetFileProperty /home/davi/.config group davi
@@ -103,3 +116,18 @@ SetFileProperty /home/davi/.config/systemd/user group davi
 SetFileProperty /home/davi/.config/systemd/user owner davi
 SetFileProperty /home/davi/.config/systemd group davi
 SetFileProperty /home/davi/.config/systemd owner davi
+
+
+CopyFile /home/davi/.config/gtk-3.0/settings.ini '' davi davi
+SetFileProperty /home/davi/.config/gtk-3.0 group davi
+SetFileProperty /home/davi/.config/gtk-3.0 owner davi
+
+
+CopyFile /home/davi/.config/nwg-look/config '' davi davi
+SetFileProperty /home/davi/.config/nwg-look group davi
+SetFileProperty /home/davi/.config/nwg-look owner davi
+
+
+CopyFile /home/davi/.config/xsettingsd/xsettingsd.conf '' davi davi
+SetFileProperty /home/davi/.config/xsettingsd group davi
+SetFileProperty /home/davi/.config/xsettingsd owner davi

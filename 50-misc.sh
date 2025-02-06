@@ -46,6 +46,9 @@ AddPackage libnotify # Library for sending desktop notifications
 AddPackage acpi # Client for battery, power, and thermal readings
 # primarilly used as a dependency for the battery user scripts
 
+# For setting the cursor and other settings for gtk
+AddPackage nwg-look # GTK settings editor adapted to work on wlroots-based compositors
+
 
 ################# Foreign #################
 
@@ -59,6 +62,12 @@ AddPackage --foreign paru-debug # Detached debugging symbols for paru
 # For using systemd timer instead of cron jobs for timeshift
 AddPackage --foreign timeshift-systemd-timer # Add systemd support for timeshift
 # Remember to enable `sudo systemctl enable --now timeshift-hourly.timer`
+
+# These are the cursor files (xcursor and hyprcursor)
+AddPackage --foreign bibata-cursor-git # Bibata Cursor Themes, including hyprcursor and Xcursor
+# You need to soft link the Bibata-Modern-Ice theme from `/usr/share/icons` to `~/.local/share/icons`
+# for hyprcursor to work. You can delete other unused theme files
+
 
 ################# Files ###################
 

@@ -43,7 +43,9 @@ IgnorePath "/home/davi/.config/aconfmgr/*"
 IgnorePath "/home/davi/.cargo/*"
 IgnorePath "/home/davi/.bash_history"
 IgnorePath "/home/davi/.cache/*"
-# Do not ignore icons in ".local/share/icons/*"
+# Do not ignore icons in ".local/share/icons/*" if you manully put them there.
+# If it comes from other packages, it is ok to ignore
+IgnorePath "/home/davi/.local/share/icons/default/*"
 IgnorePath "/home/davi/.local/share/flatpak/*"
 IgnorePath "/home/davi/.local/share/hyprland/*"
 IgnorePath "/home/davi/.local/share/recently-used.xbel"
@@ -55,6 +57,8 @@ IgnorePath "/home/davi/.mozilla/*"
 IgnorePath "/home/davi/.histfile"
 IgnorePath "/home/davi/.bash_logout"
 IgnorePath "/home/davi/.local/share/auto-battery-notify-state.txt"
+IgnorePath "/home/davi/.local/share/nwg-look/*"
+
 
 IgnorePath "/boot/amd-ucode.img"
 IgnorePath "/boot/EFI/*"
