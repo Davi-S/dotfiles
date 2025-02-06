@@ -25,7 +25,7 @@ AddPackage timeshift # A system restore utility for Linux
 AddPackage firefox # Fast, Private & Safe Web Browser
 
 # Very customizable app launcher
-AddPackage rofi # A window switcher, application launcher and dmenu replacement
+AddPackage rofi-wayland # A window switcher, run dialog and dmenu replacement - fork with wayland support
 # If Albert laucher app have a option to app a prefix (for use with uwsm) it is best than rofi
 
 # A better-than-bash shell
