@@ -34,7 +34,6 @@ SetFileProperty /home/davi/Pictures/wallpapers owner davi
 
 
 CopyFile /home/davi/colorschemes/aphelion '' davi davi
-CopyFile /home/davi/colorschemes/lovelace '' davi davi
 CopyFile /home/davi/colorschemes/README.md '' davi davi
 SetFileProperty /home/davi/colorschemes group davi
 SetFileProperty /home/davi/colorschemes owner davi
