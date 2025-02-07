@@ -62,8 +62,15 @@ IgnorePath "/home/davi/.local/share/nwg-look/*"
 
 IgnorePath "/boot/amd-ucode.img"
 IgnorePath "/boot/EFI/*"
-# TODO: Manage GRUB themes
-IgnorePath "/boot/grub/*"
+
+IgnorePath "/boot/grub/fonts"
+IgnorePath "/boot/grub/grub.cfg"
+IgnorePath "/boot/grub/locale/*"
+IgnorePath "/boot/grub/themes/starfield/*"
+IgnorePath "/boot/grub/x86_64-efi/*"
+IgnorePath "/boot/grub/grubenv"
+IgnorePath "/etc/grub.d/*"
+
 IgnorePath "/boot/initramfs-linux-fallback.img"
 IgnorePath "/boot/initramfs-linux-lts-fallback.img"
 IgnorePath "/boot/initramfs-linux-lts.img"
