@@ -113,7 +113,7 @@ IgnorePath "/etc/subuid"
 IgnorePath "/etc/subuid-"
 IgnorePath "/etc/sudoers"
 # Systemd services
-IgnorePath "/etc/systemd/*"
+# IgnorePath "/etc/systemd/*"
 IgnorePath "/etc/vconsole.conf"
 IgnorePath "/etc/passwd.OLD"
 
