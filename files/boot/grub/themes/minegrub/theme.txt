@@ -114,7 +114,7 @@ terminal-font: "Monocraft Regular 22"
 	height = 54
 	width = 200
 
-	text = "647 Packages Installed"
+	text = "486 Packages Installed"
 	font = "Minecraft Regular 30"
 	color = "white"
 }
@@ -126,7 +126,7 @@ terminal-font: "Monocraft Regular 22"
 	height = 54
 	width = 200
 
-	text = "647 Packages Installed"
+	text = "486 Packages Installed"
 	font = "Minecraft Regular 30"
 	color = "#3f3f3f"
 }

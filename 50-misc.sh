@@ -49,6 +49,13 @@ AddPackage acpi # Client for battery, power, and thermal readings
 # For setting the cursor and other settings for gtk
 AddPackage nwg-look # GTK settings editor adapted to work on wlroots-based compositors
 
+# Installed firstly as a dependency of the minegrub theme. But is a nice
+# aesthetic tool to have
+AddPackage fastfetch # A feature-rich and performance oriented neofetch like system information tool
+
+# Installed as a dependency of the minegrub theme
+AddPackage python-pillow # Python Imaging Library (PIL) fork
+
 
 ################# Foreign #################
 
