@@ -42,7 +42,7 @@ SetFileProperty /home/davi/colorschemes owner davi
 CopyFile /home/davi/bin/uuctl 755 davi davi
 CopyFile /home/davi/bin/check-hyprland-slice 755 davi davi
 CopyFile /home/davi/bin/list-user-units-type 755 davi davi
-CopyFile /home/davi/bin/battery-manager 755 davi davi
+CopyFile /home/davi/bin/fetch-battery-info 755 davi davi
 CopyFile /home/davi/bin/battery-notify 755 davi davi
 CopyFile /home/davi/bin/auto-battery-notify 755 davi davi
 SetFileProperty /home/davi/bin group davi
@@ -53,6 +53,7 @@ SetFileProperty /home/davi/.local group davi
 SetFileProperty /home/davi/.local owner davi
 SetFileProperty /home/davi/.local/share group davi
 SetFileProperty /home/davi/.local/share owner davi
+
 
 CreateLink /home/davi/.local/share/icons/Bibata-Modern-Ice /usr/share/icons/Bibata-Modern-Ice/ davi davi
 SetFileProperty /home/davi/.local/share/icons group davi
@@ -110,8 +111,8 @@ SetFileProperty /home/davi/.config/swaync group davi
 SetFileProperty /home/davi/.config/swaync owner davi
 
 
-CopyFile /home/davi/.config/systemd/user/battery-manager.service '' davi davi
-CopyFile /home/davi/.config/systemd/user/battery-manager.timer '' davi davi
+CopyFile /home/davi/.config/systemd/user/auto-battery-notify.service '' davi davi
+CopyFile /home/davi/.config/systemd/user/auto-battery-notify.timer '' davi davi
 SetFileProperty /home/davi/.config/systemd/user group davi
 SetFileProperty /home/davi/.config/systemd/user owner davi
 SetFileProperty /home/davi/.config/systemd group davi

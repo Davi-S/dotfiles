@@ -1,10 +1,10 @@
 [Unit]
-Description=Battery Manager Service
+Description=Sends automatic notifications about the battery
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/home/davi/bin/battery-manager --set-scripts "auto-battery-notify 2"
+ExecStart=/home/davi/bin/auto-battery-notify 2
 Environment=PATH=/home/davi/bin:/usr/local/bin:/usr/bin:/bin
 Restart=on-failure
 

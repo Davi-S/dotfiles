@@ -2,23 +2,14 @@
 
 # Auto Battery Notify
 # ======================
-# Depends on `battery-manager`
+# Depends on `fetch-battery-info`
 # 
 # This is a wrapper script for `battery-notify`. It calls `battery-notify` only 
 # for some battery percentages and prevents duplicate notifications for the same
 # battery percentage.
 #
-# Can be called manually by passing itself as a parameter to `battery-manager` (see `battery-manager`
-# comments)
-#
-# This script will be called by battery-manager sytemd timer/service.
-#
 # Usage:
-#   Called by `battery-manager` with the following arguments:
-#   $1: Battery level (percentage)
-#   $2: Charging status ("Charging" or empty)
-#   $3: Remaining time (e.g., "01:23:45")
-#   $4+: Extra arguments passed to `battery-notify`
+#   $1: Notification timeout multiplier passed to `battery-notify` 
 #
 # Behavior:
 #   - Sends notifications only when the battery level is a multiple of 10 (e.g., 100%, 90%, 80%, ...).
@@ -27,13 +18,11 @@
 #     percentage in a state file (~/.local/share/auto-battery-notify-state).
 
 
-# Positional arguments
-LEVEL=$1
-CHARGING=$2
-REMAINING_TIME=$3
+# Source the fetch-battery-info script
+source "$(dirname "$0")/fetch-battery-info"
 
-# Extra arguments (if any)
-EXTRA_ARGS=("${@:4}")
+# Call the function and capture its output
+read LEVEL CHARGING REMAINING_TIME < <(fetch_battery_info)
 
 # Path to the state file
 STATE_DIR="$HOME/.local/share"
@@ -60,7 +49,7 @@ fi
 
 # Call the original battery-notify script if conditions are met and the percentage has changed
 if (is_multiple_of_10 || is_multiple_of_5_below_20) && [[ "$LEVEL" -ne "$LAST_NOTIFIED_PERCENT" ]]; then
-    battery-notify "$LEVEL" "$CHARGING" "$REMAINING_TIME" "${EXTRA_ARGS[@]}"
+    battery-notify "$1"
     # Update the state file with the current battery percentage
     echo "$LEVEL" > "$STATE_FILE"
 fi

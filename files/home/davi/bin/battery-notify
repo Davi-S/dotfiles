@@ -2,18 +2,12 @@
 
 # Battery Notify
 # ==============
-# Depends on `battery-manager`
+# Depends on `fetch-battery-info`
 #
 # This is a script to send desktop notifications about the battery status.
 #
-# It can be called manually by passing itself to `battery-manager` (see `battery-manager` comments).
-# It can also be called by `auto-battery-notify` (see `auto-battery-notify` comments)
-#
 # Usage:
-#   $1: Battery level (percentage)
-#   $2: Charging status ("Charging" or empty)
-#   $3: Remaining time (e.g., "01:23:45")
-#   $4+: Extra arguments (e.g., notification timeout multiplier).
+#   $1: Notification timeout multiplyer (default to 1 second notifications)
 #
 # Behavior:
 #   - Sends a critical notification if the battery level is below 15%.
@@ -21,21 +15,19 @@
 #   - Sends a normal notification for other battery levels.
 #   - Sends a charging notification if the battery is charging.
 
-# Positional arguments
-LEVEL=$1
-CHARGING=$2
-REMAINING_TIME=$3
+# Source the fetch-battery-info script
+source "$(dirname "$0")/fetch-battery-info"
 
-# Extra arguments (if any)
-EXTRA_ARGS=("${@:4}")
+# Call the function and capture its output
+read LEVEL CHARGING REMAINING_TIME < <(fetch_battery_info)
 
 # Notification settings
-MULTIPLIER=${EXTRA_ARGS[0]:-1}  # Default multiplier is 1
+MULTIPLIER=${1:-1}  # Default multiplier is 1
 NORMAL_TIMEOUT=$((1000 * MULTIPLIER))
 CRITICAL_TIMEOUT=$((1000000 * MULTIPLIER))
 
 # Send notifications based on battery level and charging status
-if [[ -z "$CHARGING" ]]; then
+if [[ "$CHARGING" != "Charging" ]]; then
     if [[ "$LEVEL" -lt 15 ]]; then
         notify-send -u critical -t $CRITICAL_TIMEOUT "Battery Critical" "Battery is at $LEVEL% ($REMAINING_TIME remaining). Connect the charger!"
     elif [[ "$LEVEL" -lt 30 ]]; then
