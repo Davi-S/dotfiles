@@ -13,8 +13,7 @@ UWSM="uwsm app -t service --"
 
 # Start necessary processes
 $UWSM swaync &
-
-$UWSM firefox &
+~/.config/swww/main.sh &
 
 # Set cursor theme and size using hyprctl
 hyprctl setcursor "Bibata-Modern-Ice" 20

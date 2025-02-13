@@ -79,7 +79,6 @@ CopyFile /home/davi/.config/hypr/hyprland-autostart.conf '' davi davi
 CopyFile /home/davi/.config/hypr/hyprland-autostart.sh 755 davi davi
 CopyFile /home/davi/.config/hypr/hyprland-monitors.conf '' davi davi
 CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
-CopyFile /home/davi/.config/hypr/hyprpaper.conf '' davi davi
 SetFileProperty /home/davi/.config/hypr group davi
 SetFileProperty /home/davi/.config/hypr owner davi
 
@@ -119,6 +118,11 @@ SetFileProperty /home/davi/.config/systemd/user group davi
 SetFileProperty /home/davi/.config/systemd/user owner davi
 SetFileProperty /home/davi/.config/systemd group davi
 SetFileProperty /home/davi/.config/systemd owner davi
+
+
+CopyFile /home/davi/.config/swww/main.sh 755 davi davi
+SetFileProperty /home/davi/.config/swww group davi
+SetFileProperty /home/davi/.config/swww owner davi
 
 
 CopyFile /home/davi/.config/gtk-3.0/settings.ini '' davi davi
