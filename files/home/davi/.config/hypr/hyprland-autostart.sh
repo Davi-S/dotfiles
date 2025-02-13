@@ -6,10 +6,10 @@
 # typically configure in your Hyprland configuration file.
 # The use of a bash script allows to a more elaborated logic
 
-# Remember to always start applications using uwsm
+# Remember to always start applications and processes using uwsm
 # Reference: https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#3-applications-and-slices
-
 UWSM="uwsm app -t service --"
+
 
 # Start necessary processes
 $UWSM swaync &

@@ -75,6 +75,10 @@ SetFileProperty /home/davi/.config/environment.d group davi
 SetFileProperty /home/davi/.config/environment.d owner davi
 
 
+CopyFile /home/davi/.config/hypr/hyprland-eyecandy.conf '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-input.conf '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-keybindings.conf '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-windowrules.conf '' davi davi
 CopyFile /home/davi/.config/hypr/hyprland-autostart.conf '' davi davi
 CopyFile /home/davi/.config/hypr/hyprland-autostart.sh 755 davi davi
 CopyFile /home/davi/.config/hypr/hyprland-monitors.conf '' davi davi
