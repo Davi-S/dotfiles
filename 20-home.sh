@@ -70,12 +70,14 @@ SetFileProperty /home/davi/.config/dconf mode 700
 SetFileProperty /home/davi/.config/dconf owner davi
 
 
-CopyFile /home/davi/.config/environment.d/uwsm.conf '' davi davi
 CopyFile /home/davi/.config/environment.d/cursor.conf '' davi davi
 SetFileProperty /home/davi/.config/environment.d group davi
 SetFileProperty /home/davi/.config/environment.d owner davi
 
 
+CopyFile /home/davi/.config/hypr/hyprland-autostart.conf '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-autostart.sh 755 davi davi
+CopyFile /home/davi/.config/hypr/hyprland-monitors.conf '' davi davi
 CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
 CopyFile /home/davi/.config/hypr/hyprpaper.conf '' davi davi
 SetFileProperty /home/davi/.config/hypr group davi
