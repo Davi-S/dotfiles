@@ -31,9 +31,6 @@ AddPackage rofi-wayland # A window switcher, run dialog and dmenu replacement - 
 # A better-than-bash shell
 AddPackage zsh # A very advanced and programmable command interpreter (shell) for UNIX
 
-# Some good nerd font
-AddPackage ttf-jetbrains-mono-nerd # Patched font JetBrains Mono from nerd fonts library
-
 # For changing wallpaper
 AddPackage swww # A Solution to your Wayland Wallpaper Woes
 
