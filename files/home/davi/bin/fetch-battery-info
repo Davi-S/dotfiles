@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# Fetch Battery Info
+# ===================
+# A utility script to fetch and return battery information in a
+# structured and easy-to-use way.
+#
+# Output Format:
+#     LEVEL=<percentage>
+#     CHARGING=<Charging|Discharging>
+#     REMAINING_TIME=<hh:mm:ss|null>
+#
+# Usage:
+#     $0
+#
+# Example:
+#     ./$0
+#          87 Charging 01:25:30
+#
+# Notes:
+#     - Can be sourced by other scripts and called via `fetch_battery_info`
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Source helper file
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for the help flag
+check_help_flag "$@"
+
+fetch_battery_info() {
+    local battery_info
+    battery_info=$(acpi -b)
+
+    local percentage status remaining_time
+
+    percentage=$(echo "$battery_info" | grep -P -o '[0-9]+(?=%)')
+    status=$(echo "$battery_info" | grep -o "Charging")
+    remaining_time=$(echo "$battery_info" | grep -P -o '\d{2}:\d{2}:\d{2}')
+
+    if [[ -z "$status" ]]; then
+        status="Discharging"
+    fi
+
+    # Print values in a structured way
+    echo "$percentage $status ${remaining_time:-null}"
+}
+
+# If the script is being run (not sourced), call the function
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    fetch_battery_info
+fi

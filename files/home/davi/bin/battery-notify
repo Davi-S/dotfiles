@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# Battery Notify
+# ==============
+# Depends on `fetch-battery-info`
+#
+# This script sends desktop notifications about the battery status.
+#
+# Features:
+#     - Sends a *critical* notification if the battery level is below 15%
+#     - Sends a *low battery* notification if the battery level is below 30%
+#     - Sends a *normal* notification for other battery levels
+#     - Sends a *charging* notification if the battery is charging
+#
+# Requirements:
+#     - `fetch-battery-info`
+#     - `notify-send`
+#
+# Usage:
+#     ./battery-notify.sh [notification_timeout]
+#
+# Arguments:
+#     [notification_timeout]    Notification timeout (default: 1 second)
+#
+# Notes:
+#     - Useful for wrapping in automated cronjobs or udev events.
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Import helper functions
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for help flag
+check_help_flag "$@"
+
+# Validate argument (should be a number if provided)
+if [[ -n "$1" && ! "$1" =~ ^[0-9]+$ ]]; then
+    echo "Invalid timeout multiplier: $1"
+    echo "Use -h or --help for usage."
+    exit 1
+fi
+
+# Source battery info
+source "$SCRIPT_DIR/fetch-battery-info"
+read LEVEL CHARGING REMAINING_TIME < <(fetch_battery_info)
+
+# Notification settings
+NORMAL_TIMEOUT=$((1000 * (${1:-1})))
+CRITICAL_TIMEOUT=$((NORMAL_TIMEOUT * 1000000))
+
+# Determine urgency and send notification
+if [[ "$CHARGING" != "Charging" ]]; then
+    if [[ "$LEVEL" -lt 15 ]]; then
+        notify-send -u critical -t "$CRITICAL_TIMEOUT" "Battery Critical" \
+            "Battery is at $LEVEL% ($REMAINING_TIME remaining). Connect the charger!"
+    elif [[ "$LEVEL" -lt 30 ]]; then
+        notify-send -t "$NORMAL_TIMEOUT" "Battery Low" \
+            "Battery is at $LEVEL% ($REMAINING_TIME remaining)."
+    else
+        notify-send -t "$NORMAL_TIMEOUT" "Battery Status" \
+            "Battery is at $LEVEL% ($REMAINING_TIME remaining)."
+    fi
+else
+    notify-send -t "$NORMAL_TIMEOUT" "Battery Status" \
+        "Battery is at $LEVEL% (Charging)."
+fi

@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# Compare Spotify Playlists
+# ==========================
+# This script compares two Spotify playlists and shows which tracks are unique to each one.
+#
+# Features:
+#     - Uses Spotify Web API to fetch all tracks in two playlists
+#     - Fully in-memory comparison — does not write to disk or /tmp
+#     - Outputs:
+#         - Tracks only in Playlist A
+#         - Tracks only in Playlist B
+#
+# Requirements:
+#     - `jq` and `curl`
+#     - A valid Spotify OAuth token with `playlist-read-private` scope
+#
+# Usage:
+#     ./$0 <access_token> <playlist_id_a> <playlist_id_b>
+#
+# Arguments:
+#     <access_token>      Spotify OAuth access token
+#     <playlist_id_a>     Spotify ID of first playlist
+#     <playlist_id_b>     Spotify ID of second playlist
+#
+# Notes:
+#     - Playlist IDs can be copied from URLs like:
+#         https://open.spotify.com/playlist/37i9dQZF1DX4UtSsGT1Sbe → ID is `37i9dQZF1DX4UtSsGT1Sbe`
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Source de helper function
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for the --help flag and show the usage
+check_help_flag "$@"
+
+# === VALIDATE INPUT ===
+if [ "$#" -ne 3 ]; then
+    echo "Invalid inputs. Use --help to see the usage"
+    exit 1
+fi
+
+ACCESS_TOKEN="$1"
+PLAYLIST_A="$2"
+PLAYLIST_B="$3"
+
+# === FUNCTIONS ===
+
+fetch_tracks() {
+    local playlist_id="$1"
+    local url="https://api.spotify.com/v1/playlists/$playlist_id/tracks?limit=100"
+    local -n result_array="$2"
+
+    while [ -n "$url" ]; do
+        response=$(curl -s -X GET "$url" -H "Authorization: Bearer $ACCESS_TOKEN")
+        mapfile -t page_tracks < <(echo "$response" | jq -r '.items[] | select(.track != null) | "\(.track.name) - \(.track.artists[0].name)"')
+        result_array+=("${page_tracks[@]}")
+        url=$(echo "$response" | jq -r '.next')
+        [[ "$url" == "null" ]] && break
+    done
+}
+
+unique_items() {
+    local -n source="$1"
+    local -n other="$2"
+    local seen
+    declare -A seen=()
+
+    for item in "${other[@]}"; do
+        seen["$item"]=1
+    done
+
+    for item in "${source[@]}"; do
+        [[ -z "${seen["$item"]}" ]] && echo "$item"
+    done
+}
+
+# === MAIN ===
+
+declare -a TRACKS_A TRACKS_B
+
+fetch_tracks "$PLAYLIST_A" TRACKS_A
+fetch_tracks "$PLAYLIST_B" TRACKS_B
+
+# Deduplicate
+mapfile -t TRACKS_A < <(printf "%s\n" "${TRACKS_A[@]}" | sort -u)
+mapfile -t TRACKS_B < <(printf "%s\n" "${TRACKS_B[@]}" | sort -u)
+
+echo -e "\n🎵 Tracks only in Playlist A:"
+unique_items TRACKS_A TRACKS_B
+
+echo -e "\n🎵 Tracks only in Playlist B:"
+unique_items TRACKS_B TRACKS_A

@@ -1,0 +1,194 @@
+# Central ignore list for aconfmgr
+# =======================
+# This file declares filesystem paths that aconfmgr will ignore when collecting
+# system and user configuration. Transient files, caches, large user-data folders and
+# machine-specific artifacts are excluded so the configuration repo stays
+# focused on reproducible settings rather than runtime state.
+
+
+# This is the redefinition of the initial ignore path list from the aconfmgr source code.
+# I have comented out "home". This includes it on the configuration
+ignore_paths=(
+    '/dev'
+    # '/home'
+    '/media'
+    '/mnt'
+    '/proc'
+    '/root'
+    '/run'
+    '/sys'
+    '/tmp'
+    # '/var/.updated'
+    '/var/cache'
+    # '/var/lib'
+    # '/var/lock'
+    # '/var/log'
+    # '/var/spool'
+)
+
+# Home
+# ====
+
+# Do not ignore icons nor fonts in ".local/share/" if you have manully put them there. It is ok to ignore if it comes from packages
+IgnorePath "/etc/cni/*"
+IgnorePath "/home/davi/.bash_history-*.tmp"
+IgnorePath "/home/davi/.bash_history"
+IgnorePath "/home/davi/.cache/*"
+IgnorePath "/home/davi/.cargo/*"
+IgnorePath "/home/davi/.config/aconfmgr/*"
+IgnorePath "/home/davi/.config/Code/*"
+IgnorePath "/home/davi/.config/Code/logs/*"
+IgnorePath "/home/davi/.config/dconf/*"
+IgnorePath "/home/davi/.config/github-copilot/*"
+IgnorePath "/home/davi/.config/kdeconnect/*"
+IgnorePath "/home/davi/.config/obsidian/*"
+IgnorePath "/home/davi/.config/pulse/cookie"
+IgnorePath "/home/davi/.config/qalculate/qalc.history"
+IgnorePath "/home/davi/.config/qBittorrent/categories.json"
+IgnorePath "/home/davi/.config/qBittorrent/qBittorrent-data.conf"
+IgnorePath "/home/davi/.config/qBittorrent/qBittorrent.conf"
+IgnorePath "/home/davi/.config/qBittorrent/rss/feeds.json"
+IgnorePath "/home/davi/.config/qBittorrent/watched_folders.json"
+IgnorePath "/home/davi/.config/QtProject.conf"
+IgnorePath "/home/davi/.config/QtProject/*"
+IgnorePath "/home/davi/.config/sourcery/*"
+IgnorePath "/home/davi/.dotnet/*"
+IgnorePath "/home/davi/.gnupg/*"
+IgnorePath "/home/davi/.gradle/*"  # Came with Logisim-evolution
+IgnorePath "/home/davi/.java/*"  # Came with Logisim-evolution  
+IgnorePath "/home/davi/.local/share/applications/*"
+IgnorePath "/home/davi/.local/share/auto-battery-notify-state.txt"
+IgnorePath "/home/davi/.local/share/easyeffects/*"
+IgnorePath "/home/davi/.local/share/flatpak/*"
+IgnorePath "/home/davi/.local/share/hyprland/*"
+IgnorePath "/home/davi/.local/share/iwctl"
+IgnorePath "/home/davi/.local/share/kpeoplevcard/*"
+IgnorePath "/home/davi/.local/share/mime/*"
+IgnorePath "/home/davi/.local/share/nvim/*"
+IgnorePath "/home/davi/.local/share/pipx/*"
+IgnorePath "/home/davi/.local/share/qalculate/*"
+IgnorePath "/home/davi/.local/share/qBittorrent/BT_backup/*"
+IgnorePath "/home/davi/.local/share/qBittorrent/GeoDB/dbip-country-lite.mmdb"
+IgnorePath "/home/davi/.local/share/qBittorrent/logs/*"
+IgnorePath "/home/davi/.local/share/qBittorrent/rss/articles"
+IgnorePath "/home/davi/.local/share/qmlls/*"
+IgnorePath "/home/davi/.local/share/recently-used.xbel"
+IgnorePath "/home/davi/.local/share/rofi/rofi_calc_history"
+IgnorePath "/home/davi/.local/share/sddm/*"
+IgnorePath "/home/davi/.local/share/sourcery/*"
+IgnorePath "/home/davi/.local/share/Trash/*"
+IgnorePath "/home/davi/.local/share/user-places.xbel.bak"
+IgnorePath "/home/davi/.local/share/user-places.xbel.tbcache"
+IgnorePath "/home/davi/.local/share/user-places.xbel"
+IgnorePath "/home/davi/.local/state/kdeconnect.appstaterc"
+IgnorePath "/home/davi/.local/state/lazygit/*"
+IgnorePath "/home/davi/.local/state/lesshst"
+IgnorePath "/home/davi/.local/state/nvim/*"
+IgnorePath "/home/davi/.local/state/paru/*"
+IgnorePath "/home/davi/.local/state/qalculate/qalc.history"
+IgnorePath "/home/davi/.local/state/syncthing/*"
+IgnorePath "/home/davi/.local/state/wireplumber/*"
+IgnorePath "/home/davi/.m2/*"
+IgnorePath "/home/davi/.mozilla/*"
+IgnorePath "/home/davi/.npm/*"
+IgnorePath "/home/davi/.pki/*"
+IgnorePath "/home/davi/.vscode/*"
+IgnorePath "/home/davi/.zen/*"
+IgnorePath "/home/davi/Documents/*"
+IgnorePath "/home/davi/Downloads"
+IgnorePath "/home/davi/Downloads/*"
+IgnorePath "/home/davi/Movies/*"
+IgnorePath "/home/davi/Pictures/*"
+
+# Root
+# ====
+
+IgnorePath "/boot/amd-ucode.img"
+IgnorePath "/boot/EFI/*"
+IgnorePath "/boot/grub/fonts"
+IgnorePath "/boot/grub/grub.cfg"
+IgnorePath "/boot/grub/grubenv"
+IgnorePath "/boot/grub/locale/*"
+IgnorePath "/boot/grub/themes/minegrub/cache/*"
+IgnorePath "/boot/grub/themes/starfield/*"
+IgnorePath "/boot/grub/x86_64-efi/*"
+IgnorePath "/boot/initramfs-linux-fallback.img"
+IgnorePath "/boot/initramfs-linux-lts-fallback.img"
+IgnorePath "/boot/initramfs-linux-lts.img"
+IgnorePath "/boot/initramfs-linux.img"
+IgnorePath "/boot/System\ Volume\ Information"
+IgnorePath "/boot/vmlinuz-linux-lts"
+IgnorePath "/boot/vmlinuz-linux"
+IgnorePath "/etc/.pwd.lock"
+IgnorePath "/etc/.updated"
+IgnorePath "/etc/adjtime"
+IgnorePath "/etc/audisp"
+IgnorePath "/etc/audisp/*"
+IgnorePath "/etc/audit/"
+IgnorePath "/etc/audit/*"
+IgnorePath "/etc/ca-certificates/*"
+IgnorePath "/etc/cron.d/*"
+IgnorePath "/etc/fonts/*"
+IgnorePath "/etc/fstab"
+IgnorePath "/etc/group-"
+IgnorePath "/etc/group"
+IgnorePath "/etc/gshadow-"
+IgnorePath "/etc/gshadow"
+IgnorePath "/etc/hostname"
+IgnorePath "/etc/ld.so.cache"
+IgnorePath "/etc/locale.conf"
+IgnorePath "/etc/locale.gen"
+IgnorePath "/etc/localtime"
+IgnorePath "/etc/machine-id"
+IgnorePath "/etc/mkinitcpio.d/*"
+IgnorePath "/etc/os-release"
+IgnorePath "/etc/pacman.d/*"
+IgnorePath "/etc/passwd-"
+IgnorePath "/etc/passwd.OLD"
+IgnorePath "/etc/passwd"
+IgnorePath "/etc/resolv.conf"
+IgnorePath "/etc/shadow-"
+IgnorePath "/etc/shadow"
+IgnorePath "/etc/shells"
+IgnorePath "/etc/ssh/*"
+IgnorePath "/etc/ssl/*"
+IgnorePath "/etc/subgid-"
+IgnorePath "/etc/subgid"
+IgnorePath "/etc/subuid-"
+IgnorePath "/etc/subuid"
+IgnorePath "/etc/sudoers"
+IgnorePath "/etc/userdb"
+IgnorePath "/etc/vconsole.conf"
+IgnorePath "/opt/containerd/*"
+IgnorePath "/swap/*"
+IgnorePath "/usr/bin/*"
+IgnorePath "/usr/lib/*"
+IgnorePath "/usr/share/applications/mimeinfo.cache"
+IgnorePath "/usr/share/glib-2.0/*"
+IgnorePath "/usr/share/icons/*"
+IgnorePath "/usr/share/info/*"
+IgnorePath "/usr/share/mime/*"
+IgnorePath "/var/.updated"
+IgnorePath "/var/db/*"
+IgnorePath "/var/lib/bluetooth/*"
+IgnorePath "/var/lib/containerd/*"
+IgnorePath "/var/lib/dbus/*"
+IgnorePath "/var/lib/docker/*"
+IgnorePath "/var/lib/iwd/.known_network.freq"
+IgnorePath "/var/lib/lastlog/*"
+IgnorePath "/var/lib/libuuid"
+IgnorePath "/var/lib/machines"
+IgnorePath "/var/lib/os-prober/*"
+IgnorePath "/var/lib/pacman/*"
+IgnorePath "/var/lib/portables"
+IgnorePath "/var/lib/postgres/*"
+IgnorePath "/var/lib/private"
+IgnorePath "/var/lib/qbittorrent"
+IgnorePath "/var/lib/sbctl/*"
+IgnorePath "/var/lib/sddm/*"
+IgnorePath "/var/lib/systemd/*"
+IgnorePath "/var/lib/texmf/*"
+IgnorePath "/var/lib/tpm2-tss/*"
+IgnorePath "/var/lib/upower/*"
+IgnorePath "/var/log/*"
+IgnorePath "/var/tmp/*"

@@ -1,0 +1,30 @@
+[Default Applications]
+x-scheme-handler/http=userapp-Zen-RNQH92.desktop
+x-scheme-handler/https=userapp-Zen-RNQH92.desktop
+x-scheme-handler/chrome=userapp-Zen-RNQH92.desktop
+text/html=userapp-Zen-RNQH92.desktop
+application/x-extension-htm=userapp-Zen-RNQH92.desktop
+application/x-extension-html=userapp-Zen-RNQH92.desktop
+application/x-extension-shtml=userapp-Zen-RNQH92.desktop
+application/xhtml+xml=userapp-Zen-RNQH92.desktop
+application/x-extension-xhtml=userapp-Zen-RNQH92.desktop
+application/x-extension-xht=userapp-Zen-RNQH92.desktop
+image/svg+xml=zen.desktop
+application/pdf=zen.desktop
+image/png=zen.desktop
+image/jpeg=zen.desktop
+image/webp=zen.desktop
+image/gif=zen.desktop
+
+[Added Associations]
+x-scheme-handler/http=userapp-Zen-RNQH92.desktop;userapp-Zen-2FMM92.desktop;zen.desktop;
+x-scheme-handler/https=userapp-Zen-RNQH92.desktop;userapp-Zen-2FMM92.desktop;zen.desktop;
+x-scheme-handler/chrome=userapp-Zen-RNQH92.desktop;userapp-Zen-2FMM92.desktop;zen.desktop;
+text/html=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/x-extension-htm=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/x-extension-html=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/x-extension-shtml=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/xhtml+xml=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/x-extension-xhtml=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/x-extension-xht=zen.desktop;userapp-Zen-2FMM92.desktop;userapp-Zen-RNQH92.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=zen.desktop;

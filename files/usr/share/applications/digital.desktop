@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Digital
+Comment=Easy-to-use digital logic designer and circuit simulator 
+Exec=env _JAVA_AWT_WM_NONREPARENTING=1; digital
+Icon=digital
+Categories=Education;Electronics;
+MimeType=text/x-digital;
+Terminal=false
+Keywords=simulator;digital;circuits;
+

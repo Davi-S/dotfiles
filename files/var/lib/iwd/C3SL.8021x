@@ -1,0 +1,13 @@
+[Security]
+EAP-Method=TTLS
+EAP-Identity=das25@inf.ufpr.br
+EAP-TTLS-Phase2-Method=Tunneled-PAP
+EAP-TTLS-Phase2-Identity=das25@inf.ufpr.br
+EAP-TTLS-Phase2-Password=12Ux!P%rW*m+Rw*O6%
+
+# This setting tells iwd to not validate the CA certificate.
+EAP-TTLS-CACertRequired=false
+
+[Settings]
+AutoConnect=true
+Hidden=true

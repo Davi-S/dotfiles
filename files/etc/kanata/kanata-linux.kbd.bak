@@ -1,0 +1,147 @@
+;; This is made for the br-abnt2 keyboard
+
+(deflocalkeys-linux
+  ´ 26
+  [ 27
+  ç 39
+  ~ 40
+  ' 41
+  ] 43
+  ; 53
+  \ 86
+  / 89
+)
+
+(defsrc 
+  esc  f1    f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  '    1     2    3    4    5    6    7    8    9    0    -    =   bspc
+  tab  q     w    e    r    t    y    u    i    o    p    ´    [   ret
+  caps a     s    d    f    g    h    j    k    l    ç    ~    ]
+  lsft \     z    x    c    v    b    n    m    ,    .    ;    rsft
+  lctl       lmet lalt           spc            ralt      /
+)
+
+(deflayer customcolemaklayer
+  _     _    _    _    _    _    _      _      _     _     _      _      _ 
+  _     _    _    _    _    _    _      _      _     _     _      _      _     _
+  lctl  q    w    f    p    b    ´      j      l     u     y      @dqfsq XX    _
+  @caps a    r    s    t    g    ~      m      n     e     i      o      lctl
+  _     z    x    c    d    v    @ccfem @qtfmi k     h     @coflp @pefrp @rsft
+  _          _    _              _                   @ralt        _
+)
+
+(deflayer altcustomcolemaklayer
+  XX    XX    XX   XX   XX   XX   XX   XX   XX   XX    XX    XX    XX
+  XX    XX    XX   XX   XX   XX   XX   XX   XX   XX    XX    XX    XX  XX
+  XX    @ast  @lss @grt ;    @at  @end @pct @lpr @rpr  @lcb  @rcb  XX  XX
+  @caps 1     2    3    4    5    6    7    8    9     0     XX    XX  
+  @lsft /     @bar \    @cln @nsg @pls @exc =    @und  @aps  @dll  XX
+  XX          XX   XX             XX             XX          XX
+)
+
+(deflayer altshiftcustomcolemaklayer
+  XX   XX    XX   XX   XX   XX   XX   XX   XX   XX    XX    XX    XX
+  XX   XX    @and @or  XX   XX   XX   XX   @sbn @spn  XX    XX    XX  XX
+  XX   @dsq  @leq @geq @pi  @inf @in  @nin @sub @sup  @uni  @int  XX  XX
+  XX   @ora  @dsr @sqr @if  @deg @not @iff @dsn @neq  @dsi  @oro  XX  
+  XX   @dsz  @sb1 @sb2 @sb3 @sb4 @sb5 @sb6 @sb7 @sb8  @sb9  @sb0  XX
+  XX         XX   XX             XX             XX          XX
+)
+
+(deflayer capscustomcolemaklayer
+  XX    XX    XX   XX   XX   XX   XX   XX   XX   XX    XX   XX    XX
+  XX    XX    XX   XX   XX   XX   XX   XX   XX   XX    XX   XX    XX   XX
+  XX    esc   w    XX   XX   XX   lrld pgup home up    end  del   XX   XX
+  XX    lalt  lmet lsft lctl XX   XX   tab  left down  rght bspc  XX  
+  XX    XX    XX   XX   XX   XX   XX   XX   pgdn XX    XX   XX    XX
+  XX          XX   XX             ret            @ralt        XX
+)
+
+
+(defalias
+  sb0 (unicode ₀)    ;; ₀ subscript zero  
+  sb1 (unicode ₁)    ;; ₁ subscript one  
+  sb2 (unicode ₂)    ;; ₂ subscript two  
+  sb3 (unicode ₃)    ;; ₃ subscript three  
+  sb4 (unicode ₄)    ;; ₄ subscript four  
+  sb5 (unicode ₅)    ;; ₅ subscript five  
+  sb6 (unicode ₆)    ;; ₆ subscript six  
+  sb7 (unicode ₇)    ;; ₇ subscript seven  
+  sb8 (unicode ₈)    ;; ₈ subscript eight  
+  sb9 (unicode ₉)    ;; ₉ subscript nine  
+
+  not (unicode ¬)    ;; ¬ not logical negation  
+  and (unicode ∧)    ;; ∧ and logical conjunction  
+   or (unicode ∨)    ;; ∨ or logical disjunction 
+  xor (unicode ⊕)    ;; ⊕ exclusive or (XOR)  
+   if (unicode →)    ;; → if logical conditional (implication)  
+  iff (unicode ↔)    ;; ↔ if and only if logical biconditional   
+  nor (unicode ⊽)    ;; ⊽ not or (logical NOR)  
+  nan (unicode ⊼)    ;; ⊼ not and (logical NAND)  
+
+  dsn (unicode ℕ)    ;; ℕ natural 
+  dsz (unicode ℤ)    ;; ℤ integers
+  dsq (unicode ℚ)    ;; ℚ rational
+  dsi (unicode 𝕀)    ;; 𝕀 irational 
+  dsr (unicode ℝ)    ;; ℝ real 
+
+  oro (unicode º)    ;; º masculine ordinal indicator  
+  ora (unicode ª)    ;; ª feminine ordinal indicator  
+
+  sqr (unicode √)    ;; √ square root
+   pi (unicode π)    ;; π pi 
+  inf (unicode ∞)    ;; ∞ infinity  
+
+  sub (unicode ⊂)    ;; ⊂ proper subset (está contido)  
+  sup (unicode ⊃)    ;; ⊃ proper superset (contém)  
+  sbn (unicode ⊄)    ;; ⊄ not a subset  
+  spn (unicode ⊅)    ;; ⊅ not a superset  
+  uni (unicode ∪)    ;; ∪ union (união de conjuntos)  
+  int (unicode ∩)    ;; ∩ intersection (interseção de conjuntos)  
+  nin (unicode ∉)    ;; ∉ not element of (não pertence)  
+   in (unicode ∈)    ;; ∈ element of (pertence)  
+
+  deg (unicode °)    ;; ° degree symbol  
+
+  emd (unicode —)    ;; — emdash
+  end (unicode –)    ;; – endash
+
+  neq (unicode ≠)    ;; ≠ is not equal to  
+  exc S-1            ;; ! exclamation
+   at S-2            ;; @ at
+  nsg S-3            ;; # numbersign
+  dll S-4            ;; $ dollar
+  pct S-5            ;; % percent
+  aps S-7            ;; & ampersand
+  ast S-8            ;; * asterisk
+  lpr S-9            ;; ( parentheses left
+  rpr S-0            ;; ) parentheses right
+  und S--            ;; _ underscore
+  pls S-=            ;; + plus
+  bar S-\            ;; | bar
+  qst S-/            ;; ? question
+  dbq S-'            ;; " double quotes
+  grt S-.            ;; > greater
+  lss S-,            ;; < less
+  geq (unicode ≥)    ;; ≥ greater than or equal to 
+  leq (unicode ≤)    ;; ≤ less than or equal to 
+  lcb S-[            ;; { left curly bracket
+  rcb S-]            ;; } right curly bracket
+  cln S-;            ;; : colon
+)
+
+(defalias
+  ralt (layer-while-held altcustomcolemaklayer)
+  caps (layer-while-held capscustomcolemaklayer)
+  lsft (layer-while-held altshiftcustomcolemaklayer)
+
+  rsft (tap-dance 200 (rsft caps))            ;; Two taps to toggle capslock
+
+  dqfsq (fork @dbq (unshift ') (lsft rsft))   ;; Double quotes (") without shift, simple quote         (') with shift
+  ccfem (fork ç    @emd        (lsft rsft))   ;; ccedila       (ç) without shift, emdash               (—) with shift
+  qtfmi (fork @qst (unshift -) (lsft rsft))   ;; question      (?) without shift, minus                (-) with shift
+  coflp (fork ,    (unshift [) (lsft rsft))   ;; comma         (,) without shift, left square bracket  ([) with shift
+  pefrp (fork .    (unshift ]) (lsft rsft))   ;; period        (.) without shift, right square bracket (]) with shift
+)
+    
+

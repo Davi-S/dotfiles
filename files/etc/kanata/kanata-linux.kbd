@@ -1,0 +1,238 @@
+;; This is made for the br-abnt2 keyboard
+
+;; Because of these linux definitions, this config file cannot be used on windows
+(deflocalkeys-linux
+  ´ 26
+  [ 27
+  ç 39
+  ~ 40
+  ' 41
+  ] 43
+  ; 53
+  \ 86
+  / 89
+)
+
+;; The base layer. This is the standart ABNT2.
+(defsrc 
+  esc  f1    f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  '    1     2    3    4    5    6    7    8    9    0    -    =   bspc
+  tab  q     w    e    r    t    y    u    i    o    p    ´    [   ret
+  caps a     s    d    f    g    h    j    k    l    ç    ~    ]
+  lsft \     z    x    c    v    b    n    m    ,    .    ;    rsft
+  lctl       lmet lalt           spc            ralt      /
+)
+
+;; This is the main layer.
+;; It contains all the grammar main characters.
+;; The shift layer is implicit on it.
+(deflayer customcolemaklayer
+  _       _       _       _       _       _       _       _       _       _       _       _       _ 
+  _       _       _       _       _       _       _       _       _       _       _       _       _       _
+  lctl    q       w       f       p       b       ´       j       l       u       y       @fdbqts XX      _
+  @laynav a       r       s       t       g       ~       m       n       e       i       o       lctl
+  _       z       x       c       d       v       @fccemd @fqtmin k       h       @fcmlbr @fprrbr @tdcaps
+  _               _       _                       _                       @laysym         _
+)
+
+;; This is the navigation layer. Activated with capslock.
+;; It contains modfiers and keys found on the far right of a 100% keyboard.
+(deflayer navigationlayer
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      _       _       _       _       _       _       _       _       _       _       XX      XX      XX
+  XX      esc     w       XX      XX      XX      lrld    pgup    home    up      end     del     XX      XX
+  XX      lalt    lmet    lsft    lctl    XX      XX      tab     left    down    rght    bspc    lctl  
+  XX      XX      XX      XX      XX      XX      XX      XX      pgdn    XX      XX      XX      @tdcaps
+  XX              XX      XX                      ret                     @laysym         XX
+)
+
+;; This is the symbols layers. Activated with altgr.
+;; It contains the numbers and some common symbols.
+(deflayer symbolslayer
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      @asterk @lesstn @grtthn ;       @atsymb @endash @pcrsgn @lftprn @rgtprn @lftcrl @rgtcrl XX      XX
+  @laynav 1       2       3       4       5       6       7       8       9       0       XX      XX  
+  @layadv /       @vrtbar \       @colons @numsgn @plussg @exclam =       @undscr @ampers @dllsgn XX
+  XX              XX      XX                      XX                      XX              XX
+)
+
+;; This is the advanced symbols layer. Activated with altgr followed by the right shift.
+;; It contains uncommon characters and one-shot layers for even more
+;; uncommon characters (see layers below).
+(deflayer advancedsymbolslayer
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      @ltequl @gtequl XX      XX      XX      XX      @oslgic XX      XX      XX      XX      XX
+  XX      @femord XX      @ossett XX      @degree @ossnum @osmath XX      XX      XX      @masord XX
+  XX      XX      XX      XX      @osdslt XX      XX      XX      @noteql XX      XX      XX      XX
+  XX              XX      XX                      XX                      XX              XX
+)
+
+(deflayer subscriptnumberslayer
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      @subone @subtwo @subthr @subfor @subfiv @subsix @subsev @subeig @subnin @subzro XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX              XX      XX                      XX                      XX              XX
+)
+
+(deflayer propositionallogiclayer 
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      @forall XX      @logbic @dslobi XX      @lognor XX      XX      XX      XX      XX
+  XX      @logand XX      XX      XX      XX      XX      XX      @lognot @exists XX      @logior XX
+  XX      XX      @logxor @logcon @dsloco XX      XX      XX      @lognan XX      XX      XX      XX
+  XX              XX      XX                      XX                      XX              XX
+)
+
+(deflayer doublestrokeletterslayer 
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      @dblstq XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      @dblstr XX      XX      XX      XX      XX      @dblstn XX      @dblsti XX      XX
+  XX      @dblstz XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX              XX      XX              XX              XX              XX
+)
+
+(deflayer settheorylayer 
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      @elmnto @propsb @propsp XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      @ntelmo @ntsubs @ntsups @emtset XX      XX
+  XX      XX      XX      XX      XX      XX      XX      @setdif @equiva @intsec @unions XX      XX
+  XX              XX      XX                      XX              XX              XX
+)
+
+(deflayer advancedmathlayer
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
+  XX      XX      XX      XX      @pisymb @becaus XX      XX      @dltaup XX      XX      XX      XX      XX
+  XX      XX      @sqroot @summat @there4 XX      XX      @multip @infnty XX      @integr XX      XX
+  XX      @fracsl XX      XX      @divisn XX      XX      @plsmin @approx XX      XX      @dotmlt XX
+  XX              XX      XX                      XX                      XX              XX
+)
+
+
+(defalias
+  ;; === Subscript Numbers ===
+  subzro (unicode ₀)    ;; ₀ subscript zero  
+  subone (unicode ₁)    ;; ₁ subscript one  
+  subtwo (unicode ₂)    ;; ₂ subscript two  
+  subthr (unicode ₃)    ;; ₃ subscript three  
+  subfor (unicode ₄)    ;; ₄ subscript four  
+  subfiv (unicode ₅)    ;; ₅ subscript five  
+  subsix (unicode ₆)    ;; ₆ subscript six  
+  subsev (unicode ₇)    ;; ₇ subscript seven  
+  subeig (unicode ₈)    ;; ₈ subscript eight  
+  subnin (unicode ₉)    ;; ₉ subscript nine  
+
+  ;; === Propositional logic ===
+  lognot (unicode ¬)    ;; ¬ logical NOT  
+  logand (unicode ∧)    ;; ∧ logical AND  
+  logior (unicode ∨)    ;; ∨ logical OR  
+  logxor (unicode ⊕)    ;; ⊕ logical XOR  
+  logcon (unicode →)    ;; → logical condicional (implication)
+  dsloco (unicode ⇒)    ;; ⇒ double stroke logical condicional
+  logbic (unicode ↔)    ;; ↔ logical biconditional  
+  dslobi (unicode ⇔)    ;; ⇔ double stroke logical bicondicional
+  lognor (unicode ⊽)    ;; ⊽ logical NOR  
+  lognan (unicode ⊼)    ;; ⊼ logical NAND  
+  forall (unicode ∀)    ;; ∀ universal quantifier  
+  exists (unicode ∃)    ;; ∃ existential quantifier  
+
+  ;; === Double-Stroke Letters ===
+  dblstn (unicode ℕ)    ;; ℕ double-stroke N (natural)
+  dblstz (unicode ℤ)    ;; ℤ double-stroke Z (integer)
+  dblstq (unicode ℚ)    ;; ℚ double-stroke Q (rational)  
+  dblsti (unicode 𝕀)    ;; 𝕀 double-stroke I (irrational)
+  dblstr (unicode ℝ)    ;; ℝ double-stroke R (real)
+
+  ;; === Set Theory ===
+  propsb (unicode ⊂)    ;; ⊂ proper subset  
+  propsp (unicode ⊃)    ;; ⊃ proper superset  
+  ntsubs (unicode ⊄)    ;; ⊄ not subset  
+  ntsups (unicode ⊅)    ;; ⊅ not superset  
+  unions (unicode ∪)    ;; ∪ union  
+  intsec (unicode ∩)    ;; ∩ intersection  
+  ntelmo (unicode ∉)    ;; ∉ not element of  
+  elmnto (unicode ∈)    ;; ∈ element of  
+  setdif (unicode ∖)    ;; ∖ set subtraction
+  emtset (unicode ∅)    ;; ∅ empty set
+  equiva (unicode ≡)    ;; ≡ equivalence (triple bar)
+
+  ;; === Advanced Math ===
+  sqroot (unicode √)    ;; √ square root  
+  pisymb (unicode π)    ;; π pi symbol  
+  infnty (unicode ∞)    ;; ∞ infinity  
+  integr (unicode ∫)    ;; ∫ integral  
+  summat (unicode ∑)    ;; ∑ summation  
+  multip (unicode ×)    ;; × multiplication  
+  dotmlt (unicode ⋅)    ;; ⋅ dot multiplication  
+  divisn (unicode ÷)    ;; ÷ division  
+  fracsl (unicode ∕)    ;; ∕ fraction slash  
+  approx (unicode ≈)    ;; ≈ approximately equal
+  plsmin (unicode ±)    ;; ± plus-minus sign
+  becaus (unicode ∵)    ;; ∵ because (inverse of ∴)
+  there4 (unicode ∴)    ;; ∴ therefore
+  dltaup (unicode Δ)    ;; Δ uppercase delta (triangle)  
+  
+  ;; === Other Symbols ===
+  masord (unicode º)    ;; º masculine ordinal  
+  femord (unicode ª)    ;; ª feminine ordinal  
+  degree (unicode °)    ;; ° degree symbol  
+  noteql (unicode ≠)    ;; ≠ not equal  
+
+  ;; === Common Symbols ===
+  emdash (unicode —)    ;; — emdash  
+  endash (unicode –)    ;; – endash  
+  exclam S-1            ;; ! exclamation mark  
+  atsymb S-2            ;; @ at symbol  
+  numsgn S-3            ;; # number sign  
+  dllsgn S-4            ;; $ dollar sign  
+  pcrsgn S-5            ;; % percent sign  
+  ampers S-7            ;; & ampersand  
+  asterk S-8            ;; * asterisk  
+  lftprn S-9            ;; ( left parenthesis  
+  rgtprn S-0            ;; ) right parenthesis  
+  undscr S--            ;; _ underscore  
+  plussg S-=            ;; + plus sign  
+  vrtbar S-\            ;; | vertical bar  
+  qstmrk S-/            ;; ? question mark  
+  dblqte S-'            ;; " double quotes  
+  grtthn S-.            ;; > greater than  
+  lesstn S-,            ;; < less than  
+  gtequl (unicode ≥)    ;; ≥ greater/equal  
+  ltequl (unicode ≤)    ;; ≤ less/equal  
+  lftcrl S-[            ;; { left curly bracket  
+  rgtcrl S-]            ;; } right curly bracket  
+  colons S-;            ;; : colon symbol
+
+  ;; ==========================================================
+  ;; ==========================================================
+  ;; ==========================================================
+
+  ;; Layer activation aliases
+  laysym (layer-while-held symbolslayer)       
+  laynav (layer-while-held navigationlayer)   
+  layadv (layer-while-held advancedsymbolslayer)
+
+  ;; One-shot layer activation aliases
+  ossnum (one-shot-press 10000 (layer-while-held subscriptnumberslayer))     
+  oslgic (one-shot-press 10000 (layer-while-held propositionallogiclayer))    
+  osdslt (one-shot-press 10000 (layer-while-held doublestrokeletterslayer)) 
+  ossett (one-shot-press 10000 (layer-while-held settheorylayer))           
+  osmath (one-shot-press 10000 (layer-while-held advancedmathlayer))          
+
+  ;; Tap-dance alias
+  tdcaps (tap-dance 200 (rsft caps))               ;; Two taps to toggle capslock
+
+  ;; Forked key behaviors
+  fdbqts (fork @dblqte (unshift ') (lsft rsft))    ;; double quotes (") without shift, simple quote         (') with shift
+  fccemd (fork ç       @emdash     (lsft rsft))    ;; ccedila       (ç) without shift, emdash               (—) with shift
+  fqtmin (fork @qstmrk (unshift -) (lsft rsft))    ;; question      (?) without shift, minus                (-) with shift
+  fcmlbr (fork ,       (unshift [) (lsft rsft))    ;; comma         (,) without shift, left square bracket  ([) with shift
+  fprrbr (fork .       (unshift ]) (lsft rsft))    ;; period        (.) without shift, right square bracket (]) with shift
+                                                   ;; Need to unshift the keys because the shift is already pressed, thus avoiding "double" shift
+)

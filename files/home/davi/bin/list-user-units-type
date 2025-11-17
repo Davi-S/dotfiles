@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# List User Unit Types
+# ====================
+# This script lists all user-level systemd units and identifies whether
+# each unit is a `service` or a `scope`.
+#
+# You can set the unity type of an app by using `t service|scope` argument
+# when lauching apps with UWSM, or setting its default via UWSM_APP_UNIT_TYPE
+# environment variable.
+#
+# The type "service" is the recomended way of lauching apps.
+#
+# Reference: https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#3-applications-and-slices
+#
+# Usage:
+#     ./$0
+#
+# Tips:
+#     - Filter for a specific app: `./list-user-unit-types.sh | grep -i app-name`
+#     - "Service" units are generally preferred
+#
+# Notes:
+#      - use `$0 | grep -i <app-name>` to get info on a specific app
+# ============================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Source de helper function
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for the --help flag and show the usage
+check_help_flag "$@"
+
+get_unit_details() {
+    local unit=$1
+    local unit_type
+    unit_type=$(echo "$unit" | awk -F'.' '{print $NF}')  # Extract scope/service from unit name
+
+    echo "Unit: $unit (Type: $unit_type)"
+}
+
+units=$(systemctl --user list-units --all --no-legend | awk '{print $1}')
+
+for unit in $units; do
+    get_unit_details "$unit"
+done

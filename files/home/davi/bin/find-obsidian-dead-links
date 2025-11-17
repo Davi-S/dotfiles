@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+
+# Find Orphaned Obsidian Links
+# ============================
+# This script finds internal Obsidian wikilinks (e.g., [[Note Title]]) that point to non-existent markdown files.
+#
+# Features:
+#     - Supports aliases, header/paragraph references, and combinations:
+#         [[Note Title|Alias]]
+#         [[Note#Header]]
+#         [[Note#^block-id]]
+#     - Ignores dotfiles and dot-directories
+#     - Ignores media/resource links (images, audio, video, pdfs, archives, etc.)
+#     - Allows you to pass multiple --ignore <pattern> rules
+#     - Supports verbose/reduced output
+#
+# Usage:
+#     ./find-obsidian-dead-links.sh [options] </path/to/vault>
+#
+# Options:
+#     -v, --verbose            Show full verbose output
+#     -r, --reduced            Show reduced output (default)
+#     -i, --ignore <pattern>   Ignore specific path (can be used multiple times)
+#     -h, --help               Show this help message
+#
+# Example usage:
+#     ./find-obsidian-dead-links ~/Documents/ObsidianAllInVault/ -i Templates/* -i "11 Diário/Chave.md" -i "08 Templates/*" -i "Mapas de conteúdo.md"
+# ============================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Source helper file
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for the help flag
+check_help_flag "$@"
+
+set -euo pipefail
+
+VERBOSE=false
+vault_dir=""
+declare -a ignore_paths=()
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -v|--verbose)
+            VERBOSE=true; shift ;;
+        -r|--reduced)
+            VERBOSE=false; shift ;;
+        -i|--ignore)
+            ignore_paths+=("$2"); shift 2 ;;
+        -*)
+            echo "Unknown option: $1"; echo "Use --help or -h to see the usage"; exit 1 ;;
+        *)
+            vault_dir="$1"; shift ;;
+    esac
+done
+
+if [[ -z "$vault_dir" || ! -d "$vault_dir" ]]; then
+    echo "Error: vault directory missing or invalid."
+    echo "Use --help or -h to see the usage"
+    exit 1
+fi
+
+# Collect all .md files
+mapfile -t md_files < <(
+    find "$vault_dir" \
+      -type d -name '.*' -prune -o \
+      -type f -name '*.md' -print
+)
+
+# Build lookup table of notes
+declare -A note_exists=()
+for file in "${md_files[@]}"; do
+    name="$(basename "$file" .md)"
+    note_exists["$name"]=1
+done
+
+# Media/resource extensions to skip
+media_exts=(png jpg jpeg gif mp3 wav mp4 pdf zip tar rar ogg webp)
+
+# Results
+declare -A dead_targets=()
+declare -A verbose_lines=()
+max_path_len=0
+
+# Check each markdown file
+for file in "${md_files[@]}"; do
+    rel="$(realpath --relative-to="$vault_dir" "$file")"
+
+    # Skip if matches any ignore path
+    for pat in "${ignore_paths[@]}"; do
+        [[ "$rel" == $pat ]] && continue 2
+    done
+
+    # Look for wikilinks
+    while IFS= read -r raw; do
+        link="${raw:2:-2}"
+        link="${link//\\|/|}"
+        target_ref="${link%%|*}"
+        target="${target_ref%%#*}"
+        [[ -z "$target" ]] && continue
+
+        ext="${target##*.}"
+        for m in "${media_exts[@]}"; do
+            [[ "$ext" == "$m" ]] && continue 3
+        done
+
+        if [[ -z "${note_exists[$target]:-}" ]]; then
+            if $VERBOSE; then
+                key="$rel → [[${link}]]"
+                verbose_lines["$rel|$link"]="$key"
+                (( ${#rel} > max_path_len )) && max_path_len=${#rel}
+            else
+                dead_targets["${target}.md"]=1
+            fi
+        fi
+    done < <(grep -o '\[\[[^]]\+\]\]' "$file" || true)
+done
+
+# Output
+if $VERBOSE; then
+    for key in "${!verbose_lines[@]}"; do
+        rel="${key%%|*}"
+        rest="${verbose_lines[$key]#"$rel → "}"
+        printf "%-*s → %s\n" "$max_path_len" "$rel" "$rest"
+    done | sort 
+else
+    for t in "${!dead_targets[@]}"; do
+        echo "${t%.md}"
+    done | sort
+fi

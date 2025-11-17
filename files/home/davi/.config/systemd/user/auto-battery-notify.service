@@ -1,0 +1,12 @@
+[Unit]
+Description=Sends automatic notifications about the battery
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/davi/bin/auto-battery-notify 2
+Environment=PATH=/home/davi/bin:/usr/local/bin:/usr/bin:/bin
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

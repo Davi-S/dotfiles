@@ -1,0 +1,326 @@
+# ========================================
+# SWAY CONFIGURATION - MIGRATED FROM HYPRLAND
+# ========================================
+# This configuration has been migrated from Hyprland to Sway.
+# Some features may not have direct equivalents and are commented.
+# Date: August 1, 2025
+
+# ========================================
+# VARIABLES & CONSTANTS
+# ========================================
+
+# Define apps and constants (migrated from hyprland-keybindings.conf)
+set $uwsm uwsm app -t service --
+set $menu rofi -show drun -run-command "$uwsm {cmd}"
+set $calc rofi -show calc -modi calc -no-show-match -no-sort -terse -automatic-save-to-history | wl-copy
+set $cliphist cliphist list | rofi -dmenu | cliphist decode | wl-copy
+set $terminal $uwsm kitty
+set $ubin ~/bin
+set $screenshots_folder ~/Pictures/screenshots
+
+# Modifier key (SUPER key)
+set $mod Mod4
+
+# ========================================
+# OUTPUT CONFIGURATION (MONITORS)
+# ========================================
+# Migrated from hyprland-monitors.conf
+
+# Main laptop display - equivalent to "monitor=eDP-1, preferred, auto, 1"
+#output eDP-1 {
+#    mode preferred
+#    scale 1
+#    position 0,0
+#}
+
+# Note: Sway auto-detects and configures outputs by default.
+# The above is explicit configuration equivalent to Hyprland's setup.
+
+# ========================================
+# INPUT CONFIGURATION
+# ========================================
+# Migrated from hyprland-input.conf
+
+# Keyboard configuration
+input type:keyboard {
+    # Using kanata with br-abnt2 as source (see ~/.config/kanata/kanata.kbd).
+    # Other layouts are here as fallback if kanata fails
+    xkb_layout br,us
+    
+    # HYPRLAND DIFFERENCE: Hyprland's kb_layout translates directly to xkb_layout
+}
+
+# Touchpad configuration
+input type:touchpad {
+    pointer_accel 0.6
+    accel_profile flat
+    scroll_factor 0.5
+    tap enabled
+    natural_scroll disabled
+}
+
+# Generic pointer configuration (applies to all mice)
+input type:pointer {
+    pointer_accel 0.2
+    accel_profile flat
+}
+
+# Gesture configuration
+# HYPRLAND DIFFERENCE: Hyprland's workspace_swipe* options don't have direct Sway equivalents
+# Sway has basic gesture support but not as extensive as Hyprland
+
+# ========================================
+# APPEARANCE & THEMING
+# ========================================
+# Migrated from hyprland-eyecandy.conf
+
+# General appearance
+gaps inner 0
+gaps outer 0
+default_border pixel 1
+
+# Colors (migrated from Hyprland's col.inactive_border and col.active_border)
+# HYPRLAND DIFFERENCE: Color format is different (0xff282828 vs #282828)
+client.focused          #deddda #deddda #000000 #deddda #deddda
+client.focused_inactive #282828 #282828 #ffffff #282828 #282828
+client.unfocused        #282828 #282828 #ffffff #282828 #282828
+client.urgent           #ff0000 #ff0000 #ffffff #ff0000 #ff0000
+
+# Layout
+# HYPRLAND DIFFERENCE: Sway doesn't have dwindle layout, using default tiling instead
+# You might want to use i3-like tiling or consider using autotiling script
+
+# Font
+font pango:Atkinson Next NF 10
+
+# ========================================
+# WINDOW RULES & BEHAVIOR
+# ========================================
+# Migrated from hyprland-windowrules.conf
+
+# Floating windows
+for_window [title="Picture-in-Picture"] floating enable
+for_window [title="Picture-in-Picture"] sticky enable
+for_window [title="Picture-in-Picture"] resize set 35 ppt 35 ppt
+for_window [title="Picture-in-Picture"] move position 90 ppt 90 ppt
+
+# HYPRLAND DIFFERENCE: keepaspectratio doesn't have direct Sway equivalent
+
+# Specific app configurations
+for_window [app_id="qalculate-gtk"] floating enable
+for_window [app_id="qalculate-gtk"] sticky enable
+# HYPRLAND DIFFERENCE: Hyprland's opacity settings don't have direct Sway equivalent
+for_window [app_id="qalculate-gtk"] resize set 30 ppt 70 ppt
+for_window [app_id="qalculate-gtk"] move position 60 ppt 15 ppt
+
+# Workspace assignments
+assign [class="obsidian"] workspace 10
+assign [class="zen"] workspace 1
+
+# HYPRLAND DIFFERENCE: Hyprland's suppressevent and nofocus rules don't have direct equivalents
+# HYPRLAND DIFFERENCE: XWayland dragging fixes are handled differently in Sway
+
+# ========================================
+# KEY BINDINGS
+# ========================================
+# Migrated from hyprland-keybindings.conf
+
+# Core system bindings
+bindsym $mod+Escape exec uwsm stop
+bindsym $mod+k kill
+bindsym $mod+Return exec $terminal
+bindsym $mod+a exec $menu
+bindsym $mod+c exec $calc
+bindsym $mod+t exec $ubin/datetime-notify 3
+bindsym $mod+b exec $ubin/battery-notify
+bindsym $mod+v exec $cliphist
+bindsym $mod+f floating toggle
+
+# HYPRLAND DIFFERENCE: hyprlock doesn't exist for Sway, using swaylock instead
+bindsym $mod+l exec swaylock
+
+# Screenshots (using grim instead of hyprshot)
+# HYPRLAND DIFFERENCE: hyprshot is Hyprland-specific, using grim + slurp for Sway
+bindsym $mod+Print exec grim -g "$(swaymsg -t get_tree | jq -r '..|select(.focused?)|.rect|"\(.x),\(.y) \(.width)x\(.height)"')" $screenshots_folder/window-$(date +%Y%m%d_%H%M%S).png
+bindsym $mod+Shift+Print exec grim -g "$(slurp)" $screenshots_folder/region-$(date +%Y%m%d_%H%M%S).png
+bindsym Print exec grim -o eDP-1 $screenshots_folder/fullscreen-$(date +%Y%m%d_%H%M%S).png
+
+# Focus movement
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+
+# Workspace switching
+bindsym $mod+grave workspace 10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# Move containers to workspaces
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Silently move containers to workspaces (Sway doesn't have silent move, using regular move)
+# HYPRLAND DIFFERENCE: movetoworkspacesilent doesn't exist in Sway
+bindsym $mod+Shift+Alt+1 move container to workspace 1
+bindsym $mod+Shift+Alt+2 move container to workspace 2
+bindsym $mod+Shift+Alt+3 move container to workspace 3
+bindsym $mod+Shift+Alt+4 move container to workspace 4
+bindsym $mod+Shift+Alt+5 move container to workspace 5
+bindsym $mod+Shift+Alt+6 move container to workspace 6
+bindsym $mod+Shift+Alt+7 move container to workspace 7
+bindsym $mod+Shift+Alt+8 move container to workspace 8
+bindsym $mod+Shift+Alt+9 move container to workspace 9
+bindsym $mod+Shift+Alt+0 move container to workspace 10
+
+# Move windows
+bindsym $mod+Shift+Ctrl+Left move left
+bindsym $mod+Shift+Ctrl+Right move right
+bindsym $mod+Shift+Ctrl+Up move up
+bindsym $mod+Shift+Ctrl+Down move down
+
+# Scratchpad (equivalent to Hyprland's special workspace)
+bindsym $mod+s scratchpad show
+bindsym $mod+Shift+s move scratchpad
+
+# Mouse bindings for moving and resizing
+bindsym --whole-window $mod+button1 floating toggle; mode "move"
+bindsym --whole-window $mod+button3 floating toggle; mode "resize"
+
+# ========================================
+# MULTIMEDIA KEYS
+# ========================================
+# Migrated from hyprland-keybindings.conf laptop multimedia section
+
+# Brightness controls (F3 and F4)
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%- && notify-send -t 1000 "Brightness Down" "$(brightnessctl g | awk '{print int(($1 / 255) * 100) "%"}')"
+bindsym XF86MonBrightnessUp exec brightnessctl s 10%+ && notify-send -t 1000 "Brightness Up" "$(brightnessctl g | awk '{print int(($1 / 255) * 100) "%"}')"
+
+# Audio controls (F9, F10, F11)
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && notify-send -t 1000 "Mute toggled" "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print ($3=="[MUTED]") ? "Muted" : "Unmuted"}')"
+bindsym XF86AudioLowerVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%- && notify-send -t 1000 "Volume Down" "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100) "%"}')"
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && notify-send -t 1000 "Volume Up" "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100) "%"}')"
+
+# ========================================
+# MODES
+# ========================================
+
+# Resize mode
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Move mode
+mode "move" {
+    bindsym Left move left 10px
+    bindsym Down move down 10px
+    bindsym Up move up 10px
+    bindsym Right move right 10px
+    
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# ========================================
+# AUTOSTART APPLICATIONS
+# ========================================
+# Migrated from hyprland-autostart.sh
+
+# HYPRLAND DIFFERENCE: Sway doesn't have exec-once, using exec
+# You may want to create a script to check if applications are already running
+
+# Notification daemon
+exec $uwsm swaync
+
+# Clipboard manager
+exec $uwsm wl-paste --watch cliphist store
+
+# Web browser
+exec $uwsm zen-browser
+
+# Obsidian
+exec $uwsm obsidian
+
+# Git TUI for obsidian vault
+# HYPRLAND DIFFERENCE: Sway doesn't have hyprctl dispatch commands
+# You'll need to handle workspace assignment differently
+exec $uwsm kitty lazygit -p ~/Documents/ObsidianAllInVault/
+
+# ========================================
+# IDLE AND LOCK CONFIGURATION
+# ========================================
+# Based on hypridle.conf - you'll need to install swayidle
+
+# HYPRLAND DIFFERENCE: hypridle is Hyprland-specific, use swayidle instead
+exec swayidle -w \
+    timeout 150 'brightnessctl -s set 0' resume 'brightnessctl -r' \
+    timeout 300 'swaylock -f' \
+    timeout 330 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 600 'systemctl suspend' \
+    before-sleep 'swaylock -f'
+
+# ========================================
+# STATUS BAR
+# ========================================
+# HYPRLAND DIFFERENCE: You'll need to configure a status bar like waybar
+# Hyprland doesn't include a built-in bar, but Sway does
+
+# bar {
+#    position top
+#    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#    
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#       inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+#}
+
+# ========================================
+# ADDITIONAL NOTES
+# ========================================
+
+# MIGRATION NOTES:
+# 1. Hyprland's animations have no direct Sway equivalent - Sway focuses on performance
+# 2. Hyprland's blur effects are not available in Sway
+# 3. Some window rules may behave differently between the two compositors
+# 4. hypridle/hyprlock should be replaced with swayidle/swaylock
+# 5. hyprshot should be replaced with grim + slurp for screenshots
+# 6. Some Hyprland-specific commands (hyprctl) need Sway equivalents (swaymsg)
+# 7. You may want to install additional tools:
+#    - waybar (status bar)
+#    - autotiling (for automatic tiling)
+#    - swaylock-effects (enhanced lock screen)
+#    - swayidle (idle management)
+#    - grim + slurp (screenshots)
+
+# RECOMMENDED ADDITIONAL PACKAGES:
+# - waybar: Modern status bar
+# - swaylock-effects: Enhanced lock screen with effects
+# - autotiling: Automatic tiling script for i3-like behavior
+# - wlogout: Logout menu
+# - mako or swaync: Notification daemon (you're already using swaync)
+
+include /etc/sway/config.d/*

@@ -1,0 +1,12 @@
+[Unit]
+Description=EasyEffects (via uwsm)
+After=pipewire.service wireplumber.service graphical-session.target
+
+[Service]
+ExecStartPre=/bin/sleep 5
+ExecStart=uwsm app -t service -- easyeffects --gapplication-service
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Date Time Notify
+# ================
+# This is a script to send desktop notifications with the current date and time.
+#
+# Usage:
+#     ./date_time_notify.sh [notification_timeout]
+#
+# Arguments:
+#     [notification_timeout]   Optional. Notification timeout (in seconds). Default is 1.
+#
+# Behavior:
+#     - Sends a normal notification with the current date and time.
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Import helper functions
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for help flag
+check_help_flag "$@"
+
+# Validate argument (should be a number if provided)
+if [[ -n "$1" && ! "$1" =~ ^[0-9]+$ ]]; then
+    echo "Invalid timeout multiplier: $1"
+    echo "Use -h or --help for usage."
+    exit 1
+fi
+
+# Notification settings
+TIMEOUT=$((1000 * (${1:-1})))
+
+# Get the current date and time
+CURRENT_DATE=$(date +"%d/%m/%Y %A")  # DD/MM/YYYY dddd
+CURRENT_TIME=$(date +"%H:%M:%S")     # 24-hour format
+
+# Send the notification
+notify-send -t "$TIMEOUT" "Current Date and Time" "$CURRENT_DATE - $CURRENT_TIME"
