@@ -13,6 +13,7 @@ CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
 SetFileProperty /home/davi/.config/nvim group davi

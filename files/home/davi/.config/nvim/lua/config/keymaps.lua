@@ -22,4 +22,10 @@ map_all_modes("<C-Right>", "<C-l>", { noremap = true })
 map_all_modes("<Home>", "<Nop>", { noremap = true })
 map_all_modes("<End>", "<Nop>", { noremap = true })
 
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'Format [F]ile' })
+-- Format file
+vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { desc = '[F]ormat [F]ile' })
+
+-- Set enter to *not* accept the completion. Instead, just enter a new line.
+vim.keymap.set('i', '<cr>', function()
+    return vim.fn.pumvisible() == 1 and '<c-e><cr>' or '<cr>'
+end, { expr = true, noremap = true })
