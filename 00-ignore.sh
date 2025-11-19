@@ -5,7 +5,6 @@
 # machine-specific artifacts are excluded so the configuration repo stays
 # focused on reproducible settings rather than runtime state.
 
-
 # This is the redefinition of the initial ignore path list from the aconfmgr source code.
 # I have comented out "home". This includes it on the configuration
 ignore_paths=(
@@ -55,8 +54,8 @@ IgnorePath "/home/davi/.config/qalculate/qalc.history"
 IgnorePath "/home/davi/.config/sourcery/*"
 IgnorePath "/home/davi/.dotnet/*"
 IgnorePath "/home/davi/.gnupg/*"
-IgnorePath "/home/davi/.gradle/*"  # Came with Logisim-evolution
-IgnorePath "/home/davi/.java/*"  # Came with Logisim-evolution  
+IgnorePath "/home/davi/.gradle/*" # Came with Logisim-evolution
+IgnorePath "/home/davi/.java/*"   # Came with Logisim-evolution
 IgnorePath "/home/davi/.local/share/Trash/*"
 IgnorePath "/home/davi/.local/share/applications/*"
 IgnorePath "/home/davi/.local/share/auto-battery-notify-state.txt"
@@ -101,7 +100,6 @@ IgnorePath "/home/davi/Downloads/*"
 IgnorePath "/home/davi/Movies/*"
 IgnorePath "/home/davi/Pictures/*"
 IgnorePath "/home/davi/.config/qBittorrent/ipc-socket"
-
 
 # Root
 # ====
@@ -196,4 +194,3 @@ IgnorePath "/var/lib/tpm2-tss/*"
 IgnorePath "/var/lib/upower/*"
 IgnorePath "/var/log/*"
 IgnorePath "/var/tmp/*"
-
