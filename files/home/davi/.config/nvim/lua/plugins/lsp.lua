@@ -35,7 +35,8 @@ return {
 
         -- Enable the following tools
         local tools_list = {
-            -- "stylua",
+            "shfmt",
+            "shellcheck"
         }
 
         -- Combine our server list and tool list for mason-tool-installer
