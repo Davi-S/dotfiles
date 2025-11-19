@@ -29,7 +29,8 @@ return {
         local servers_list = {
             "lua_ls",
             "basedpyright",
-            "ruff"
+            "ruff",
+            "bashls"
         }
 
         -- Enable the following tools
@@ -61,6 +62,7 @@ return {
             desc = "LSP on_attach setup",
             callback = function(args)
                 local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
                 -- Completion
                 if client:supports_method("textDocument/completion") then
                     -- Trigger autocompletion on EVERY keypress
@@ -70,6 +72,13 @@ return {
                     end
                     client.server_capabilities.completionProvider.triggerCharacters = chars
                     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+                end
+
+                -- Format keymap
+                if client:supports_method('textDocument/formatting') then
+                    vim.keymap.set('n', '<leader>ff', function()
+                        vim.lsp.buf.format({ async = true })
+                    end, { buffer = args.buf, desc = '[F]ormat [F]ile' })
                 end
             end,
         })

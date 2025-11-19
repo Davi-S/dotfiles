@@ -1,26 +1,5 @@
 return {
     {
-        "folke/tokyonight.nvim",
-        config = function()
-            -- Apply setup with the declarative opts table
-            require("tokyonight").setup {
-                style = "night",
-                on_colors = function(colors)
-                    colors.bg = "#000000"
-                    colors.fg = "#deddda"
-                end,
-                on_highlights = function(highlights, colors)
-                    -- Load overrides from a dedicated module.
-                    local build_overrides = require("colors.tokyonight_overrides")
-                    local overrides = build_overrides(colors)
-                    for group, spec in pairs(overrides) do
-                        highlights[group] = spec
-                    end
-                end,
-            }
-        end,
-    },
-    {
         "catppuccin/nvim",
         name = "catppuccin.nvim",
         priority = 1000,
@@ -37,7 +16,7 @@ return {
                     -- 3. Lightness Remapping: All intermediate colors linearly interpolated
                     --    (lerped) via HLS space to fit the expanded contrast range.
                     -- 4. Saturation Boost: +50% saturation applied to preserve color vibrance
-                    --    against the darker background. Neutrals (Surface/Overlay) preserve 
+                    --    against the darker background. Neutrals (Surface/Overlay) preserve
                     --    the original saturation to avoid blue tint
                     -- 5. Swapped base with crust.
                     -- -----------------------------------------------------------------------------

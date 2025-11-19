@@ -104,8 +104,8 @@ vim.opt.splitright = true -- put new vertical splits to the right
 vim.opt.splitbelow = true -- put new horizontal splits below
 
 -- netrw options
-vim.g.netrw_liststyle = 3               -- use tree-style listing
 vim.g.netrw_banner = 0                  -- disable the netrw banner
 vim.g.netrw_browsex_viewer = "xdg-open" -- external program to open files
 vim.g.netrw_hide = 0                    -- show hidden files (0 = don't hide dotfiles)
 vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'  -- Show line numbers
+vim.g.netrw_winsize = 25  -- Open Netrw splits at 25% width/height
