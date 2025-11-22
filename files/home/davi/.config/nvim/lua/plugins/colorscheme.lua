@@ -58,8 +58,10 @@ return {
                         -- The reason indicator
                         LazyReasonPlugin = { fg = colors.blue },
 
-                        -- Make the cursor column a subtle dark, same as the "ColorColumn"
-                        CursorColumn = { bg = colors.surface0 },
+                        -- Cursor marks
+                        CursorColumn = { bg = colors.crust },
+                        ColorColumn = { bg = colors.crust },
+                        CursorLine = { bg = colors.crust }
                     }
                 end,
             }

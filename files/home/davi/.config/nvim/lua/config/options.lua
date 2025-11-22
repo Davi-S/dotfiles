@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 		vim.opt_local.cursorline = false
 	end,
 })
-vim.opt.colorcolumn = "80,100"
+vim.opt.colorcolumn = "100"
 
 -- File handling
 vim.opt.swapfile = false           -- don't create swapfiles for buffers
