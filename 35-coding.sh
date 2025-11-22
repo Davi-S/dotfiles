@@ -8,20 +8,18 @@
 AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
-CopyFile /home/davi/.config/nvim/lua/colors/tokyonight_overrides.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
 SetFileProperty /home/davi/.config/nvim group davi
 SetFileProperty /home/davi/.config/nvim owner davi
 SetFileProperty /home/davi/.config/nvim/lua group davi
 SetFileProperty /home/davi/.config/nvim/lua owner davi
-SetFileProperty /home/davi/.config/nvim/lua/colors group davi
-SetFileProperty /home/davi/.config/nvim/lua/colors owner davi
 SetFileProperty /home/davi/.config/nvim/lua/config group davi
 SetFileProperty /home/davi/.config/nvim/lua/config owner davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins group davi

@@ -30,7 +30,7 @@ return {
             "lua_ls",
             "basedpyright",
             "ruff",
-            "bashls"
+            "bashls",
         }
 
         -- Enable the following tools
@@ -77,9 +77,9 @@ return {
 
                 -- Format keymap
                 if client:supports_method('textDocument/formatting') then
-                    vim.keymap.set('n', '<leader>ff', function()
+                    vim.keymap.set('n', '<leader>cf', function()
                         vim.lsp.buf.format({ async = true })
-                    end, { buffer = args.buf, desc = '[F]ormat [F]ile' })
+                    end, { buffer = args.buf, desc = '[c]ode [f]ormat' })
                 end
             end,
         })
