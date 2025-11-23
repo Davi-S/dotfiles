@@ -7,6 +7,6 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'wat_server' },
-  filetypes = { 'wat' },
+	cmd = { "wat_server" },
+	filetypes = { "wat" },
 }

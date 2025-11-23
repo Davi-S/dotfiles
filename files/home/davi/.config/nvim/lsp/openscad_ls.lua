@@ -21,7 +21,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'openscad-language-server' },
-  filetypes = { 'openscad' },
-  root_markers = { '.git' },
+	cmd = { "openscad-language-server" },
+	filetypes = { "openscad" },
+	root_markers = { ".git" },
 }

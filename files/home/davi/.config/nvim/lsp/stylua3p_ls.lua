@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'stylua-3p-language-server' },
-  filetypes = { 'lua' },
-  root_markers = { '.stylua.toml', 'stylua.toml' },
+	cmd = { "stylua-3p-language-server" },
+	filetypes = { "lua" },
+	root_markers = { ".stylua.toml", "stylua.toml" },
 }

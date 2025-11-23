@@ -5,7 +5,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'koka', '--language-server', '--lsstdio' },
-  filetypes = { 'koka' },
-  root_markers = { '.git' },
+	cmd = { "koka", "--language-server", "--lsstdio" },
+	filetypes = { "koka" },
+	root_markers = { ".git" },
 }

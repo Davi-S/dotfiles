@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'hlasm_language_server' },
-  filetypes = { 'hlasm' },
-  root_markers = { '.hlasmplugin' },
+	cmd = { "hlasm_language_server" },
+	filetypes = { "hlasm" },
+	root_markers = { ".hlasmplugin" },
 }

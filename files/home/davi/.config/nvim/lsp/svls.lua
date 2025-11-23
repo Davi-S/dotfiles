@@ -11,7 +11,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'svls' },
-  filetypes = { 'verilog', 'systemverilog' },
-  root_markers = { '.git' },
+	cmd = { "svls" },
+	filetypes = { "verilog", "systemverilog" },
+	root_markers = { ".git" },
 }

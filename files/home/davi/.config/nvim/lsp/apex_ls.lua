@@ -35,25 +35,25 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = function(dispatchers, config)
-    local local_cmd = {
-      vim.env.JAVA_HOME and (vim.env.JAVA_HOME .. '/bin/java') or 'java',
-      '-cp',
-      config.apex_jar_path,
-      '-Ddebug.internal.errors=true',
-      '-Ddebug.semantic.errors=' .. tostring(config.apex_enable_semantic_errors or false),
-      '-Ddebug.completion.statistics=' .. tostring(config.apex_enable_completion_statistics or false),
-      '-Dlwc.typegeneration.disabled=true',
-    }
-    if config.apex_jvm_max_heap then
-      table.insert(local_cmd, '-Xmx' .. config.apex_jvm_max_heap)
-    end
-    table.insert(local_cmd, 'apex.jorje.lsp.ApexLanguageServerLauncher')
+	cmd = function(dispatchers, config)
+		local local_cmd = {
+			vim.env.JAVA_HOME and (vim.env.JAVA_HOME .. "/bin/java") or "java",
+			"-cp",
+			config.apex_jar_path,
+			"-Ddebug.internal.errors=true",
+			"-Ddebug.semantic.errors=" .. tostring(config.apex_enable_semantic_errors or false),
+			"-Ddebug.completion.statistics=" .. tostring(config.apex_enable_completion_statistics or false),
+			"-Dlwc.typegeneration.disabled=true",
+		}
+		if config.apex_jvm_max_heap then
+			table.insert(local_cmd, "-Xmx" .. config.apex_jvm_max_heap)
+		end
+		table.insert(local_cmd, "apex.jorje.lsp.ApexLanguageServerLauncher")
 
-    return vim.lsp.rpc.start(local_cmd, dispatchers)
-  end,
-  filetypes = { 'apex', 'apexcode' },
-  root_markers = {
-    'sfdx-project.json',
-  },
+		return vim.lsp.rpc.start(local_cmd, dispatchers)
+	end,
+	filetypes = { "apex", "apexcode" },
+	root_markers = {
+		"sfdx-project.json",
+	},
 }

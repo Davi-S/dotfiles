@@ -4,14 +4,14 @@
 ---
 --- solc is the native language server for the Solidity language.
 
-local util = require 'lspconfig.util'
+local util = require("lspconfig.util")
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'solc', '--lsp' },
-  filetypes = { 'solidity' },
-  root_dir = function(bufnr, on_dir)
-    local fname = vim.api.nvim_buf_get_name(bufnr)
-    on_dir(util.root_pattern('hardhat.config.*', '.git')(fname))
-  end,
+	cmd = { "solc", "--lsp" },
+	filetypes = { "solidity" },
+	root_dir = function(bufnr, on_dir)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		on_dir(util.root_pattern("hardhat.config.*", ".git")(fname))
+	end,
 }

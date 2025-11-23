@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'psalm', '--language-server' },
-  filetypes = { 'php' },
-  root_markers = { 'psalm.xml', 'psalm.xml.dist' },
+	cmd = { "psalm", "--language-server" },
+	filetypes = { "php" },
+	root_markers = { "psalm.xml", "psalm.xml.dist" },
 }

@@ -7,7 +7,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'rune-languageserver' },
-  filetypes = { 'rune' },
-  root_markers = { '.git' },
+	cmd = { "rune-languageserver" },
+	filetypes = { "rune" },
+	root_markers = { ".git" },
 }

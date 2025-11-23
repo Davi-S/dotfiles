@@ -29,7 +29,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'rls' },
-  filetypes = { 'rust' },
-  root_markers = { 'Cargo.toml' },
+	cmd = { "rls" },
+	filetypes = { "rust" },
+	root_markers = { "Cargo.toml" },
 }

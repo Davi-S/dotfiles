@@ -16,7 +16,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'bazelrc-lsp', 'lsp' },
-  filetypes = { 'bazelrc' },
-  root_markers = { 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel' },
+	cmd = { "bazelrc-lsp", "lsp" },
+	filetypes = { "bazelrc" },
+	root_markers = { "WORKSPACE", "WORKSPACE.bazel", "MODULE.bazel" },
 }

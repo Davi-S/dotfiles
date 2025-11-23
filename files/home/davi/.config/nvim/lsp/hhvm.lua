@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'hh_client', 'lsp' },
-  filetypes = { 'php', 'hack' },
-  root_markers = { '.hhconfig' },
+	cmd = { "hh_client", "lsp" },
+	filetypes = { "php", "hack" },
+	root_markers = { ".hhconfig" },
 }

@@ -11,61 +11,61 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'anakinls' },
-  filetypes = { 'python' },
-  root_markers = {
-    'pyproject.toml',
-    'setup.py',
-    'setup.cfg',
-    'requirements.txt',
-    'Pipfile',
-    '.git',
-  },
-  settings = {
-    anakinls = {
-      pyflakes_errors = {
-        -- Full list: https://github.com/PyCQA/pyflakes/blob/master/pyflakes/messages.py
+	cmd = { "anakinls" },
+	filetypes = { "python" },
+	root_markers = {
+		"pyproject.toml",
+		"setup.py",
+		"setup.cfg",
+		"requirements.txt",
+		"Pipfile",
+		".git",
+	},
+	settings = {
+		anakinls = {
+			pyflakes_errors = {
+				-- Full list: https://github.com/PyCQA/pyflakes/blob/master/pyflakes/messages.py
 
-        'ImportStarNotPermitted',
+				"ImportStarNotPermitted",
 
-        'UndefinedExport',
-        'UndefinedLocal',
-        'UndefinedName',
+				"UndefinedExport",
+				"UndefinedLocal",
+				"UndefinedName",
 
-        'DuplicateArgument',
-        'MultiValueRepeatedKeyLiteral',
-        'MultiValueRepeatedKeyVariable',
+				"DuplicateArgument",
+				"MultiValueRepeatedKeyLiteral",
+				"MultiValueRepeatedKeyVariable",
 
-        'FutureFeatureNotDefined',
-        'LateFutureImport',
+				"FutureFeatureNotDefined",
+				"LateFutureImport",
 
-        'ReturnOutsideFunction',
-        'YieldOutsideFunction',
-        'ContinueOutsideLoop',
-        'BreakOutsideLoop',
+				"ReturnOutsideFunction",
+				"YieldOutsideFunction",
+				"ContinueOutsideLoop",
+				"BreakOutsideLoop",
 
-        'TwoStarredExpressions',
-        'TooManyExpressionsInStarredAssignment',
+				"TwoStarredExpressions",
+				"TooManyExpressionsInStarredAssignment",
 
-        'ForwardAnnotationSyntaxError',
-        'RaiseNotImplemented',
+				"ForwardAnnotationSyntaxError",
+				"RaiseNotImplemented",
 
-        'StringDotFormatExtraPositionalArguments',
-        'StringDotFormatExtraNamedArguments',
-        'StringDotFormatMissingArgument',
-        'StringDotFormatMixingAutomatic',
-        'StringDotFormatInvalidFormat',
+				"StringDotFormatExtraPositionalArguments",
+				"StringDotFormatExtraNamedArguments",
+				"StringDotFormatMissingArgument",
+				"StringDotFormatMixingAutomatic",
+				"StringDotFormatInvalidFormat",
 
-        'PercentFormatInvalidFormat',
-        'PercentFormatMixedPositionalAndNamed',
-        'PercentFormatUnsupportedFormat',
-        'PercentFormatPositionalCountMismatch',
-        'PercentFormatExtraNamedArguments',
-        'PercentFormatMissingArgument',
-        'PercentFormatExpectedMapping',
-        'PercentFormatExpectedSequence',
-        'PercentFormatStarRequiresSequence',
-      },
-    },
-  },
+				"PercentFormatInvalidFormat",
+				"PercentFormatMixedPositionalAndNamed",
+				"PercentFormatUnsupportedFormat",
+				"PercentFormatPositionalCountMismatch",
+				"PercentFormatExtraNamedArguments",
+				"PercentFormatMissingArgument",
+				"PercentFormatExpectedMapping",
+				"PercentFormatExpectedSequence",
+				"PercentFormatStarRequiresSequence",
+			},
+		},
+	},
 }

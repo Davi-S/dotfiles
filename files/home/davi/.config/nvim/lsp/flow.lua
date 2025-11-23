@@ -14,7 +14,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'npx', '--no-install', 'flow', 'lsp' },
-  filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx' },
-  root_markers = { '.flowconfig' },
+	cmd = { "npx", "--no-install", "flow", "lsp" },
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+	root_markers = { ".flowconfig" },
 }

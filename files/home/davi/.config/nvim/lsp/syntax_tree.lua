@@ -15,7 +15,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'stree', 'lsp' },
-  filetypes = { 'ruby' },
-  root_markers = { '.streerc', 'Gemfile', '.git' },
+	cmd = { "stree", "lsp" },
+	filetypes = { "ruby" },
+	root_markers = { ".streerc", "Gemfile", ".git" },
 }

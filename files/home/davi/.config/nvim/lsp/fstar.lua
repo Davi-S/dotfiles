@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'fstar.exe', '--lsp' },
-  filetypes = { 'fstar' },
-  root_markers = { '.git' },
+	cmd = { "fstar.exe", "--lsp" },
+	filetypes = { "fstar" },
+	root_markers = { ".git" },
 }

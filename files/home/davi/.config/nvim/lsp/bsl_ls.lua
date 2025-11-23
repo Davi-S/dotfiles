@@ -6,6 +6,6 @@
 
 ---@type vim.lsp.Config
 return {
-  filetypes = { 'bsl', 'os' },
-  root_markers = { '.git' },
+	filetypes = { "bsl", "os" },
+	root_markers = { ".git" },
 }

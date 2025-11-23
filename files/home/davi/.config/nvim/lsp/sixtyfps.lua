@@ -20,6 +20,6 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'sixtyfps-lsp' },
-  filetypes = { 'sixtyfps' },
+	cmd = { "sixtyfps-lsp" },
+	filetypes = { "sixtyfps" },
 }

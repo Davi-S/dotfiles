@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'cir-lsp-server' },
-  filetypes = { 'cir' },
-  root_markers = { '.git' },
+	cmd = { "cir-lsp-server" },
+	filetypes = { "cir" },
+	root_markers = { ".git" },
 }

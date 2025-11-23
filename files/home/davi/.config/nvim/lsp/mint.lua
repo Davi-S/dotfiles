@@ -7,7 +7,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'mint', 'ls' },
-  filetypes = { 'mint' },
-  root_markers = { 'mint.json', '.git' },
+	cmd = { "mint", "ls" },
+	filetypes = { "mint" },
+	root_markers = { "mint.json", ".git" },
 }

@@ -13,7 +13,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'millet' },
-  filetypes = { 'sml' },
-  root_markers = { 'millet.toml' },
+	cmd = { "millet" },
+	filetypes = { "sml" },
+	root_markers = { "millet.toml" },
 }

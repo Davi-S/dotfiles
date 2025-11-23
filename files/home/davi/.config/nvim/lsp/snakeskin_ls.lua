@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'snakeskin-cli', 'lsp', '--stdio' },
-  filetypes = { 'ss' },
-  root_markers = { 'package.json' },
+	cmd = { "snakeskin-cli", "lsp", "--stdio" },
+	filetypes = { "ss" },
+	root_markers = { "package.json" },
 }

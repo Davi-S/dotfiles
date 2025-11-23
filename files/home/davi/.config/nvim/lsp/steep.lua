@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'steep', 'langserver' },
-  filetypes = { 'ruby', 'eruby' },
-  root_markers = { 'Steepfile', '.git' },
+	cmd = { "steep", "langserver" },
+	filetypes = { "ruby", "eruby" },
+	root_markers = { "Steepfile", ".git" },
 }

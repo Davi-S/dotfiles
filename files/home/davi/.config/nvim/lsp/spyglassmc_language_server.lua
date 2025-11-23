@@ -18,7 +18,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'spyglassmc-language-server', '--stdio' },
-  filetypes = { 'mcfunction' },
-  root_markers = { 'pack.mcmeta' },
+	cmd = { "spyglassmc-language-server", "--stdio" },
+	filetypes = { "mcfunction" },
+	root_markers = { "pack.mcmeta" },
 }

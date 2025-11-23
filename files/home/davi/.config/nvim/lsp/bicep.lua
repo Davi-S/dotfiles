@@ -34,7 +34,7 @@
 
 ---@type vim.lsp.Config
 return {
-  filetypes = { 'bicep', 'bicep-params' },
-  root_markers = { '.git' },
-  init_options = {},
+	filetypes = { "bicep", "bicep-params" },
+	root_markers = { ".git" },
+	init_options = {},
 }

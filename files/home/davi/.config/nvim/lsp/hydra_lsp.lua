@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'hydra-lsp' },
-  filetypes = { 'yaml' },
-  root_markers = { '.git' },
+	cmd = { "hydra-lsp" },
+	filetypes = { "yaml" },
+	root_markers = { ".git" },
 }

@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'Swift-MesonLSP', '--lsp' },
-  filetypes = { 'meson' },
-  root_markers = { 'meson.build', 'meson_options.txt', 'meson.options', '.git' },
+	cmd = { "Swift-MesonLSP", "--lsp" },
+	filetypes = { "meson" },
+	root_markers = { "meson.build", "meson_options.txt", "meson.options", ".git" },
 }

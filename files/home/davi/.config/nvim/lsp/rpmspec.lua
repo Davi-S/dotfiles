@@ -12,8 +12,8 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'rpm_lsp_server', '--stdio' },
-  filetypes = { 'spec' },
-  root_markers = { '.git' },
-  settings = {},
+	cmd = { "rpm_lsp_server", "--stdio" },
+	filetypes = { "spec" },
+	root_markers = { ".git" },
+	settings = {},
 }

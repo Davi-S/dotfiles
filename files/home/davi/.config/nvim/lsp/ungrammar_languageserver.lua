@@ -10,17 +10,17 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'ungrammar-languageserver', '--stdio' },
-  filetypes = { 'ungrammar' },
-  root_markers = { '.git' },
-  settings = {
-    ungrammar = {
-      validate = {
-        enable = true,
-      },
-      format = {
-        enable = true,
-      },
-    },
-  },
+	cmd = { "ungrammar-languageserver", "--stdio" },
+	filetypes = { "ungrammar" },
+	root_markers = { ".git" },
+	settings = {
+		ungrammar = {
+			validate = {
+				enable = true,
+			},
+			format = {
+				enable = true,
+			},
+		},
+	},
 }

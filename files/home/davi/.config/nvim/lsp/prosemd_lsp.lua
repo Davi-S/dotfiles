@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'prosemd-lsp', '--stdio' },
-  filetypes = { 'markdown' },
-  root_markers = { '.git' },
+	cmd = { "prosemd-lsp", "--stdio" },
+	filetypes = { "markdown" },
+	root_markers = { ".git" },
 }

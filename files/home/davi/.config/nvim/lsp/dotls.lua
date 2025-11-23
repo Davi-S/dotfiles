@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'dot-language-server', '--stdio' },
-  filetypes = { 'dot' },
-  root_markers = { '.git' },
+	cmd = { "dot-language-server", "--stdio" },
+	filetypes = { "dot" },
+	root_markers = { ".git" },
 }

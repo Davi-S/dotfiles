@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'antlersls', '--stdio' },
-  filetypes = { 'html', 'antlers' },
-  root_markers = { 'composer.json' },
+	cmd = { "antlersls", "--stdio" },
+	filetypes = { "html", "antlers" },
+	root_markers = { "composer.json" },
 }
