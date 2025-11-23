@@ -10,21 +10,21 @@ local function map_all_modes(lhs, rhs, opts)
         vim.keymap.set(mode, lhs, rhs, opts)
     end
 end
-map_all_modes("<Up>", "k", { noremap = true })
-map_all_modes("<Down>", "j", { noremap = true })
-map_all_modes("<Left>", "h", { noremap = true })
-map_all_modes("<Right>", "l", { noremap = true })
-map_all_modes("<C-Up>", "<C-k>", { noremap = true })
-map_all_modes("<C-Down>", "<C-j>", { noremap = true })
-map_all_modes("<C-Left>", "<C-h>", { noremap = true })
-map_all_modes("<C-Right>", "<C-l>", { noremap = true })
-map_all_modes("<S-Up>", "K", { noremap = true })
-map_all_modes("<S-Down>", "J", { noremap = true })
-map_all_modes("<S-Left>", "H", { noremap = true })
-map_all_modes("<S-Right>", "L", { noremap = true })
+map_all_modes("<Up>", "k", { remap = true })
+map_all_modes("<Down>", "j", { remap = true })
+map_all_modes("<Left>", "h", { remap = true })
+map_all_modes("<Right>", "l", { remap = true })
+map_all_modes("<C-Up>", "<C-k>", { remap = true })
+map_all_modes("<C-Down>", "<C-j>", { remap = true })
+map_all_modes("<C-Left>", "<C-h>", { remap = true })
+map_all_modes("<C-Right>", "<C-l>", { remap = true })
+map_all_modes("<S-Up>", "K", { remap = true })
+map_all_modes("<S-Down>", "J", { remap = true })
+map_all_modes("<S-Left>", "H", { remap = true })
+map_all_modes("<S-Right>", "L", { remap = true })
 -- Disable the home and end keys because I was using them in the insert mode for navigation
-map_all_modes("<Home>", "<Nop>", { noremap = true })
-map_all_modes("<End>", "<Nop>", { noremap = true })
+map_all_modes("<Home>", "<Nop>", { remap = false })
+map_all_modes("<End>", "<Nop>", { remap = false })
 
 
 -- Window navigation --
@@ -40,9 +40,22 @@ vim.keymap.set("n", "<C-w><S-Right>", "<C-w>L", { desc = "Move window Right" })
 -- Set enter to *not* accept the completion. Instead, just enter a new line.
 vim.keymap.set('i', '<cr>', function()
     return vim.fn.pumvisible() == 1 and '<c-e><cr>' or '<cr>'
-end, { expr = true, noremap = true, desc = "Set enter to *not* accept the completion. Instead, just enter a new line" })
+end, { expr = true, remap = false, desc = "Set enter to *not* accept the completion. Instead, just enter a new line" })
 
 
 -- Insert a blank line without entering insert mode
 vim.keymap.set('n', '<Leader>o', 'o<Esc>', { desc = 'Insert blank line below' })
 vim.keymap.set('n', '<Leader>O', 'O<Esc>', { desc = 'Insert blank line above' })
+
+
+-- Spell check
+vim.keymap.set("n", "<Leader>st", ":set spell!<CR>", { desc = "[s]pell check [t]oggle" })
+vim.keymap.set("n", "<Leader>ss", "z=", { desc = "[s]pelling [s]uggestions" })
+
+
+-- Drag line
+vim.keymap.set("n", "<C-j>", ":m .+1<CR>==", { desc = "Drag line up" })
+vim.keymap.set("n", "<C-k>", ":m .-2<CR>==", { desc = "Drag line down" })
+
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Remove the highlight when leaving search mode" })

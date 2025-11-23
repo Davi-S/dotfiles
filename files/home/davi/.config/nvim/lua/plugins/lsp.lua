@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Reference:
 -- - https://github.com/hendrikmi/neovim-kickstart-config/blob/main/lua/plugins/lsp.lua
 -- - https://youtu.be/oBiBEx7L000?si=s7zOaXS8f7RguRR2
@@ -31,6 +32,7 @@ return {
             "basedpyright",
             "ruff",
             "bashls",
+            "markdown_oxide"
         }
 
         -- Enable the following tools
@@ -80,6 +82,41 @@ return {
                     vim.keymap.set('n', '<leader>cf', function()
                         vim.lsp.buf.format({ async = true })
                     end, { buffer = args.buf, desc = '[c]ode [f]ormat' })
+                end
+
+                -- Highlight references under the cursor
+                if client:supports_method("textDocument/documentHighlight") then
+                    local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+
+                    -- Highlight references when cursor moves
+                    vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+                        buffer = args.buf,
+                        group = highlight_augroup,
+                        desc = "Highlight references when cursor moves",
+                        callback = function()
+                            vim.lsp.buf.clear_references()
+                            vim.lsp.buf.document_highlight()
+                        end
+                    })
+
+                    -- Clear references when in insert mode
+                    vim.api.nvim_create_autocmd("InsertEnter", {
+                        buffer = args.buf,
+                        group = highlight_augroup,
+                        desc = "Clear highlights when in insert mode",
+                        callback = function()
+                            vim.lsp.buf.clear_references()
+                        end,
+                    })
+
+                    -- Clean up the autocommands when the LSP detaches
+                    vim.api.nvim_create_autocmd('LspDetach', {
+                        group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+                        callback = function(event2)
+                            vim.lsp.buf.clear_references()
+                            vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event2.buf })
+                        end,
+                    })
                 end
             end,
         })

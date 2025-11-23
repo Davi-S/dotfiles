@@ -9,29 +9,28 @@
 ---
 --- Check the readme to see how to properly setup.
 
----@param client vim.lsp.Client
----@param bufnr integer
----@param cmd string
-local function command_factory(client, bufnr, cmd)
-  return client:exec_cmd({
-    title = ('Markdown-Oxide-%s'):format(cmd),
-    command = 'jump',
-    arguments = { cmd },
-  }, { bufnr = bufnr })
-end
+local capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), {
+  -- Enable dynamic registration so markdown-oxide can react to files created via its own actions
+  workspace = {
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
+  },
+})
 
 ---@type vim.lsp.Config
 return {
   root_markers = { '.git', '.obsidian', '.moxide.toml' },
   filetypes = { 'markdown' },
   cmd = { 'markdown-oxide' },
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
-    for _, cmd in ipairs({ 'today', 'tomorrow', 'yesterday' }) do
-      vim.api.nvim_buf_create_user_command(bufnr, 'Lsp' .. ('%s'):format(cmd:gsub('^%l', string.upper)), function()
-        command_factory(client, bufnr, cmd)
-      end, {
-        desc = ('Open %s daily note'):format(cmd),
-      })
-    end
+     -- Create the dynamic 'Daily' command
+     vim.api.nvim_buf_create_user_command(bufnr, 'Daily', function(args)
+       client:exec_cmd({
+         command = 'jump',
+         arguments = { args.args },
+       }, { bufnr = bufnr })
+     end, { desc = 'Open daily note', nargs = '*' })
   end,
 }
