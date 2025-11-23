@@ -37,6 +37,10 @@ vim.keymap.set("n", "<C-w><S-Up>", "<C-w>K", { desc = "Move window Up" })
 vim.keymap.set("n", "<C-w><S-Right>", "<C-w>L", { desc = "Move window Right" })
 
 
+vim.keymap.set('n', '<Leader>w', ':w<CR>', { desc = '[w]rite the file' })
+vim.keymap.set('n', '<Leader>q', ':q<CR>', { desc = '[q]uit neovim' })
+
+
 -- Set enter to *not* accept the completion. Instead, just enter a new line.
 vim.keymap.set('i', '<cr>', function()
     return vim.fn.pumvisible() == 1 and '<c-e><cr>' or '<cr>'

@@ -36,7 +36,6 @@ vim.opt.completeopt = {           -- completion behavior for pop up menu
     "fuzzy",
     "menuone",
     "noinsert",
-    -- "popup",
 }
 vim.opt.pumheight = 10 -- maximum items to show in completion pop up menu
 -- highlight yank
