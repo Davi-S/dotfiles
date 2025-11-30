@@ -6,9 +6,9 @@
 -- By remapping only the arrow keys to hjkl, I can have my navigation and other
 -- commands all correct without many remapping on nvim or on my layout.
 local function map_all_modes(lhs, rhs, opts)
-	for _, mode in ipairs({ "n", "i", "v", "x", "s", "o" }) do
-		vim.keymap.set(mode, lhs, rhs, opts)
-	end
+    for _, mode in ipairs({ "n", "i", "v", "x", "s", "o" }) do
+        vim.keymap.set(mode, lhs, rhs, opts)
+    end
 end
 map_all_modes("<Up>", "k", { remap = true })
 map_all_modes("<Down>", "j", { remap = true })
@@ -40,7 +40,7 @@ vim.keymap.set("n", "<Leader>q", ":q<CR>", { desc = "[q]uit neovim" })
 
 -- Set enter to *not* accept the completion. Instead, just enter a new line.
 vim.keymap.set("i", "<cr>", function()
-	return vim.fn.pumvisible() == 1 and "<c-e><cr>" or "<cr>"
+    return vim.fn.pumvisible() == 1 and "<c-e><cr>" or "<cr>"
 end, { expr = true, remap = false, desc = "Set enter to *not* accept the completion. Instead, just enter a new line" })
 
 -- Insert a blank line without entering insert mode
@@ -55,4 +55,26 @@ vim.keymap.set("n", "<Leader>ss", "z=", { desc = "[s]pelling [s]uggestions" })
 vim.keymap.set("n", "<C-j>", ":m .+1<CR>==", { desc = "Drag line up" })
 vim.keymap.set("n", "<C-k>", ":m .-2<CR>==", { desc = "Drag line down" })
 
+
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Remove the highlight when leaving search mode" })
+
+
+vim.keymap.set('n', '<leader><tab>', '<C-^>', { desc = 'Toggle between the two most recent buffers' })
+
+
+vim.keymap.set('n', 'x', '"_x', { desc = "Make 'x' (delete char) never pollute the clipboard" })
+
+
+vim.keymap.set('n', '<leader>nc', function()
+    local pattern = "[“”‘’–—\u{00A0};\u{200b}\u{200c}\u{200d}−]"
+
+    -- We use pcall to suppress the ugly "E486: Pattern not found"
+    -- red error message if the file is clean.
+    -- "\r" acts as the Enter key.
+    local found, _ = pcall(vim.cmd, "normal! /" .. pattern .. "\r")
+
+    if not found then
+        vim.notify("No confusing characters found.", vim.log.levels.INFO)
+    end
+end, { desc = "Jump to [n]ext [c]onfusing char" })
+

@@ -16,6 +16,9 @@ CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
+CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
+CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi
+CopyFile /home/davi/.config/nvim/spell/pt.utf-8.spl '' davi davi
 SetFileProperty /home/davi/.config/nvim group davi
 SetFileProperty /home/davi/.config/nvim owner davi
 SetFileProperty /home/davi/.config/nvim/lua group davi
@@ -24,7 +27,8 @@ SetFileProperty /home/davi/.config/nvim/lua/config group davi
 SetFileProperty /home/davi/.config/nvim/lua/config owner davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins group davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins owner davi
-
+SetFileProperty /home/davi/.config/nvim/spell group davi
+SetFileProperty /home/davi/.config/nvim/spell owner davi
 
 # Python package managers 
 AddPackage uv # An extremely fast Python package installer and resolver written in Rust
@@ -79,6 +83,10 @@ AddPackage lynx # A text browser for the World Wide Web
 
 # Dependency of a nvim plugin
 AddPackage wget # Network utility to retrieve files from the web
+
+
+# Configuration for the C lang formatter
+CopyFile /home/davi/.clang-format '' davi davi
 
 
 # These are the configurations recipes from the nvim-lspconfig plugin which I downloaded locally and edited 
