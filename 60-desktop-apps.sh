@@ -77,3 +77,22 @@ SetFileProperty /home/davi/.config/htop owner davi
 
 # Installed when I was looking for what was taking up my storage space
 AddPackage ncdu # Disk usage analyzer with an ncurses interface
+
+
+# Whatsapp for terminal
+AddPackage --foreign nchat # console-based chat client with support for Telegram
+CopyFile /home/davi/.config/nchat/app.conf 600 davi davi
+CopyFile /home/davi/.config/nchat/ui.conf 600 davi davi
+SetFileProperty /home/davi/.config/nchat group davi
+SetFileProperty /home/davi/.config/nchat mode 700
+SetFileProperty /home/davi/.config/nchat owner davi
+
+
+# File explorer for terminal
+AddPackage yazi # Blazing fast terminal file manager written in Rust, based on async I/O
+CopyFile /home/davi/.config/yazi/keymap.toml '' davi davi
+CopyFile /home/davi/.config/yazi/yazi.toml '' davi davi
+SetFileProperty /home/davi/.config/yazi group davi
+SetFileProperty /home/davi/.config/yazi owner davi
+# Dependency for PDF preview on yazi
+AddPackage poppler # PDF rendering library based on xpdf 3.0

@@ -62,6 +62,9 @@ return {
 						CursorColumn = { bg = colors.crust },
 						ColorColumn = { bg = colors.crust },
 						CursorLine = { bg = colors.crust },
+
+                        -- Set Line Numbers to a slighter lighter color
+                        LineNr = { fg = colors.overlay1 },
 					}
 				end,
 			})

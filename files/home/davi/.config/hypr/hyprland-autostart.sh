@@ -31,6 +31,7 @@ uwsm="uwsm app -t service --"
 # Starting it here and not automatically because one may
 # want to use other idle service when using other Desktop
 # environment. Hypridle is too much hyprland oriented
+# to be enabled globally
 systemctl --user start hypridle.service
 
 # Notification deamon
@@ -48,8 +49,14 @@ $uwsm obsidian
 
 # Git TUI for the main obsidian vault
 $uwsm kitty lazygit -p ~/Documents/ObsidianAllInVault/
+# Whatsapp on terminal
+$uwsm kitty nchat
+
 # Move the window to the correct workspace. This can't be done by using windowrules
 # because the title of the window is dynamic; and because we only want to move it
 # once, and not every time is opens
-sleep 1 && hyprctl dispatch movetoworkspacesilent 9,title:lazygit
+sleep 1
+hyprctl dispatch movetoworkspacesilent 9,title:lazygit
+hyprctl dispatch movetoworkspacesilent 8,title:nchat
+
 

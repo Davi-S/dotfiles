@@ -1,0 +1,25 @@
+[mgr]
+prepend_keymap = [
+    # Make arrow keys behave like hjkl.
+    # This is is necessary because I use a custom Colemak keyboard layout.
+    # This make the use of hjkl impractical. To avoid remapping several keys
+    # to get the navigation right, I have a navigation layer (in the keyboard
+    # layout managed by Kanata) that has the arrow keys on easy access.
+    # By remapping only the arrow keys to hjkl, I can have my navigation and other
+    # commands all correct without many remapping on nvim or on my layout.
+
+    # SHIFT + ARROWS (Behave like H / J / K / L) 
+	# <S-Up> mimics 'K': Seek up in preview
+	# Default <S-Up> was "arrow -50%", we override it to "seek"
+	{ on = "<S-Up>",   run = "seek -5", desc = "Seek up 5 units in the preview" },
+
+	# <S-Down> mimics 'J': Seek down in preview
+	# Default <S-Down> was "arrow 50%", we override it to "seek"
+	{ on = "<S-Down>", run = "seek 5",  desc = "Seek down 5 units in the preview" },
+
+	# <S-Left> mimics 'H': History Back
+	{ on = "<S-Left>", run = "back",    desc = "Back to previous directory" },
+
+	# <S-Right> mimics 'L': History Forward
+	{ on = "<S-Right>", run = "forward", desc = "Forward to next directory" },
+]

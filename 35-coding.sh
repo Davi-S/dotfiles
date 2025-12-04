@@ -89,6 +89,12 @@ AddPackage wget # Network utility to retrieve files from the web
 CopyFile /home/davi/.clang-format '' davi davi
 
 
+# Installed for a specific project.
+# Used to expose a local host to internet and to run zen-browser on selenium
+AddPackage --foreign ngrok # A tunneling, reverse proxy for developing and understanding networked, HTTP services
+AddPackage geckodriver # Proxy for using W3C WebDriver-compatible clients to interact with Gecko-based browsers.
+
+
 # These are the configurations recipes from the nvim-lspconfig plugin which I downloaded locally and edited 
 CopyFile /home/davi/.config/nvim/lsp/ada_ls.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lsp/agda_ls.lua '' davi davi
