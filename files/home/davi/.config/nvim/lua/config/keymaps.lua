@@ -28,31 +28,32 @@ map_all_modes("<A-Up>", "<A-k>", { remap = true })
 map_all_modes("<A-Down>", "<A-j>", { remap = true })
 map_all_modes("<A-Left>", "<A-h>", { remap = true })
 map_all_modes("<A-Right>", "<A-l>", { remap = true })
--- Disable the home and end keys because I was using them in the insert mode for navigation
+-- Disable the home and end keys because I was using them in the insert
+-- mode for navigation
 map_all_modes("<Home>", "<Nop>", { remap = false })
 map_all_modes("<End>", "<Nop>", { remap = false })
 
 ----------------------------------------------------------------------------------------------------
 
--- Explicitly map <C-w> + Shift-Arrows to swap windows 
--- This fixes the issue where <C-w> ignores the previous mappings of shift-arrow to shift-keys,
--- preserving the default behaviour
+-- Explicitly map <C-w> + Shift-Arrows to swap windows
+-- This fixes the issue where <C-w> ignores the previous mappings of
+-- shift-arrow to shift-keys, preserving the default behaviour
 vim.keymap.set("n", "<C-w><S-Left>", "<C-w>H", { desc = "Move window Left" })
 vim.keymap.set("n", "<C-w><S-Down>", "<C-w>J", { desc = "Move window Down" })
 vim.keymap.set("n", "<C-w><S-Up>", "<C-w>K", { desc = "Move window Up" })
 vim.keymap.set("n", "<C-w><S-Right>", "<C-w>L", { desc = "Move window Right" })
 
--- Change active window with Ctrl+Direction 
+-- Change active window with Ctrl+Direction
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window Left" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window Down" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window Up" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window Right" })
 
--- Swap the current window with Alt+Direction 
-vim.keymap.set('n', '<A-h>', '<C-w>H', { desc = 'Move window Left' })
-vim.keymap.set('n', '<A-j>', '<C-w>J', { desc = 'Move window Down' })
-vim.keymap.set('n', '<A-k>', '<C-w>K', { desc = 'Move window Up' })
-vim.keymap.set('n', '<A-l>', '<C-w>L', { desc = 'Move window Right' })
+-- Swap the current window with Alt+Direction
+vim.keymap.set("n", "<A-h>", "<C-w>H", { desc = "Move window Left" })
+vim.keymap.set("n", "<A-j>", "<C-w>J", { desc = "Move window Down" })
+vim.keymap.set("n", "<A-k>", "<C-w>K", { desc = "Move window Up" })
+vim.keymap.set("n", "<A-l>", "<C-w>L", { desc = "Move window Right" })
 
 ----------------------------------------------------------------------------------------------------
 
@@ -72,6 +73,7 @@ vim.keymap.set("n", "<Leader>O", "O<Esc>", { desc = "Insert blank line above" })
 -- Spell check
 vim.keymap.set("n", "<Leader>st", ":set spell!<CR>", { desc = "[s]pell check [t]oggle" })
 vim.keymap.set("n", "<Leader>ss", "z=", { desc = "[s]pelling [s]uggestions" })
+vim.keymap.set("n", "<Leader>sg", "zg", { desc = "Add this word to the [s]pelfile as a [g]ood word" })
 
 ----------------------------------------------------------------------------------------------------
 
@@ -79,21 +81,32 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Remove the highlig
 
 ----------------------------------------------------------------------------------------------------
 
-vim.keymap.set('n', '<leader><tab>', '<C-^>', { desc = 'Toggle between the two most recent buffers' })
+vim.keymap.set("n", "<leader><tab>", "<C-^>", { desc = "Toggle between the two most recent buffers" })
 
 ----------------------------------------------------------------------------------------------------
 
-vim.keymap.set('n', 'x', '"_x', { desc = "Make 'x' (delete char) never pollute the clipboard" })
+vim.keymap.set("n", "x", "\"_x", { desc = "Make \"x\" (delete char) never pollute the clipboard" })
 
 ----------------------------------------------------------------------------------------------------
 
-vim.keymap.set('n', '<leader>nc', function()
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "[w]rite file" })
+
+----------------------------------------------------------------------------------------------------
+
+-- Go to next confusing character.
+-- Confusing characters are characters that are not used in programming, but
+-- are similar to often used ones. This list is also defined in the general
+-- config for highlighting
+vim.keymap.set("n", "<leader>nc", function()
     local pattern = "[“”‘’–—\u{00A0};\u{200b}\u{200c}\u{200d}−]"
 
     -- We use pcall to suppress the ugly "E486: Pattern not found"
     -- red error message if the file is clean.
     -- "\r" acts as the Enter key.
-    local found, _ = pcall(vim.cmd, "normal! /" .. pattern .. "\r")
+    -- Wrap inside function() ... end
+    local found, _ = pcall(function()
+        vim.cmd("normal! /" .. pattern .. "\r")
+    end)
 
     if not found then
         vim.notify("No confusing characters found.", vim.log.levels.INFO)
@@ -101,3 +114,4 @@ vim.keymap.set('n', '<leader>nc', function()
 end, { desc = "Jump to [n]ext [c]onfusing char" })
 
 ----------------------------------------------------------------------------------------------------
+

@@ -6,33 +6,57 @@
 
 ## Main editor ##
 AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs
+CopyFile /home/davi/.config/nvim/after/ftplugin/markdown.lua '' davi davi
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/obsidian/daily.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/markdown.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/yazi.lua '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi
 CopyFile /home/davi/.config/nvim/spell/pt.utf-8.spl '' davi davi
 SetFileProperty /home/davi/.config/nvim group davi
 SetFileProperty /home/davi/.config/nvim owner davi
+SetFileProperty /home/davi/.config/nvim/after group davi
+SetFileProperty /home/davi/.config/nvim/after owner davi
+SetFileProperty /home/davi/.config/nvim/after/ftplugin group davi
+SetFileProperty /home/davi/.config/nvim/after/ftplugin owner davi
 SetFileProperty /home/davi/.config/nvim/lua group davi
 SetFileProperty /home/davi/.config/nvim/lua owner davi
 SetFileProperty /home/davi/.config/nvim/lua/config group davi
 SetFileProperty /home/davi/.config/nvim/lua/config owner davi
+SetFileProperty /home/davi/.config/nvim/lua/obsidian group davi
+SetFileProperty /home/davi/.config/nvim/lua/obsidian owner davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins group davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins owner davi
 SetFileProperty /home/davi/.config/nvim/spell group davi
 SetFileProperty /home/davi/.config/nvim/spell owner davi
 
+
 # Python package managers 
 AddPackage uv # An extremely fast Python package installer and resolver written in Rust
 AddPackage python-pip # The PyPA recommended tool for installing Python packages
+AddPackage python-pipx # Install and Run Python Applications in Isolated Environments
+
+
+# Pylatexenc installed with pipx
+CreateLink /home/davi/.local/bin/latex2text /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latex2text davi davi
+CreateLink /home/davi/.local/bin/latexencode /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latexencode davi davi
+CreateLink /home/davi/.local/bin/latexwalker /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latexwalker davi davi
+SetFileProperty /home/davi/.local/bin group davi
+SetFileProperty /home/davi/.local/bin owner davi
+
+
+# Support for latex in markdown renders extensions of neovim
+AddPackage --foreign libtexprintf # Formatted Output with tex-like syntax support
 
 
 AddPackage git # the fast distributed version control system
@@ -93,6 +117,11 @@ CopyFile /home/davi/.clang-format '' davi davi
 # Used to expose a local host to internet and to run zen-browser on selenium
 AddPackage --foreign ngrok # A tunneling, reverse proxy for developing and understanding networked, HTTP services
 AddPackage geckodriver # Proxy for using W3C WebDriver-compatible clients to interact with Gecko-based browsers.
+
+
+# Installed temporarily because the Mason version was late in comparison with 
+# the Arch dependencies versions
+AddPackage lua-language-server # Lua Language Server coded by Lua
 
 
 # These are the configurations recipes from the nvim-lspconfig plugin which I downloaded locally and edited 

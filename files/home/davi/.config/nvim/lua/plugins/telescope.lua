@@ -10,6 +10,14 @@ return {
             extensions = {
                 fzf = {},
             },
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<esc>"] = require("telescope.actions").close
+                    },
+                },
+            }
+
         })
 
         require("telescope").load_extension("fzf")
@@ -121,7 +129,7 @@ return {
             "n",
             "<leader>fu",
             smart_definition,
-            { desc = "Telescope [f]ind usages" }
+            { desc = "Telescope [f]ind [u]sages" }
         )
     end,
 }

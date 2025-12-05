@@ -5,11 +5,15 @@ vim.opt.wrap = false          -- disable line wrapping; long lines will scroll h
 vim.opt.scrolloff = 9         -- minimum screen lines to keep above and below cursor
 vim.opt.sidescrolloff = 30    -- minimum screen columns to keep left and right of cursor
 
+--------------------------------------------------------------------------------
+
 -- Spell
 vim.opt.spell = true
 vim.opt.spelllang = { "en", "pt" }
 vim.opt.spelloptions = { "camel" }
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+
+--------------------------------------------------------------------------------
 
 -- Indentation
 vim.opt.tabstop = 4        -- number of spaces a <Tab> in file counts for
@@ -19,10 +23,14 @@ vim.opt.softtabstop = 4    -- number of spaces a Tab counts for while editing
 vim.opt.autoindent = true  -- copy indent from current line when starting a new line
 vim.opt.smartindent = true -- enable smart auto-indenting for C-like languages
 
+--------------------------------------------------------------------------------
+
 -- Search settings
-vim.opt.ignorecase = true    -- ignore case in search patterns
-vim.opt.smartcase = true     -- if ignore case in search patterns, be case-sensitive if the search contains uppercase letters
-vim.opt.inccommand = "split" -- shows partial off-screen results in a preview window for substitute commands
+vim.opt.ignorecase = true      -- ignore case in search patterns
+vim.opt.smartcase = true       -- if ignore case in search patterns, be case-sensitive if the search contains uppercase letters
+vim.opt.inccommand = "nosplit" -- shows partial off-screen results in a preview window for substitute commands
+
+--------------------------------------------------------------------------------
 
 -- Visual settings
 vim.cmd.colorscheme("catppuccin") -- Apply color scheme
@@ -60,7 +68,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
         vim.opt_local.cursorline = false
     end,
 })
-vim.opt.colorcolumn = "100" -- Highlight the 100th column
+vim.opt.colorcolumn = "80" -- Highlight the "Xth" column
 -- Highlight "confusing" characters
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
     group = vim.api.nvim_create_augroup("BadCharHighlight", { clear = true }),
@@ -92,6 +100,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
     end,
 })
 
+--------------------------------------------------------------------------------
+
 -- File handling
 vim.opt.swapfile = false -- don't create swapfiles for buffers
 vim.opt.undofile = true  -- persist undo history to disk
@@ -109,18 +119,32 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+--------------------------------------------------------------------------------
+
 -- Behavior settings
 vim.opt.iskeyword:append("-")     -- treat words with '-' as single word for motions
 vim.opt.mouse = "a"               -- enable mouse support in all modes
 vim.opt.clipboard = "unnamedplus" -- use the system clipboard for yank/copy/paste operations
+vim.opt.textwidth = 80            -- automatically break a line before it gets too long
+
+--------------------------------------------------------------------------------
 
 -- Split behavior
 vim.opt.splitright = true -- put new vertical splits to the right
 vim.opt.splitbelow = true -- put new horizontal splits below
+
+--------------------------------------------------------------------------------
 
 -- netrw options
 vim.g.netrw_banner = 0                                   -- disable the netrw banner
 vim.g.netrw_browsex_viewer = "xdg-open"                  -- external program to open files
 vim.g.netrw_hide = 0                                     -- show hidden files (0 = don't hide dotfiles)
 vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro" -- Show line numbers
--- vim.g.netrw_winsize = 25                                 -- Open Netrw splits at 25% width/height
+
+--------------------------------------------------------------------------------
+
+-- Global variables for Obsidian/Markdown workflow
+-- We use 'vim.g' (Global) so they can be accessed anywhere
+vim.g.obsidian_vault_root = "/home/davi/Documents/ObsidianAllInVault/" -- Absolute and does not expand
+vim.g.obsidian_vault_journal_directory = "11 Diário/11.01 Diário/"     -- Relative to the vault path
+vim.g.template_dir = vim.fn.stdpath("config") .. "/templates/"

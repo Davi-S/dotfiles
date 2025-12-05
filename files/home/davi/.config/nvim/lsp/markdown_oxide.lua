@@ -24,15 +24,4 @@ return {
     filetypes = { "markdown" },
     cmd = { "markdown-oxide" },
     capabilities = capabilities,
-    -- on_attach = function(client, bufnr)
-    --     -- Create the dynamic 'Daily' command
-    --     -- Disabled because I could not get it to use PT_BR data names.
-    --     -- English dates do not fit my workflow
-    --     -- vim.api.nvim_buf_create_user_command(bufnr, "Daily", function(args)
-    --     --     client:exec_cmd({
-    --     --         command = "jump",
-    --     --         arguments = { args.args },
-    --     --     }, { bufnr = bufnr })
-    --     -- end, { desc = "Open daily note", nargs = "*" })
-    -- end,
 }

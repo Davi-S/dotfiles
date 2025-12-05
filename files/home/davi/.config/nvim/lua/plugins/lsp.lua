@@ -28,7 +28,7 @@ return {
 
         -- Enable the following language servers
         local servers_list = {
-            "lua_ls",         -- Lua
+            -- "lua_ls",         -- Lua
             "basedpyright",   -- Python
             "ruff",           -- Python
             "bashls",         -- Bash
@@ -62,6 +62,10 @@ return {
             -- please. I prefer to have the settings locally instead of a plugin dependency.
             vim.lsp.enable(server_name)
         end
+        
+        -- Since we removed it from the list above, we enable it separately here.
+        -- This will pick up the /usr/bin/lua-language-server we installed with pacman.
+        vim.lsp.enable("lua_ls")
 
         -- Create a autocommand for when a lsp server attaches a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
