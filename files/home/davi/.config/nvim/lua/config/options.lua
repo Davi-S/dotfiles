@@ -142,9 +142,3 @@ vim.g.netrw_hide = 0                                     -- show hidden files (0
 vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro" -- Show line numbers
 
 --------------------------------------------------------------------------------
-
--- Global variables for Obsidian/Markdown workflow
--- We use 'vim.g' (Global) so they can be accessed anywhere
-vim.g.obsidian_vault_root = "/home/davi/Documents/ObsidianAllInVault/" -- Absolute and does not expand
-vim.g.obsidian_vault_journal_directory = "11 Diário/11.01 Diário/"     -- Relative to the vault path
-vim.g.template_dir = vim.fn.stdpath("config") .. "/templates/"

@@ -65,8 +65,8 @@ end, { expr = true, remap = false, desc = "Set enter to *not* accept the complet
 ----------------------------------------------------------------------------------------------------
 
 -- Insert a blank line without entering insert mode
-vim.keymap.set("n", "<Leader>o", "o<Esc>", { desc = "Insert blank line below" })
-vim.keymap.set("n", "<Leader>O", "O<Esc>", { desc = "Insert blank line above" })
+-- vim.keymap.set("n", "<Leader>o", "o<Esc>", { desc = "Insert blank line below" })
+-- vim.keymap.set("n", "<Leader>O", "O<Esc>", { desc = "Insert blank line above" })
 
 ----------------------------------------------------------------------------------------------------
 
@@ -114,4 +114,5 @@ vim.keymap.set("n", "<leader>nc", function()
 end, { desc = "Jump to [n]ext [c]onfusing char" })
 
 ----------------------------------------------------------------------------------------------------
+
 

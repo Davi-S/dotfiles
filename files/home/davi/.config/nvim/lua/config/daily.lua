@@ -1,20 +1,9 @@
 local function create_daily_command()
     vim.api.nvim_create_user_command('Daily', function(args)
-        -- Validation of global vars
-        if not vim.g.obsidian_vault_root or not vim.g.obsidian_vault_journal_directory then
-            vim.notify("Error: Global variables not set in options.lua", vim.log.levels.ERROR)
-            return
-        end
-
         -- Validation of input
         local input = args.args
         local offset = 0
         if input ~= "" then
-            -- Pattern breakdown:
-            -- ^      : Start of string
-            -- [+-]   : Must be a plus OR minus
-            -- %d+    : Followed by one or more digits
-            -- $      : End of string
             if not input:match("^[+-]%d+$") then
                 vim.notify(
                     "Invalid argument: '" ..
@@ -22,8 +11,6 @@ local function create_daily_command()
                     vim.log.levels.ERROR)
                 return
             end
-
-            -- It is safe to convert here
             offset = tonumber(input) or 0
         end
 
@@ -47,9 +34,9 @@ local function create_daily_command()
             d.year, months[d.month], d.day, weekdays[d.wday]
         )
 
-        -- Build paths
-        local root = vim.g.obsidian_vault_root
-        local journal_dir = vim.g.obsidian_vault_journal_directory
+        -- Paths
+        local root = "/home/davi/Documents/ObsidianAllInVault/"
+        local journal_dir = "11 Diário/11.01 Diário/"
         local full_dir = string.format("%s/%s", root, journal_dir)
         local filepath = string.format("%s/%s.md", full_dir, date_string)
 
@@ -65,6 +52,26 @@ local function create_daily_command()
 
         -- Open file
         vim.cmd("edit " .. vim.fn.fnameescape(filepath))
+
+        -- ---------------------------------------------------------------------
+        -- NEW: Check if file is empty and insert template
+        -- ---------------------------------------------------------------------
+        local line_count = vim.api.nvim_buf_line_count(0)
+        local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
+
+        -- If buffer has 1 line and it is empty, it's a new file
+        if line_count == 1 and first_line == "" then
+            -- Safely try to run the InsertTemplate command
+            -- Ensure the filename here matches EXACTLY what is in your templates folder
+            -- (e.g. "Nota diária.md" or "nota_diaria.md")
+            local success, _ = pcall(vim.cmd, "InsertTemplate nota_diaria.md")
+
+            if not success then
+                vim.notify(
+                    "Daily Note created, but failed to insert 'nota_diaria.md'. Check if the template file exists.",
+                    vim.log.levels.WARN)
+            end
+        end
     end, { nargs = "?", desc = "Open Daily Note" })
 end
 

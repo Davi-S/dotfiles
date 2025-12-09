@@ -1,4 +1,6 @@
 require("config.lazy")
 require("config.keymaps")
 require("config.options")
-require("obsidian.daily").setup()
+require("config.daily").setup()
+require("config.templates").setup()
+

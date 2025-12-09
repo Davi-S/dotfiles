@@ -42,6 +42,7 @@ return {
         local tools_list = {
             "shfmt",      -- Bash
             "shellcheck", -- Bash
+            "prettier",   -- Markdown
         }
 
         -- Combine our server list and tool list for mason-tool-installer
@@ -62,7 +63,7 @@ return {
             -- please. I prefer to have the settings locally instead of a plugin dependency.
             vim.lsp.enable(server_name)
         end
-        
+
         -- Since we removed it from the list above, we enable it separately here.
         -- This will pick up the /usr/bin/lua-language-server we installed with pacman.
         vim.lsp.enable("lua_ls")
@@ -89,6 +90,37 @@ return {
                 if client:supports_method("textDocument/formatting") then
                     vim.keymap.set("n", "<leader>cf", function()
                         vim.lsp.buf.format({ async = true })
+                    end, { buffer = args.buf, desc = "[c]ode [f]ormat" })
+                end
+                -- Format for markdown
+                if vim.bo.filetype == "markdown" then
+                    -- Define a custom format function that uses Prettier for Markdown
+                    -- and falls back to LSP for everything else.
+                    vim.keymap.set("n", "<leader>cf", function()
+                        local filepath = vim.api.nvim_buf_get_name(0)
+                        -- Construct command: prettier --stdin-filepath <path>
+                        -- We use stdin so it works even if you haven't saved the file yet
+                        local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(filepath)
+
+                        -- Get current buffer content
+                        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+                        local input = table.concat(lines, "\n")
+
+                        -- Run Prettier
+                        local output = vim.fn.system(cmd, input)
+
+                        -- Check for success (0 = success)
+                        if vim.v.shell_error == 0 then
+                            -- Split output into lines and replace buffer content
+                            local new_lines = vim.split(output, "\n")
+                            -- Remove the extra trailing newline Prettier often adds
+                            if new_lines[#new_lines] == "" then table.remove(new_lines) end
+
+                            vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
+                            vim.notify("Formatted with Prettier", vim.log.levels.INFO)
+                        else
+                            vim.notify("Prettier Error:\n" .. output, vim.log.levels.ERROR)
+                        end
                     end, { buffer = args.buf, desc = "[c]ode [f]ormat" })
                 end
 

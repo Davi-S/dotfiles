@@ -9,20 +9,23 @@ AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and 
 CopyFile /home/davi/.config/nvim/after/ftplugin/markdown.lua '' davi davi
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
+CopyFile /home/davi/.config/nvim/lua/config/daily.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/obsidian/daily.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/config/templates.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins/markdown.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/outline.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/yazi.lua '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi
 CopyFile /home/davi/.config/nvim/spell/pt.utf-8.spl '' davi davi
+CopyFile /home/davi/.config/nvim/templates/nota_diaria.md '' davi davi
+CopyFile /home/davi/.config/nvim/templates/nova_nota.md '' davi davi
 SetFileProperty /home/davi/.config/nvim group davi
 SetFileProperty /home/davi/.config/nvim owner davi
 SetFileProperty /home/davi/.config/nvim/after group davi
@@ -33,12 +36,12 @@ SetFileProperty /home/davi/.config/nvim/lua group davi
 SetFileProperty /home/davi/.config/nvim/lua owner davi
 SetFileProperty /home/davi/.config/nvim/lua/config group davi
 SetFileProperty /home/davi/.config/nvim/lua/config owner davi
-SetFileProperty /home/davi/.config/nvim/lua/obsidian group davi
-SetFileProperty /home/davi/.config/nvim/lua/obsidian owner davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins group davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins owner davi
 SetFileProperty /home/davi/.config/nvim/spell group davi
 SetFileProperty /home/davi/.config/nvim/spell owner davi
+SetFileProperty /home/davi/.config/nvim/templates group davi
+SetFileProperty /home/davi/.config/nvim/templates owner davi
 
 
 # Python package managers 
