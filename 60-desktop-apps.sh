@@ -49,6 +49,15 @@ SetFileProperty /home/davi/.config/easyeffects group davi
 SetFileProperty /home/davi/.config/easyeffects owner davi
 SetFileProperty /home/davi/.config/easyeffects/db group davi
 SetFileProperty /home/davi/.config/easyeffects/db owner davi
+CopyFile /home/davi/.config/easyeffects/db/deepfilternetrc 600 davi davi
+CopyFile /home/davi/.config/easyeffects/db/echoCancellerrc 600 davi davi
+CopyFile /home/davi/.config/easyeffects/db/filterrc 600 davi davi
+CopyFile /home/davi/.config/easyeffects/db/gaterc 600 davi davi
+CopyFile /home/davi/.config/easyeffects/db/rnnoiserc 600 davi davi
+CopyFile /home/davi/.config/easyeffects/db/speexrc 600 davi davi
+CopyFile /home/davi/.config/easyeffectsrc 600 davi davi
+CopyFile /home/davi/.config/easyeffects/db/easyeffectsrc 600 davi davi
+
 
 # This is a systemd service to start the easyeffects interfaceless.
 # The link to enable it is in the systemd aconfmgr config file
@@ -102,6 +111,12 @@ AddPackage poppler # PDF rendering library based on xpdf 3.0
 # this by setting a custom config directory with many dedicated scripts and
 # configs. Also, I'm setting a aliases and custom wayland class name for it
 AddPackage mpv # a free, open source, and cross-platform media player
+CopyFile /home/davi/.config/mpv/fonts/Material-Design-Iconic-Font.ttf '' davi davi
+CopyFile /home/davi/.config/mpv/mpv.conf '' davi davi
+CopyFile /home/davi/.config/mpv/scripts-opts/thumbfast.conf '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/autosub.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/modernx.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/thumbfast.lua '' davi davi
 CopyFile /home/davi/.config/mvi/README.md '' davi davi
 CopyFile /home/davi/.config/mvi/UNLICENSE '' davi davi
 CopyFile /home/davi/.config/mvi/input.conf '' davi davi
@@ -122,9 +137,21 @@ CopyFile /home/davi/.config/mvi/scripts/image-positioning.lua '' davi davi
 CopyFile /home/davi/.config/mvi/scripts/minimap.lua '' davi davi
 CopyFile /home/davi/.config/mvi/scripts/ruler.lua '' davi davi
 CopyFile /home/davi/.config/mvi/scripts/status-line.lua '' davi davi
+SetFileProperty /home/davi/.config/mpv group davi
+SetFileProperty /home/davi/.config/mpv owner davi
+SetFileProperty /home/davi/.config/mpv/fonts group davi
+SetFileProperty /home/davi/.config/mpv/fonts owner davi
+SetFileProperty /home/davi/.config/mpv/scripts group davi
+SetFileProperty /home/davi/.config/mpv/scripts owner davi
+SetFileProperty /home/davi/.config/mpv/scripts-opts group davi
+SetFileProperty /home/davi/.config/mpv/scripts-opts owner davi
+SetFileProperty /home/davi/.config/mvi group davi
+SetFileProperty /home/davi/.config/mvi owner davi
 SetFileProperty /home/davi/.config/mvi/script-opts group davi
 SetFileProperty /home/davi/.config/mvi/script-opts owner davi
 SetFileProperty /home/davi/.config/mvi/scripts group davi
 SetFileProperty /home/davi/.config/mvi/scripts owner davi
-SetFileProperty /home/davi/.config/mvi group davi
-SetFileProperty /home/davi/.config/mvi owner davi
+
+
+# For editing images
+AddPackage gimp # GNU Image Manipulation Program

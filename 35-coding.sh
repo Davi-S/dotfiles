@@ -58,6 +58,11 @@ SetFileProperty /home/davi/.local/bin group davi
 SetFileProperty /home/davi/.local/bin owner davi
 
 
+# subliminal installed with pipx used for automatically downloading subtitles
+# for mpv
+CreateLink /home/davi/.local/bin/subliminal /home/davi/.local/share/pipx/venvs/subliminal/bin/subliminal davi davi
+
+
 # Support for latex in markdown renders extensions of neovim
 AddPackage --foreign libtexprintf # Formatted Output with tex-like syntax support
 
