@@ -34,3 +34,7 @@ function y() {
 export EDITOR='nvim'
 # Visual is for historical reasons. Good to have.
 export VISUAL='nvim'
+
+# Use mpv as an image viewer (https://github.com/occivink/mpv-image-viewer)
+# Also set class so it is pickable with `hyprctl clients`
+alias mvi='mpv --config-dir=$HOME/.config/mvi --wayland-app-id=mvi'

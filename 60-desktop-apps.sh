@@ -96,3 +96,35 @@ SetFileProperty /home/davi/.config/yazi group davi
 SetFileProperty /home/davi/.config/yazi owner davi
 # Dependency for PDF preview on yazi
 AddPackage poppler # PDF rendering library based on xpdf 3.0
+
+
+# This is a video player, but I'm also using it as an image player. I'm doing
+# this by setting a custom config directory with many dedicated scripts and
+# configs. Also, I'm setting a aliases and custom wayland class name for it
+AddPackage mpv # a free, open source, and cross-platform media player
+CopyFile /home/davi/.config/mvi/README.md '' davi davi
+CopyFile /home/davi/.config/mvi/UNLICENSE '' davi davi
+CopyFile /home/davi/.config/mvi/input.conf '' davi davi
+CopyFile /home/davi/.config/mvi/mpv.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/crop.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/delete_file.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/detect_image.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/image_positioning.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/minimap.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/ruler.conf '' davi davi
+CopyFile /home/davi/.config/mvi/script-opts/status_line.conf '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/crop.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/delete_file.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/detect-image.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/equalizer.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/freeze-window.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/image-positioning.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/minimap.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/ruler.lua '' davi davi
+CopyFile /home/davi/.config/mvi/scripts/status-line.lua '' davi davi
+SetFileProperty /home/davi/.config/mvi/script-opts group davi
+SetFileProperty /home/davi/.config/mvi/script-opts owner davi
+SetFileProperty /home/davi/.config/mvi/scripts group davi
+SetFileProperty /home/davi/.config/mvi/scripts owner davi
+SetFileProperty /home/davi/.config/mvi group davi
+SetFileProperty /home/davi/.config/mvi owner davi
