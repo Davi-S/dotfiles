@@ -9,11 +9,12 @@ AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and 
 CopyFile /home/davi/.config/nvim/after/ftplugin/markdown.lua '' davi davi
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
-CopyFile /home/davi/.config/nvim/lua/config/daily.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/config/templates.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/custom/daily.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/custom/telescope_helpers.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/custom/templates.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
@@ -36,13 +37,14 @@ SetFileProperty /home/davi/.config/nvim/lua group davi
 SetFileProperty /home/davi/.config/nvim/lua owner davi
 SetFileProperty /home/davi/.config/nvim/lua/config group davi
 SetFileProperty /home/davi/.config/nvim/lua/config owner davi
+SetFileProperty /home/davi/.config/nvim/lua/custom group davi
+SetFileProperty /home/davi/.config/nvim/lua/custom owner davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins group davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins owner davi
 SetFileProperty /home/davi/.config/nvim/spell group davi
 SetFileProperty /home/davi/.config/nvim/spell owner davi
 SetFileProperty /home/davi/.config/nvim/templates group davi
 SetFileProperty /home/davi/.config/nvim/templates owner davi
-
 
 # Python package managers 
 AddPackage uv # An extremely fast Python package installer and resolver written in Rust

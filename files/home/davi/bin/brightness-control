@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# Brightness Control
+# ==================
+# A utility script to manage screen brightness using brightnessctl.
+# It forces "clean" percentage steps to avoid rounding errors (e.g., 31%).
+#
+# Usage:
+#     $0 <action>
+#
+# Actions:
+#     +<amount>   - Increase brightness by amount%
+#     -<amount>   - Decrease brightness by amount%
+#     <amount>    - Set brightness to absolute percentage
+#     status      - Show current brightness notification
+#
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+NOTI_TIMEOUT=1000
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+# Get current brightness percentage (rounded to nearest integer)
+get_brightness_pct() {
+    local current=$(brightnessctl g)
+    local max=$(brightnessctl m)
+    # Calculate percentage: (current / max) * 100
+    awk -v cur="$current" -v max="$max" 'BEGIN { printf "%.0f", (cur / max) * 100 }'
+}
+
+# Send notification
+notify_user() {
+    local percentage=$(get_brightness_pct)
+    
+    notify-send \
+        -h string:x-canonical-private-synchronous:brightness_control \
+        -h int:value:"$percentage" \
+        -t "$NOTI_TIMEOUT" \
+        "Brightness" "${percentage}%"
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+ARG="$1"
+
+case "$ARG" in
+    status)
+        notify_user
+        ;;
+    *)
+        # Get current percentage once
+        CURRENT_PCT=$(get_brightness_pct)
+
+        # Check for relative increase
+        if [[ "$ARG" =~ ^\+([0-9]+)$ ]]; then
+            AMOUNT="${BASH_REMATCH[1]}"
+            # Calculate target in pure percentage math
+            TARGET=$(( CURRENT_PCT + AMOUNT ))
+
+        # Check for relative decrease
+        elif [[ "$ARG" =~ ^-([0-9]+)$ ]]; then
+            AMOUNT="${BASH_REMATCH[1]}"
+            TARGET=$(( CURRENT_PCT - AMOUNT ))
+
+        # Check for absolute set
+        elif [[ "$ARG" =~ ^([0-9]+)$ ]]; then
+            TARGET="${BASH_REMATCH[1]}"
+
+        else
+            echo "Error: Invalid argument '$ARG'"
+            exit 1
+        fi
+
+        # CLAMPING: Ensure target is between 0 and 100
+        # This prevents errors if you go above 100% or below 0%
+        if (( TARGET > 100 )); then TARGET=100; fi
+        if (( TARGET < 0 )); then TARGET=0; fi
+
+        # Apply the exact percentage
+        brightnessctl set "${TARGET}%" -q
+        notify_user
+        ;;
+esac

@@ -125,6 +125,7 @@ IgnorePath "/home/davi/Downloads/*"
 IgnorePath "/home/davi/Movies"
 IgnorePath "/home/davi/Movies/*"
 IgnorePath "/home/davi/Pictures/*"
+IgnorePath "/home/davi/.config/nvim/.git/*"
 
 # Root
 # ====

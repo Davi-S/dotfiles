@@ -28,6 +28,10 @@ SetFileProperty /home/davi/.config/kitty owner davi
 
 AddPackage swaync # A simple GTK based notification daemon for Sway
 # TODO: replaced with the notification daemon from AGS when possible
+CopyFile /home/davi/.config/swaync/config.json '' davi davi
+CopyFile /home/davi/.config/swaync/style.css '' davi davi
+SetFileProperty /home/davi/.config/swaync group davi
+SetFileProperty /home/davi/.config/swaync owner davi
 
 
 # For audio and video

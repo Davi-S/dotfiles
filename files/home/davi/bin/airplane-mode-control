@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+# Airplane Mode Control
+# =====================
+# A utility script to toggle RFKill (Airplane Mode) status.
+# It checks the soft-block status of all radio devices to determine
+# if Airplane Mode is currently active.
+#
+# Usage:
+#     $0 <action>
+#
+# Actions:
+#     toggle      - Toggle Airplane Mode
+#     on          - Enable Airplane Mode (Block all radios)
+#     off         - Disable Airplane Mode (Unblock all radios)
+#     status      - Show current status notification
+#
+# Examples:
+#     $0 toggle
+#     $0 on
+#
+# Notes:
+#     - Requires `rfkill` and `notify-send`
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+NOTIFICATION_TIMEOUT=1000
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+# Check if Airplane Mode is currently active
+# Returns 0 (True) if ALL radios are blocked (Airplane Mode ON)
+# Returns 1 (False) if ANY radio is active (Airplane Mode OFF)
+is_airplane_mode_on() {
+    # Check all soft-block files in sysfs
+    # If we find a '0' (unblocked), then Airplane Mode is OFF
+    for f in /sys/class/rfkill/rfkill*/soft; do
+        if [ "$(cat "$f")" -eq 0 ]; then
+            return 1 # False
+        fi
+    done
+    return 0 # True
+}
+
+# Send notification
+notify_user() {
+    if is_airplane_mode_on; then
+        STATUS_TEXT="Enabled"
+        BODY_TEXT="All radios disabled"
+    else
+        STATUS_TEXT="Disabled"
+        BODY_TEXT="Radios active"
+    fi
+    
+    # Send notification using SwayNC hints for stacking
+    notify-send \
+        -h string:x-canonical-private-synchronous:airplane_mode \
+        -t "$NOTIFICATION_TIMEOUT" \
+        "Airplane Mode: $STATUS_TEXT" "$BODY_TEXT"
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+ARG="$1"
+
+case "$ARG" in
+    status)
+        notify_user
+        ;;
+    on)
+        rfkill block all
+        notify_user
+        ;;
+    off)
+        rfkill unblock all
+        notify_user
+        ;;
+    toggle)
+        if is_airplane_mode_on; then
+            # Currently ON, so turn it OFF
+            rfkill unblock all
+        else
+            # Currently OFF, so turn it ON
+            rfkill block all
+        fi
+        notify_user
+        ;;
+    *)
+        echo "Error: Invalid argument '$ARG'"
+        echo "Try '$0 --help' for usage."
+        exit 1
+        ;;
+esac

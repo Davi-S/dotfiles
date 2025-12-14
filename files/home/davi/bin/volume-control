@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+# Volume Control
+# ==============
+# A utility script to manage audio volume and mute status using wpctl.
+# It handles volume limits, relative percentage calculations, and 
+# sends notifications with progress bars for SwayNC.
+#
+# Usage:
+#     $0 <action>
+#
+# Actions:
+#     +<amount>   - Increase volume by amount% (e.g., +5)
+#     -<amount>   - Decrease volume by amount% (e.g., -5)
+#     <amount>    - Set volume to absolute percentage (e.g., 50)
+#     toggle      - Toggle mute status
+#     mute        - Force mute
+#     unmute      - Force unmute
+#     status      - Show current volume notification
+#
+# Examples:
+#     $0 +5       # Increase by 5%
+#     $0 50       # Set volume to 50% (relative to Max limit)
+#     $0 unmute   # Force unmute
+#
+# Notes:
+#     - Requires `wpctl` and `notify-send` (with SwayNC support)
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+# Source helper file
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for the help flag
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+# The maximum volume limit (1.0 = 100%, 1.5 = 150%)
+MAX_VOLUME=1.5
+
+# Notification timeout in milliseconds
+NOTI_TIMEOUT=1000
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+# Get current volume and mute status from wpctl
+# Returns: "Volume: 0.75 [MUTED]" or "Volume: 0.75"
+get_wpctl_info() {
+    wpctl get-volume @DEFAULT_AUDIO_SINK@
+}
+
+# Calculate relative percentage and send notification
+notify_user() {
+    local vol_info=$(get_wpctl_info)
+    
+    # Extract volume float 
+    local current_vol=$(echo "$vol_info" | awk '{print $2}')
+    
+    # Check for mute status
+    local is_muted=false
+    if [[ "$vol_info" == *"[MUTED]"* ]]; then
+        is_muted=true
+    fi
+
+    # Calculate relative percentage based on MAX_VOLUME
+    # Formula: (current_vol / max_volume) * 100
+    local percentage=$(awk -v cur="$current_vol" -v max="$MAX_VOLUME" 'BEGIN { printf "%.0f", (cur / max) * 100 }')
+
+    # Prepare notification text
+    local text="$percentage%"
+    if [ "$is_muted" = true ]; then
+        text="$percentage% (Muted)"
+    fi
+
+    # Send notification using SwayNC hints
+    notify-send \
+        -h string:x-canonical-private-synchronous:volume_control \
+        -h int:value:"$percentage" \
+        -t "$NOTI_TIMEOUT" \
+        "Volume" "$text"
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+# $1 is the argument passed to the script
+ARG="$1"
+
+case "$ARG" in
+    toggle)
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        notify_user
+        ;;
+    mute)
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ 1
+        notify_user
+        ;;
+    unmute)
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+        notify_user
+        ;;
+    status)
+        notify_user
+        ;;
+    *)
+        # Check for relative increase (starts with +)
+        if [[ "$ARG" =~ ^\+([0-9]+)$ ]]; then
+            AMOUNT="${BASH_REMATCH[1]}"
+            # Convert user step (5%) to wpctl float step (0.075) based on MAX_VOLUME
+            STEP_FLOAT=$(awk -v step="$AMOUNT" -v max="$MAX_VOLUME" 'BEGIN { print (step/100) * max }')
+            wpctl set-volume -l "$MAX_VOLUME" @DEFAULT_AUDIO_SINK@ "${STEP_FLOAT}+"
+            notify_user
+
+        # Check for relative decrease (starts with -)
+        elif [[ "$ARG" =~ ^-([0-9]+)$ ]]; then
+            AMOUNT="${BASH_REMATCH[1]}"
+            STEP_FLOAT=$(awk -v step="$AMOUNT" -v max="$MAX_VOLUME" 'BEGIN { print (step/100) * max }')
+            wpctl set-volume -l "$MAX_VOLUME" @DEFAULT_AUDIO_SINK@ "${STEP_FLOAT}-"
+            notify_user
+
+        # Check for absolute set (pure number)
+        elif [[ "$ARG" =~ ^([0-9]+)$ ]]; then
+            TARGET_VOL=$(awk -v val="$ARG" -v max="$MAX_VOLUME" 'BEGIN { print (val / 100) * max }')
+            wpctl set-volume -l "$MAX_VOLUME" @DEFAULT_AUDIO_SINK@ "$TARGET_VOL"
+            notify_user
+
+        else
+            echo "Error: Invalid argument '$ARG'"
+            echo "Try '$0 --help' for usage."
+            exit 1
+        fi
+        ;;
+esac
