@@ -1,0 +1,144 @@
+:root {
+  /* ==================== */
+  /* HIGH CONTRAST PALETTE */
+  /* ==================== */
+  --color-base: #000000;
+  --color-text: #deddda;
+  --color-mauve: #c391ff;
+  --color-red: #ff7098;
+  --color-blue: #75a9fe;
+
+  /* ==================== */
+  /* CONFIGURATION */
+  /* ==================== */
+  --noti-bg: #000000;
+  --noti-border-color: #deddda;
+  --noti-border-width: 1px;
+}
+
+/* ==================== */
+/* GLOBAL RESET & FONT  */
+/* ==================== */
+* {
+  font-family: "Atkinson Mono NF", monospace;
+  border-radius: 0px; 
+}
+
+/* ==================== */
+/* NOTIFICATION SPACING */
+/* ==================== */
+.notification-row {
+  outline: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 2px 10px;
+}
+
+.notification-row .notification-background .notification {
+  background-color: var(--noti-bg);
+  border: var(--noti-border-width) solid var(--noti-border-color);
+  box-shadow: none;
+  padding: 0;
+  margin: 0; 
+}
+
+.notification-content {
+  background: transparent;
+  padding: 8px 12px; 
+}
+
+/* ==================== */
+/* TEXT STYLING */
+/* ==================== */
+
+/* Title: Uppercase, Bold, Bigger */
+.summary {
+  color: var(--color-text);
+  font-weight: 800;       /* Bold */
+  font-size: 16px;        /* Slightly bigger */
+  text-transform: uppercase; /* ALL CAPS */
+}
+
+/* Body: Terminal Weight (Normal) */
+.body {
+  color: var(--color-text);
+  font-weight: 550;       /* Normal terminal weight */
+  font-size: 15px;        /* Standard terminal size */
+}
+
+/* ==================== */
+/* CLOSE BUTTON */
+/* ==================== */
+.close-button {
+  background: transparent;
+  color: var(--color-text);
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+  min-width: 24px;
+  min-height: 24px;
+  margin-top: 4px;
+  margin-right: 4px;
+  font-size: 14px;
+  transition: all 0.1s ease-in-out;
+}
+
+.close-button:hover {
+  background-color: var(--color-red);
+  color: var(--color-base);
+}
+
+/* ==================== */
+/* URGENCY BORDERS */
+/* ==================== */
+.notification-row .notification-background .notification.critical {
+  border-color: var(--color-red);
+}
+
+.notification-row .notification-background .notification.low,
+.notification-row .notification-background .notification.normal {
+  border-color: var(--noti-border-color);
+}
+
+/* ==================== */
+/* ACTION BUTTONS */
+/* ==================== */
+.notification-action button {
+  margin: 4px;
+  padding: 4px 8px;
+  background-color: var(--noti-bg); 
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  font-weight: bold;
+  box-shadow: none;
+  transition: all 0.1s ease-in-out;
+}
+
+.notification-action button:hover {
+  background-color: var(--color-blue);
+  color: var(--color-base); 
+  border-color: var(--color-blue);
+}
+
+/* Progress Bars */
+progressbar progress {
+  background-color: var(--color-blue);
+}
+
+progressbar trough {
+  background-color: var(--noti-border-color);
+}
+
+/* ==================== */
+/* CONTROL CENTER */
+/* ==================== */
+.control-center {
+  background-color: var(--color-base);
+  border: var(--noti-border-width) solid var(--noti-border-color);
+}
+
+.widget-dnd { margin: 8px; }
+.widget-dnd > switch { border-radius: 0px; background: #333; }
+.widget-dnd > switch:checked { background: var(--color-blue); }
+.widget-dnd > switch slider { border-radius: 0px; background: var(--color-text); }
