@@ -1,30 +1,38 @@
 ## Davi-S's Dotfiles – Arch Linux System State with aconfmgr
 
-Welcome! This repository contains my personal system configuration for Arch Linux, which is managed entirely using [`aconfmgr`](https://github.com/CyberShadow/aconfmgr). It's designed so that I (or you!) can easily restore, review, or evolve my setup even after a long break.
+Welcome! This repository contains my personal system configuration for Arch
+Linux, which is managed entirely using
+[`aconfmgr`](https://github.com/CyberShadow/aconfmgr). It's designed so that I
+(or you!) can easily restore, review, or evolve my setup even after a long
+break.
 
 ### What is This?
 
-- Purpose: Track all essential machine customizations (dotfiles, system tweaks, key applications, services, and more) in a reproducible, versioned way.
-- Why use `aconfmgr`? It automates system state, making it easy to:
-  - Reinstall or migrate my
+- This track all essential machine customizations (dotfiles, system tweaks, key
+  applications, services, and more) in a reproducible, versioned way.
+- `aconfmgr` automates system state, making it easy to reinstall and manage
+  configuration 
 
 ### How My Setup is Organized
 
 - Top-level numbered `.sh` files:
-  These are aconfmgr configuration scripts. Each file targets a specific category or setup phase.
+  These are aconfmgr configuration scripts. Each file targets a specific
+  category or setup phase.
   Example:
-    - `10-ignore.sh`: What to skip or ignore in tracking.
+    - `00-ignore.sh`: What to skip or ignore in tracking.
     - `20-base.sh`: Core system packages and settings.
     - `25-fonts.sh`, `35-coding.sh`, etc.: Fonts, coding tools, and so on.
-- `files/` directory:
-  Mirrors your system root (`/`).
-  - Any file here represents a real file on my system that was changed after installation (unless explicitly ignored).
-  - Most files here are things I hand-edited or care about tracking.
+- `files/` directory that mirrors your system root (`/`).
+  - Any file here represents a real file on my system that was changed after
+    installation (unless explicitly ignored).
+  - Most files here are things I hand-edited or care about tracking. This means
+    no stuff automatically added by packages.
 
 ### How to Use or Restore This Setup
 
 1. Install `aconfmgr`
-   See [aconfmgr docs](https://github.com/CyberShadow/aconfmgr) for full instructions.
+   See [aconfmgr docs](https://github.com/CyberShadow/aconfmgr) for full
+   instructions.
 
 2. Clone this repo:
 
@@ -47,7 +55,8 @@ Welcome! This repository contains my personal system configuration for Arch Linu
    aconfmgr apply
    ```
 
-   Warning: This will overwrite tracked files and install/remove packages as configured!
+   Warning: This will overwrite tracked files and install/remove packages as
+   configured!
 
 ### Philosophy & Best Practices
 
@@ -64,4 +73,4 @@ Welcome! This repository contains my personal system configuration for Arch Linu
 
 ### License
 
-MIT – See [LICENSE](LICENSE).
+MIT - See [LICENSE](LICENSE).
