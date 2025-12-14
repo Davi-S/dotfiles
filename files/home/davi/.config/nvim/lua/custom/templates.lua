@@ -1,4 +1,3 @@
-local M = {}
 
 -- =============================================================================
 -- HELPERS
@@ -180,6 +179,8 @@ end
 local function set_keymaps()
     vim.keymap.set("n", "<leader>it", "<cmd>InsertTemplate<CR>", { desc = "[i]nsert [t]emplate" })
 end
+
+local M = {}
 
 function M.setup()
     create_template_command()

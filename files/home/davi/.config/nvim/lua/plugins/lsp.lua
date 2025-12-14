@@ -36,6 +36,7 @@ return {
             "dockerls",       -- Docker
             "clangd",         -- C
             "taplo",          -- TOML
+            "hyprls",         -- Hyprland config
         }
 
         -- Enable the following tools
