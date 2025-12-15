@@ -11,8 +11,6 @@
   /* ==================== */
   /* CONFIGURATION */
   /* ==================== */
-  --noti-bg: #000000;
-  --noti-border-color: #deddda;
   --noti-border-width: 1px;
 }
 
@@ -36,8 +34,8 @@
 }
 
 .notification-row .notification-background .notification {
-  background-color: var(--noti-bg);
-  border: var(--noti-border-width) solid var(--noti-border-color);
+  background-color: var(--color-base);
+  border: var(--noti-border-width) solid var(--color-text);
   box-shadow: none;
   padding: 0;
   margin: 0; 
@@ -98,7 +96,7 @@
 
 .notification-row .notification-background .notification.low,
 .notification-row .notification-background .notification.normal {
-  border-color: var(--noti-border-color);
+  border-color: var(--color-text);
 }
 
 /* ==================== */
@@ -107,7 +105,7 @@
 .notification-action button {
   margin: 4px;
   padding: 4px 8px;
-  background-color: var(--noti-bg); 
+  background-color: var(--color-base); 
   color: var(--color-text);
   border: 1px solid var(--color-text);
   font-weight: bold;
@@ -127,7 +125,7 @@ progressbar progress {
 }
 
 progressbar trough {
-  background-color: var(--noti-border-color);
+  background-color: var(--color-text);
 }
 
 /* ==================== */
@@ -135,7 +133,7 @@ progressbar trough {
 /* ==================== */
 .control-center {
   background-color: var(--color-base);
-  border: var(--noti-border-width) solid var(--noti-border-color);
+  border: var(--noti-border-width) solid var(--color-text);
 }
 
 .widget-dnd { margin: 8px; }
