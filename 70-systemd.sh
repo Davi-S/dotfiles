@@ -12,7 +12,10 @@
 
 CreateLink /home/davi/.config/systemd/user/default.target.wants/easyeffects.service /home/davi/.config/systemd/user/easyeffects.service davi davi
 CreateLink /home/davi/.config/systemd/user/default.target.wants/syncthing.service /usr/lib/systemd/user/syncthing.service davi davi
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/cliphist.service /home/davi/.config/systemd/user/cliphist.service davi davi
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hypridle.service /usr/lib/systemd/user/hypridle.service davi davi
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprpolkitagent.service /usr/lib/systemd/user/hyprpolkitagent.service davi davi
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/swaync.service /usr/lib/systemd/user/swaync.service davi davi
 CreateLink /home/davi/.config/systemd/user/timers.target.wants/auto-battery-notify.timer /home/davi/.config/systemd/user/auto-battery-notify.timer davi davi
 
 # Files and folders properties

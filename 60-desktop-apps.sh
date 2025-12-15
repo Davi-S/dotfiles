@@ -8,16 +8,12 @@
 AddPackage rofi # A window switcher, application launcher and dmenu replacement
 
 
-# For using rofi as a calculator
-AddPackage rofi-calc # Do calculations in rofi
-CopyFile /home/davi/.config/qalculate/qalc.cfg '' davi davi
-SetFileProperty /home/davi/.config/qalculate group davi
-SetFileProperty /home/davi/.config/qalculate owner davi
-
-
 # Scientific calculator with gui
 AddPackage qalculate-gtk # GTK frontend for libqalculate
+CopyFile /home/davi/.config/qalculate/qalc.cfg '' davi davi
 CopyFile /home/davi/.config/qalculate/qalculate-gtk.cfg '' davi davi
+SetFileProperty /home/davi/.config/qalculate group davi
+SetFileProperty /home/davi/.config/qalculate owner davi
 
 
 # For synching the Obsidian vault between the computer and the phone
@@ -112,9 +108,15 @@ AddPackage poppler # PDF rendering library based on xpdf 3.0
 # configs. Also, I'm setting a aliases and custom wayland class name for it
 AddPackage mpv # a free, open source, and cross-platform media player
 CopyFile /home/davi/.config/mpv/fonts/Material-Design-Iconic-Font.ttf '' davi davi
+CopyFile /home/davi/.config/mpv/input.conf '' davi davi
 CopyFile /home/davi/.config/mpv/mpv.conf '' davi davi
 CopyFile /home/davi/.config/mpv/scripts-opts/thumbfast.conf '' davi davi
 CopyFile /home/davi/.config/mpv/scripts/autosub.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/autosubsync/autosubsync.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/autosubsync/helpers.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/autosubsync/main.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/autosubsync/menu.lua '' davi davi
+CopyFile /home/davi/.config/mpv/scripts/autosubsync/subtitle.lua '' davi davi
 CopyFile /home/davi/.config/mpv/scripts/modernx.lua '' davi davi
 CopyFile /home/davi/.config/mpv/scripts/thumbfast.lua '' davi davi
 CopyFile /home/davi/.config/mvi/README.md '' davi davi
@@ -145,6 +147,8 @@ SetFileProperty /home/davi/.config/mpv/scripts group davi
 SetFileProperty /home/davi/.config/mpv/scripts owner davi
 SetFileProperty /home/davi/.config/mpv/scripts-opts group davi
 SetFileProperty /home/davi/.config/mpv/scripts-opts owner davi
+SetFileProperty /home/davi/.config/mpv/scripts/autosubsync group davi
+SetFileProperty /home/davi/.config/mpv/scripts/autosubsync owner davi
 SetFileProperty /home/davi/.config/mvi group davi
 SetFileProperty /home/davi/.config/mvi owner davi
 SetFileProperty /home/davi/.config/mvi/script-opts group davi

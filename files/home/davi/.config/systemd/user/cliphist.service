@@ -1,0 +1,19 @@
+[Unit]
+Description=Clipboard management (Cliphist)
+Documentation=man:wl-paste(1) man:cliphist(1)
+# This unit will stop if the graphical session ends
+PartOf=graphical-session.target
+# This unit will only start after the graphical session is ready
+After=graphical-session.target
+
+[Service]
+Type=simple
+# Standard text clipboard monitoring
+ExecStart=/usr/bin/wl-paste --watch cliphist store
+Restart=on-failure
+# Place it in the background slice for better resource management
+Slice=background-graphical.slice
+
+[Install]
+# Start this unit automatically when the graphical session starts
+WantedBy=graphical-session.target

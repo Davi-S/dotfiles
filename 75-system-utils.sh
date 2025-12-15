@@ -37,6 +37,8 @@ AddPackage --foreign aconfmgr-git # A configuration manager for Arch Linux
 
 # For saving and managing clipboard history
 AddPackage cliphist # wayland clipboard manager
+# The link to enable the service is in 70-systemd.sh file 
+CopyFile /home/davi/.config/systemd/user/cliphist.service '' davi davi
 
 
 # Good to have

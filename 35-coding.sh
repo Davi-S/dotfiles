@@ -56,6 +56,9 @@ AddPackage python-pipx # Install and Run Python Applications in Isolated Environ
 CreateLink /home/davi/.local/bin/latex2text /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latex2text davi davi
 CreateLink /home/davi/.local/bin/latexencode /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latexencode davi davi
 CreateLink /home/davi/.local/bin/latexwalker /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latexwalker davi davi
+CreateLink /home/davi/.local/bin/ffs /home/davi/.local/share/pipx/venvs/ffsubsync/bin/ffs davi davi
+CreateLink /home/davi/.local/bin/ffsubsync /home/davi/.local/share/pipx/venvs/ffsubsync/bin/ffsubsync davi davi
+CreateLink /home/davi/.local/bin/subsync /home/davi/.local/share/pipx/venvs/ffsubsync/bin/subsync davi davi
 SetFileProperty /home/davi/.local/bin group davi
 SetFileProperty /home/davi/.local/bin owner davi
 

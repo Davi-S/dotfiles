@@ -60,5 +60,7 @@ AddPackage uwsm # A standalone Wayland session manager
 # Bellow are symlinks to places where uwsm is used.
 CreateLink /home/davi/.config/uwsm/hyprland-autostart.sh /home/davi/.config/hypr/hyprland-autostart.sh davi davi
 CreateLink /home/davi/.config/uwsm/hyprland-keybindings.conf /home/davi/.config/hypr/hyprland-keybindings.conf davi davi
+CreateLink /home/davi/.config/uwsm/hyprland-uwsm.desktop /usr/share/wayland-sessions/hyprland-uwsm.desktop davi davi
+CreateLink /home/davi/.config/uwsm/sway-uwsm.desktop /usr/share/wayland-sessions/sway-uwsm.desktop davi davi
 SetFileProperty /home/davi/.config/uwsm group davi
 SetFileProperty /home/davi/.config/uwsm owner davi
