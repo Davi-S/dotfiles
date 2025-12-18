@@ -33,38 +33,10 @@ uwsm="uwsm app -t service --"
 # Web browser
 $uwsm zen-browser
 
+# Obsidian workflow using nvim
+# Set a custom class to be able to set window rules for it 
+$uwsm kitty --class obsidian_tui --session /home/davi/.config/kitty/sessions/obsidian_tui.session
 
-# Open a kitty instance with a window for
-# - Git TUI (lazygit) for the main obsidian vault
-# - nvim (replacing the obsidian app)
-# This instance will have the stack layout. This means that each window will
-# take the whole screen while the others are hidden.
-#
-# Write the configuration to a temporary file in /tmp
-cat <<EOF > /tmp/obsidiantui.conf
-layout stack
-cd ~/Documents/ObsidianAllInVault/
-launch sh -c "nvim -c 'Daily' .; exec bash"
-launch sh -c "lazygit; exec bash"
-EOF
-# Launch Kitty pointing to that file
-# Set a custom class to be able to move it later
-$uwsm kitty --class obsidiantui --session /tmp/obsidiantui.conf
-
-
-# Whatsapp on terminal
-# Write the configuration to a temporary file in /tmp
-cat <<EOF > /tmp/nchat.conf
-launch sh -c "nchat; exec bash"
-EOF
-# Set a custom class to be able to move it later
-$uwsm kitty --class nchat --session /tmp/nchat.conf
-
-
-# Move the windows to the correct workspaces. This can't be done by using
-# windowrules because the title of the window is dynamic; and because we only
-# want to move it once, and not every time is opens
-sleep 1
-hyprctl dispatch movetoworkspacesilent 9, class:nchat
-hyprctl dispatch movetoworkspacesilent 10, class:obsidiantui
-
+# Whatsapp on the terminal
+# Set a custom class to be able to set window rules for it
+$uwsm kitty --class nchat --session /home/davi/.config/kitty/sessions/nchat.session

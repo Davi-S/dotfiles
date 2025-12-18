@@ -33,6 +33,8 @@ return {
 			})
 		end,
 	},
+    -- Define another plugin in the same file. This one does not need any
+    -- configuration
 	{
 		"tpope/vim-fugitive",
 	},

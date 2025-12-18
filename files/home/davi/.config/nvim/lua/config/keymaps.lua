@@ -57,19 +57,6 @@ vim.keymap.set("n", "<A-l>", "<C-w>L", { desc = "Move window Right" })
 
 ----------------------------------------------------------------------------------------------------
 
--- Set enter to *not* accept the completion. Instead, just enter a new line.
-vim.keymap.set("i", "<cr>", function()
-    return vim.fn.pumvisible() == 1 and "<c-e><cr>" or "<cr>"
-end, { expr = true, remap = false, desc = "Set enter to *not* accept the completion. Instead, just enter a new line" })
-
-----------------------------------------------------------------------------------------------------
-
--- Insert a blank line without entering insert mode
--- vim.keymap.set("n", "<Leader>o", "o<Esc>", { desc = "Insert blank line below" })
--- vim.keymap.set("n", "<Leader>O", "O<Esc>", { desc = "Insert blank line above" })
-
-----------------------------------------------------------------------------------------------------
-
 -- Spell check
 vim.keymap.set("n", "<Leader>st", ":set spell!<CR>", { desc = "[s]pell check [t]oggle" })
 vim.keymap.set("n", "<Leader>ss", "z=", { desc = "[s]pelling [s]uggestions" })
@@ -114,5 +101,4 @@ vim.keymap.set("n", "<leader>nc", function()
 end, { desc = "Jump to [n]ext [c]onfusing char" })
 
 ----------------------------------------------------------------------------------------------------
-
 

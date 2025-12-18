@@ -36,13 +36,6 @@ vim.opt.inccommand = "nosplit" -- shows partial off-screen results in a preview 
 vim.cmd.colorscheme("catppuccin") -- Apply color scheme
 vim.opt.termguicolors = true      -- enable 24-bit RGB color in the terminal
 vim.opt.signcolumn = "yes"        -- always show the sign column to avoid text shifting when signs appear
-vim.opt.winborder = "rounded"     -- use rounded borders for floating windows
-vim.opt.completeopt = {           -- completion behavior for pop up menu
-    "fuzzy",
-    "menuone",
-    "noinsert",
-}
-vim.opt.pumheight = 10 -- maximum items to show in completion pop up menu
 -- highlight yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
@@ -51,9 +44,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank({ timeout = 200, visual = true })
     end,
 })
+vim.o.winborder = 'rounded' -- Set window borders globally 
 vim.diagnostic.config({ -- Configure diagnostics options
     virtual_text = true,
     severity_sort = true,
+    float = { source = true },
 })
 -- show cursor line only in active window
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {

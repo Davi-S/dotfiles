@@ -1,55 +1,3 @@
--- Smart definition function that switches between definitions and references
--- based on whether cursor is already at the definition
-local function smart_definition()
-    local builtin = require("telescope.builtin")
-
-    -- This checks if the cursor is currently sitting on the definition.
-    -- If YES: Open References.
-    -- If NO:  Go to Definition.
-    vim.lsp.buf_request(0, "textDocument/definition", vim.lsp.util.make_position_params(0, "utf-16"),
-        function(err, result, _, _)
-            -- If no definition found, just try to open definitions (will show "not found")
-            if err or not result or vim.tbl_isempty(result) then
-                builtin.lsp_definitions()
-                return
-            end
-
-            -- Ensure 'result' is always a list so we can loop over it
-            local definitions = vim.islist(result) and result or { result }
-
-            -- Get current cursor info
-            local current_buf = vim.api.nvim_get_current_buf()
-            local current_uri = vim.uri_from_bufnr(current_buf)
-            local current_row = vim.api.nvim_win_get_cursor(0)[1] - 1
-
-            local cursor_is_at_definition = false
-
-            -- Check every definition returned by the server
-            for _, def in ipairs(definitions) do
-                local def_uri = def.uri or def.targetUri
-                local def_range = def.range or def.targetSelectionRange
-
-                local is_same_file = (def_uri == current_uri)
-
-                if is_same_file then
-                    local is_same_line = (current_row >= def_range.start.line and current_row <= def_range["end"].line)
-                    if is_same_line then
-                        cursor_is_at_definition = true
-                        -- We found a match, no need to check others
-                        break
-                    end
-                end
-            end
-
-            -- Decide what to open
-            if cursor_is_at_definition then
-                builtin.lsp_references()
-            else
-                builtin.lsp_definitions()
-            end
-        end)
-end
-
 -- Check if the current working directory is an Obsidian vault
 local function is_obsidian_vault()
     local cwd = vim.fn.getcwd()
@@ -183,7 +131,7 @@ local function show_vault_picker(entries)
         }),
         sorter = conf.generic_sorter({}),
         previewer = conf.file_previewer({}),
-        attach_mappings = function(prompt_bufnr, map)
+        attach_mappings = function(prompt_bufnr, _)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry()
@@ -211,10 +159,105 @@ local function find_files_with_aliases()
     show_vault_picker(entries)
 end
 
+-- =============================================================================
+-- DATE HELPERS (shared by templates and daily commands)
+-- =============================================================================
+
+-- Portuguese month name to number mapping
+local month_map = {
+    janeiro = 1,
+    fevereiro = 2,
+    ["março"] = 3,
+    abril = 4,
+    maio = 5,
+    junho = 6,
+    julho = 7,
+    agosto = 8,
+    setembro = 9,
+    outubro = 10,
+    novembro = 11,
+    dezembro = 12,
+}
+
+-- Portuguese month names
+local month_names = {
+    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+}
+
+-- Portuguese weekday names
+local weekday_names = {
+    "domingo", "segunda-feira", "terça-feira", "quarta-feira",
+    "quinta-feira", "sexta-feira", "sábado",
+}
+
+--- Derive a date from the current buffer filename or a provided filename.
+-- Expects format: "YYYY <month> DD" (Portuguese month names)
+-- @param filename string|nil Optional filename (without extension). Defaults to current buffer name.
+-- @return integer os.time() value
+local function get_date_from_filename(filename)
+    local base = filename or vim.fn.expand("%:t:r")
+    local year, month_str, day = base:match("^(%d%d%d%d)%s+(%a+)%s+(%d+)")
+
+    if not (year and month_str and day) then
+        -- Fallback to today if parsing fails
+        return os.time()
+    end
+
+    local month = month_map[month_str:lower()]
+    if not month then
+        error("Invalid month on file name: " .. month_str)
+    end
+
+    return os.time({ year = tonumber(year), month = month, day = tonumber(day) })
+end
+
+--- Get date components for a day offset relative to filename-derived date (or today).
+-- @param offset integer Day offset (default 0)
+-- @return table os.date("*t") components
+local function get_date_components(offset)
+    offset = offset or 0
+    local base_time = get_date_from_filename()
+    local target_time = base_time + (offset * 86400)
+    return os.date("*t", target_time)
+end
+
+--- Format a date with support for tokens {MONTH} and {WEEKDAY} (Portuguese).
+-- @param offset integer Day offset
+-- @param fmt string os.date format with optional tokens
+-- @return string formatted date
+local function format_date(offset, fmt)
+    local comp = get_date_components(offset or 0)
+    local time = os.time(comp)
+
+    if fmt:find("{MONTH}") then
+        fmt = fmt:gsub("{MONTH}", month_names[comp.month])
+    end
+
+    if fmt:find("{WEEKDAY}") then
+        fmt = fmt:gsub("{WEEKDAY}", weekday_names[comp.wday])
+    end
+
+    return os.date(fmt, time)
+end
+
+--- Format a daily note filename-as-title string: "YYYY <mês> DD, <weekday>"
+-- @param offset integer Day offset
+-- @return string daily title
+local function format_daily_date_string(offset)
+    local comp = get_date_components(offset or 0)
+    return string.format("%04d %s %02d, %s",
+        comp.year, month_names[comp.month], comp.day, weekday_names[comp.wday]
+    )
+end
+
 local M = {}
 
-M.smart_definition = smart_definition
 M.is_obsidian_vault = is_obsidian_vault
 M.find_files_with_aliases = find_files_with_aliases
+M.format_daily_date_string = format_daily_date_string
+-- These bellow are used in the template files
+M.format_date = format_date
+M.get_date_components = get_date_components
 
 return M

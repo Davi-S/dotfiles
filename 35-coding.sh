@@ -12,16 +12,23 @@ CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/custom/daily.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/custom/telescope_helpers.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/custom/templates.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/obsidian/daily.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/obsidian/helpers.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/obsidian/init.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/obsidian/telescope.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/obsidian/templates.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/outline.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/yazi.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins_helpers/colorscheme.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins_helpers/completions.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins_helpers/lsp.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins_helpers/telescope_helpers.lua '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi
 CopyFile /home/davi/.config/nvim/spell/pt.utf-8.spl '' davi davi
@@ -37,10 +44,12 @@ SetFileProperty /home/davi/.config/nvim/lua group davi
 SetFileProperty /home/davi/.config/nvim/lua owner davi
 SetFileProperty /home/davi/.config/nvim/lua/config group davi
 SetFileProperty /home/davi/.config/nvim/lua/config owner davi
-SetFileProperty /home/davi/.config/nvim/lua/custom group davi
-SetFileProperty /home/davi/.config/nvim/lua/custom owner davi
+SetFileProperty /home/davi/.config/nvim/lua/obsidian group davi
+SetFileProperty /home/davi/.config/nvim/lua/obsidian owner davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins group davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins owner davi
+SetFileProperty /home/davi/.config/nvim/lua/plugins_helpers group davi
+SetFileProperty /home/davi/.config/nvim/lua/plugins_helpers owner davi
 SetFileProperty /home/davi/.config/nvim/spell group davi
 SetFileProperty /home/davi/.config/nvim/spell owner davi
 SetFileProperty /home/davi/.config/nvim/templates group davi
@@ -130,11 +139,6 @@ CopyFile /home/davi/.clang-format '' davi davi
 # Used to expose a local host to internet and to run zen-browser on selenium
 AddPackage --foreign ngrok # A tunneling, reverse proxy for developing and understanding networked, HTTP services
 AddPackage geckodriver # Proxy for using W3C WebDriver-compatible clients to interact with Gecko-based browsers.
-
-
-# Installed temporarily because the Mason version was late in comparison with 
-# the Arch dependencies versions
-AddPackage lua-language-server # Lua Language Server coded by Lua
 
 
 # These are the configurations recipes from the nvim-lspconfig plugin which I downloaded locally and edited 

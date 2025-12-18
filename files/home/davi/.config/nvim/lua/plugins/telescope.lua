@@ -13,6 +13,8 @@ return {
             defaults = {
                 mappings = {
                     i = {
+                        -- Make esc quit telescope instead of entering normal
+                        -- mode inside telescope
                         ["<esc>"] = require("telescope.actions").close
                     },
                 },
@@ -23,18 +25,12 @@ return {
         require("telescope").load_extension("fzf")
 
         local builtin = require("telescope.builtin")
-        local telescope_helpers = require("custom.telescope_helpers")
+        local telescope_helpers = require("plugins_helpers.telescope_helpers")
 
         vim.keymap.set(
             "n",
             "<leader>ff",
-            function()
-                if telescope_helpers.is_obsidian_vault() then
-                    telescope_helpers.find_files_with_aliases()
-                else
-                    builtin.find_files()
-                end
-            end,
+            builtin.find_files,
             { desc = "Telescope [f]ind [f]iles" }
         )
         vim.keymap.set("n",

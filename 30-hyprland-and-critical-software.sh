@@ -22,8 +22,12 @@ SetFileProperty /home/davi/.config/hypr owner davi
 AddPackage kitty # A modern, hackable, featureful, OpenGL-based terminal emulator
 CopyFile /home/davi/.config/kitty/current-theme.conf '' davi davi
 CopyFile /home/davi/.config/kitty/kitty.conf '' davi davi
+CopyFile /home/davi/.config/kitty/sessions/nchat.session '' davi davi
+CopyFile /home/davi/.config/kitty/sessions/obsidian_tui.session '' davi davi
 SetFileProperty /home/davi/.config/kitty group davi
 SetFileProperty /home/davi/.config/kitty owner davi
+SetFileProperty /home/davi/.config/kitty/sessions group davi
+SetFileProperty /home/davi/.config/kitty/sessions owner davi
 
 
 AddPackage swaync # A simple GTK based notification daemon for Sway

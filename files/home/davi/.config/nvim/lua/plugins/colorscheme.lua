@@ -4,6 +4,8 @@ return {
         name = "catppuccin.nvim",
         priority = 1000,
         config = function()
+            local colorscheme_helpers = require("plugins_helpers.colorscheme")
+
             require("catppuccin").setup({
                 auto_integrations = true,
                 flavour = "mocha",
@@ -52,121 +54,24 @@ return {
                     },
                 },
                 custom_highlights = function(colors)
-                    return {
-                        -- Keyboard shortcuts in buttons (e.g., the "(I)" in Install)
-                        LazySpecial = { fg = colors.blue },
-                        -- The reason indicator
-                        LazyReasonPlugin = { fg = colors.blue },
+                    return vim.tbl_deep_extend("force", {
+                            -- Cursor marks
+                            CursorColumn = { bg = colors.crust },
+                            ColorColumn = { bg = colors.crust },
+                            CursorLine = { bg = colors.crust },
 
-                        -- Cursor marks
-                        CursorColumn = { bg = colors.crust },
-                        ColorColumn = { bg = colors.crust },
-                        CursorLine = { bg = colors.crust },
+                            -- Set Line Numbers to a slighter lighter color
+                            LineNr = { fg = colors.overlay1 },
 
-                        -- Set Line Numbers to a slighter lighter color
-                        LineNr = { fg = colors.overlay1 },
+                            -- The color of the bar for inactive (non-current) windows.
+                            -- Make the foreground a little lighter
+                            StatusLineNC = { fg = colors.overlay0, bg = colors.mantle },
 
-                        -- -----------------------------------------------------
-                        -- MARKDOWN OVERRIDES
-                        -- -----------------------------------------------------
-
-                        -- Headings
-                        ["@markup.heading.1.markdown"] = { fg = colors.green, bold = true },
-                        ["@markup.heading.2.markdown"] = { fg = colors.green, bold = true },
-                        ["@markup.heading.3.markdown"] = { fg = colors.green, bold = true },
-                        ["@markup.heading.4.markdown"] = { fg = colors.green, bold = true },
-                        ["@markup.heading.5.markdown"] = { fg = colors.green, bold = true },
-                        ["@markup.heading.6.markdown"] = { fg = colors.green, bold = true },
-
-                        -- Code blocks
-                        ["@markup.raw.block.markdown"] = { fg = colors.subtext1 },
-                        ["@markup.raw.markdown_inline"] = { fg = colors.subtext1 },
-                        ["@label.markdown"] = { fg = colors.subtext1 },
-
-                        -- Latex
-                        -- This @markup.math.latex will affect the "$" and the
-                        -- numbers, so I'm painting the "$", manually in the
-                        -- ftplugin file for markdown
-                        ["@markup.math.latex"] = { fg = colors.red },
-                        ["@function.latex"] = { fg = colors.red },
-                        ["@punctuation.bracket.latex"] = { fg = colors.red },
-                        ["@punctuation.delimiter.latex"] = { fg = colors.red },
-                        ["@operator.latex"] = { fg = colors.red },
-                        ["@label.latex"] = { fg = colors.red },
-                        ["@module.latex"] = { fg = colors.red },
-
-                        -- URL links
-                        ["@markup.link.url.markdown_inline"] = { fg = colors.sapphire },
-                        ["@markup.link.label.markdown_inline"] = { fg = colors.sapphire },
-                        ["@markup.link.markdown_inline"] = { fg = colors.sapphire },
-                        ["@markup.link.label.markdown"] = { fg = colors.sapphire },
-                        ["@markup.link.url.markdown"] = { fg = colors.sapphire },
-
-                        -- Internal link
-                        ["@lsp.type.decorator.markdown"] = { fg = colors.sapphire },
-                        ["@lsp.type.class.markdown"] = { fg = colors.sapphire },
-
-                        -- Text decoration
-                        ["@markup.strong.markdown_inline"] = { fg = colors.text, bold = true },
-                        ["@markup.italic.markdown_inline"] = { fg = colors.text, italic = true },
-                        ["@markup.strikethrough.markdown_inline"] = { fg = colors.text, strikethrough = true },
-
-                        -- Quotes
-                        ["@markup.quote.markdown"] = { fg = colors.peach },
-                        -- This is for ">", "---", and tables
-                        ["@punctuation.special.markdown"] = { fg = colors.peach },
-
-                        -- List and table
-                        ["@markup.list.markdown"] = { fg = colors.text },
-                        ["@markup.list.unchecked.markdown"] = { fg = colors.sapphire },
-                        ["@markup.list.checked.markdown"] = { fg = colors.sapphire },
-
-                        -- YAML
-                        ["@keyword.directive.markdown"] = { fg = colors.peach },
-
-
-                        -- -----------------------------------------------------
-                        -- RENDER-MARKDOWN PLUGIN OVERRIDES
-                        -- -----------------------------------------------------
-
-                        -- Headings
-                        RenderMarkdownH1 = { link = "@markup.heading.1.markdown" },
-                        RenderMarkdownH2 = { link = "@markup.heading.2.markdown" },
-                        RenderMarkdownH3 = { link = "@markup.heading.3.markdown" },
-                        RenderMarkdownH4 = { link = "@markup.heading.4.markdown" },
-                        RenderMarkdownH5 = { link = "@markup.heading.5.markdown" },
-                        RenderMarkdownH6 = { link = "@markup.heading.6.markdown" },
-
-                        -- Code blocks
-                        RenderMarkdownCode = { link = "@markup.raw.block.markdown" },
-                        RenderMarkdownCodeInline = { link = "@markup.raw.markdown_inline" },
-                        RenderMarkdownHTMLContent = { link = "@markup.raw.markdown_inline" },
-
-                        -- Latex
-                        RenderMarkdownMath = { link = "@markup.math.latex" },
-
-                        -- URL Links
-                        RenderMarkdownLink = { link = "@markup.link.url.markdown_inline" },
-
-                        -- Internal Links
-                        RenderMarkdownWikiLink = { link = "@markup.link.label.markdown_inline" },
-
-                        -- Text decoration
-
-                        -- Quotes
-                        RenderMarkdownQuote = { link = "@markup.quote.markdown" },
-                        RenderMarkdownDash = { link = "@markup.quote.markdown" },
-
-                        -- Lists and tables
-                        RenderMarkdownBullet = { link = "@markup.list.markdown" },
-                        RenderMarkdownTableHead = { link = "@punctuation.special.markdown" },
-                        RenderMarkdownTableRow = { link = "@punctuation.special.markdown" },
-                        RenderMarkdownChecked = { link = "@markup.list.checked.markdown" },
-                        RenderMarkdownUnchecked = { link = "@markup.list.unchecked.markdown" },
-
-                        -- YAML
-
-                    }
+                        },
+                        colorscheme_helpers.lazy_highlights(colors),
+                        colorscheme_helpers.markdown_highlights(colors),
+                        colorscheme_helpers.render_markdown_highlights(colors)
+                    )
                 end,
             })
         end,

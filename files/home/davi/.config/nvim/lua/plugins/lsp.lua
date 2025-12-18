@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 -- Reference:
 -- - https://github.com/hendrikmi/neovim-kickstart-config/blob/main/lua/plugins/lsp.lua
 -- - https://youtu.be/oBiBEx7L000?si=s7zOaXS8f7RguRR2
@@ -25,10 +24,11 @@ return {
     },
     config = function()
         require("mason").setup()
+        local lsp_helpers = require("plugins_helpers.lsp")
 
         -- Enable the following language servers
         local servers_list = {
-            -- "lua_ls",         -- Lua
+            "lua_ls",         -- Lua
             "basedpyright",   -- Python
             "ruff",           -- Python
             "bashls",         -- Bash
@@ -46,7 +46,7 @@ return {
             "prettier",   -- Markdown
         }
 
-        -- Combine our server list and tool list for mason-tool-installer
+        -- Combine the server list and tool list for mason-tool-installer
         local ensure_installed = {}
         vim.list_extend(ensure_installed, servers_list)
         vim.list_extend(ensure_installed, tools_list)
@@ -65,9 +65,17 @@ return {
             vim.lsp.enable(server_name)
         end
 
-        -- Since we removed it from the list above, we enable it separately here.
-        -- This will pick up the /usr/bin/lua-language-server we installed with pacman.
-        vim.lsp.enable("lua_ls")
+        -- Doing this to override the max size of the `lsp.hover` window (and
+        -- any other lsp floating windows apparently)
+        local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+        function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+            opts = opts or {}
+            -- width same as the recommended max line width
+            opts.max_width = 80
+            -- height same as the completion window
+            opts.max_height = 10
+            return orig_util_open_floating_preview(contents, syntax, opts, ...)
+        end
 
         -- Create a autocommand for when a lsp server attaches a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -76,89 +84,8 @@ return {
             callback = function(args)
                 local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-                -- Completion
-                if client:supports_method("textDocument/completion") then
-                    -- Trigger autocompletion on EVERY keypress
-                    local chars = {}
-                    for i = 32, 126 do
-                        table.insert(chars, string.char(i))
-                    end
-                    client.server_capabilities.completionProvider.triggerCharacters = chars
-                    vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-                end
-
-                -- Format keymap
-                if client:supports_method("textDocument/formatting") then
-                    vim.keymap.set("n", "<leader>cf", function()
-                        vim.lsp.buf.format({ async = true })
-                    end, { buffer = args.buf, desc = "[c]ode [f]ormat" })
-                end
-                -- Format for markdown
-                if vim.bo.filetype == "markdown" then
-                    -- Define a custom format function that uses Prettier for Markdown
-                    -- and falls back to LSP for everything else.
-                    vim.keymap.set("n", "<leader>cf", function()
-                        local filepath = vim.api.nvim_buf_get_name(0)
-                        -- Construct command: prettier --stdin-filepath <path>
-                        -- We use stdin so it works even if you haven't saved the file yet
-                        local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(filepath)
-
-                        -- Get current buffer content
-                        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-                        local input = table.concat(lines, "\n")
-
-                        -- Run Prettier
-                        local output = vim.fn.system(cmd, input)
-
-                        -- Check for success (0 = success)
-                        if vim.v.shell_error == 0 then
-                            -- Split output into lines and replace buffer content
-                            local new_lines = vim.split(output, "\n")
-                            -- Remove the extra trailing newline Prettier often adds
-                            if new_lines[#new_lines] == "" then table.remove(new_lines) end
-
-                            vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
-                            vim.notify("Formatted with Prettier", vim.log.levels.INFO)
-                        else
-                            vim.notify("Prettier Error:\n" .. output, vim.log.levels.ERROR)
-                        end
-                    end, { buffer = args.buf, desc = "[c]ode [f]ormat" })
-                end
-
-                -- Highlight references under the cursor
-                if client:supports_method("textDocument/documentHighlight") then
-                    local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-
-                    -- Highlight references when cursor moves
-                    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-                        buffer = args.buf,
-                        group = highlight_augroup,
-                        desc = "Highlight references when cursor moves",
-                        callback = function()
-                            vim.lsp.buf.clear_references()
-                            vim.lsp.buf.document_highlight()
-                        end,
-                    })
-
-                    -- Clear references when in insert mode
-                    vim.api.nvim_create_autocmd("InsertEnter", {
-                        buffer = args.buf,
-                        group = highlight_augroup,
-                        desc = "Clear highlights when in insert mode",
-                        callback = function()
-                            vim.lsp.buf.clear_references()
-                        end,
-                    })
-
-                    -- Clean up the autocommands when the LSP detaches
-                    vim.api.nvim_create_autocmd("LspDetach", {
-                        group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-                        callback = function(event2)
-                            vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
-                        end,
-                    })
-                end
+                lsp_helpers.setup_formatting(args, client)
+                lsp_helpers.setup_highlight_under_cursor(args, client)
             end,
         })
     end,

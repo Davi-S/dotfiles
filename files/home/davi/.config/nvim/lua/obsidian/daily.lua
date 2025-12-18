@@ -1,3 +1,5 @@
+local obsidian_helpers = require("obsidian.helpers")
+
 local function create_daily_command()
     vim.api.nvim_create_user_command('Daily', function(args)
         -- Validation of input
@@ -14,25 +16,8 @@ local function create_daily_command()
             offset = tonumber(input) or 0
         end
 
-        -- Portuguese translation tables
-        local months = {
-            "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-            "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
-        }
-        local weekdays = {
-            "domingo", "segunda-feira", "terça-feira", "quarta-feira",
-            "quinta-feira", "sexta-feira", "sábado"
-        }
-
-        -- Calculate target date
-        local current_time = os.time()
-        local target_time = current_time + (offset * 86400)
-        local d = os.date("*t", target_time)
-
-        -- Format: "2025 novembro 26, quarta-feira"
-        local date_string = string.format("%04d %s %02d, %s",
-            d.year, months[d.month], d.day, weekdays[d.wday]
-        )
+        -- Format: "YYYY <mês> DD, <weekday>" using helpers
+        local date_string = obsidian_helpers.format_daily_date_string(offset)
 
         -- Paths
         local root = "/home/davi/Documents/ObsidianAllInVault/"
@@ -53,12 +38,9 @@ local function create_daily_command()
         -- Open file
         vim.cmd("edit " .. vim.fn.fnameescape(filepath))
 
-        -- ---------------------------------------------------------------------
-        -- NEW: Check if file is empty and insert template
-        -- ---------------------------------------------------------------------
+        -- Check if file is empty and insert template
         local line_count = vim.api.nvim_buf_line_count(0)
         local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
-
         -- If buffer has 1 line and it is empty, it's a new file
         if line_count == 1 and first_line == "" then
             -- Safely try to run the InsertTemplate command

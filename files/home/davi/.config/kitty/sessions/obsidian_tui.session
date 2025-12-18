@@ -1,0 +1,4 @@
+layout stack
+cd ~/Documents/ObsidianAllInVault/
+launch sh -c "nvim -c 'Daily' .; exec bash"
+launch sh -c "lazygit; exec bash"

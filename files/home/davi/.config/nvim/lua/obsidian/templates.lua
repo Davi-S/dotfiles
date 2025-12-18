@@ -1,73 +1,4 @@
-
--- =============================================================================
--- HELPERS
--- =============================================================================
-
-local utils = {}
-
-local month_map = {
-    janeiro = 1,
-    fevereiro = 2,
-    ["março"] = 3,
-    abril = 4,
-    maio = 5,
-    junho = 6,
-    julho = 7,
-    agosto = 8,
-    setembro = 9,
-    outubro = 10,
-    novembro = 11,
-    dezembro = 12
-}
-
-local month_names = {
-    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
-}
-
-local weekday_names = {
-    "domingo", "segunda-feira", "terça-feira", "quarta-feira",
-    "quinta-feira", "sexta-feira", "sábado"
-}
-
-function utils.get_date_from_filename()
-    local filename = vim.fn.expand("%:t:r")
-    local year, month_str, day = filename:match("^(%d%d%d%d)%s+(%a+)%s+(%d+)")
-
-    if not (year and month_str and day) then
-        -- Return today if parsing fails (fallback)
-        return os.time()
-    end
-
-    local month = month_map[month_str:lower()]
-    if not month then
-        error("Invalid month on file name: " .. month_str)
-    end
-
-    return os.time({ year = year, month = month, day = day })
-end
-
-function utils.get_date_components(offset)
-    offset = offset or 0
-    local base_time = utils.get_date_from_filename()
-    local target_time = base_time + (offset * 86400)
-    return os.date("*t", target_time)
-end
-
-function utils.format_date(offset, fmt)
-    local comp = utils.get_date_components(offset)
-    local time = os.time(comp)
-
-    if fmt:find("{MONTH}") then
-        fmt = fmt:gsub("{MONTH}", month_names[comp.month])
-    end
-
-    if fmt:find("{WEEKDAY}") then
-        fmt = fmt:gsub("{WEEKDAY}", weekday_names[comp.wday])
-    end
-
-    return os.date(fmt, time)
-end
+local obsidian_helpers = require("obsidian.helpers")
 
 -- =============================================================================
 -- TEMPLATE ENGINE
@@ -75,7 +6,7 @@ end
 
 local function evaluate_template_code(code)
     local env = {
-        utils = utils,
+        utils = obsidian_helpers,
         os = os,
         string = string,
         table = table,

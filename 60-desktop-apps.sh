@@ -4,9 +4,7 @@
 #
 # Installs various desktop utilities. Usually UI applications.
 
-
 AddPackage rofi # A window switcher, application launcher and dmenu replacement
-
 
 # Scientific calculator with gui
 AddPackage qalculate-gtk # GTK frontend for libqalculate
@@ -15,26 +13,20 @@ CopyFile /home/davi/.config/qalculate/qalculate-gtk.cfg '' davi davi
 SetFileProperty /home/davi/.config/qalculate group davi
 SetFileProperty /home/davi/.config/qalculate owner davi
 
-
 # For synching the Obsidian vault between the computer and the phone
 AddPackage syncthing # Open Source Continuous Replication / Cluster Synchronization Thing
 
-
 # For connecting the phone to the laptop
 AddPackage kdeconnect # Adds communication between KDE and your smartphone
-
 
 AddPackage qbittorrent # An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar
 CopyFile /home/davi/.config/qBittorrent/ayuDark.qbtheme '' davi davi
 SetFileProperty /home/davi/.config/qBittorrent group davi
 SetFileProperty /home/davi/.config/qBittorrent owner davi
 
-
 AddPackage --foreign zen-browser-bin # Performance oriented Firefox-based web browser
 
-
 AddPackage obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
-
 
 # Installed this to have noise reduction
 # It is useful for other audio effects too
@@ -54,23 +46,20 @@ CopyFile /home/davi/.config/easyeffects/db/speexrc 600 davi davi
 CopyFile /home/davi/.config/easyeffectsrc 600 davi davi
 CopyFile /home/davi/.config/easyeffects/db/easyeffectsrc 600 davi davi
 
-
 # This is a systemd service to start the easyeffects interfaceless.
 # The link to enable it is in the systemd aconfmgr config file
 CopyFile /home/davi/.config/systemd/user/easyeffects.service '' davi davi
 # Optional plugins for easy effects
-AddPackage lsp-plugins # Collection of open-source plugins
+AddPackage lsp-plugins                         # Collection of open-source plugins
 AddPackage --foreign libdeep_filter_ladspa-git # A Low Complexity Speech Enhancement Framework for Full-Band Audio (48kHz) using Deep Filtering (Git version) - ladspa plugin
 
 # General electron flags
 # Set electron apps so use wayland
 CopyFile /home/davi/.config/electron-flags.conf '' davi davi
 
-
 # This is for setting default apps
 CopyFile /home/davi/.config/mimeapps.list 599 davi davi
 SetFileProperty /home/davi/.config/mimeapps.list mode 600
-
 
 # To view system usage
 AddPackage htop # Interactive process viewer
@@ -79,19 +68,17 @@ SetFileProperty /home/davi/.config/htop group davi
 SetFileProperty /home/davi/.config/htop mode 700
 SetFileProperty /home/davi/.config/htop owner davi
 
-
 # Installed when I was looking for what was taking up my storage space
 AddPackage ncdu # Disk usage analyzer with an ncurses interface
-
 
 # Whatsapp for terminal
 AddPackage --foreign nchat # console-based chat client with support for Telegram
 CopyFile /home/davi/.config/nchat/app.conf 600 davi davi
 CopyFile /home/davi/.config/nchat/ui.conf 600 davi davi
+CopyFile /home/davi/.config/nchat/usercolor.conf '' davi davi
 SetFileProperty /home/davi/.config/nchat group davi
 SetFileProperty /home/davi/.config/nchat mode 700
 SetFileProperty /home/davi/.config/nchat owner davi
-
 
 # File explorer for terminal
 AddPackage yazi # Blazing fast terminal file manager written in Rust, based on async I/O
@@ -101,7 +88,6 @@ SetFileProperty /home/davi/.config/yazi group davi
 SetFileProperty /home/davi/.config/yazi owner davi
 # Dependency for PDF preview on yazi
 AddPackage poppler # PDF rendering library based on xpdf 3.0
-
 
 # This is a video player, but I'm also using it as an image player. I'm doing
 # this by setting a custom config directory with many dedicated scripts and
@@ -156,6 +142,19 @@ SetFileProperty /home/davi/.config/mvi/script-opts owner davi
 SetFileProperty /home/davi/.config/mvi/scripts group davi
 SetFileProperty /home/davi/.config/mvi/scripts owner davi
 
-
 # For editing images
 AddPackage gimp # GNU Image Manipulation Program
+
+# Doom that runs on the terminal
+CopyFile /home/davi/Games/terminal-doom/.savegame/doomsav0.dsg '' davi davi
+CopyFile /home/davi/Games/terminal-doom/zig-out/bin/terminal-doom 755 davi davi
+SetFileProperty /home/davi/Games group davi
+SetFileProperty /home/davi/Games owner davi
+SetFileProperty /home/davi/Games/terminal-doom group davi
+SetFileProperty /home/davi/Games/terminal-doom owner davi
+SetFileProperty /home/davi/Games/terminal-doom/.savegame group davi
+SetFileProperty /home/davi/Games/terminal-doom/.savegame owner davi
+SetFileProperty /home/davi/Games/terminal-doom/zig-out group davi
+SetFileProperty /home/davi/Games/terminal-doom/zig-out owner davi
+SetFileProperty /home/davi/Games/terminal-doom/zig-out/bin group davi
+SetFileProperty /home/davi/Games/terminal-doom/zig-out/bin owner davi
