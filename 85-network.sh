@@ -14,10 +14,12 @@ CopyFile /etc/systemd/network/25-wireless.network
 # AddPackage iwd # Internet Wireless Daemon
 # iwd is already added in the `20-base.sh` file.
 CopyFile /var/lib/iwd/126-5G.psk 600
+CopyFile /var/lib/iwd/=484644445f322e3447.psk 600
 CopyFile /var/lib/iwd/C3SL.8021x
-CopyFile /var/lib/iwd/eduroam.8021x
+CopyFile /var/lib/iwd/HFDD_5G.psk 600
 CopyFile /var/lib/iwd/Nobreza\ DDOS.psk 600
 CopyFile /var/lib/iwd/Uai\ Fai.psk 600
+CopyFile /var/lib/iwd/eduroam.8021x
 CreateDir /etc/iwd
 CreateDir /var/lib/iwd/hotspot 700
 CreateFile /var/lib/iwd/UFPR-SEM-FIO.open 600 > /dev/null
