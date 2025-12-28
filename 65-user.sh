@@ -27,6 +27,16 @@ CopyFile /home/davi/.config/systemd/user/auto-battery-notify.timer '' davi davi
 CopyFile /home/davi/bin/auto-battery-notify 755 davi davi
 
 
+# Service for automatically mounting the phone to the PC when it is connected
+CopyFile /home/davi/.config/systemd/user/phone-automount@.service '' davi davi
+# Used to connect the phone to the PC
+AddPackage --foreign simple-mtpfs # A FUSE filesystem that supports reading/writing from MTP devices
+# Script to automatically mount the phone to the PC
+CopyFile /home/davi/bin/phone-automount 755 davi davi
+# Not a user file, but is used with user files. It acts alongside the
+# phone-automount service.
+CopyFile /etc/udev/rules.d/99-phone-mount.rules
+
 # Primarily used as a dependency of the battery scripts
 AddPackage acpi # Client for battery, power, and thermal readings
 

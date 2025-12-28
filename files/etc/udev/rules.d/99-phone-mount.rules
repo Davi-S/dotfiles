@@ -1,0 +1,5 @@
+# Start service on add
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", ATTR{idProduct}=="6860", RUN+="/usr/bin/sudo -u davi XDG_RUNTIME_DIR=/run/user/1000 /usr/bin/systemctl --user start phone-automount@%k.service"
+
+# Stop service on remove (Matching the PRODUCT string instead)
+ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="4e8/6860/*", RUN+="/usr/bin/sudo -u davi XDG_RUNTIME_DIR=/run/user/1000 /usr/bin/systemctl --user stop phone-automount@%k.service"

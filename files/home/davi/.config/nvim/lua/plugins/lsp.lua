@@ -24,10 +24,11 @@ return {
     },
     config = function()
         require("mason").setup()
-        local lsp_helpers = require("plugins_helpers.lsp")
+        local lsp_helpers = require("plugins_helpers.lsp_helper")
 
         -- Enable the following language servers
-        local servers_list = {
+        -- These will be managed by Mason
+        local mason_servers_list = {
             "lua_ls",         -- Lua
             "basedpyright",   -- Python
             "ruff",           -- Python
@@ -39,25 +40,38 @@ return {
             "hyprls",         -- Hyprland config
         }
 
+        -- Other servers that will be enable, but not managed by Mason; they
+        -- need to be installed manually
+        local other_servers_list = {
+            "sourcery", -- Python
+        }
+
         -- Enable the following tools
-        local tools_list = {
+        -- These will be managed by mason
+        local mason_tools_list = {
             "shfmt",      -- Bash
             "shellcheck", -- Bash
             "prettier",   -- Markdown
         }
 
         -- Combine the server list and tool list for mason-tool-installer
-        local ensure_installed = {}
-        vim.list_extend(ensure_installed, servers_list)
-        vim.list_extend(ensure_installed, tools_list)
+        local mason_ensure_installed = {}
+        vim.list_extend(mason_ensure_installed, mason_servers_list)
+        vim.list_extend(mason_ensure_installed, mason_tools_list)
 
         require("mason-tool-installer").setup({
-            ensure_installed = ensure_installed,
+            ensure_installed = mason_ensure_installed,
             auto_update = true,
         })
 
+        -- Combine all servers (the ones managed by mason, and the ones not
+        -- managed by mason)
+        local all_servers = {}
+        vim.list_extend(all_servers, mason_servers_list)
+        vim.list_extend(all_servers, other_servers_list)
+
         -- Loop through the server list and configure each one
-        for _, server_name in ipairs(servers_list) do
+        for _, server_name in ipairs(all_servers) do
             -- Neovim automatically loads the configuration from 'nvim/lsp/[server_name].lua',
             -- so there is no need to call `vim.lsp.config()`. The configurations under
             -- 'nvim/lsp/[server_name].lua' were downloaded from the lspconfig and edited as I
@@ -68,6 +82,7 @@ return {
         -- Doing this to override the max size of the `lsp.hover` window (and
         -- any other lsp floating windows apparently)
         local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+        ---@diagnostic disable-next-line: duplicate-set-field
         function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
             opts = opts or {}
             -- width same as the recommended max line width
@@ -77,7 +92,7 @@ return {
             return orig_util_open_floating_preview(contents, syntax, opts, ...)
         end
 
-        -- Create a autocommand for when a lsp server attaches a buffer
+        -- Create a autocmd for when a lsp server attaches a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
             desc = "LSP on_attach setup",
@@ -86,6 +101,8 @@ return {
 
                 lsp_helpers.setup_formatting(args, client)
                 lsp_helpers.setup_highlight_under_cursor(args, client)
+                lsp_helpers.setup_lsp_renaming_keymap(args, client)
+                lsp_helpers.setup_code_actions_keymap(args, client)
             end,
         })
     end,

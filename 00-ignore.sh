@@ -29,6 +29,7 @@ ignore_paths=(
 # ====
 
 # Do not ignore icons nor fonts in ".local/share/" if you have manully put them there. It is ok to ignore if it comes from packages
+IgnorePath "/etc/fuse.conf"
 IgnorePath "/etc/texmf/web2c/fmtutil.cnf.pacsave"
 IgnorePath "/home/davi/.bash_history"
 IgnorePath "/home/davi/.bash_history-*.tmp"
@@ -74,6 +75,7 @@ IgnorePath "/home/davi/.dotnet/*"
 IgnorePath "/home/davi/.gnupg/*"
 IgnorePath "/home/davi/.gradle/*" # Came with Logisim-evolution
 IgnorePath "/home/davi/.java/*"   # Came with Logisim-evolution
+IgnorePath "/home/davi/.local/lib"
 IgnorePath "/home/davi/.local/share/CMakeTools/*"
 IgnorePath "/home/davi/.local/share/Trash/*"
 IgnorePath "/home/davi/.local/share/applications/*"
@@ -137,8 +139,8 @@ IgnorePath "/home/davi/Games/terminal-doom/sound/*"
 IgnorePath "/home/davi/Games/terminal-doom/src/*"
 IgnorePath "/home/davi/Movies"
 IgnorePath "/home/davi/Movies/*"
+IgnorePath "/home/davi/Phone"
 IgnorePath "/home/davi/Pictures/*"
-
 
 # Root
 # ====

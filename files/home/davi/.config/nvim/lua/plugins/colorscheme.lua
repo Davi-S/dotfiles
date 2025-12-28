@@ -4,7 +4,7 @@ return {
         name = "catppuccin.nvim",
         priority = 1000,
         config = function()
-            local colorscheme_helpers = require("plugins_helpers.colorscheme")
+            local colorscheme_helpers = require("plugins_helpers.colorscheme_helper")
 
             require("catppuccin").setup({
                 auto_integrations = true,

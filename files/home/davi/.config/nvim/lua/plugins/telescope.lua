@@ -25,7 +25,7 @@ return {
         require("telescope").load_extension("fzf")
 
         local builtin = require("telescope.builtin")
-        local telescope_helpers = require("plugins_helpers.telescope_helpers")
+        local telescope_helpers = require("plugins_helpers.telescope_helper")
 
         vim.keymap.set(
             "n",

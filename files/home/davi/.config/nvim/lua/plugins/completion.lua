@@ -17,7 +17,7 @@ return {
         config = function()
             local cmp = require("cmp")
             local context = require("cmp.config.context")
-            local completion_helpers = require("plugins_helpers.completions")
+            local completion_helpers = require("plugins_helpers.completions_helper")
 
             -- Completion options from nvim --
             -- completion behavior for pop up menu
@@ -49,9 +49,9 @@ return {
                 -- bottom of the screen, and the menu opens above the cursor, it
                 -- sometimes can be preferable if the menu used a bottom down
                 -- approach
-                view = {
-                    entries = { name = "custom", selection_order = "near_cursor" }
-                },
+                -- view = {
+                --     entries = { name = "custom", selection_order = "near_cursor" }
+                -- },
 
                 -- Use web-devicon for files and file types; use the custom
                 -- icons defined above for everything else
@@ -130,15 +130,23 @@ return {
                         name = "nvim_lsp",
                         -- Do not show lsp suggestions in comments
                         entry_filter = function()
-                            return not (context.in_treesitter_capture("comment") or context.in_syntax_group("Comment"))
+                            return not (
+                                context.in_treesitter_capture("comment") or
+                                context.in_syntax_group("Comment")
+                            )
                         end
                     },
                 }, {
                     {
                         name = "buffer",
-                        -- Do not show buffer suggestions in comments
+                        -- Do not show buffer suggestions in comments or in
+                        -- markdown files
                         entry_filter = function()
-                            return not (context.in_treesitter_capture("comment") or context.in_syntax_group("Comment"))
+                            return not (
+                                context.in_treesitter_capture("comment") or
+                                context.in_syntax_group("Comment") or
+                                vim.bo.filetype == 'markdown'
+                            )
                         end
                     },
                     { name = "emoji" },

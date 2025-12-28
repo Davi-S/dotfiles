@@ -40,8 +40,6 @@ SetFileProperty /home/davi/.config/nvim/lua/plugins_helpers group davi
 SetFileProperty /home/davi/.config/nvim/lua/plugins_helpers owner davi
 SetFileProperty /home/davi/.config/nvim/spell group davi
 SetFileProperty /home/davi/.config/nvim/spell owner davi
-SetFileProperty /home/davi/.config/nvim/templates group davi
-SetFileProperty /home/davi/.config/nvim/templates owner davi
 
 # Python package managers 
 AddPackage uv # An extremely fast Python package installer and resolver written in Rust

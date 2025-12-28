@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount Phone MTP on %I
+
+[Service]
+Type=forking
+ExecStart=/home/davi/bin/phone-automount add
+ExecStop=/home/davi/bin/phone-automount remove
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
