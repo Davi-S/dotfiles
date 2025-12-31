@@ -1,3 +1,5 @@
+local colors = require("catppuccin.palettes").get_palette("mocha")
+
 local pt_months = {
     ["janeiro"] = 1,
     ["fevereiro"] = 2,
@@ -279,11 +281,49 @@ local function create_user_command_DailyAt()
     end, { nargs = "?" })
 end
 
+local function setup_math_highlight()
+    vim.api.nvim_set_hl(0, "ObsidianMath", { fg = colors.maroon })
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+        pattern = "*.md",
+        callback = function()
+            -- Multiline $$ ... $$
+            -- This looks for $$ followed by anything (including newlines) until the next $$
+            vim.fn.matchadd("ObsidianMath", [[\$\$\_.\{-}\$\$]])
+
+            -- Inline $ ... $
+            -- This looks for $ followed by non-newline characters until the next $
+            vim.fn.matchadd("ObsidianMath", [[\$[^$]\{-}\$]])
+        end,
+    })
+end
+
+local function setup_ordered_list_checkbox_highlight()
+    vim.api.nvim_set_hl(0, "ObsidianOrderedBracket", { link = "ObsidianCheckbox" })
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+        pattern = "*.md",
+        callback = function()
+            -- Match brackets [ ] or [x] only if preceded by an ordered list number (e.g., 1. [ ])
+            -- Regex breakdown:
+            -- \%(\d\+\.\s\+\) matches a digit, a dot, and spaces (non-capturing)
+            -- \zs starts the actual highlight at the bracket
+            -- \[[^\]]\] matches the brackets and whatever is inside them
+            vim.fn.matchadd("ObsidianOrderedBracket", [=[\%(\d\+\.\s\+\)\zs\[[^\]]\]]=])
+        end,
+    })
+end
+
+local function setup_ordered_list_highligh()
+    vim.api.nvim_set_hl(0, "markdownOrderedListMarker", { fg = colors.text, bold = true })
+end
+
 local M = {}
 
 M.create_user_command_DailyNext = create_user_command_DailyNext
 M.create_user_command_DailyPrev = create_user_command_DailyPrev
 M.create_user_command_DailyAt = create_user_command_DailyAt
+M.setup_math_highlight = setup_math_highlight
+M.setup_ordered_list_checkbox_highlight = setup_ordered_list_checkbox_highlight
+M.setup_ordered_list_highlight = setup_ordered_list_highligh
 M.substitutions = substitutions
 
 return M

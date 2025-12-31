@@ -34,6 +34,7 @@ return {
             "ruff",           -- Python
             "bashls",         -- Bash
             "markdown_oxide", -- Markdown
+            "marksman",       -- Markdown
             "dockerls",       -- Docker
             "clangd",         -- C
             "taplo",          -- TOML

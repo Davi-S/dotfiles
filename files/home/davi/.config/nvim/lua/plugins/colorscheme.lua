@@ -69,8 +69,8 @@ return {
 
                         },
                         colorscheme_helpers.lazy_highlights(colors),
-                        colorscheme_helpers.markdown_highlights(colors),
-                        colorscheme_helpers.render_markdown_highlights(colors)
+                        colorscheme_helpers.markdown_highlights(colors)
+                        -- colorscheme_helpers.render_markdown_highlights(colors)
                     )
                 end,
             })

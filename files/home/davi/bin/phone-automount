@@ -8,17 +8,17 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u davi)/bus"
 case "$ACTION" in
 add)
     mkdir -p "$MOUNT_POINT"
-    sleep 2 # Give the phone a second to initialize MTP
+    sleep 1 # Give the phone a second to initialize MTP
     if simple-mtpfs "$MOUNT_POINT"; then
-        notify-send -t 3000 "MTP Mount" "Phone mounted at $MOUNT_POINT"
+        notify-send -t 1000 "MTP Mount" "Phone mounted at $MOUNT_POINT"
     else
-        notify-send -t 3000 "MTP Mount" "Failed to mount"
+        notify-send -t 1000 "MTP Mount" "Failed to mount"
         exit 1
     fi
     ;;
 remove)
     if fusermount -uz "$MOUNT_POINT"; then
-        notify-send -t 3000 "MTP Mount" "Phone unmounted safely"
+        notify-send -t 1000 "MTP Mount" "Phone unmounted safely"
     fi
     ;;
 esac

@@ -11,6 +11,7 @@ CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/colorizer.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
@@ -74,6 +75,10 @@ AddPackage --foreign libtexprintf # Formatted Output with tex-like syntax suppor
 
 AddPackage git # the fast distributed version control system
 CopyFile /home/davi/.gitconfig '' davi davi
+
+
+# Installed for the LSP of nvim to remove a warning
+AddPackage inotify-tools # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
 
 
 # Primarily required by git for some commands. Is not a mandatory dependency
