@@ -8,7 +8,7 @@ PS1='[\u@\h \W]\$ '
 
 # Avoid using rm. Use trash-cli instead.
 # use `\rm file-without-hope` to bypass this alias.
-alias rm='echo "Use trash-put instead of rm. Use \rm to bypass this warning"; false'
+alias rm='echo "Use trash-put instead of rm, or use \rm to bypass this warning"; false'
 alias trm='trash-put'
 
 # Alias for hibernation
