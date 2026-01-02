@@ -16,7 +16,6 @@ CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins/markview.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/obsidian.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/outline.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi

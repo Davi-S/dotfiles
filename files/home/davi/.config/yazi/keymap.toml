@@ -22,4 +22,8 @@ prepend_keymap = [
 
 	# <S-Right> mimics 'L': History Forward
 	{ on = "<S-Right>", run = "forward", desc = "Forward to next directory" },
+
+
+    # Make esc quit
+    { on = "<Esc>", run = "quit", desc = "Exit the process" },
 ]

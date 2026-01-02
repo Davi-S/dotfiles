@@ -3,6 +3,8 @@ return {
     config = function()
         vim.opt.termguicolors = true
         local colorizer = require("colorizer")
-        colorizer.setup()
+        colorizer.setup({
+            names = true,
+        })
     end
 }

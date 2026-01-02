@@ -1,7 +1,16 @@
 return {
     "obsidian-nvim/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
+    -- load the plugin only on markdown files or when any of its commands are
+    -- used
     ft = "markdown",
+    cmd = { "Obsidian *" },
+    -- Setting the keys here so they work before the plugin is loaded
+    keys = {
+        { "<leader>dh", "<cmd>Obsidian today<cr>",     desc = "Obsidian [d]aily note for today ([h]oje)" },
+        { "<leader>dy", "<cmd>Obsidian yesterday<cr>", desc = "Obsidian [d]aily note for [y]esterday" },
+        { "<leader>dt", "<cmd>Obsidian tomorrow<cr>",  desc = "Obsidian [d]aily note for [t]omorrow" },
+    },
     dependencies = {
         "hrsh7th/nvim-cmp",
         "nvim-telescope/telescope.nvim",
@@ -10,9 +19,8 @@ return {
     config = function()
         local colors = require("catppuccin.palettes").get_palette("mocha")
         local obsidian_helper = require("plugins_helpers.obsidian_helper")
-
-        -- Require and set options
         local obsidian = require("obsidian")
+
         obsidian.setup({
             legacy_commands = false, -- this will be removed in the next major release
 
@@ -36,22 +44,23 @@ return {
                 template = "Nota diária.md",
             },
 
+            -- setting this here so the note filename is the same as the title
             note_id_func = function(title)
                 return title
             end,
 
             checkbox = {
-                -- The order in which [ ] cycles when you toggle
+                -- The order in which the checkboxes cycles when toggled
                 order = { " ", "/", "x", "-", ">", "<" },
+                create_new = false
             },
 
             ui = {
+                -- Note that some ui elements will be overridden after the
+                -- plugin setup
                 enable = true,
 
                 hl_groups = {
-                    -- `bold = true' wont make too much difference in itens that
-                    -- uses an icon to conceal, but it makes sense that they
-                    -- would be bold if possible.
                     ObsidianCheckbox = { fg = colors.sapphire, bold = true },
                     ObsidianBullet = { fg = colors.text, bold = true },
                     -- The group for ordered lists are defined bellow as a
@@ -65,15 +74,14 @@ return {
                 },
 
                 checkboxes = {
-                    -- The key is the char inside [ ], the value is the icon and color
-                    [" "] = { char = "󰄰", hl_group = "ObsidianCheckbox" },
-                    ["/"] = { char = "󱎕", hl_group = "ObsidianCheckbox" },
-                    ["x"] = { char = "󰄴", hl_group = "ObsidianCheckbox" },
-                    ["-"] = { char = "󰜺", hl_group = "ObsidianCheckbox" },
-                    [">"] = { char = "󰁔", hl_group = "ObsidianCheckbox" },
-                    ["<"] = { char = "󰃭", hl_group = "ObsidianCheckbox" },
+                    [" "] = { hl_group = "ObsidianCheckbox" },
+                    ["/"] = { hl_group = "ObsidianCheckbox" },
+                    ["x"] = { hl_group = "ObsidianCheckbox" },
+                    ["-"] = { hl_group = "ObsidianCheckbox" },
+                    [">"] = { hl_group = "ObsidianCheckbox" },
+                    ["<"] = { hl_group = "ObsidianCheckbox" },
                 },
-                bullets = { char = "•", hl_group = "ObsidianBullet" },
+                bullets = { hl_group = "ObsidianBullet" },
                 reference_text = { hl_group = "ObsidianLink" },
                 external_link_icon = { char = "", hl_group = "ObsidianLink" },
                 tags = { hl_group = "ObsidianTag" },
@@ -89,23 +97,17 @@ return {
             }
         })
 
-        -- Set this for ordered lists as the UI module of the Obsidian plugin
-        -- does not support these groups
-        obsidian_helper.setup_ordered_list_checkbox_highlight()
+        -- Set some custom highlights here
         obsidian_helper.setup_ordered_list_highlight()
+        obsidian_helper.setup_ordered_list_checkbox_highlight()
         obsidian_helper.setup_math_highlight()
+        obsidian_helper.setup_checkbox_dash_highlight()
+        -- Disable the concealing of bold/italic syntax in Markdown. Only links
+        -- will be concealed
+        vim.g.markdown_syntax_conceal = 0
 
-        -- Obsidian daily related keymaps
-        vim.keymap.set("n", "<leader>dh",
-            "<cmd>Obsidian today<cr>",
-            { desc = "Obsidian [d]aily note for today ([h]oje)" })
-        vim.keymap.set("n", "<leader>dy",
-            "<cmd>Obsidian yesterday<cr>",
-            { desc = "Obsidian [d]aily note for [y]esterday" })
-        vim.keymap.set("n", "<leader>dt",
-            "<cmd>Obsidian tomorrow<cr>",
-            { desc = "Obsidian [d]aily note for [t]omorrow" })
 
+        -- Keymaps for custom commands
         obsidian_helper.create_user_command_DailyNext()
         vim.keymap.set("n", "<leader>dn",
             "<cmd>DailyNext<cr>",

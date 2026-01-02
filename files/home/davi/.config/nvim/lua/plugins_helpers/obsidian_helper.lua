@@ -316,6 +316,21 @@ local function setup_ordered_list_highligh()
     vim.api.nvim_set_hl(0, "markdownOrderedListMarker", { fg = colors.text, bold = true })
 end
 
+local function setup_checkbox_dash_highlight()
+    -- Create the highlight group (colors.text is usually white/off-white in Mocha)
+    vim.api.nvim_set_hl(0, "ObsidianListDash", { fg = colors.text, bold = true })
+
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+        pattern = "*.md",
+        callback = function()
+            -- Match a hyphen '-' only if it's the start of a list item followed by a checkbox
+            -- We use the vim.fn.matchadd for high priority over standard syntax
+            -- Regex: ^\s* starts at beginning, \zs matches the dash, \ze ends the match
+            vim.fn.matchadd("ObsidianListDash", '^\\s*\\zs-\\ze\\s\\+\\[[^\\]]*\\]')
+        end,
+    })
+end
+
 local M = {}
 
 M.create_user_command_DailyNext = create_user_command_DailyNext
@@ -324,6 +339,7 @@ M.create_user_command_DailyAt = create_user_command_DailyAt
 M.setup_math_highlight = setup_math_highlight
 M.setup_ordered_list_checkbox_highlight = setup_ordered_list_checkbox_highlight
 M.setup_ordered_list_highlight = setup_ordered_list_highligh
+M.setup_checkbox_dash_highlight = setup_checkbox_dash_highlight
 M.substitutions = substitutions
 
 return M
