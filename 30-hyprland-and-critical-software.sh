@@ -30,7 +30,8 @@ SetFileProperty /home/davi/.config/kitty/sessions group davi
 SetFileProperty /home/davi/.config/kitty/sessions owner davi
 
 
-AddPackage swaync # A simple GTK based notification daemon for Sway
+AddPackage --foreign swaync-git # A simple notification daemon with a GTK panel for checking previous notifications like other DEs
+# AddPackage swaync # A simple GTK based notification daemon for Sway
 # TODO: replaced with the notification daemon from AGS when possible
 CopyFile /home/davi/.config/swaync/config.json '' davi davi
 CopyFile /home/davi/.config/swaync/style.css '' davi davi

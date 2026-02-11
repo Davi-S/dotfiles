@@ -143,8 +143,6 @@ local function get_reminders(target_time, ctx)
         { "Profissional", "M1",  "E - Pagar cartão de crédito" },
         { "Profissional", "M1",  "T - Adicionar informações sobre a carteira de investimentos na nota mensal" },
         { "Profissional", "M1",  "E - Pagar mensalidade da CELU e mandar comprovante para a universidade" },
-        { "Profissional", "M13", "T - Lembrar tios de mandar o dinheiro de pagar os lotes" },
-        { "Profissional", "M20", "E - Pagar os lotes" },
         { "Profissional", "M27", "E - Pagar cheque do Cândido" },
     }
 

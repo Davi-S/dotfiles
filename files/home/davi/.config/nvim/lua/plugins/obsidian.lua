@@ -51,7 +51,8 @@ return {
 
             checkbox = {
                 -- The order in which the checkboxes cycles when toggled
-                order = { " ", "/", "x", "-", ">", "<" },
+                -- order = { " ", "/", "x", "-", ">", "<" },
+                order = { " ", "x" },
                 create_new = false
             },
 

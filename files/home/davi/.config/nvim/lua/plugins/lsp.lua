@@ -30,7 +30,7 @@ return {
         -- These will be managed by Mason
         local mason_servers_list = {
             "lua_ls",         -- Lua
-            "basedpyright",   -- Python
+            -- "basedpyright",   -- Python
             "ruff",           -- Python
             "bashls",         -- Bash
             "markdown_oxide", -- Markdown
@@ -43,7 +43,7 @@ return {
         -- Other servers that will be enable, but not managed by Mason; they
         -- need to be installed manually
         local other_servers_list = {
-            "sourcery", -- Python
+            -- "sourcery", -- Python
         }
 
         -- Enable the following tools

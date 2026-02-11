@@ -16,6 +16,7 @@ CopyFile /etc/systemd/network/25-wireless.network
 CopyFile /var/lib/iwd/126-5G.psk 600
 CopyFile /var/lib/iwd/=484644445f322e3447.psk 600
 CopyFile /var/lib/iwd/C3SL.8021x
+CopyFile /var/lib/iwd/COMODORO_BURGUER.psk 600
 CopyFile /var/lib/iwd/HFDD_5G.psk 600
 CopyFile /var/lib/iwd/Nobreza\ DDOS.psk 600
 CopyFile /var/lib/iwd/Uai\ Fai.psk 600
