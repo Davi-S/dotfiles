@@ -37,6 +37,7 @@ CopyFile /home/davi/bin/phone-automount 755 davi davi
 # phone-automount service.
 CopyFile /etc/udev/rules.d/99-phone-mount.rules
 
+
 # Primarily used as a dependency of the battery scripts
 AddPackage acpi # Client for battery, power, and thermal readings
 

@@ -137,6 +137,8 @@ return {
                         end
                     },
                 }, {
+                    -- My own obsidian plugin for nvim
+                    { name = "nvim_obsidian" },
                     {
                         name = "buffer",
                         -- Do not show buffer suggestions in comments or in

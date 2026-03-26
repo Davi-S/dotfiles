@@ -1,4 +1,4 @@
 layout stack
 cd ~/Documents/ObsidianAllInVault/
-launch sh -c "nvim +'lua require(\"lazy\").load({ plugins = { \"obsidian.nvim\" } })' +'Obsidian today' .; exec bash"
+launch sh -c "nvim +'lua require(\"lazy\").load({ plugins = { \"obsidian.nvim\"}})' +'ObsidianToday' .; exec bash"
 launch sh -c "lazygit; exec bash"

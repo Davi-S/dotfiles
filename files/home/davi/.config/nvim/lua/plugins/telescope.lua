@@ -64,25 +64,8 @@ return {
         )
         vim.keymap.set(
             "n",
-            "<leader>fd",
-            builtin.lsp_definitions,
-            { desc = "Telescope [f]ind (goto) [d]efinitions" }
-        )
-        vim.keymap.set(
-            "n",
-            "<leader>fr",
-            builtin.lsp_references,
-            { desc = "Telescope [f]ind (goto) [r]eferences" }
-        )
-        vim.keymap.set(
-            "n",
-            "<leader>lc",
-            builtin.git_commits,
-            { desc = "Telescope [l]ist [c]ommits" }
-        )
-        vim.keymap.set(
-            "n",
             "<leader>fu",
+            -- This is basically builtin.lsp_definitions and builtin.lsp_references together
             telescope_helpers.smart_definition,
             { desc = "Telescope [f]ind [u]sages" }
         )

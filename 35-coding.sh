@@ -11,20 +11,18 @@ CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins/colorizer.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins/obsidian.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins/outline.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/nvim-obsidian.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/telescope.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/yazi.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/colorscheme_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/completions_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/lsp_helper.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins_helpers/obsidian_helper.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins_helpers/nvim-obsidian_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/telescope_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi
@@ -42,48 +40,24 @@ SetFileProperty /home/davi/.config/nvim/lua/plugins_helpers owner davi
 SetFileProperty /home/davi/.config/nvim/spell group davi
 SetFileProperty /home/davi/.config/nvim/spell owner davi
 
+
 # Python package managers 
 AddPackage uv # An extremely fast Python package installer and resolver written in Rust
 AddPackage python-pip # The PyPA recommended tool for installing Python packages
 AddPackage python-pipx # Install and Run Python Applications in Isolated Environments
 
 
-# Pylatexenc installed with pipx
-CreateLink /home/davi/.local/bin/latex2text /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latex2text davi davi
-CreateLink /home/davi/.local/bin/latexencode /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latexencode davi davi
-CreateLink /home/davi/.local/bin/latexwalker /home/davi/.local/share/pipx/venvs/pylatexenc/bin/latexwalker davi davi
-CreateLink /home/davi/.local/bin/ffs /home/davi/.local/share/pipx/venvs/ffsubsync/bin/ffs davi davi
-CreateLink /home/davi/.local/bin/ffsubsync /home/davi/.local/share/pipx/venvs/ffsubsync/bin/ffsubsync davi davi
-CreateLink /home/davi/.local/bin/subsync /home/davi/.local/share/pipx/venvs/ffsubsync/bin/subsync davi davi
-SetFileProperty /home/davi/.local/bin group davi
-SetFileProperty /home/davi/.local/bin owner davi
-
-
-# subliminal installed with pipx used for automatically downloading subtitles
-# for mpv
-CreateLink /home/davi/.local/bin/subliminal /home/davi/.local/share/pipx/venvs/subliminal/bin/subliminal davi davi
-
-
-# Python Sourcery installed with pipx
-# Used on neovim as LSP
-CreateLink /home/davi/.local/bin/sourcery /home/davi/.local/share/pipx/venvs/sourcery-cli/bin/sourcery davi davi
-
-
-# Support for latex in markdown renders extensions of neovim
-AddPackage --foreign libtexprintf # Formatted Output with tex-like syntax support
-
-
 AddPackage git # the fast distributed version control system
 CopyFile /home/davi/.gitconfig '' davi davi
-
-
-# Installed for the LSP of nvim to remove a warning
-AddPackage inotify-tools # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
 
 
 # Primarily required by git for some commands. Is not a mandatory dependency
 AddPackage less # A terminal based program for viewing text files
  
+
+# Installed for the LSP of nvim to remove a warning
+AddPackage inotify-tools # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
+
 
 # Initially installed for the Revelo LLM Projects
 AddPackage docker # Pack, ship and run any application as a lightweight container
@@ -98,6 +72,7 @@ AddPackage valgrind # Tool to help find memory-management problems in programs
 AddPackage --foreign visual-studio-code-bin # Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official binary version)
 
 
+# Git terminal user interface
 AddPackage lazygit # Simple terminal UI for git commands
 CopyFile /home/davi/.config/lazygit/config.yml '' davi davi
 SetFileProperty /home/davi/.config/lazygit group davi
@@ -108,7 +83,7 @@ SetFileProperty /home/davi/.config/lazygit owner davi
 AddPackage fd # Simple, fast and user-friendly alternative to find
 
 
-# Installed to be able to install LSP for nvim
+# Installed to be able to install some LSP for nvim
 AddPackage npm # JavaScript package manager
 
 
@@ -119,31 +94,14 @@ AddPackage ripgrep # A search tool that combines the usability of ag with the ra
 # Dependency of the treesitter nvim plugin
 AddPackage tree-sitter-cli # CLI tool for developing, testing, and using Tree-sitter parsers
 
-# Dependency of nvim plugins (copilot plugins related)
-AddPackage lynx # A text browser for the World Wide Web
-
-
-# Dependency of a nvim plugin
-AddPackage wget # Network utility to retrieve files from the web
-
 
 # Configuration for the C lang formatter
 CopyFile /home/davi/.clang-format '' davi davi
 
 
-# Installed for a specific project (caad erp)
-# Used to expose a local host to internet and to run zen-browser on selenium
-AddPackage --foreign ngrok # A tunneling, reverse proxy for developing and understanding networked, HTTP services
-AddPackage geckodriver # Proxy for using W3C WebDriver-compatible clients to interact with Gecko-based browsers.
-
-
 # Installed as a requirement for a Revelo project
 AddPackage tmux # Terminal multiplexer
 CopyFile /home/davi/.tmux.conf '' davi davi
-
-
-# Necessary to make Python Sourcery to work on neovim
-AddPackage libxcrypt-compat # Modern library for one-way hashing of passwords - legacy API functions
 
 
 # These are the configurations recipes from the nvim-lspconfig plugin which I downloaded locally and edited 
