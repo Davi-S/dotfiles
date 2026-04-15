@@ -1,3 +1,4 @@
+-- Highlights for the Lazy plugin interface
 local function lazy_highlights(colors)
     return {
         -- Keyboard shortcuts in buttons

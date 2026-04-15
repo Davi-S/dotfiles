@@ -7,10 +7,9 @@
 ## Main editor ##
 AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/config/pack.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi
@@ -24,6 +23,7 @@ CopyFile /home/davi/.config/nvim/lua/plugins_helpers/completions_helper.lua '' d
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/lsp_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/nvim-obsidian_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/telescope_helper.lua '' davi davi
+CopyFile /home/davi/.config/nvim/nvim-pack-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi
 CopyFile /home/davi/.config/nvim/spell/pt.utf-8.spl '' davi davi
@@ -97,6 +97,15 @@ AddPackage tree-sitter-cli # CLI tool for developing, testing, and using Tree-si
 
 # Configuration for the C lang formatter
 CopyFile /home/davi/.clang-format '' davi davi
+
+
+# Optional dependency of the mason plugin in nvim
+AddPackage wget # Network utility to retrieve files from the web
+
+
+# Optional dependency of some nvim plugin
+AddPackage --foreign clangd-bin # Clangd Language Server
+AddPackage --foreign hyprls # A LSP server for Hyprland config files
 
 
 # Installed as a requirement for a Revelo project

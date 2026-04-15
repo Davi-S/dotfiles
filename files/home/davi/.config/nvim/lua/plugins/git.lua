@@ -1,6 +1,6 @@
 return {
 	{
-		"lewis6991/gitsigns.nvim",
+		src = "https://github.com/lewis6991/gitsigns.nvim",
 		config = function()
 			require("gitsigns").setup({
 				word_diff = true,
@@ -32,10 +32,5 @@ return {
 				end,
 			})
 		end,
-	},
-    -- Define another plugin in the same file. This one does not need any
-    -- configuration
-	{
-		"tpope/vim-fugitive",
 	},
 }

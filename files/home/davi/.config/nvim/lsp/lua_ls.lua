@@ -85,8 +85,19 @@ return {
 
 	settings = {
 		Lua = {
+			hint = {
+				enable = true,
+				paramType = true,
+				setType = true,
+				paramName = "All",
+				arrayIndex = "Auto",
+				await = true
+			},
 			completion = {
 				callSnippet = "Replace",
+			},
+			codeLens = {
+				enable = true,
 			},
 			runtime = { version = "LuaJIT" },
 			workspace = {

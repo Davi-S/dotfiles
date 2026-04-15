@@ -1,3 +1,35 @@
+-- Global map leader
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+--------------------------------------------------------------------------------
+
+-- This is a single source of truth for the global formatting keymap.
+-- Some keymaps should be used across the whole config or should always be defined
+-- for some behavior.
+-- This is useful for features/keys that are common and very used across all files
+--
+-- For example, the keybind for formatting has a default behavior of just warning,
+-- since the actual formatting configuration is usually defined in the lsp config.
+-- Doing this will show what th intended behavior of the key is even when there are
+-- no lsp/formatting configured for a determined file.
+-- Basically, the lsp (or any other place that defines formatting) will be able to
+-- Override the warning and use a single source of truth for formatting files.
+local M = {
+    code_format = "<leader>cf",
+    rename_symbol = "<leader>r",
+}
+
+vim.keymap.set("n", M.code_format, function()
+    vim.notify("No formatter available for this buffer", vim.log.levels.WARN)
+end, { desc = "[c]ode [f]ormat" })
+
+vim.keymap.set("n", M.rename_symbol, function()
+    vim.notify("No 'rename symbol' support available for this buffer", vim.log.levels.WARN)
+end, { desc = "[r]rename symbol under the cursor" })
+
+--------------------------------------------------------------------------------
+
 -- Make arrow keys behave like hjkl in all relevant modes.
 -- This is is necessary because I use a custom Colemak keyboard layout.
 -- This make the use of hjkl impractical. To avoid remapping several keys
@@ -37,7 +69,7 @@ map_all_modes("<End>", "<Nop>", { remap = false })
 
 -- Explicitly map <C-w> + Shift-Arrows to swap windows
 -- This fixes the issue where <C-w> ignores the previous mappings of
--- shift-arrow to shift-keys, preserving the default behaviour
+-- shift-arrow to shift-keys, preserving the default behavior
 vim.keymap.set("n", "<C-w><S-Left>", "<C-w>H", { desc = "Move window Left" })
 vim.keymap.set("n", "<C-w><S-Down>", "<C-w>J", { desc = "Move window Down" })
 vim.keymap.set("n", "<C-w><S-Up>", "<C-w>K", { desc = "Move window Up" })
@@ -102,3 +134,4 @@ end, { desc = "Jump to [n]ext [c]onfusing char" })
 
 ----------------------------------------------------------------------------------------------------
 
+return M

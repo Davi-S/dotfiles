@@ -3,7 +3,7 @@ vim.opt.number = true         -- show absolute line number for the current line
 vim.opt.relativenumber = true -- show relative line numbers for other lines (helps with motions)
 vim.opt.wrap = false          -- disable line wrapping; long lines will scroll horizontally
 vim.opt.scrolloff = 9         -- minimum screen lines to keep above and below cursor
-vim.opt.sidescrolloff = 30    -- minimum screen columns to keep left and right of cursor
+vim.opt.sidescrolloff = 10    -- minimum screen columns to keep left and right of cursor
 
 --------------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ vim.opt.inccommand = "nosplit" -- shows partial off-screen results in a preview 
 -- Visual settings
 vim.cmd.colorscheme("catppuccin") -- Apply color scheme
 vim.opt.termguicolors = true      -- enable 24-bit RGB color in the terminal
-vim.opt.conceallevel = 2          -- Concealed text is completely hidden unless when provided with a custom replacement character
+vim.opt.conceallevel = 0          -- Concealed text is completely hidden unless when provided with a custom replacement character
 vim.opt.signcolumn = "yes"        -- always show the sign column to avoid text shifting when signs appear
 -- highlight yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -132,9 +132,16 @@ vim.opt.splitbelow = true -- put new horizontal splits below
 --------------------------------------------------------------------------------
 
 -- netrw options
-vim.g.netrw_banner = 0                                   -- disable the netrw banner
-vim.g.netrw_browsex_viewer = "xdg-open"                  -- external program to open files
-vim.g.netrw_hide = 0                                     -- show hidden files (0 = don't hide dotfiles)
-vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro" -- Show line numbers
-
+-- Fake netrw being loaded already so it wont load. I usually prefer to use
+-- the yazi plugin
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
+vim.g.loaded_netrw_gitignore = 1
+-- These options are for configuring netrw for easy of use
+-- vim.g.netrw_banner = 0                                   -- disable the netrw banner
+-- vim.g.netrw_browsex_viewer = "xdg-open"                  -- external program to open files
+-- vim.g.netrw_hide = 0                                     -- show hidden files (0 = don't hide dotfiles)
+-- vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro" -- Show line numbers
 --------------------------------------------------------------------------------

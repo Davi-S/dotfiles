@@ -1,53 +1,33 @@
 return {
-    dir = "~/Documents/nvim-obsidian",
-    name = "nvim-obsidian",
+    src = "https://github.com/Davi-S/nvim-obsidian",
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-        "hrsh7th/nvim-cmp",
-        "nvim-treesitter/nvim-treesitter",
-    },
-    -- 'cmd' tells lazy.nvim when to load this plugin via commands.
-    -- When any of these commands are invoked, the plugin loads automatically.
-    cmd = {
-        "ObsidianOmni",
-        "ObsidianToday",
-        "ObsidianNext",
-        "ObsidianPrev",
-        "ObsidianFollow",
-        "ObsidianBacklinks",
-        "ObsidianSearch",
-        "ObsidianReindex",
-        "ObsidianInsertTemplate",
-    },
-    -- Also load when opening files inside the vault
-    init = function()
-        local group = vim.api.nvim_create_augroup("ObsidianVaultLoad", { clear = true })
-        vim.api.nvim_create_autocmd("BufReadPre", {
-            group = group,
-            pattern = "/home/davi/Documents/ObsidianAllInVault/**",
-            callback = function()
-                require("lazy").load({ plugins = { "nvim-obsidian" } })
-            end,
-        })
-    end,
-    keys = {
-        { "<leader>dt", "<cmd>ObsidianToday<cr>", desc = "Obsidian [d]aily [t]oday" },
-        { "<leader>dn", "<cmd>ObsidianNext<cr>",  desc = "Obsidian [d]aily [n]ext" },
-        { "<leader>dp", "<cmd>ObsidianPrev<cr>",  desc = "Obsidian [d]aily [p]revious" },
+        { src = "https://github.com/nvim-lua/plenary.nvim" },
+        { src = "https://github.com/nvim-telescope/telescope.nvim" },
+        { src = "https://github.com/saghen/blink.cmp" },
+        { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     },
     config = function()
         local vault_root = "/home/davi/Documents/ObsidianAllInVault"
-        local obsidian = require("nvim-obsidian")
+        local obsidian = require("nvim_obsidian")
         local obsidian_helper = require("plugins_helpers.nvim-obsidian_helper")
 
+        -- Register journal placeholders before setup so title formats can resolve them.
+        -- Template placeholders registered after setup consume canonical template ctx fields.
         obsidian_helper.register_journal_placeholders(obsidian)
 
         obsidian.setup({
-            vault_root = "/home/davi/Documents/ObsidianAllInVault",
+            vault_root = vault_root,
+            log_level = "warn",
             locale = "pt-BR",
             new_notes_subdir = "10 Novas notas",
-            -- force_create_key defaults to <S-CR>, no need to specify here
+            dataview = {
+                highlights = {
+                    header = "@lsp.type.decorator.markdown",
+                    table_link = "markdownLinkText",
+                    task_no_results = "Comment",
+                    error = "WarningMsg",
+                },
+            },
             journal = {
                 daily = {
                     subdir = "11 Diário/11.01 Diário",
@@ -56,7 +36,7 @@ return {
                 },
                 weekly = {
                     subdir = "11 Diário/11.02 Semanal",
-                    title_format = "{{iso_year}} semana {{iso_week}}",
+                    title_format = "{{iso_year}} semana {{iso_week_unpadded}}",
                 },
                 monthly = {
                     subdir = "11 Diário/11.03 Mensal",
@@ -77,7 +57,7 @@ return {
         -- Override Telescope's <leader>ff from this plugin config:
         -- inside vault -> ObsidianOmni, outside vault -> telescope find_files
         vim.keymap.set("n", "<leader>ff", function()
-            if obsidian_helper.is_inside_vault(vault_root) then
+            if obsidian.is_inside_vault() then
                 vim.cmd("ObsidianOmni")
                 return
             end
@@ -87,7 +67,7 @@ return {
         -- Override <leader>lg from this plugin config:
         -- inside vault -> ObsidianSearch, outside vault -> telescope live_grep
         vim.keymap.set("n", "<leader>lg", function()
-            if obsidian_helper.is_inside_vault(vault_root) then
+            if obsidian.is_inside_vault() then
                 vim.cmd("ObsidianSearch")
                 return
             end
@@ -98,9 +78,9 @@ return {
         -- inside vault -> Follow if on wiki-link, otherwise Backlinks
         -- outside vault -> telescope helper
         vim.keymap.set("n", "<leader>fu", function()
-            if obsidian_helper.is_inside_vault(vault_root) then
-                local link = require("nvim-obsidian.link.wiki").link_under_cursor()
-                if link and link ~= "" then
+            if obsidian.is_inside_vault() then
+                local parsed = obsidian.wiki_link_under_cursor()
+                if parsed and parsed.target then
                     vim.cmd("ObsidianFollow")
                     return
                 end
@@ -110,5 +90,13 @@ return {
             end
             require("plugins_helpers.telescope_helper").smart_definition()
         end, { desc = "Find usages (Follow/Backlinks in vault)" })
+
+
+        ----------------------------------------------------------------------------
+        -- Set keymaps
+        ----------------------------------------------------------------------------
+        vim.keymap.set("n", "<leader>dt", "<cmd>ObsidianToday<cr>", { desc = "Obsidian [d]aily [t]oday" })
+        vim.keymap.set("n", "<leader>dn", "<cmd>ObsidianNext<cr>", { desc = "Obsidian [d]aily [n]ext" })
+        vim.keymap.set("n", "<leader>dp", "<cmd>ObsidianPrev<cr>", { desc = "Obsidian [d]aily [p]revious" })
     end,
 }

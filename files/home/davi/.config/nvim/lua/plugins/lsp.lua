@@ -4,23 +4,24 @@
 -- - https://neovim.io/doc/user/lsp.html
 -- - https://neovim.io/doc/user/lsp.html#lsp-completion
 -- - https://neovim.io/doc/user/lsp.html#lsp-attach
+-- - https://neovim.io/doc/user/lsp/#_quickstart
 
 return {
     -- Automatically install LSPs and related tools to stdpath for Neovim
-    "mason-org/mason.nvim",
+    src = "https://github.com/mason-org/mason.nvim",
     dependencies = {
         -- mason-lspconfig:
         -- - Bridges the gap between LSP config names (e.g. "lua_ls") and actual Mason package names (e.g. "lua-language-server").
         -- - Used here only to allow specifying language servers by their LSP name (like "lua_ls") in `ensure_installed` used by 'WhoIsSethDaniel/mason-tool-installer.nvim.'
         -- - It is a optional dependency of the 'WhoIsSethDaniel/mason-tool-installer.nvim' plugin. it does not even need to be setup; only need to be installed.
         -- - It does not auto-configure servers; we use vim.lsp.enable() explicitly for full control.
-        "mason-org/mason-lspconfig.nvim",
+        { src = "https://github.com/mason-org/mason-lspconfig.nvim"},
 
         -- mason-tool-installer:
         -- - Installs LSPs, linters, formatters, etc. by their Mason package name.
         -- - We use it to ensure all desired tools are present.
         -- - The `ensure_installed` list works with mason-lspconfig to resolve LSP names like "lua_ls".
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"},
     },
     config = function()
         require("mason").setup()
@@ -99,10 +100,16 @@ return {
             callback = function(args)
                 local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-                lsp_helpers.setup_formatting(args, client)
-                lsp_helpers.setup_highlight_under_cursor(args, client)
-                lsp_helpers.setup_lsp_renaming_keymap(args, client)
-                lsp_helpers.setup_code_actions_keymap(args, client)
+                -- Enable features
+                lsp_helpers.setup_formatting(args)
+                lsp_helpers.setup_highlight_under_cursor(args)
+                lsp_helpers.setup_renaming(args)
+                lsp_helpers.setup_code_actions(args)
+                lsp_helpers.setup_codelens(args)
+                lsp_helpers.setup_linked_editing_range(args)
+                lsp_helpers.setup_inlay_hint(args)
+                -- lsp_helpers.setup_inline_completion(args)
+                lsp_helpers.setup_on_type_formatting(args)
             end,
         })
     end,

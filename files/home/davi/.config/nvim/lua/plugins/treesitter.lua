@@ -1,27 +1,29 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
-	lazy = false,
-	branch = "main",
-	build = ":TSUpdate",
+	src = "https://github.com/nvim-treesitter/nvim-treesitter",
+	version = "main",
+	build = function()
+		vim.cmd("TSUpdate")
+	end,
 	config = function()
-		require("nvim-treesitter.config").setup({
-			ensure_installed = "all",
+		local treesitter = require("nvim-treesitter")
 
-			-- Install parsers asynchronously
-			sync_install = false,
-			auto_install = true,
+		treesitter.install("all")
 
-			highlight = {
-				enable = true,
-				-- Setting this to true will run both tree-sitter and vim regex highlighting,
-				-- which can slow things down and cause duplicate highlights. Keep false unless
-				-- you need it for a specific language.
-				additional_vim_regex_highlighting = false,
-			},
+		vim.api.nvim_create_autocmd('FileType', {
+			callback = function(ev)
+				-- Enable treesitter highlighting and disable regex syntax
+				-- We use pcall here to avoid errors when opening from some
+				-- different types of buffers. For example, when opening Telescope,
+				-- it will use a buffer filetype called "TelescopePrompt", which
+				-- will raise errors. These errors can be ignored silently
+				local ok = pcall(vim.treesitter.start, ev.buf)
+				if not ok then
+					return
+				end
 
-			indent = {
-				enable = true,
-			},
+				-- Enable treesitter-based indentation
+				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end,
 		})
 	end,
 }

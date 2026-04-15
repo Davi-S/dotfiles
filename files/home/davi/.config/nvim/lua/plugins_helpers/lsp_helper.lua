@@ -1,22 +1,45 @@
-local function setup_formatting(args, client)
+-- About all the lsp features configurations, this is how this config handles them:
+-- Vim.lsp.codelens:                Configured here and working.
+-- Vim.lsp.completion:              Not configured here. Use a dedicated plugin instead.
+-- Vim.lsp.diagnostic:              Not configured here because `vim.diagnostic` is enough. Configure it here for LSPs only if you need finetunning (not usually a thing).
+-- Vim.lsp.document_color:          Enabled by default. No need to configure it unless you need finetunning.
+-- Vim.lsp.inlay_hint:              Configured here and working.
+-- Vim.lsp.inline_completion:       Configured here, but untested. I probably wont use as I prefer the normal completion instead.
+-- Vim.lsp.linked_editing_range:    Configured here, but untested.
+-- Vim.lsp.on_type_formatting:      Configured here and working.
+-- Vim.lsp.semantic_tokens:         Enabled by default. No need to configure.
+
+-- Get the default keymap for formatting
+local keymaps = require("config.keymaps")
+local FORMAT_KEY = keymaps.code_format
+local RENAME_KEY = keymaps.rename_symbol
+
+-- Auto format the file.
+-- You may need to edit the lsp config file to enable/configure this
+local function setup_formatting(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
     -- Keymap for formatting the file
     if client:supports_method("textDocument/formatting") then
-        vim.keymap.set("n", "<leader>cf", function()
-            vim.lsp.buf.format({ async = true })
-        end, { buffer = args.buf, desc = "[c]ode [f]ormat" })
+        vim.keymap.set("n", FORMAT_KEY, function()
+            vim.lsp.buf.format({ async = true, bufnr = args.buf })
+        end, { buffer = args.buf, desc = "LSP [c]ode [f]ormat" })
     end
+
     -- Format for markdown
-    if vim.bo.filetype == "markdown" then
+    -- Override the keybind for Markdown to use other formatter, since it the
+    -- one I usually use (markdown-oxide) does not supports "textDocument/formatting"
+    if vim.bo[args.buf].filetype == "markdown" then
         -- Define a custom format function that uses Prettier for
         -- markdown formatting
-        vim.keymap.set("n", "<leader>cf", function()
-            local filepath = vim.api.nvim_buf_get_name(0)
+        vim.keymap.set("n", FORMAT_KEY, function()
+            local filepath = vim.api.nvim_buf_get_name(args.buf)
             -- Construct command: prettier --stdin-filepath <path>
             -- We use stdin so it works even if you haven't saved the file yet
             local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(filepath)
 
             -- Get current buffer content
-            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+            local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
             local input = table.concat(lines, "\n")
 
             -- Run Prettier
@@ -26,16 +49,17 @@ local function setup_formatting(args, client)
             if vim.v.shell_error == 0 then
                 -- Split output into lines and replace buffer content
                 local new_lines = vim.split(output, "\n")
-                vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
-                vim.notify("Formatted with Prettier", vim.log.levels.INFO)
+                vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, new_lines)
             else
                 vim.notify("Prettier Error:\n" .. output, vim.log.levels.ERROR)
             end
-        end, { buffer = args.buf, desc = "[c]ode [f]ormat" })
+        end, { buffer = args.buf, desc = "LSP [c]ode [f]ormat" })
     end
 end
 
-local function setup_highlight_under_cursor(args, client)
+local function setup_highlight_under_cursor(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
     -- Highlight references under the cursor
     if client:supports_method("textDocument/documentHighlight") then
         local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
@@ -73,9 +97,9 @@ local function setup_highlight_under_cursor(args, client)
 end
 
 -- original by tLaw101 on `https://www.reddit.com/r/neovim/comments/ua6826/3_lua_override_vimuiinput_in_40_lines/`
--- This is a function to override the default input. This will set the input of
--- the command to be a pretty floating window.
-local function wininput(default_text, on_confirm)
+-- This is a function to create a pretty floating window bellow the cursor.
+-- It will receive a input and call the given function with that input.
+local function _wininput(default_text, on_confirm)
     -- create a "prompt" buffer that will be deleted once focus is lost
     local buf = vim.api.nvim_create_buf(false, false)
     vim.bo[buf].buftype = "prompt"
@@ -150,15 +174,23 @@ local function wininput(default_text, on_confirm)
     end, 5)
 end
 
-local function setup_lsp_renaming_keymap(args, client)
+local function setup_renaming(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    -- Basically renames the symbol that is under the cursor to have the new given name
     if client:supports_method('textDocument/rename') then
-        vim.keymap.set("n", "<leader>r",
+        vim.keymap.set("n", RENAME_KEY,
             function()
                 local curr_name = vim.fn.expand("<cword>")
-                wininput(
+                -- This function will open a pretty floating window where the user can
+                -- type the new name it wants and the rename function will be called
+                -- with this input.
+                _wininput(
                     curr_name,
                     function(input)
                         if input and #input > 0 and input ~= curr_name then
+                            -- "rename" receives the new name. It acts upon the symbol
+                            -- That is under the cursor
                             vim.lsp.buf.rename(input)
                         end
                     end
@@ -168,10 +200,66 @@ local function setup_lsp_renaming_keymap(args, client)
     end
 end
 
-local function setup_code_actions_keymap(args, client)
+-- This will help fixing obvious problems on the code. It shows a list with
+-- contextual options on the code
+local function setup_code_actions(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
     if client:supports_method('textDocument/codeAction') then
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,
             { desc = "LSP [c]ode [a]ction" })
+    end
+end
+
+-- Show functions usage and other metrics on the code
+-- You may need to edit the lsp config file to enable/configure this
+local function setup_codelens(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    if client:supports_method 'textDocument/codeLens' then
+        vim.lsp.codelens.enable(true, { bufnr = args.bufnr })
+    end
+end
+
+-- TODO: Still need to test if this linked editing range thing is working
+-- This is usually helpful in HTML or other files with open/close tags
+local function setup_linked_editing_range(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    if client:supports_method 'textDocument/linkedEditingRange' then
+        vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
+    end
+end
+
+-- Show the type of the parameters of the functions and other hints
+-- You may need to edit the lsp config file to enable/configure this
+local function setup_inlay_hint(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    if client:supports_method 'textDocument/inlayHint' then
+        vim.lsp.inlay_hint.enable(true, { bufnr = args.bufnr })
+    end
+end
+
+-- TODO: Still need to test if this inline completion thing is working
+-- This is like vim.lsp.completion, but shows only one option which can be
+-- accepted of denied. It is like copilot suggestions, while vim.lsp.completion
+-- Is a table of options.
+local function setup_inline_completion(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    if client:supports_method 'textDocument/inlineCompletion' then
+        vim.lsp.inline_completion.enable(true, { bufnr = args.bufnr })
+    end
+end
+
+-- Just like the normal formatting. But instead of formatting the whole file,
+-- it will do micro formatting around the cursor when a specific key is pressed.
+local function setup_on_type_formatting(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    if client:supports_method 'textDocument/onTypeFormatting' then
+        vim.lsp.on_type_formatting.enable(true, { bufnr = args.bufnr })
     end
 end
 
@@ -179,7 +267,12 @@ local M = {}
 
 M.setup_formatting = setup_formatting
 M.setup_highlight_under_cursor = setup_highlight_under_cursor
-M.setup_lsp_renaming_keymap = setup_lsp_renaming_keymap
-M.setup_code_actions_keymap = setup_code_actions_keymap
+M.setup_renaming = setup_renaming
+M.setup_code_actions = setup_code_actions
+M.setup_codelens = setup_codelens
+M.setup_linked_editing_range = setup_linked_editing_range
+M.setup_inlay_hint = setup_inlay_hint
+M.setup_inline_completion = setup_inline_completion
+M.setup_on_type_formatting = setup_on_type_formatting
 
 return M

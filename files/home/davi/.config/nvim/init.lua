@@ -1,4 +1,4 @@
-os.setlocale("pt_BR.UTF-8", "time")
-require("config.lazy")
+-- Keymaps must load before the plugins
 require("config.keymaps")
+require("config.pack")
 require("config.options")

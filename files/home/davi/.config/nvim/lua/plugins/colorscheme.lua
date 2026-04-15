@@ -1,8 +1,7 @@
 return {
     {
-        "catppuccin/nvim",
-        name = "catppuccin.nvim",
-        priority = 1000,
+        src = "https://github.com/catppuccin/nvim",
+        name = "catppuccin",
         config = function()
             local colorscheme_helpers = require("plugins_helpers.colorscheme_helper")
 
