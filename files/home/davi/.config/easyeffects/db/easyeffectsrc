@@ -1,11 +1,11 @@
 [StreamInputs]
-inputDevice=alsa_input.pci-0000_05_00.6.analog-stereo
+inputDevice=bluez_input.5C:D3:3D:6A:F5:BD
 plugins=rnnoise#0,deepfilternet#0
 visiblePage=pluginsPage
 visiblePlugin=rnnoise#0
 
 [StreamOutputs]
-outputDevice=alsa_output.pci-0000_05_00.6.analog-stereo
+outputDevice=bluez_output.5C_D3_3D_6A_F5_BD.1
 
 [Window]
 height=1078

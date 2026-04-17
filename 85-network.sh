@@ -15,6 +15,8 @@ CopyFile /etc/systemd/network/25-wireless.network
 # iwd is already added in the `20-base.sh` file.
 CopyFile /var/lib/iwd/126-5G.psk 600
 CopyFile /var/lib/iwd/=484644445f322e3447.psk 600
+CopyFile /var/lib/iwd/CELU.psk 600
+CopyFile /var/lib/iwd/CELU_HP.psk 600
 CopyFile /var/lib/iwd/C3SL.8021x
 CopyFile /var/lib/iwd/COMODORO_BURGUER.psk 600
 CopyFile /var/lib/iwd/Galaxy\ S25\ 53C6.psk 600
@@ -36,7 +38,7 @@ AddPackage dnsmasq # Lightweight, easy to configure DNS forwarder and DHCP serve
 
 # Bluetooth stack
 AddPackage bluez # Daemons for the bluetooth protocol stack
-AddPackage bluez-utils # Development and debugging utilities for the bluetooth protocol stack
+AddPackage bluetui # TUI for managing bluetooth devices
 
 
 AddPackage openssh # SSH protocol implementation for remote login, command execution and file transfer
