@@ -10,6 +10,10 @@ CopyFile /etc/systemd/network/20-wired.network
 CopyFile /etc/systemd/network/25-wireless.network
 
 
+# TUI for managing wifi
+AddPackage impala # TUI for managing wifi
+
+
 # iwd is a good replacement for NetworkManager (if combined with some systemd services).
 # AddPackage iwd # Internet Wireless Daemon
 # iwd is already added in the `20-base.sh` file.
