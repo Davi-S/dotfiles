@@ -38,6 +38,11 @@ CopyFile /home/davi/bin/phone-automount 755 davi davi
 CopyFile /etc/udev/rules.d/99-phone-mount.rules
 
 
+# To automatically mount pendrives 
+AddPackage udiskie # Removable disk automounter using udisks
+CopyFile /home/davi/.config/systemd/user/udiskie.service '' davi davi
+
+
 # Primarily used as a dependency of the battery scripts
 AddPackage acpi # Client for battery, power, and thermal readings
 

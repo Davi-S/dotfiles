@@ -26,6 +26,7 @@ CopyFile /var/lib/iwd/eduroam.8021x
 CreateDir /etc/iwd
 CreateDir /var/lib/iwd/hotspot 700
 CreateFile /var/lib/iwd/UFPR-SEM-FIO.open 600 > /dev/null
+CreateFile /var/lib/iwd/UFPR_SEM_FIO.open 600 > /dev/null
 SetFileProperty /var/lib/iwd mode 700
 
 

@@ -17,6 +17,7 @@ CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprid
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hyprpolkitagent.service /usr/lib/systemd/user/hyprpolkitagent.service davi davi
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/swaync.service /usr/lib/systemd/user/swaync.service davi davi
 CreateLink /home/davi/.config/systemd/user/timers.target.wants/auto-battery-notify.timer /home/davi/.config/systemd/user/auto-battery-notify.timer davi davi
+CreateLink /home/davi/.config/systemd/user/default.target.wants/udiskie.service /home/davi/.config/systemd/user/udiskie.service davi davi
 
 # Files and folders properties
 SetFileProperty /home/davi/.config/systemd group davi
@@ -66,3 +67,4 @@ CreateLink /etc/systemd/user/pipewire.service.wants/wireplumber.service /usr/lib
 CreateLink /etc/systemd/user/sockets.target.wants/p11-kit-server.socket /usr/lib/systemd/user/p11-kit-server.socket
 CreateLink /etc/systemd/user/sockets.target.wants/pipewire-pulse.socket /usr/lib/systemd/user/pipewire-pulse.socket
 CreateLink /etc/systemd/user/sockets.target.wants/pipewire.socket /usr/lib/systemd/user/pipewire.socket
+CreateLink /etc/systemd/system/graphical.target.wants/udisks2.service /usr/lib/systemd/system/udisks2.service
