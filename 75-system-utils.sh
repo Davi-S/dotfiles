@@ -51,3 +51,38 @@ CopyFile /home/davi/.config/hypr/hyprlock.conf '' davi davi
 # For managing idle time. It reduces brightness, locks, and suspends the pc when idle
 AddPackage hypridle # hyprland’s idle daemon
 CopyFile /home/davi/.config/hypr/hypridle.conf '' davi davi
+
+# To view system usage
+AddPackage htop # Interactive process viewer
+CopyFile /home/davi/.config/htop/htoprc 600 davi davi
+SetFileProperty /home/davi/.config/htop group davi
+SetFileProperty /home/davi/.config/htop mode 700
+SetFileProperty /home/davi/.config/htop owner davi
+
+# Installed when I was looking for what was taking up my storage space
+AddPackage ncdu # Disk usage analyzer with an ncurses interface
+
+# Whatsapp for terminal
+AddPackage --foreign nchat # console-based chat client with support for Telegram
+CopyFile /home/davi/.config/nchat/app.conf 600 davi davi
+CopyFile /home/davi/.config/nchat/ui.conf 600 davi davi
+CopyFile /home/davi/.config/nchat/usercolor.conf '' davi davi
+SetFileProperty /home/davi/.config/nchat group davi
+SetFileProperty /home/davi/.config/nchat mode 700
+SetFileProperty /home/davi/.config/nchat owner davi
+
+# File explorer for terminal
+AddPackage yazi # Blazing fast terminal file manager written in Rust, based on async I/O
+CopyFile /home/davi/.config/yazi/keymap.toml '' davi davi
+CopyFile /home/davi/.config/yazi/yazi.toml '' davi davi
+SetFileProperty /home/davi/.config/yazi group davi
+SetFileProperty /home/davi/.config/yazi owner davi
+# Dependency for PDF preview on yazi
+AddPackage poppler # PDF rendering library based on xpdf 3.0
+
+# For unzipping zip files
+AddPackage unzip # For extracting and viewing files in .zip archives
+
+# This is a "replacement" for rm.
+# See the .bashrc file for the alises used alongside this
+AddPackage trash-cli # Command line trashcan (recycle bin) interface

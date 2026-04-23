@@ -1,6 +1,6 @@
-# Network configuration
+# Connectivity configuration
 # =====================
-# Network configuration files and packages
+# This file includes network, bluetooth and SSH configuration files and packages
 #
 # Declares network-related configuration and packages. The setup uses iwd
 # for wireless management, and systemd-network for wired/wireless management.

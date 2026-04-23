@@ -10,7 +10,6 @@
 ############
 
 CreateLink /home/davi/.config/systemd/user/default.target.wants/easyeffects.service /home/davi/.config/systemd/user/easyeffects.service davi davi
-CreateLink /home/davi/.config/systemd/user/default.target.wants/syncthing.service /usr/lib/systemd/user/syncthing.service davi davi
 CreateLink /home/davi/.config/systemd/user/default.target.wants/udiskie.service /home/davi/.config/systemd/user/udiskie.service davi davi
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/cliphist.service /home/davi/.config/systemd/user/cliphist.service davi davi
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hypridle.service /usr/lib/systemd/user/hypridle.service davi davi

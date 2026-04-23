@@ -47,7 +47,7 @@ AddPackage acpi # Client for battery, power, and thermal readings
 CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
-# Some generic and unspecifc file and folder properties
+# Some generic and unspecific file and folder properties
 SetFileProperty /home/davi/.config group davi
 SetFileProperty /home/davi/.config owner davi
 SetFileProperty /home/davi group davi
@@ -57,9 +57,3 @@ SetFileProperty /home/davi/.local/share group davi
 SetFileProperty /home/davi/.local/share owner davi
 SetFileProperty /home/davi/.local group davi
 SetFileProperty /home/davi/.local owner davi
-
-# This folder keeps being created. These are for gtk theming
-CreateDir /home/davi/.config/gtk-3.0 700 davi davi
-CopyFile /home/davi/.config/gtk-3.0/settings.ini '' davi davi
-CreateDir /home/davi/.config/gtk-4.0 700 davi davi
-SetFileProperty /home/davi/.config/gtk-4.0 group davi

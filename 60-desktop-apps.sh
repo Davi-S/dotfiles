@@ -13,9 +13,6 @@ CopyFile /home/davi/.config/qalculate/qalculate-gtk.cfg '' davi davi
 SetFileProperty /home/davi/.config/qalculate group davi
 SetFileProperty /home/davi/.config/qalculate owner davi
 
-# For synching the Obsidian vault between the computer and the phone
-AddPackage syncthing # Open Source Continuous Replication / Cluster Synchronization Thing
-
 # For connecting the phone to the laptop
 AddPackage kdeconnect # Adds communication between KDE and your smartphone
 
@@ -31,7 +28,6 @@ AddPackage obsidian # A powerful knowledge base that works on top of a local fol
 # Installed this to have noise reduction
 # It is useful for other audio effects too
 AddPackage easyeffects # Audio Effects for Pipewire applications
-CopyFile /home/davi/.config/easyeffects/db/easyeffectsrc 600 davi davi
 CreateDir /home/davi/.config/easyeffects/autoload '' davi davi
 SetFileProperty /home/davi/.config/easyeffects group davi
 SetFileProperty /home/davi/.config/easyeffects owner davi
@@ -45,7 +41,6 @@ CopyFile /home/davi/.config/easyeffects/db/rnnoiserc 600 davi davi
 CopyFile /home/davi/.config/easyeffects/db/speexrc 600 davi davi
 CopyFile /home/davi/.config/easyeffectsrc 600 davi davi
 CopyFile /home/davi/.config/easyeffects/db/easyeffectsrc 600 davi davi
-
 # This is a systemd service to start the easyeffects interfaceless.
 # The link to enable it is in the systemd aconfmgr config file
 CopyFile /home/davi/.config/systemd/user/easyeffects.service '' davi davi
@@ -61,35 +56,7 @@ CopyFile /home/davi/.config/electron-flags.conf '' davi davi
 CopyFile /home/davi/.config/mimeapps.list 599 davi davi
 SetFileProperty /home/davi/.config/mimeapps.list mode 600
 
-# To view system usage
-AddPackage htop # Interactive process viewer
-CopyFile /home/davi/.config/htop/htoprc 600 davi davi
-SetFileProperty /home/davi/.config/htop group davi
-SetFileProperty /home/davi/.config/htop mode 700
-SetFileProperty /home/davi/.config/htop owner davi
-
-# Installed when I was looking for what was taking up my storage space
-AddPackage ncdu # Disk usage analyzer with an ncurses interface
-
-# Whatsapp for terminal
-AddPackage --foreign nchat # console-based chat client with support for Telegram
-CopyFile /home/davi/.config/nchat/app.conf 600 davi davi
-CopyFile /home/davi/.config/nchat/ui.conf 600 davi davi
-CopyFile /home/davi/.config/nchat/usercolor.conf '' davi davi
-SetFileProperty /home/davi/.config/nchat group davi
-SetFileProperty /home/davi/.config/nchat mode 700
-SetFileProperty /home/davi/.config/nchat owner davi
-
-# File explorer for terminal
-AddPackage yazi # Blazing fast terminal file manager written in Rust, based on async I/O
-CopyFile /home/davi/.config/yazi/keymap.toml '' davi davi
-CopyFile /home/davi/.config/yazi/yazi.toml '' davi davi
-SetFileProperty /home/davi/.config/yazi group davi
-SetFileProperty /home/davi/.config/yazi owner davi
-# Dependency for PDF preview on yazi
-AddPackage poppler # PDF rendering library based on xpdf 3.0
-
-# This is a video player, but I'm also using it as an image player. I'm doing
+# This is a video player, but I'm also using it as an image viewer. I'm doing
 # this by setting a custom config directory with many dedicated scripts and
 # configs. Also, I'm setting a aliases and custom wayland class name for it
 AddPackage mpv # a free, open source, and cross-platform media player
@@ -141,7 +108,6 @@ SetFileProperty /home/davi/.config/mvi/script-opts group davi
 SetFileProperty /home/davi/.config/mvi/script-opts owner davi
 SetFileProperty /home/davi/.config/mvi/scripts group davi
 SetFileProperty /home/davi/.config/mvi/scripts owner davi
-
 # subliminal installed with pipx used for automatically downloading subtitles
 # for mpv
 CreateLink /home/davi/.local/bin/subliminal /home/davi/.local/share/pipx/venvs/subliminal/bin/subliminal davi davi
@@ -149,16 +115,8 @@ CreateLink /home/davi/.local/bin/subliminal /home/davi/.local/share/pipx/venvs/s
 # For editing images
 AddPackage gimp # GNU Image Manipulation Program
 
-# Doom that runs on the terminal
-CopyFile /home/davi/Games/terminal-doom/.savegame/doomsav0.dsg '' davi davi
-CopyFile /home/davi/Games/terminal-doom/zig-out/bin/terminal-doom 755 davi davi
-SetFileProperty /home/davi/Games group davi
-SetFileProperty /home/davi/Games owner davi
-SetFileProperty /home/davi/Games/terminal-doom group davi
-SetFileProperty /home/davi/Games/terminal-doom owner davi
-SetFileProperty /home/davi/Games/terminal-doom/.savegame group davi
-SetFileProperty /home/davi/Games/terminal-doom/.savegame owner davi
-SetFileProperty /home/davi/Games/terminal-doom/zig-out group davi
-SetFileProperty /home/davi/Games/terminal-doom/zig-out owner davi
-SetFileProperty /home/davi/Games/terminal-doom/zig-out/bin group davi
-SetFileProperty /home/davi/Games/terminal-doom/zig-out/bin owner davi
+# This folder keeps being created. These are for gtk theming
+CreateDir /home/davi/.config/gtk-3.0 700 davi davi
+CopyFile /home/davi/.config/gtk-3.0/settings.ini '' davi davi
+CreateDir /home/davi/.config/gtk-4.0 700 davi davi
+SetFileProperty /home/davi/.config/gtk-4.0 group davi
