@@ -5,7 +5,6 @@
 # Provides keyboard re-mapping and layout customization powered by the
 # Kanata project.
 
-
 AddPackage --foreign kanata # Bring the customizability of a QMK board to any keyboard near you
 CopyFile /etc/kanata/kanata-linux.kbd
 CopyFile /etc/kanata/kanata-linux.kbd.bak

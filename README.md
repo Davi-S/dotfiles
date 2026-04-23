@@ -11,7 +11,7 @@ break.
 - This track all essential machine customizations (dotfiles, system tweaks, key
   applications, services, and more) in a reproducible, versioned way.
 - `aconfmgr` automates system state, making it easy to reinstall and manage
-  configuration 
+  configuration
 
 ### How My Setup is Organized
 
@@ -19,9 +19,9 @@ break.
   These are aconfmgr configuration scripts. Each file targets a specific
   category or setup phase.
   Example:
-    - `00-ignore.sh`: What to skip or ignore in tracking.
-    - `20-base.sh`: Core system packages and settings.
-    - `25-fonts.sh`, `35-coding.sh`, etc.: Fonts, coding tools, and so on.
+  - `00-ignore.sh`: What to skip or ignore in tracking.
+  - `20-base.sh`: Core system packages and settings.
+  - `25-fonts.sh`, `35-coding.sh`, etc.: Fonts, coding tools, and so on.
 - `files/` directory that mirrors your system root (`/`).
   - Any file here represents a real file on my system that was changed after
     installation (unless explicitly ignored).
@@ -63,7 +63,8 @@ break.
 - Minimal, tracked, reproducible:
   Only files I've truly customized (not auto-generated junk) are tracked.
 - Separation of concerns:
-  Scripts are organized by category and run order.
+  Scripts are organized by category. Run order is not that relevant, but it is
+  good to be aware of it.
 
 ### Contributing or Adapting
 
@@ -74,3 +75,4 @@ break.
 ### License
 
 MIT - See [LICENSE](LICENSE).
+

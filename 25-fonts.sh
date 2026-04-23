@@ -2,7 +2,6 @@
 # =====
 # System fonts and font configuration
 
-
 # These are my self patched Atkinson Hyperlegible to Nerd Font
 
 CopyFile /home/davi/.config/fontconfig/fonts.conf '' davi davi
@@ -49,6 +48,6 @@ SetFileProperty /home/davi/.local/share/fonts/otf/Atkinson\ Next\ NF owner davi
 
 # Other fallback fonts for characters that are missing in the Atkinson
 
-AddPackage noto-fonts # Google Noto TTF fonts
-AddPackage noto-fonts-cjk # Google Noto CJK fonts
+AddPackage noto-fonts       # Google Noto TTF fonts
+AddPackage noto-fonts-cjk   # Google Noto CJK fonts
 AddPackage noto-fonts-emoji # Google Noto emoji fonts

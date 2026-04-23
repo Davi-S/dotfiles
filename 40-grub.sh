@@ -4,26 +4,21 @@
 #
 # Installs GRUB and related utilities.
 
-
 AddPackage grub # GNU GRand Unified Bootloader (2)
 # GRUB dependency
 AddPackage efibootmgr # Linux user-space application to modify the EFI Boot Manager
-
 
 # For adding Windows in the GRUB menu
 AddPackage os-prober # Utility to detect other OSes on a set of drives
 CopyFile /etc/default/grub.d/enable-os-prober.cfg
 
-
-# Set the minegrub theme on grub 
+# Set the minegrub theme on grub
 CopyFile /etc/default/grub.d/minegrub.cfg
-
 
 # This will set the console background for the theme
 # Reference: https://github.com/Lxtharia/minegrub-theme?tab=readme-ov-file#setting-the-console-background
 sudo sed --in-place -E 's/(.*)elif(.*"x\$GRUB_BACKGROUND" != x ] && [ -f "\$GRUB_BACKGROUND" ].*)/\1fi; if\2/' "$(GetPackageOriginalFile grub /etc/grub.d/00_header)"
 SetFileProperty /etc/grub.d/00_header mode 644
-
 
 # Minegrub theme files
 CopyFile /boot/grub/themes/minegrub/assets/logo_clear.png 755

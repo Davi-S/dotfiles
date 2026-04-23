@@ -5,14 +5,11 @@
 # Declares network-related configuration and packages. The setup uses iwd
 # for wireless management, and systemd-network for wired/wireless management.
 
-
 CopyFile /etc/systemd/network/20-wired.network
 CopyFile /etc/systemd/network/25-wireless.network
 
-
 # TUI for managing wifi
 AddPackage impala # TUI for managing wifi
-
 
 # iwd is a good replacement for NetworkManager (if combined with some systemd services).
 # AddPackage iwd # Internet Wireless Daemon
@@ -31,19 +28,16 @@ CopyFile /var/lib/iwd/Uai\ Fai.psk 600
 CopyFile /var/lib/iwd/eduroam.8021x
 CreateDir /etc/iwd
 CreateDir /var/lib/iwd/hotspot 700
-CreateFile /var/lib/iwd/UFPR-SEM-FIO.open 600 > /dev/null
-CreateFile /var/lib/iwd/UFPR_SEM_FIO.open 600 > /dev/null
+CreateFile /var/lib/iwd/UFPR-SEM-FIO.open 600 >/dev/null
+CreateFile /var/lib/iwd/UFPR_SEM_FIO.open 600 >/dev/null
 SetFileProperty /var/lib/iwd mode 700
-
 
 # Required to make hotspots and simple DHCP/DNS forwarding work
 AddPackage dnsmasq # Lightweight, easy to configure DNS forwarder and DHCP server
 
-
 # Bluetooth stack
-AddPackage bluez # Daemons for the bluetooth protocol stack
+AddPackage bluez   # Daemons for the bluetooth protocol stack
 AddPackage bluetui # TUI for managing bluetooth devices
-
 
 AddPackage openssh # SSH protocol implementation for remote login, command execution and file transfer
 CopyFile /home/davi/.ssh/known_hosts 600 davi davi

@@ -4,13 +4,12 @@
 #
 # Installs SDDM and the auxiliary components.
 
-
 AddPackage sddm # QML based X11 and Wayland display manager
 
 # Necessary to make the themes work properly
 AddPackage --foreign layer-shell-qt5 # Qt 5 component to allow applications to make use of the Wayland wl-layer-shell protocol
-AddPackage layer-shell-qt # Qt component to allow applications to make use of the Wayland wl-layer-shell protocol
-AddPackage qt5-quickcontrols2 # Next generation user interface controls based on Qt Quick
+AddPackage layer-shell-qt            # Qt component to allow applications to make use of the Wayland wl-layer-shell protocol
+AddPackage qt5-quickcontrols2        # Next generation user interface controls based on Qt Quick
 
 # Config file for themes
 CopyFile /etc/sddm.conf.d/20-theme.conf
@@ -43,4 +42,3 @@ AddPackage python-pillow # Python Imaging Library (PIL) fork
 
 # Primarily used as a dependency of the "minegrub" GRUP theme,
 AddPackage fastfetch # A feature-rich and performance oriented neofetch like system information tool
-
