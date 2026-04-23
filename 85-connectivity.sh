@@ -2,8 +2,8 @@
 # =====================
 # This file includes network, bluetooth and SSH configuration files and packages
 #
-# Declares network-related configuration and packages. The setup uses iwd
-# for wireless management, and systemd-network for wired/wireless management.
+# The setup uses iwd for wireless network management, and systemd-network for
+# wired/wireless management.
 
 CopyFile /etc/systemd/network/20-wired.network
 CopyFile /etc/systemd/network/25-wireless.network
@@ -11,7 +11,8 @@ CopyFile /etc/systemd/network/25-wireless.network
 # TUI for managing wifi
 AddPackage impala # TUI for managing wifi
 
-# iwd is a good replacement for NetworkManager (if combined with some systemd services).
+# iwd is a good replacement for NetworkManager (if combined with some systemd
+# services).
 # AddPackage iwd # Internet Wireless Daemon
 # iwd is already added in the `20-base.sh` file.
 CopyFile /var/lib/iwd/126-5G.psk 600

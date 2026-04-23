@@ -1,6 +1,7 @@
-# System utilities and helper packages
+# Utilities and helper packages
 # ====================================
-# Installs system-level helper packages that don't neatly fit into the other files.
+# Installs system-level helper and user-level helpers packages that don't
+# neatly fit into the other files.
 #
 # This grouping contains tools for system restore, package building, AUR support
 # utility daemons, helpers, and a few user-oriented tools.

@@ -30,7 +30,6 @@ ignore_paths=(
 
 # Do not ignore icons nor fonts in ".local/share/" if you have manully put them there. It is ok to ignore if it comes from packages
 IgnorePath "/etc/fuse.conf"
-IgnorePath "/home/davi/Games/*"
 IgnorePath "/etc/texmf/web2c/fmtutil.cnf.pacsave"
 IgnorePath "/home/davi/.agents/skills"
 IgnorePath "/home/davi/.bash_history"
@@ -145,6 +144,7 @@ IgnorePath "/home/davi/.zen/*"
 IgnorePath "/home/davi/Documents/*"
 IgnorePath "/home/davi/Downloads"
 IgnorePath "/home/davi/Downloads/*"
+IgnorePath "/home/davi/Games/*"
 IgnorePath "/home/davi/Games/terminal-doom/.git/*"
 IgnorePath "/home/davi/Games/terminal-doom/.gitignore"
 IgnorePath "/home/davi/Games/terminal-doom/.zig-cache/*"
