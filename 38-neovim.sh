@@ -438,3 +438,5 @@ CopyFile /home/davi/.config/nvim/lsp/ziggy_schema.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lsp/zk.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lsp/zls.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lsp/zuban.lua '' davi davi
+SetFileProperty /home/davi/.config/nvim/lsp group davi
+SetFileProperty /home/davi/.config/nvim/lsp owner davi

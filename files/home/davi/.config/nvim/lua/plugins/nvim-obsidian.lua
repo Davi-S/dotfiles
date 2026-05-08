@@ -1,5 +1,6 @@
 return {
     src = "https://github.com/Davi-S/nvim-obsidian",
+    -- version = "main",
     dependencies = {
         { src = "https://github.com/nvim-lua/plenary.nvim" },
         { src = "https://github.com/nvim-telescope/telescope.nvim" },
@@ -41,6 +42,7 @@ return {
                 monthly = {
                     subdir = "11 Diário/11.03 Mensal",
                     title_format = "{{year}} {{month_name}}",
+                    template = "08 Templates/Nota mensal",
                 },
                 yearly = {
                     subdir = "11 Diário/11.04 Anual",
@@ -50,10 +52,20 @@ return {
             templates = {
                 standard = "08 Templates/Nova nota",
             },
+            calendar = {
+                confirm_before_create = true,
+                floating = {
+                    height = 20,
+                    width = 50,
+                }
+            }
         })
 
         obsidian_helper.register_template_placeholders(obsidian)
 
+        ----------------------------------------------------------------------------
+        -- Override telescope keymaps
+        ----------------------------------------------------------------------------
         -- Override Telescope's <leader>ff from this plugin config:
         -- inside vault -> ObsidianOmni, outside vault -> telescope find_files
         vim.keymap.set("n", "<leader>ff", function()
@@ -98,5 +110,7 @@ return {
         vim.keymap.set("n", "<leader>dt", "<cmd>ObsidianToday<cr>", { desc = "Obsidian [d]aily [t]oday" })
         vim.keymap.set("n", "<leader>dn", "<cmd>ObsidianNext<cr>", { desc = "Obsidian [d]aily [n]ext" })
         vim.keymap.set("n", "<leader>dp", "<cmd>ObsidianPrev<cr>", { desc = "Obsidian [d]aily [p]revious" })
+        vim.keymap.set("n", "<leader>dc", "<cmd>ObsidianJournalCalendarFloat<cr>",
+            { desc = "Obsidian [d]aily [c]alendar" })
     end,
 }

@@ -27,6 +27,7 @@ local reminders_data = {
     { "Profissional", "M1",  "T - Pagar cartao de credito da Nubank" },
     { "Profissional", "M1",  "T - Adicionar informacoes sobre a carteira de investimentos na nota mensal" },
     { "Profissional", "M1",  "T - Pagar mensalidade da CELU e mandar comprovante para a universidade" },
+    { "Social",       "S1",  "T - Ver se está tudo certo com os diretores departamentais" },
 }
 
 local function escape_lua_pattern(text)
@@ -390,6 +391,67 @@ local function get_reminders(ctx, journal)
     return table.concat(output, "\n")
 end
 
+---Shift a note-bound timestamp by whole months while preserving the day at 1.
+---@param ctx table
+---@param month_offset integer
+---@return integer
+local function shifted_month_timestamp(ctx, month_offset)
+    local note = ctx.note
+    if type(note) ~= "table" then
+        error("monthly placeholders require note-bound template context")
+    end
+
+    local title = tostring(note.title or "")
+    local kind = tostring(note.kind or "monthly")
+    local base_ts = parse_daily_title_timestamp(ctx)
+    local base_date = os.date("*t", base_ts)
+
+    local year = base_date.year
+    local month = base_date.month + tonumber(month_offset or 0)
+    while month > 12 do
+        month = month - 12
+        year = year + 1
+    end
+    while month < 1 do
+        month = month + 12
+        year = year - 1
+    end
+
+    local ts = os.time({ year = year, month = month, day = 1, hour = 12 })
+    if not ts then
+        error("failed to derive monthly timestamp for note kind '" .. kind .. "': " .. title)
+    end
+
+    return ts
+end
+
+---Render a monthly title using the configured journal locale.
+---@param ctx table
+---@param month_offset integer
+---@return string
+local function render_month_title(ctx, month_offset)
+    local journal = require("nvim_obsidian").journal
+    local ts = shifted_month_timestamp(ctx, month_offset)
+    local locale = type(ctx.config) == "table" and ctx.config.locale or "en-US"
+    return render_journal_title("{{year}} {{month_name}}", ts, locale, journal)
+end
+
+---Return the next-month end date as YYYY-MM-DD.
+---@param ctx table
+---@return string
+local function next_month_end_iso(ctx)
+    local ts = shifted_month_timestamp(ctx, 1)
+    local next_month = os.date("*t", ts)
+    local year = next_month.year
+    local month = next_month.month + 1
+    if month > 12 then
+        month = month - 12
+        year = year + 1
+    end
+    local end_ts = os.time({ year = year, month = month, day = 0, hour = 12 })
+    return os.date("%Y-%m-%d", end_ts)
+end
+
 -- Journal placeholders are used by `journal.*.title_format` in plugin setup.
 -- `regex_fragment` arguments let the plugin parse values back from generated titles.
 function M.register_journal_placeholders(obsidian)
@@ -510,6 +572,39 @@ function M.register_template_placeholders(obsidian)
 
     obsidian.template_register_placeholder("reminders", function(ctx)
         return get_reminders(ctx, journal)
+    end)
+
+    -- Monthly template helpers keep the monthly note format declarative in the
+    -- vault template file while still using the same plugin placeholder system.
+    obsidian.template_register_placeholder("date_prev_month_format_02", function(ctx)
+        return render_month_title(ctx, -1)
+    end)
+
+    obsidian.template_register_placeholder("date_next_month_format_02", function(ctx)
+        return render_month_title(ctx, 1)
+    end)
+
+    obsidian.template_register_placeholder("date_next_month_end_format_07", function(ctx)
+        return next_month_end_iso(ctx)
+    end)
+
+    obsidian.template_register_placeholder("date_today_format_04", function(ctx)
+        local ts = parse_daily_title_timestamp(ctx)
+        return os.date("%Y", ts)
+    end)
+
+    obsidian.template_register_placeholder("date_today_format_05", function()
+        return "2024 - 2029"
+    end)
+
+    obsidian.template_register_placeholder("date_today_format_06", function(ctx)
+        local ts = parse_daily_title_timestamp(ctx)
+        return os.date("%m", ts)
+    end)
+
+    obsidian.template_register_placeholder("date_next_month_format_06", function(ctx)
+        local ts = shifted_month_timestamp(ctx, 1)
+        return os.date("%m", ts)
     end)
 end
 

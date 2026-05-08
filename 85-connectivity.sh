@@ -18,7 +18,6 @@ AddPackage impala # TUI for managing wifi
 CopyFile /var/lib/iwd/126-5G.psk 600
 CopyFile /var/lib/iwd/=484644445f322e3447.psk 600
 CopyFile /var/lib/iwd/CELU.psk 600
-CopyFile /var/lib/iwd/CELU_HP.psk 600
 CopyFile /var/lib/iwd/C3SL.8021x
 CopyFile /var/lib/iwd/COMODORO_BURGUER.psk 600
 CopyFile /var/lib/iwd/Galaxy\ S25\ 53C6.psk 600

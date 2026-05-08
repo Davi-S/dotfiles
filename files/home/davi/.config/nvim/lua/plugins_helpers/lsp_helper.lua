@@ -36,7 +36,7 @@ local function setup_formatting(args)
             local filepath = vim.api.nvim_buf_get_name(args.buf)
             -- Construct command: prettier --stdin-filepath <path>
             -- We use stdin so it works even if you haven't saved the file yet
-            local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(filepath)
+            local cmd = "prettier --prose-wrap always --stdin-filepath " .. vim.fn.shellescape(filepath)
 
             -- Get current buffer content
             local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
