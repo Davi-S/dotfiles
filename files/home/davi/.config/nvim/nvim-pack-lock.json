@@ -38,7 +38,7 @@
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "nvim-obsidian": {
-      "rev": "8654d45efd862e1586763acc3881c2ba8574fbe1",
+      "rev": "4025dc1fad35a1e247ded6bd49ed7ff1e9601723",
       "src": "https://github.com/Davi-S/nvim-obsidian"
     },
     "nvim-treesitter": {
