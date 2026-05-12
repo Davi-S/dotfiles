@@ -14,6 +14,7 @@ CopyFile /etc/default/grub.d/enable-os-prober.cfg
 
 # Set the minegrub theme on grub
 CopyFile /etc/default/grub.d/minegrub.cfg
+CopyFile /etc/default/grub
 
 # This will set the console background for the theme
 # Reference: https://github.com/Lxtharia/minegrub-theme?tab=readme-ov-file#setting-the-console-background

@@ -110,17 +110,21 @@ SetFileProperty /home/davi/.config/mvi/scripts group davi
 SetFileProperty /home/davi/.config/mvi/scripts owner davi
 # subliminal installed with pipx used for automatically downloading subtitles
 # for mpv
-CreateLink /home/davi/.local/bin/subliminal /home/davi/.local/share/pipx/venvs/subliminal/bin/subliminal davi davi
 
 # For editing images
 AddPackage gimp # GNU Image Manipulation Program
 
 # Bisq2 for trading bitcoin. Requires that jre21
 AddPackage --foreign bisq2 # The Decentralized Trading Platform
-AddPackage jre21-openjdk   # OpenJDK Java 21 full runtime environment
 
 # This folder keeps being created. These are for gtk theming
 CreateDir /home/davi/.config/gtk-3.0 700 davi davi
 CopyFile /home/davi/.config/gtk-3.0/settings.ini '' davi davi
 CreateDir /home/davi/.config/gtk-4.0 700 davi davi
 SetFileProperty /home/davi/.config/gtk-4.0 group davi
+
+# Minecraft launcher
+AddPackage prismlauncher # Minecraft launcher with ability to manage multiple instances
+
+# Steam laucher. Requires enabling the multilib repository
+AddPackage --foreign steam # Valve's digital software delivery system
