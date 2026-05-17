@@ -16,10 +16,12 @@ SetFileProperty /home/davi/.config/qalculate owner davi
 # For connecting the phone to the laptop
 AddPackage kdeconnect # Adds communication between KDE and your smartphone
 
-AddPackage qbittorrent # An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar
-CopyFile /home/davi/.config/qBittorrent/ayuDark.qbtheme '' davi davi
-SetFileProperty /home/davi/.config/qBittorrent group davi
-SetFileProperty /home/davi/.config/qBittorrent owner davi
+AddPackage --foreign superseedr # A BitTorrent Client in your Terminal
+CopyFile /home/davi/bin/superseedr-magnet-handler.sh 755 davi davi
+CopyFile /home/davi/.local/share/applications/superseedr.desktop '' davi davi
+SetFileProperty /home/davi/.local/share/applications group davi
+SetFileProperty /home/davi/.local/share/applications mode 700
+SetFileProperty /home/davi/.local/share/applications owner davi
 
 AddPackage --foreign zen-browser-bin # Performance oriented Firefox-based web browser
 
@@ -114,8 +116,9 @@ SetFileProperty /home/davi/.config/mvi/scripts owner davi
 # For editing images
 AddPackage gimp # GNU Image Manipulation Program
 
-# Bisq2 for trading bitcoin. Requires that jre21
-AddPackage --foreign bisq2 # The Decentralized Trading Platform
+# Bisq and Bisq2 for trading bitcoin. Requires that jre21
+AddPackage --foreign bisq2        # The Decentralized Trading Platform
+AddPackage --foreign bisq-desktop # Cross-platform desktop application that allows users to trade national currency (dollars, euros, etc) for bitcoin without relying on centralized exchanges
 
 # This folder keeps being created. These are for gtk theming
 CreateDir /home/davi/.config/gtk-3.0 700 davi davi
@@ -127,4 +130,4 @@ SetFileProperty /home/davi/.config/gtk-4.0 group davi
 AddPackage prismlauncher # Minecraft launcher with ability to manage multiple instances
 
 # Steam laucher. Requires enabling the multilib repository
-AddPackage --foreign steam # Valve's digital software delivery system
+AddPackage steam # Valve's digital software delivery system

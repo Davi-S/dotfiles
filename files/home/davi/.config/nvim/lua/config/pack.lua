@@ -273,6 +273,25 @@ local function remove_all_packs()
     vim.notify(string.format("Removed %d plugin(s)", #names))
 end
 
+local function update_all_packs()
+    local names = vim.iter(vim.pack.get())
+        :filter(function(p)
+            return p.spec.name ~= nil
+        end)
+        :map(function(p)
+            return p.spec.name
+        end)
+        :totable()
+
+    if #names == 0 then
+        vim.notify("No plugins to update")
+        return
+    end
+
+    vim.pack.update(names, { force = true })
+    vim.notify(string.format("Updating %d plugin(s)", #names))
+end
+
 vim.api.nvim_create_user_command("Pack", function(opts)
     local subcommand = opts.fargs[1]
 
@@ -286,14 +305,19 @@ vim.api.nvim_create_user_command("Pack", function(opts)
         return
     end
 
+    if subcommand == "update-all" then
+        update_all_packs()
+        return
+    end
+
     vim.notify(
-        "Unknown Pack subcommand: " .. subcommand .. " (use: clean-inactive, remove-all)",
+        "Unknown Pack subcommand: " .. subcommand .. " (use: clean-inactive, remove-all, update-all)",
         vim.log.levels.ERROR
     )
 end, {
     nargs = 1,
     complete = function()
-        return { "clean-inactive", "remove-all" }
+        return { "clean-inactive", "remove-all", "update-all" }
     end,
     desc = "Manage vim.pack plugins",
 })

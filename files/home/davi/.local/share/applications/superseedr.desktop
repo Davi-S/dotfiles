@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Superseedr
+Comment=Terminal BitTorrent Client
+Exec=/home/davi/bin/superseedr-magnet-handler.sh "%u"
+Terminal=false
+MimeType=x-scheme-handler/magnet;
+Categories=Network;FileTransfer;P2P;

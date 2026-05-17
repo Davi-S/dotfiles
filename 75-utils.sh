@@ -87,3 +87,6 @@ AddPackage unzip # For extracting and viewing files in .zip archives
 # This is a "replacement" for rm.
 # See the .bashrc file for the alises used alongside this
 AddPackage trash-cli # Command line trashcan (recycle bin) interface
+
+# Included multilib (primarily to install a Minecraft launcher)
+CopyFile /etc/pacman.conf
