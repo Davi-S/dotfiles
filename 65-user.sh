@@ -47,6 +47,12 @@ AddPackage acpi # Client for battery, power, and thermal readings
 CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
+# A Python script to derive my colors from the catppuccin theme. I use the same
+# theme, but with slightly "saturated" colors.
+CopyFile /home/davi/.config/colors/create_catppuccin_high_contrast_version.py '' davi davi
+SetFileProperty /home/davi/.config/colors group davi
+SetFileProperty /home/davi/.config/colors owner davi
+
 # Some generic and unspecific file and folder properties
 SetFileProperty /home/davi/.config group davi
 SetFileProperty /home/davi/.config owner davi
