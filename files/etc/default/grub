@@ -43,8 +43,8 @@ GRUB_DISABLE_RECOVERY=true
 #GRUB_COLOR_HIGHLIGHT="light-cyan/blue"
 
 # Uncomment one of them for the gfx desired, a image background or a gfxtheme
-#GRUB_BACKGROUND="/path/to/wallpaper"
-#GRUB_THEME="/path/to/gfxtheme"
+GRUB_BACKGROUND="/usr/share/grub/themes/minegrub/dirt.png"
+GRUB_THEME="/usr/share/grub/themes/minegrub/theme.txt"
 
 # Uncomment to get a beep at GRUB start
 #GRUB_INIT_TUNE="480 440 1"
@@ -60,4 +60,4 @@ GRUB_SAVEDEFAULT=true
 # documentation on GRUB_DISABLE_OS_PROBER, if still want to enable this
 # functionality install os-prober and uncomment to detect and include other
 # operating systems.
-#GRUB_DISABLE_OS_PROBER=false
+GRUB_DISABLE_OS_PROBER=false
