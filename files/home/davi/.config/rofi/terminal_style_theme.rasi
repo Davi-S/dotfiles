@@ -1,0 +1,78 @@
+* {
+    /* Color Palette */
+    bg: #000000;
+    bg-alt: #282828;
+    fg: #deddda;
+    selected-bg: #deddda;
+    selected-fg: #000000;
+    border-active: #deddda;
+    border-inactive: #282828;
+    
+    /* Global Reset */
+    background-color: transparent;
+}
+
+window {
+    background-color: @bg;
+    border: 1px solid;
+    border-color: @border-active;
+    padding: 15px;
+    width: 45%;
+}
+
+mainbox {
+    spacing: 15px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    padding: 12px;
+    children: [prompt, entry];
+    border: 1px solid;
+    border-color: @border-inactive;
+}
+
+prompt {
+    text-color: @fg;
+    padding: 0px 10px 0px 0px;
+}
+
+entry {
+    text-color: @fg;
+    placeholder: "Search...";
+    placeholder-color: #4a4d5e;
+}
+
+listview {
+    lines: 10;
+    spacing: 4px;
+    scrollbar: false;
+    border: 0px;
+}
+
+element {
+    padding: 8px 12px;
+    text-color: @fg;
+}
+
+element normal.normal, element alternate.normal {
+    background-color: @bg;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @selected-bg;
+    text-color: @selected-fg;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-icon {
+    background-color: inherit;
+    padding: 0px 10px 0px 0px;
+    size: 1.2em;
+}

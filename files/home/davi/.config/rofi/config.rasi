@@ -1,3 +1,4 @@
 configuration {
   font: "Atkinson Mono NF 12";
 }
+@theme "terminal_style_theme"

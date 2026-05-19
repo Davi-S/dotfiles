@@ -6,6 +6,7 @@
 
 AddPackage rofi # A window switcher, application launcher and dmenu replacement
 CopyFile /home/davi/.config/rofi/config.rasi '' davi davi
+CopyFile /home/davi/.config/rofi/terminal_style_theme.rasi '' davi davi
 SetFileProperty /home/davi/.config/rofi group davi
 SetFileProperty /home/davi/.config/rofi owner davi
 
