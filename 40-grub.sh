@@ -5,10 +5,14 @@
 # Installs GRUB and related utilities.
 
 AddPackage grub # GNU GRand Unified Bootloader (2)
-# GRUB dependency
-AddPackage efibootmgr # Linux user-space application to modify the EFI Boot Manager
 # Update the grub config
 CopyFile /etc/default/grub
+CopyFile /etc/default/grub.d/disable_os_prober.cfg
+CopyFile /etc/default/grub.d/minegrub_theme.cfg
+CopyFile /etc/default/grub.d/recall_previous_entry.cfg
+
+# GRUB dependency
+AddPackage efibootmgr # Linux user-space application to modify the EFI Boot Manager
 
 # For adding Windows in the GRUB menu
 AddPackage os-prober # Utility to detect other OSes on a set of drives
