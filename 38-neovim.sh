@@ -5,9 +5,10 @@
 # Main editor and its configuration
 AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/config/pack.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/git.lua '' davi davi

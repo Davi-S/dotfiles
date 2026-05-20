@@ -1,33 +1,12 @@
 return {
-    src = "https://github.com/nvim-telescope/telescope.nvim",
+    "nvim-telescope/telescope.nvim",
     dependencies = {
-        { src = "https://github.com/nvim-lua/plenary.nvim" },
-        {
-            src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-            build = function(ctx, done)
-                -- Build with make
-                if not ctx.plugin_dir or ctx.plugin_dir == "" then
-                    done(false, "telescope-fzf-native directory not found")
-                    return true
-                end
-
-                vim.system({ "make" }, { cwd = ctx.plugin_dir }, function(result)
-                    vim.schedule(function()
-                        if result.code == 0 then
-                            done(true)
-                            return
-                        end
-
-                        done(false, result.stderr or result.stdout or "Unknown build error")
-                    end)
-                end)
-
-                return "async"
-            end,
-        },
-        { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+        "nvim-lua/plenary.nvim",
+        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "nvim-tree/nvim-web-devicons",
     },
     config = function()
+        local actions = require("telescope.actions")
         require("telescope").setup({
             extensions = {
                 fzf = {},
@@ -37,7 +16,7 @@ return {
                     i = {
                         -- Make esc quit telescope instead of entering normal
                         -- mode inside telescope
-                        ["<esc>"] = require("telescope.actions").close
+                        ["<esc>"] = actions.close,
                     },
                 },
             }

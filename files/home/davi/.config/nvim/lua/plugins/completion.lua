@@ -1,10 +1,10 @@
 return {
-    src = "https://github.com/saghen/blink.cmp",
+    "saghen/blink.cmp",
     version = "v1",
     dependencies = {
-        { src = "https://github.com/moyiz/blink-emoji.nvim" },
-        { src = "https://github.com/onsails/lspkind.nvim" },
-        { src = "https://github.com/nvim-mini/mini.icons" },
+        "moyiz/blink-emoji.nvim",
+        "onsails/lspkind.nvim",
+        "nvim-mini/mini.icons",
     },
     config = function()
         local unpack_fn = table.unpack or unpack

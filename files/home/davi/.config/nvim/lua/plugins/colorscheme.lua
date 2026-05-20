@@ -1,6 +1,6 @@
 return {
     {
-        src = "https://github.com/catppuccin/nvim",
+        "catppuccin/nvim",
         name = "catppuccin",
         config = function()
             local colorscheme_helpers = require("plugins_helpers.colorscheme_helper")
@@ -67,6 +67,7 @@ return {
                             StatusLineNC = { fg = colors.overlay0, bg = colors.mantle },
 
                         },
+                        colorscheme_helpers.lazy_highlights(colors),
                         colorscheme_helpers.markdown_highlights(colors)
                     )
                 end,

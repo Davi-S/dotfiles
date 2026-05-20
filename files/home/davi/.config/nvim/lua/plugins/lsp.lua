@@ -8,20 +8,20 @@
 
 return {
     -- Automatically install LSPs and related tools to stdpath for Neovim
-    src = "https://github.com/mason-org/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = {
         -- mason-lspconfig:
         -- - Bridges the gap between LSP config names (e.g. "lua_ls") and actual Mason package names (e.g. "lua-language-server").
         -- - Used here only to allow specifying language servers by their LSP name (like "lua_ls") in `ensure_installed` used by 'WhoIsSethDaniel/mason-tool-installer.nvim.'
         -- - It is a optional dependency of the 'WhoIsSethDaniel/mason-tool-installer.nvim' plugin. it does not even need to be setup; only need to be installed.
         -- - It does not auto-configure servers; we use vim.lsp.enable() explicitly for full control.
-        { src = "https://github.com/mason-org/mason-lspconfig.nvim"},
+        "mason-org/mason-lspconfig.nvim",
 
         -- mason-tool-installer:
         -- - Installs LSPs, linters, formatters, etc. by their Mason package name.
         -- - We use it to ensure all desired tools are present.
         -- - The `ensure_installed` list works with mason-lspconfig to resolve LSP names like "lua_ls".
-        { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"},
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
         require("mason").setup()

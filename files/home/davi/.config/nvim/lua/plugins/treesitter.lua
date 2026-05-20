@@ -1,9 +1,7 @@
 return {
-	src = "https://github.com/nvim-treesitter/nvim-treesitter",
-	version = "main",
-	build = function()
-		vim.cmd("TSUpdate")
-	end,
+	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
+	build = ":TSUpdate",
 	config = function()
 		local treesitter = require("nvim-treesitter")
 

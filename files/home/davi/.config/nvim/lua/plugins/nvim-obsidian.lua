@@ -1,11 +1,11 @@
 return {
-    src = "https://github.com/Davi-S/nvim-obsidian",
+    "Davi-S/nvim-obsidian",
     -- version = "main",
     dependencies = {
-        { src = "https://github.com/nvim-lua/plenary.nvim" },
-        { src = "https://github.com/nvim-telescope/telescope.nvim" },
-        { src = "https://github.com/saghen/blink.cmp" },
-        { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "saghen/blink.cmp",
+        "nvim-treesitter/nvim-treesitter",
     },
     config = function()
         local vault_root = "/home/davi/Documents/ObsidianAllInVault"

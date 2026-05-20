@@ -1,7 +1,8 @@
 return {
-    src = "https://github.com/mikavilpas/yazi.nvim",
+    "mikavilpas/yazi.nvim",
+    lazy = false,
     dependencies = {
-        { src = "https://github.com/nvim-lua/plenary.nvim" },
+        "nvim-lua/plenary.nvim",
     },
     config = function()
         vim.keymap.set({ "n", "v" }, "<leader>y", "<cmd>Yazi<cr>", { desc = "Open yazi" })
