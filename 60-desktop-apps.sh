@@ -31,29 +31,6 @@ AddPackage --foreign zen-browser-bin # Performance oriented Firefox-based web br
 
 AddPackage obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files
 
-# Installed this to have noise reduction
-# It is useful for other audio effects too
-AddPackage easyeffects # Audio Effects for Pipewire applications
-CreateDir /home/davi/.config/easyeffects/autoload '' davi davi
-SetFileProperty /home/davi/.config/easyeffects group davi
-SetFileProperty /home/davi/.config/easyeffects owner davi
-SetFileProperty /home/davi/.config/easyeffects/db group davi
-SetFileProperty /home/davi/.config/easyeffects/db owner davi
-CopyFile /home/davi/.config/easyeffects/db/deepfilternetrc 600 davi davi
-CopyFile /home/davi/.config/easyeffects/db/echoCancellerrc 600 davi davi
-CopyFile /home/davi/.config/easyeffects/db/filterrc 600 davi davi
-CopyFile /home/davi/.config/easyeffects/db/gaterc 600 davi davi
-CopyFile /home/davi/.config/easyeffects/db/rnnoiserc 600 davi davi
-CopyFile /home/davi/.config/easyeffects/db/speexrc 600 davi davi
-CopyFile /home/davi/.config/easyeffectsrc 600 davi davi
-CopyFile /home/davi/.config/easyeffects/db/easyeffectsrc 600 davi davi
-# This is a systemd service to start the easyeffects interfaceless.
-# The link to enable it is in the systemd aconfmgr config file
-CopyFile /home/davi/.config/systemd/user/easyeffects.service '' davi davi
-# Optional plugins for easy effects
-AddPackage lsp-plugins                         # Collection of open-source plugins
-AddPackage --foreign libdeep_filter_ladspa-git # A Low Complexity Speech Enhancement Framework for Full-Band Audio (48kHz) using Deep Filtering (Git version) - ladspa plugin
-
 # General electron apps flags
 # Set electron apps so use wayland
 CopyFile /home/davi/.config/electron-flags.conf '' davi davi

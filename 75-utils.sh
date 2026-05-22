@@ -11,10 +11,6 @@
 #
 # Small and not so important utilities belong somewhere else.
 
-AddPackage timeshift                         # A system restore utility for Linux
-AddPackage --foreign timeshift-systemd-timer # Add systemd support for timeshift
-CopyFile /etc/timeshift/timeshift.json '' '' ''
-
 AddPackage --foreign paru       # Feature packed AUR helper
 AddPackage --foreign paru-debug # Detached debugging symbols for paru
 
