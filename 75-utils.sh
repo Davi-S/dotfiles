@@ -42,12 +42,18 @@ AddPackage hyprshot # Hyprland screenshot utility
 # screenshot and saving it
 
 # For locking the pc
-AddPackage hyprlock # hyprland’s GPU-accelerated screen locking utility
+AddPackage hyprlock # hyprland's GPU-accelerated screen locking utility
 CopyFile /home/davi/.config/hypr/hyprlock.conf '' davi davi
 
 # For managing idle time. It reduces brightness, locks, and suspends the pc when idle
-AddPackage hypridle # hyprland’s idle daemon
+AddPackage hypridle # hyprland's idle daemon
 CopyFile /home/davi/.config/hypr/hypridle.conf '' davi davi
+
+# For not letting the PC suspend or lock screen
+AddPackage --foreign hyprcaffeine # ☕ Idle inhibition utility for Hyprland - caffeine for your Wayland compositor
+CopyFile /etc/polkit-1/rules.d/50-hyprcaffeine.rules
+CopyFile /home/davi/.config/hypr/hyprcaffeine-keybinds.lua '' davi davi
+CopyFile /home/davi/.config/systemd/user/hyprcaffeine.service '' davi davi
 
 # To view system usage
 AddPackage htop # Interactive process viewer

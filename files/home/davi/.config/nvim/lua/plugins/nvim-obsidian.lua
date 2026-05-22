@@ -66,42 +66,42 @@ return {
         ----------------------------------------------------------------------------
         -- Override telescope keymaps
         ----------------------------------------------------------------------------
-        -- Override Telescope's <leader>ff from this plugin config:
-        -- inside vault -> ObsidianOmni, outside vault -> telescope find_files
-        vim.keymap.set("n", "<leader>ff", function()
-            if obsidian.is_inside_vault() then
-                vim.cmd("ObsidianOmni")
-                return
-            end
-            require("telescope.builtin").find_files()
-        end, { desc = "Find files (Omni in vault)" })
+        local vault_keymaps_group = vim.api.nvim_create_augroup("nvim-obsidian-vault-keymaps", {
+            clear = true,
+        })
 
-        -- Override <leader>lg from this plugin config:
-        -- inside vault -> ObsidianSearch, outside vault -> telescope live_grep
-        vim.keymap.set("n", "<leader>lg", function()
-            if obsidian.is_inside_vault() then
-                vim.cmd("ObsidianSearch")
-                return
-            end
-            require("telescope.builtin").live_grep()
-        end, { desc = "Live grep (ObsidianSearch in vault)" })
-
-        -- Override <leader>fu from this plugin config:
-        -- inside vault -> Follow if on wiki-link, otherwise Backlinks
-        -- outside vault -> telescope helper
-        vim.keymap.set("n", "<leader>fu", function()
-            if obsidian.is_inside_vault() then
-                local parsed = obsidian.wiki_link_under_cursor()
-                if parsed and parsed.target then
-                    vim.cmd("ObsidianFollow")
+        vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+            group = vault_keymaps_group,
+            callback = function(args)
+                if not obsidian.is_inside_vault() then
                     return
                 end
 
-                vim.cmd("ObsidianBacklinks")
-                return
-            end
-            require("plugins_helpers.telescope_helper").smart_definition()
-        end, { desc = "Find usages (Follow/Backlinks in vault)" })
+                -- Override Telescope's <leader>ff from this plugin config:
+                -- inside vault -> ObsidianOmni
+                vim.keymap.set("n", "<leader>ff", function()
+                    vim.cmd("ObsidianOmni")
+                end, { buffer = args.buf, desc = "Find files (Omni in vault)" })
+
+                -- Override <leader>lg from this plugin config:
+                -- inside vault -> ObsidianSearch
+                vim.keymap.set("n", "<leader>lg", function()
+                    vim.cmd("ObsidianSearch")
+                end, { buffer = args.buf, desc = "Live grep (ObsidianSearch in vault)" })
+
+                -- Override <leader>fu from this plugin config:
+                -- inside vault -> Follow if on wiki-link, otherwise Backlinks
+                vim.keymap.set("n", "<leader>fu", function()
+                    local parsed = obsidian.wiki_link_under_cursor()
+                    if parsed and parsed.target then
+                        vim.cmd("ObsidianFollow")
+                        return
+                    end
+
+                    vim.cmd("ObsidianBacklinks")
+                end, { buffer = args.buf, desc = "Find usages (Follow/Backlinks in vault)" })
+            end,
+        })
 
 
         ----------------------------------------------------------------------------

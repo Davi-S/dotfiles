@@ -31,7 +31,7 @@ return {
         -- These will be managed by Mason
         local mason_servers_list = {
             "lua_ls",         -- Lua
-            -- "basedpyright",   -- Python
+            "basedpyright",   -- Python
             "ruff",           -- Python
             "bashls",         -- Bash
             "markdown_oxide", -- Markdown

@@ -36,7 +36,12 @@ return {
         )
         vim.keymap.set("n",
             "<leader>lg",
-            builtin.live_grep,
+            function()
+                builtin.live_grep({
+                    hidden = true,
+                    no_ignore = true,
+                })
+            end,
             { desc = "Telescope [l]ive [g]rep" }
         )
         vim.keymap.set("n",

@@ -4,12 +4,9 @@
 
 # My scripts
 CopyFile /home/davi/bin/airplane-mode-control 755 davi davi
-CopyFile /home/davi/bin/battery-notify 755 davi davi
 CopyFile /home/davi/bin/brightness-control 755 davi davi
-CopyFile /home/davi/bin/caffeine 755 davi davi
 CopyFile /home/davi/bin/check-hyprland-slice 755 davi davi
 CopyFile /home/davi/bin/datetime-notify 755 davi davi
-CopyFile /home/davi/bin/fetch-battery-info 755 davi davi
 CopyFile /home/davi/bin/find-obsidian-dead-links 755 davi davi
 CopyFile /home/davi/bin/list-user-units-type 755 davi davi
 CopyFile /home/davi/bin/test-nerd-fonts 755 davi davi
@@ -20,17 +17,14 @@ CopyFile /home/davi/bin/toggle-bluetooth-mic 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
+# My script published on AUR to notify about the battery
+AddPackage --foreign simple-battery-notify # A customizable, D-Bus driven battery notification daemon and CLI
+
 # A script to easily use the phone as the laptop webcam
 CopyFile /home/davi/bin/phone-as-webcam 755 davi davi
 AddPackage linux-headers      # Headers and scripts for building modules for the Linux kernel
 AddPackage v4l2loopback-dkms  # v4l2-loopback device - module sources
 AddPackage v4l2loopback-utils # v4l2-loopback device - utilities only
-
-# Auto battery-notify and its services
-# The link to enable these services is in the systemd aconfmgr config file
-CopyFile /home/davi/.config/systemd/user/auto-battery-notify.service '' davi davi
-CopyFile /home/davi/.config/systemd/user/auto-battery-notify.timer '' davi davi
-CopyFile /home/davi/bin/auto-battery-notify 755 davi davi
 
 # Service for automatically mounting the phone to the PC when it is connected
 CopyFile /home/davi/.config/systemd/user/phone-automount@.service '' davi davi
