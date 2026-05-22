@@ -15,8 +15,16 @@ CopyFile /home/davi/bin/list-user-units-type 755 davi davi
 CopyFile /home/davi/bin/test-nerd-fonts 755 davi davi
 CopyFile /home/davi/bin/utils.sh '' davi davi
 CopyFile /home/davi/bin/volume-control 755 davi davi
+CopyFile /home/davi/bin/toggle-float-app 755 davi davi
+CopyFile /home/davi/bin/toggle-bluetooth-mic 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
+
+# A script to easily use the phone as the laptop webcam
+CopyFile /home/davi/bin/phone-as-webcam 755 davi davi
+AddPackage linux-headers      # Headers and scripts for building modules for the Linux kernel
+AddPackage v4l2loopback-dkms  # v4l2-loopback device - module sources
+AddPackage v4l2loopback-utils # v4l2-loopback device - utilities only
 
 # Auto battery-notify and its services
 # The link to enable these services is in the systemd aconfmgr config file

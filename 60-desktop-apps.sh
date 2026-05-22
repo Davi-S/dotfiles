@@ -135,3 +135,6 @@ AddPackage prismlauncher # Minecraft launcher with ability to manage multiple in
 
 # Steam laucher. Requires enabling the multilib repository
 AddPackage steam # Valve's digital software delivery system
+
+# Used to control audio input/output via TUI
+AddPackage pulsemixer # CLI and curses mixer for pulseaudio

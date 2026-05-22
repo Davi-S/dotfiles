@@ -1,8 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-ACTION=$1
+# Phone Automount
+# ===============
+# A utility script to handle MTP mounting for your phone.
+#
+# Usage:
+#     $0 <action>
+#
+# Actions:
+#     add       - Mount the phone via simple-mtpfs
+#     remove    - Unmount the phone safely
+#
+# Notes:
+#     - Requires `simple-mtpfs` and `fusermount`.
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+ACTION="$1"
 MOUNT_POINT="/home/davi/Phone"
 
+# Ensure correct DBus session for notifications
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u davi)/bus"
 
 case "$ACTION" in
@@ -20,5 +41,10 @@ remove)
     if fusermount -uz "$MOUNT_POINT"; then
         notify-send -t 1000 "MTP Mount" "Phone unmounted safely"
     fi
+    ;;
+*)
+    echo "Error: Invalid argument '$ACTION'"
+    echo "Try '$0 --help' for usage."
+    exit 1
     ;;
 esac

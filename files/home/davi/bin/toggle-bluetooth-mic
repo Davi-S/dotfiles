@@ -1,0 +1,170 @@
+#!/usr/bin/env bash
+
+# Toggle Bluetooth Mic
+# ====================
+# Toggles the active profile of a Bluetooth card between A2DP (high-quality
+# audio, no mic) and HFP (headset mode, mic enabled).
+#
+# Usage:
+#     $0 [action] [card]
+#
+# Actions:
+#     toggle      - Switch between A2DP and HFP profiles (default)
+#     mic         - Switch to HFP profile (enable mic)
+#     audio       - Switch to A2DP profile (enable high-quality audio)
+#     status      - Show current profile notification
+#
+# Arguments:
+#     [card]      - Bluetooth card name (default: auto-detected)
+#                   e.g. bluez_card.5C_D3_3D_6A_F5_BD
+#
+# Examples:
+#     $0 toggle
+#     $0 mic
+#     $0 audio
+#     $0 status bluez_card.5C_D3_3D_6A_F5_BD
+#
+# Notes:
+#     - Requires `pactl` and `notify-send`
+#     - A2DP provides high-quality stereo audio but no microphone
+#     - HFP provides microphone access but lower audio quality (both directions)
+#     - If multiple Bluetooth cards are connected, pass the card name explicitly
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+NOTIFICATION_TIMEOUT=2000
+HFP_PROFILE="headset-head-unit"        # LC3-SWB (best quality HFP)
+HFP_FALLBACK="headset-head-unit-msbc"  # mSBC fallback
+A2DP_PROFILE="a2dp-sink"
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+# Auto-detect the first connected Bluetooth card
+detect_card() {
+    pactl list cards short 2>/dev/null \
+        | awk '{ print $2 }' \
+        | grep '^bluez_card\.' \
+        | head -n 1
+}
+
+# Get the active profile of a card
+get_profile() {
+    local card="$1"
+    pactl list cards 2>/dev/null \
+        | awk "/Name: $card/{found=1} found && /Active Profile:/{print \$3; exit}"
+}
+
+# Check if a profile is available on the card
+profile_available() {
+    local card="$1"
+    local profile="$2"
+    pactl list cards 2>/dev/null \
+        | awk "/Name: $card/{found=1} found && /^\t\tProfiles:/{inprofiles=1} inprofiles && /^\t\t\t$profile:/{found_profile=1; exit} /^\t\t[^\t]/{if(inprofiles) exit}" \
+        | grep -q "."
+    pactl list cards 2>/dev/null | grep -A 100 "Name: $card" | grep -q "^\s*$profile:"
+}
+
+# Set the card profile, falling back to mSBC if LC3-SWB is unavailable
+set_hfp_profile() {
+    local card="$1"
+    if pactl list cards 2>/dev/null | grep -A 100 "Name: $card" | grep -q "^\s*$HFP_PROFILE:"; then
+        pactl set-card-profile "$card" "$HFP_PROFILE"
+    else
+        pactl set-card-profile "$card" "$HFP_FALLBACK"
+    fi
+}
+
+# Send a notification about the current profile
+notify_user() {
+    local card="$1"
+    local profile
+    profile=$(get_profile "$card")
+
+    case "$profile" in
+        a2dp-sink*|a2dp*)
+            notify-send \
+                -h string:x-canonical-private-synchronous:bt_mic_toggle \
+                -t "$NOTIFICATION_TIMEOUT" \
+                "Bluetooth: High-Quality Audio" \
+                "A2DP active - microphone disabled"
+            ;;
+        headset-head-unit*)
+            notify-send \
+                -h string:x-canonical-private-synchronous:bt_mic_toggle \
+                -t "$NOTIFICATION_TIMEOUT" \
+                "Bluetooth: Headset Mode" \
+                "HFP active - microphone enabled"
+            ;;
+        *)
+            notify-send \
+                -h string:x-canonical-private-synchronous:bt_mic_toggle \
+                -t "$NOTIFICATION_TIMEOUT" \
+                "Bluetooth Profile" \
+                "Active profile: $profile"
+            ;;
+    esac
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+ACTION="${1:-toggle}"
+CARD="${2:-}"
+
+# Auto-detect card if not provided
+if [[ -z "$CARD" ]]; then
+    CARD=$(detect_card)
+    if [[ -z "$CARD" ]]; then
+        echo "Error: No Bluetooth card detected."
+        echo "Make sure your device is connected, or pass the card name explicitly."
+        notify-send \
+            -u normal \
+            -h string:x-canonical-private-synchronous:bt_mic_toggle \
+            -t "$NOTIFICATION_TIMEOUT" \
+            "Bluetooth: No Device Found" \
+            "Connect a Bluetooth device first."
+        exit 1
+    fi
+fi
+
+case "$ACTION" in
+    status)
+        notify_user "$CARD"
+        ;;
+    mic)
+        set_hfp_profile "$CARD"
+        notify_user "$CARD"
+        ;;
+    audio)
+        pactl set-card-profile "$CARD" "$A2DP_PROFILE"
+        notify_user "$CARD"
+        ;;
+    toggle)
+        CURRENT=$(get_profile "$CARD")
+        case "$CURRENT" in
+            headset-head-unit*)
+                pactl set-card-profile "$CARD" "$A2DP_PROFILE"
+                ;;
+            *)
+                set_hfp_profile "$CARD"
+                ;;
+        esac
+        notify_user "$CARD"
+        ;;
+    *)
+        echo "Error: Invalid argument '$ACTION'"
+        echo "Try '$0 --help' for usage."
+        exit 1
+        ;;
+esac

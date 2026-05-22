@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Toggle Float App
+# ================
+# A utility to focus an existing window or launch a new one if it doesn't exist.
+#
+# Usage:
+#     $0 <window_class> <command>
+#
+# Arguments:
+#     <window_class>    The unique class of the window to identify.
+#     <command>         The full command to launch the app if not found.
+#
+# Examples:
+#     $0 bluetui_float "kitty --class bluetui_float -e bluetui"
+#
+# Notes:
+#     - Requires `hyprctl`, `jq`, and `bash`.
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+# Import helper functions
+source "$SCRIPT_DIR/utils.sh"
+
+# Check for help flag
+check_help_flag "$@"
+
+# Validate arguments
+if [[ -z "$1" || -z "$2" ]]; then
+    echo "Error: Missing arguments."
+    echo "Usage: $0 <window_class> <command>"
+    exit 1
+fi
+
+WINDOW_CLASS="$1"
+COMMAND="$2"
+
+# Check if a window with this class is already active
+# We use jq to verify existence and extract the address for focusing
+WINDOW_ADDRESS=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$WINDOW_CLASS\") | .address" | head -n 1)
+
+if [[ -n "$WINDOW_ADDRESS" ]]; then
+    # If active, focus it
+    hyprctl dispatch focuswindow "address:$WINDOW_ADDRESS"
+else
+    # If not active, launch it with dynamic Hyprland window rules
+    # This applies float, size, and center rules to the spawned process
+    hyprctl dispatch exec "[float; size 800 500; center] $COMMAND"
+fi

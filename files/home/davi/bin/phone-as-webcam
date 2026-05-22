@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+# Phone as Webcam
+# ===============
+# Streams your Android phone's camera into a virtual v4l2 loopback device,
+# making it available as a webcam for video calls and other applications.
+#
+# Usage:
+#     $0 <phone_ip>
+#
+# Arguments:
+#     <phone_ip>   - IP address of the phone shown in the IP Webcam app
+#
+# Example:
+#     $0 192.168.1.42
+#
+# Setup (one-time):
+#     1. Connect your phone and computer to the same WiFi network.
+#        Alternatively, use your phone as a hotspot.
+#     2. Install "IP Webcam" on your Android phone:
+#        https://play.google.com/store/apps/details?id=com.pas.webcam
+#     3. Open the app and tap "Start server". Note the IP address shown.
+#     4. Install the v4l2loopback kernel module (Arch):
+#           sudo pacman -S v4l2loopback-dkms
+#
+# Notes:
+#     - Requires `ffmpeg`, `v4l2loopback`, and `sudo` (for modprobe/rmmod)
+#     - The virtual webcam is created at /dev/video10 with label "Webcam"
+#     - Press Ctrl+C to stop streaming and unload the kernel module
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+VIDEO_NR=10
+CARD_LABEL="Webcam"
+PORT=8080
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+cleanup() {
+    echo ""
+    sudo rmmod v4l2loopback && echo "Camera detached."
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+if [[ -z "$1" ]]; then
+    echo "Error: Missing required argument <phone_ip>"
+    echo "Try '$0 --help' for usage."
+    exit 1
+fi
+
+PHONE_IP="$1"
+
+# Unload any existing instance cleanly before starting
+sudo rmmod v4l2loopback >/dev/null 2>&1
+
+trap cleanup INT
+
+sudo modprobe v4l2loopback \
+    devices=1 \
+    video_nr="$VIDEO_NR" \
+    exclusive_caps=1 \
+    card_label="$CARD_LABEL"
+
+echo "Streaming from http://$PHONE_IP:$PORT — press Ctrl+C to detach."
+
+ffmpeg \
+    -hide_banner \
+    -loglevel error \
+    -f mjpeg \
+    -i "http://$PHONE_IP:$PORT/video" \
+    -pix_fmt yuv420p \
+    -f v4l2 "/dev/video$VIDEO_NR"
