@@ -38,6 +38,7 @@ CreateLink /etc/systemd/system/dbus-org.freedesktop.resolve1.service /usr/lib/sy
 CreateLink /etc/systemd/system/dbus-org.freedesktop.timesync1.service /usr/lib/systemd/system/systemd-timesyncd.service                                      # Sincronizes clock with internet
 CreateLink /etc/systemd/system/display-manager.service /usr/lib/systemd/system/sddm.service                                                                  # Login screen
 CreateLink /etc/systemd/system/getty.target.wants/getty@tty1.service /usr/lib/systemd/system/getty@.service                                                  # Login screen for TTY if no graphical interface available
+CreateLink /etc/systemd/system/graphical.target.wants/tlp-pd.service /usr/lib/systemd/system/tlp-pd.service                                                  # To communicate with TLP to change profiles
 CreateLink /etc/systemd/system/graphical.target.wants/udisks2.service /usr/lib/systemd/system/udisks2.service                                                # For automatically mounting removable drives
 CreateLink /etc/systemd/system/hibernate.target.wants/minegrub-update.service /etc/systemd/system/minegrub-update.service                                    # Update the theme of the SDDM
 CreateLink /etc/systemd/system/multi-user.target.wants/iwd.service /usr/lib/systemd/system/iwd.service                                                       # For WiFi
@@ -45,6 +46,7 @@ CreateLink /etc/systemd/system/multi-user.target.wants/minegrub-update.service /
 CreateLink /etc/systemd/system/multi-user.target.wants/remote-fs.target /usr/lib/systemd/system/remote-fs.target                                             # Low level network (DNS, IP, interface, etc...)
 CreateLink /etc/systemd/system/multi-user.target.wants/sshd.service /usr/lib/systemd/system/sshd.service                                                     # SSH daemon
 CreateLink /etc/systemd/system/multi-user.target.wants/systemd-networkd.service /usr/lib/systemd/system/systemd-networkd.service                             # Low level network (DNS, IP, interface, etc...)
+CreateLink /etc/systemd/system/multi-user.target.wants/tlp.service /usr/lib/systemd/system/tlp.service                                                       # TLP service for battery management
 CreateLink /etc/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service /usr/lib/systemd/system/systemd-networkd-wait-online.service # Low level network (DNS, IP, interface, etc...)
 CreateLink /etc/systemd/system/sockets.target.wants/polkit-agent-helper.socket /usr/lib/systemd/system/polkit-agent-helper.socket                            # Graphical authentication
 CreateLink /etc/systemd/system/sockets.target.wants/systemd-networkd-varlink.socket /usr/lib/systemd/system/systemd-networkd-varlink.socket                  # Low level network (DNS, IP, interface, etc...)
@@ -56,6 +58,8 @@ CreateLink /etc/systemd/system/sysinit.target.wants/kanata.service /etc/systemd/
 CreateLink /etc/systemd/system/sysinit.target.wants/systemd-network-generator.service /usr/lib/systemd/system/systemd-network-generator.service              # Low level network (DNS, IP, interface, etc...)
 CreateLink /etc/systemd/system/sysinit.target.wants/systemd-resolved.service /usr/lib/systemd/system/systemd-resolved.service                                # Low level network (DNS, IP, interface, etc...)
 CreateLink /etc/systemd/system/sysinit.target.wants/systemd-timesyncd.service /usr/lib/systemd/system/systemd-timesyncd.service                              # Low level network (DNS, IP, interface, etc...)
+CreateLink /etc/systemd/system/systemd-rfkill.service /dev/null                                                                                              # Disable this so it does not interrupt TLP battery management via disabling devices
+CreateLink /etc/systemd/system/systemd-rfkill.socket /dev/null                                                                                               # Disable this so it does not interrupt TLP battery management via disabling devices
 CreateLink /etc/systemd/user/pipewire-session-manager.service /usr/lib/systemd/user/wireplumber.service                                                      # Audio and video
 CreateLink /etc/systemd/user/pipewire.service.wants/wireplumber.service /usr/lib/systemd/user/wireplumber.service                                            # Audio and video
 CreateLink /etc/systemd/user/sockets.target.wants/p11-kit-server.socket /usr/lib/systemd/user/p11-kit-server.socket                                          # Graphical authentication

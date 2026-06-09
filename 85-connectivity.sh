@@ -23,7 +23,6 @@ CopyFile /var/lib/iwd/COMODORO_BURGUER.psk 600
 CopyFile /var/lib/iwd/Galaxy\ S25\ 53C6.psk 600
 CopyFile /var/lib/iwd/HFDD_5G.psk 600
 CopyFile /var/lib/iwd/Nobreza\ DDOS.psk 600
-CopyFile /var/lib/iwd/UFPR-SEM-FIO.open 600
 CopyFile /var/lib/iwd/UaiFai.psk 600
 CopyFile /var/lib/iwd/Uai\ Fai.psk 600
 CopyFile /var/lib/iwd/eduroam.8021x

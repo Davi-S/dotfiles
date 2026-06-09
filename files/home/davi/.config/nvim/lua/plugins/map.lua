@@ -3,7 +3,14 @@ return {
     version = false,
     config = function()
         local map = require('mini.map')
-        map.setup()
+        map.setup({
+            symbols = {
+                -- Encode symbols. See `:h MiniMap.config` for specification and
+                -- `:h MiniMap.gen_encode_symbols` for pre-built ones.
+                -- Default: solid blocks with 3x2 resolution.
+                encode = map.gen_encode_symbols.dot("4x2"),
+            }
+        })
 
         -- Start with map open
         map.open()
