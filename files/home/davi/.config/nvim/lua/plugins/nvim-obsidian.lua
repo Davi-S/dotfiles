@@ -1,9 +1,8 @@
 return {
     "Davi-S/nvim-obsidian",
-    -- version = "main",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
+        'nvim-mini/mini.pick',
         "saghen/blink.cmp",
         "nvim-treesitter/nvim-treesitter",
     },

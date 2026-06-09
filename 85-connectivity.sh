@@ -17,18 +17,18 @@ AddPackage impala # TUI for managing wifi
 # iwd is already added in the `20-base.sh` file.
 CopyFile /var/lib/iwd/126-5G.psk 600
 CopyFile /var/lib/iwd/=484644445f322e3447.psk 600
-CopyFile /var/lib/iwd/CELU.psk 600
 CopyFile /var/lib/iwd/C3SL.8021x
+CopyFile /var/lib/iwd/CELU.psk 600
 CopyFile /var/lib/iwd/COMODORO_BURGUER.psk 600
 CopyFile /var/lib/iwd/Galaxy\ S25\ 53C6.psk 600
 CopyFile /var/lib/iwd/HFDD_5G.psk 600
 CopyFile /var/lib/iwd/Nobreza\ DDOS.psk 600
+CopyFile /var/lib/iwd/UFPR-SEM-FIO.open 600
 CopyFile /var/lib/iwd/UaiFai.psk 600
 CopyFile /var/lib/iwd/Uai\ Fai.psk 600
 CopyFile /var/lib/iwd/eduroam.8021x
 CreateDir /etc/iwd
 CreateDir /var/lib/iwd/hotspot 700
-CreateFile /var/lib/iwd/UFPR-SEM-FIO.open 600 >/dev/null
 CreateFile /var/lib/iwd/UFPR_SEM_FIO.open 600 >/dev/null
 SetFileProperty /var/lib/iwd mode 700
 

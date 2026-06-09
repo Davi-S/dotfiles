@@ -7,9 +7,9 @@ return {
 				on_attach = function(bufnr)
 					vim.keymap.set(
 						"n",
-						"<Leader>gh",
+                        "<Leader>gv",
 						":Gitsigns preview_hunk<CR>",
-						{ buffer = bufnr, desc = "[g]itsigns preview [h]unk in popup" }
+						{ buffer = bufnr, desc = "[g]itsigns [v]iew hunk in popup" }
 					)
 					vim.keymap.set(
 						"n",

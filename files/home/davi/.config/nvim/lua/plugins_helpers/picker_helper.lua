@@ -1,7 +1,8 @@
 -- Smart definition function that switches between definitions and references
 -- based on whether cursor is already at the definition
 local function smart_definition()
-    local builtin = require("telescope.builtin")
+    -- mini.extra's LSP picker
+    local lsp_picker = require('mini.extra').pickers.lsp
 
     -- This checks if the cursor is currently sitting on the definition.
     -- If YES: Open References.
@@ -10,7 +11,7 @@ local function smart_definition()
         function(err, result, _, _)
             -- If no definition found, just try to open definitions (will show "not found")
             if err or not result or vim.tbl_isempty(result) then
-                builtin.lsp_definitions()
+                lsp_picker('definition')
                 return
             end
 
@@ -43,9 +44,9 @@ local function smart_definition()
 
             -- Decide what to open
             if cursor_is_at_definition then
-                builtin.lsp_references()
+                lsp_picker({ scope = "references" })
             else
-                builtin.lsp_definitions()
+                lsp_picker({ scope = "definition" })
             end
         end)
 end
@@ -55,4 +56,3 @@ local M = {}
 M.smart_definition = smart_definition
 
 return M
-

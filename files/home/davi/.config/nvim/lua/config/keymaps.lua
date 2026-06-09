@@ -89,13 +89,6 @@ vim.keymap.set("n", "<A-l>", "<C-w>L", { desc = "Move window Right" })
 
 ----------------------------------------------------------------------------------------------------
 
--- Spell check
-vim.keymap.set("n", "<Leader>st", ":set spell!<CR>", { desc = "[s]pell check [t]oggle" })
-vim.keymap.set("n", "<Leader>ss", "z=", { desc = "[s]pelling [s]uggestions" })
-vim.keymap.set("n", "<Leader>sg", "zg", { desc = "Add this word to the [s]pelfile as a [g]ood word" })
-
-----------------------------------------------------------------------------------------------------
-
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Remove the highlight when leaving search mode" })
 
 ----------------------------------------------------------------------------------------------------

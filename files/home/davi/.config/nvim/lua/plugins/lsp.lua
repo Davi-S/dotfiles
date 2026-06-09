@@ -98,8 +98,6 @@ return {
             group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
             desc = "LSP on_attach setup",
             callback = function(args)
-                local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
                 -- Enable features
                 lsp_helpers.setup_formatting(args)
                 lsp_helpers.setup_highlight_under_cursor(args)
@@ -107,7 +105,7 @@ return {
                 lsp_helpers.setup_code_actions(args)
                 lsp_helpers.setup_codelens(args)
                 lsp_helpers.setup_linked_editing_range(args)
-                lsp_helpers.setup_inlay_hint(args)
+                -- lsp_helpers.setup_inlay_hint(args)
                 -- lsp_helpers.setup_inline_completion(args)
                 lsp_helpers.setup_on_type_formatting(args)
             end,

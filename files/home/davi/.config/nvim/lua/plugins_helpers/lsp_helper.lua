@@ -96,107 +96,11 @@ local function setup_highlight_under_cursor(args)
     end
 end
 
--- original by tLaw101 on `https://www.reddit.com/r/neovim/comments/ua6826/3_lua_override_vimuiinput_in_40_lines/`
--- This is a function to create a pretty floating window bellow the cursor.
--- It will receive a input and call the given function with that input.
-local function _wininput(default_text, on_confirm)
-    -- create a "prompt" buffer that will be deleted once focus is lost
-    local buf = vim.api.nvim_create_buf(false, false)
-    vim.bo[buf].buftype = "prompt"
-    vim.bo[buf].bufhidden = "wipe"
-
-    -- defer the on_confirm callback so that it is
-    -- executed after the prompt window is closed
-    local deferred_callback = function(input)
-        vim.defer_fn(function()
-            on_confirm(input)
-        end, 10)
-    end
-
-    -- set callback (CR) for prompt buffer, and the prompt character
-    vim.fn.prompt_setcallback(buf, deferred_callback)
-    vim.fn.prompt_setprompt(buf, "")
-
-    -- set some keymaps:
-    -- Enter to confirm and exit
-    vim.keymap.set({ "i", "n" }, "<CR>", "<CR><Esc>:close!<CR>:stopinsert<CR>", {
-        silent = true,
-        buffer = buf,
-    })
-    -- ESC to quit
-    vim.keymap.set("n", "<esc>", function()
-        return vim.fn.mode() == "n" and "ZQ" or "<esc>"
-    end, { expr = true, silent = true, buffer = buf })
-    -- q to quit
-    vim.keymap.set("n", "q", function()
-        return vim.fn.mode() == "n" and "ZQ" or "<esc>"
-    end, { expr = true, silent = true, buffer = buf })
-
-    -- Get the current line and cursor position
-    local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-
-    -- matchstrpos returns { matched_string, start_idx, end_idx }
-    local match = vim.fn.matchstrpos(line, [[\k*\%]] .. col .. [[c\k*]])
-    local start_col = match[2]
-    local end_col = match[3]
-
-    -- If no match found (e.g., on empty space), default to current column
-    if start_col == -1 then
-        start_col = col - 1
-        end_col = col - 1
-    end
-
-    -- Calculate relative offset
-    -- start_col is 0-indexed from matchstrpos
-    local col_offset = start_col - vim.fn.col(".")
-    local width_offset = math.max(#default_text, (end_col - start_col)) + 10
-
-    local win_opts = {
-        relative = "cursor",
-        row = 1,
-        col = col_offset,
-        width = width_offset,
-        height = 1,
-        style = "minimal",
-        border = "rounded",
-    }
-
-    -- open the floating window pointing to our buffer and show the prompt
-    vim.api.nvim_open_win(buf, true, win_opts)
-    vim.cmd("startinsert")
-
-    -- set the default text
-    vim.defer_fn(function()
-        vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, { default_text })
-        vim.cmd("stopinsert")
-        vim.api.nvim_win_set_cursor(0, { 1, 0 })
-    end, 5)
-end
-
 local function setup_renaming(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-    -- Basically renames the symbol that is under the cursor to have the new given name
     if client:supports_method('textDocument/rename') then
-        vim.keymap.set("n", RENAME_KEY,
-            function()
-                local curr_name = vim.fn.expand("<cword>")
-                -- This function will open a pretty floating window where the user can
-                -- type the new name it wants and the rename function will be called
-                -- with this input.
-                _wininput(
-                    curr_name,
-                    function(input)
-                        if input and #input > 0 and input ~= curr_name then
-                            -- "rename" receives the new name. It acts upon the symbol
-                            -- That is under the cursor
-                            vim.lsp.buf.rename(input)
-                        end
-                    end
-                )
-            end,
-            { desc = "LSP [r]ename" })
+        vim.keymap.set("n", RENAME_KEY, vim.lsp.buf.rename, { desc = "LSP [r]ename" })
     end
 end
 
