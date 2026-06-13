@@ -43,9 +43,9 @@ WINDOW_ADDRESS=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$WINDOW_CL
 
 if [[ -n "$WINDOW_ADDRESS" ]]; then
     # If active, focus it
-    hyprctl dispatch focuswindow "address:$WINDOW_ADDRESS"
+    hyprctl dispatch "hl.dsp.focus({ address = \"$WINDOW_ADDRESS\" })"
 else
     # If not active, launch it with dynamic Hyprland window rules
     # This applies float, size, and center rules to the spawned process
-    hyprctl dispatch exec "[float; size 800 500; center] $COMMAND"
+    hyprctl dispatch "hl.dsp.exec_cmd([=[[float; size 800 500; center] $COMMAND]=])"
 fi

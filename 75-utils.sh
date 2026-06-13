@@ -52,7 +52,6 @@ CopyFile /home/davi/.config/hypr/hypridle.conf '' davi davi
 # For not letting the PC suspend or lock screen
 AddPackage --foreign hyprcaffeine # ☕ Idle inhibition utility for Hyprland - caffeine for your Wayland compositor
 CopyFile /etc/polkit-1/rules.d/50-hyprcaffeine.rules
-CopyFile /home/davi/.config/hypr/hyprcaffeine-keybinds.lua '' davi davi
 CopyFile /home/davi/.config/systemd/user/hyprcaffeine.service '' davi davi
 
 # To view system usage

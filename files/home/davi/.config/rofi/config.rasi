@@ -1,4 +1,6 @@
 configuration {
-  font: "Atkinson Mono NF 12";
+    font: "Atkinson Mono NF 12";
+    show-icons: true;
 }
-@theme "terminal_style_theme"
+
+@import "terminal-catppuccin-mocha.rasi"

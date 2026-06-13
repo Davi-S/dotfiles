@@ -33,7 +33,6 @@ vim.opt.inccommand = "nosplit" -- shows partial off-screen results in a preview 
 --------------------------------------------------------------------------------
 
 -- Visual settings
-vim.cmd.colorscheme("catppuccin") -- Apply color scheme
 vim.opt.termguicolors = true      -- enable 24-bit RGB color in the terminal
 vim.opt.conceallevel = 0          -- Concealed text is completely hidden unless when provided with a custom replacement character
 vim.opt.signcolumn = "yes"        -- always show the sign column to avoid text shifting when signs appear
@@ -45,7 +44,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank({ timeout = 200, visual = true })
     end,
 })
-vim.o.winborder = 'rounded' -- Set window borders globally
+vim.o.winborder = "single" -- Set window borders globally
 vim.diagnostic.config({     -- Configure diagnostics options
     virtual_text = true,
     severity_sort = true,

@@ -27,7 +27,6 @@ CopyFile /home/davi/.config/nvim/lua/plugins_helpers/colorscheme_helper.lua '' d
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/completions_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/lsp_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/nvim-obsidian_helper.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins_helpers/picker_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/nvim-pack-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add '' davi davi
 CopyFile /home/davi/.config/nvim/spell/en.utf-8.add.spl '' davi davi

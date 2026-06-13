@@ -9,8 +9,6 @@ return {
         local pick = require('mini.pick')
         pick.setup()
 
-        local picker_helpers = require("plugins_helpers.picker_helper")
-
         vim.keymap.set(
             "n",
             "<leader>ff",
@@ -46,13 +44,6 @@ return {
                 pick.builtin.files({}, { source = { cwd = vim.fn.stdpath("config") } })
             end,
             { desc = "MiniPick [f]ind [c]onfig files" }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>fu",
-            picker_helpers.smart_definition,
-            { desc = "MiniPick [f]ind [u]sages" }
         )
     end,
 }

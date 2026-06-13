@@ -22,6 +22,9 @@ return {
         -- - We use it to ensure all desired tools are present.
         -- - The `ensure_installed` list works with mason-lspconfig to resolve LSP names like "lua_ls".
         "WhoIsSethDaniel/mason-tool-installer.nvim",
+
+        -- This is for the keybind that picks lsp definitions
+        'nvim-mini/mini.extra',
     },
     config = function()
         require("mason").setup()
@@ -39,6 +42,7 @@ return {
             "clangd",         -- C
             "taplo",          -- TOML
             "hyprls",         -- Hyprland config
+            "cssls",          -- CSS
         }
 
         -- Other servers that will be enable, but not managed by Mason; they
@@ -80,6 +84,8 @@ return {
             vim.lsp.enable(server_name)
         end
 
+        ------------------------------------------------------------------------
+
         -- Doing this to override the max size of the `lsp.hover` window (and
         -- any other lsp floating windows apparently)
         local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -92,6 +98,8 @@ return {
             opts.max_height = 10
             return orig_util_open_floating_preview(contents, syntax, opts, ...)
         end
+
+        ------------------------------------------------------------------------
 
         -- Create a autocmd for when a lsp server attaches a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -110,5 +118,12 @@ return {
                 lsp_helpers.setup_on_type_formatting(args)
             end,
         })
+
+        vim.keymap.set(
+            "n",
+            "<leader>fu",
+            lsp_helpers.smart_definition,
+            { desc = "MiniPick [f]ind [u]sages" }
+        )
     end,
 }

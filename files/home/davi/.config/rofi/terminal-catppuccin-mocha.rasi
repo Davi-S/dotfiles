@@ -1,22 +1,24 @@
+@import "catppuccin-mocha"
+
 * {
-    /* Color Palette */
-    bg: #000000;
-    bg-alt: #282828;
-    fg: #deddda;
-    selected-bg: #deddda;
-    selected-fg: #000000;
-    border-active: #deddda;
-    border-inactive: #282828;
-    
+    /* Theme Color Palette Mapping */
+    bg: var(base);
+    bg-alt: var(mantle);
+    fg: var(text);
+    selected-bg: var(sapphire);
+    selected-fg: var(base);
+    border-active: var(sapphire);
+    border-inactive: var(surface0);
+
     /* Global Reset */
     background-color: transparent;
 }
 
 window {
-    background-color: @bg;
+    background-color: var(bg);
     border: 1px solid;
-    border-color: @border-active;
-    padding: 15px;
+    border-color: var(border-active);
+    padding: 25px;
     width: 45%;
 }
 
@@ -25,22 +27,22 @@ mainbox {
 }
 
 inputbar {
-    background-color: @bg-alt;
+    background-color: var(bg-alt);
     padding: 12px;
     children: [prompt, entry];
     border: 1px solid;
-    border-color: @border-inactive;
+    border-color: var(border-inactive);
 }
 
 prompt {
-    text-color: @fg;
+    text-color: var(fg);
     padding: 0px 10px 0px 0px;
 }
 
 entry {
-    text-color: @fg;
+    text-color: var(fg);
     placeholder: "Search...";
-    placeholder-color: #4a4d5e;
+    placeholder-color: var(overlay0);
 }
 
 listview {
@@ -51,18 +53,18 @@ listview {
 }
 
 element {
-    padding: 8px 12px;
-    text-color: @fg;
+    padding: 8px 20px;
+    text-color: var(fg);
 }
 
 element normal.normal, element alternate.normal {
-    background-color: @bg;
-    text-color: @fg;
+    background-color: var(bg);
+    text-color: var(fg);
 }
 
 element selected.normal {
-    background-color: @selected-bg;
-    text-color: @selected-fg;
+    background-color: var(selected-bg);
+    text-color: var(selected-fg);
 }
 
 element-text {

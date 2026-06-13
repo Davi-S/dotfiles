@@ -6,20 +6,24 @@
 # Reference: https://wiki.hyprland.org/Useful-Utilities/Must-have/
 
 AddPackage hyprland # a highly customizable dynamic tiling Wayland compositor
-CopyFile /home/davi/.config/hypr/hyprland-autostart.conf '' davi davi
+CopyFile /home/davi/.config/hypr/.luarc.json '' davi davi
+CopyFile /home/davi/.config/hypr/catppuccin-mocha.conf '' davi davi
+CopyFile /home/davi/.config/hypr/catppuccin-mocha.lua '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-autostart.lua '' davi davi
 CopyFile /home/davi/.config/hypr/hyprland-autostart.sh '' davi davi
-CopyFile /home/davi/.config/hypr/hyprland-eyecandy.conf '' davi davi
-CopyFile /home/davi/.config/hypr/hyprland-input.conf '' davi davi
-CopyFile /home/davi/.config/hypr/hyprland-keybindings.conf '' davi davi
-CopyFile /home/davi/.config/hypr/hyprland-monitors.conf '' davi davi
-CopyFile /home/davi/.config/hypr/hyprland-windowrules.conf '' davi davi
-CopyFile /home/davi/.config/hypr/hyprland.conf '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-eyecandy.lua '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-input.lua '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-keybindings.lua '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-monitors.lua '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland-windowrules.lua '' davi davi
+CopyFile /home/davi/.config/hypr/hyprland.lua '' davi davi
 SetFileProperty /home/davi/.config/hypr group davi
 SetFileProperty /home/davi/.config/hypr owner davi
 
 AddPackage kitty # A modern, hackable, featureful, OpenGL-based terminal emulator
-CopyFile /home/davi/.config/kitty/current-theme.conf '' davi davi
+CopyFile /home/davi/.config/kitty/diff-mocha.conf '' davi davi
 CopyFile /home/davi/.config/kitty/kitty.conf '' davi davi
+CopyFile /home/davi/.config/kitty/mocha.conf '' davi davi
 CopyFile /home/davi/.config/kitty/sessions/nchat.session '' davi davi
 CopyFile /home/davi/.config/kitty/sessions/obsidian_tui.session '' davi davi
 SetFileProperty /home/davi/.config/kitty group davi

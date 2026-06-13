@@ -5,8 +5,9 @@
 # Installs various desktop utilities. Usually UI applications.
 
 AddPackage rofi # A window switcher, application launcher and dmenu replacement
+CopyFile /home/davi/.config/rofi/catppuccin-mocha.rasi '' davi davi
 CopyFile /home/davi/.config/rofi/config.rasi '' davi davi
-CopyFile /home/davi/.config/rofi/terminal_style_theme.rasi '' davi davi
+CopyFile /home/davi/.config/rofi/terminal-catppuccin-mocha.rasi '' davi davi
 SetFileProperty /home/davi/.config/rofi group davi
 SetFileProperty /home/davi/.config/rofi owner davi
 
