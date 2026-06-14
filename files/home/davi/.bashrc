@@ -7,7 +7,6 @@ PS1='[\w]\$ '
 alias prompt-min='export PS1="[\w]\$ "'
 alias prompt-full='export PS1="[\u@\h \W]\$ "'
 
-
 # Common aliases
 alias ls='ls --color=auto'
 alias ll='ls -AlhF --group-directories-first --color=auto'

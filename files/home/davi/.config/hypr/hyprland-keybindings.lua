@@ -26,7 +26,12 @@ local menu = "rofi -show drun -run-command \"" .. uwsm .. " {cmd}\""
 -- clipboard history
 -- Not using uwsm to launch rofi or cliphist because it will run just for a
 -- short period of time; making it open quickly is more important
-local cliphist = "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+--
+-- Disable the icon configuration entirely for that single instance. Because
+-- cliphist does not provide icons, rofi will just show an empty space if this
+-- options is not set.
+local cliphist =
+"cliphist list | rofi -dmenu -theme-str 'configuration { show-icons: false; }' | cliphist decode | wl-copy"
 
 -- Folder where the user custom commands and scripts are
 local ubin = "~/bin"
@@ -105,7 +110,7 @@ hl.bind("SUPER + 8", hl.dsp.focus({ workspace = 8 }))
 hl.bind("SUPER + 9", hl.dsp.focus({ workspace = 9 }))
 hl.bind("SUPER + 0", hl.dsp.focus({ workspace = 10 }))
 -- Special workspace (scratchpad)
-hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("hub"))
 
 -- Move active window to a workspace with SUPER + SHIFT + [0-9]
 hl.bind("SUPER + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
@@ -119,7 +124,7 @@ hl.bind("SUPER + SHIFT + 8", hl.dsp.window.move({ workspace = 8 }))
 hl.bind("SUPER + SHIFT + 9", hl.dsp.window.move({ workspace = 9 }))
 hl.bind("SUPER + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 -- Special workspace (scratchpad)
-hl.bind("SUPER + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind("SUPER + SHIFT + S", hl.dsp.window.move({ workspace = "special:hub" }))
 
 -- Silently move active window to a workspace with SUPER + ALT + SHIFT + [0-9]
 hl.bind("SUPER + SHIFT + ALT + 1", hl.dsp.window.move({ workspace = 1, follow = false }))

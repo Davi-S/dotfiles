@@ -55,11 +55,13 @@ CopyFile /etc/polkit-1/rules.d/50-hyprcaffeine.rules
 CopyFile /home/davi/.config/systemd/user/hyprcaffeine.service '' davi davi
 
 # To view system usage
-AddPackage htop # Interactive process viewer
-CopyFile /home/davi/.config/htop/htoprc 600 davi davi
-SetFileProperty /home/davi/.config/htop group davi
-SetFileProperty /home/davi/.config/htop mode 700
-SetFileProperty /home/davi/.config/htop owner davi
+AddPackage btop # A monitor of system resources, bpytop ported to C++
+CopyFile /home/davi/.config/btop/btop.conf '' davi davi
+CopyFile /home/davi/.config/btop/themes/catppuccin-mocha.theme '' davi davi
+SetFileProperty /home/davi/.config/btop/themes group davi
+SetFileProperty /home/davi/.config/btop/themes owner davi
+SetFileProperty /home/davi/.config/btop group davi
+SetFileProperty /home/davi/.config/btop owner davi
 
 # Installed when I was looking for what was taking up my storage space
 AddPackage ncdu # Disk usage analyzer with an ncurses interface
