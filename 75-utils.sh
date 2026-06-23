@@ -54,6 +54,9 @@ AddPackage --foreign hyprcaffeine # ☕ Idle inhibition utility for Hyprland - c
 CopyFile /etc/polkit-1/rules.d/50-hyprcaffeine.rules
 CopyFile /home/davi/.config/systemd/user/hyprcaffeine.service '' davi davi
 
+# For forcing the PC to sleep
+AddPackage --foreign hyprdecaffeine # A Rofi-based sleep timer utility for Wayland/Hyprland
+
 # To view system usage
 AddPackage btop # A monitor of system resources, bpytop ported to C++
 CopyFile /home/davi/.config/btop/btop.conf '' davi davi
