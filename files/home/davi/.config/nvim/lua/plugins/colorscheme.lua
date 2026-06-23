@@ -21,7 +21,8 @@ return {
                             -- Autocompletion Menu (blink.cmp)
                             BlinkCmpMenuBorder = { fg = colors.sapphire },
                         },
-                        colorscheme_helpers.lazy_highlights(colors)
+                        colorscheme_helpers.lazy_highlights(colors),
+                        colorscheme_helpers.markdown_highlights(colors)
                     )
                 end,
             })
