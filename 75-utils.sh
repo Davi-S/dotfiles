@@ -50,12 +50,13 @@ AddPackage hypridle # hyprland's idle daemon
 CopyFile /home/davi/.config/hypr/hypridle.conf '' davi davi
 
 # For not letting the PC suspend or lock screen
-AddPackage --foreign hyprcaffeine # ☕ Idle inhibition utility for Hyprland - caffeine for your Wayland compositor
-CopyFile /etc/polkit-1/rules.d/50-hyprcaffeine.rules
-CopyFile /home/davi/.config/systemd/user/hyprcaffeine.service '' davi davi
+AddPackage --foreign expresso # A Rofi-based system awake and sleep inhibition utility
+CopyFile /home/davi/.config/expresso/expresso.conf '' davi davi
+SetFileProperty /home/davi/.config/expresso group davi
+SetFileProperty /home/davi/.config/expresso owner davi
 
-# For forcing the PC to sleep
-AddPackage --foreign hyprdecaffeine # A Rofi-based sleep timer utility for Wayland/Hyprland
+# For forcing the PC to suspend after some time
+AddPackage --foreign decaf # A Rofi-based sleep timer utility
 
 # To view system usage
 AddPackage btop # A monitor of system resources, bpytop ported to C++

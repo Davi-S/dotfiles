@@ -82,8 +82,8 @@ hl.bind("SUPER + B", hl.dsp.exec_cmd(bluetooth))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(wifi))
 hl.bind("SUPER + A", hl.dsp.exec_cmd(audio))
 hl.bind("SUPER + M", hl.dsp.exec_cmd(ubin .. "/toggle-bluetooth-mic"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd("hyprcaffeine menu"))
-hl.bind("SUPER + SHIFT + I", hl.dsp.exec_cmd("hyprdecaffeine menu"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd("expresso menu"))
+hl.bind("SUPER + SHIFT + I", hl.dsp.exec_cmd("decaf menu"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client -t"))
 
 -- Screenshots
