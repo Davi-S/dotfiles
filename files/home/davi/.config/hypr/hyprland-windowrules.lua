@@ -106,3 +106,14 @@ hl.window_rule({
     },
     no_initial_focus = true,
 })
+
+-- For floating terminal apps spawned by toggle-float-app
+hl.window_rule({
+    name = "windowrule-12",
+    match = {
+        class = "^(bluetui_float|impala_float|pulsemixer_float)$",
+    },
+    float = true,
+    size = "800 500",
+    center = true,
+})

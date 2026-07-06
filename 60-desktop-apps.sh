@@ -21,12 +21,19 @@ SetFileProperty /home/davi/.config/qalculate owner davi
 # For connecting the phone to the laptop
 AddPackage kdeconnect # Adds communication between KDE and your smartphone
 
+# Torrent client for magnetic links on the browser
 AddPackage --foreign superseedr # A BitTorrent Client in your Terminal
 CopyFile /home/davi/bin/superseedr-magnet-handler.sh 755 davi davi
 CopyFile /home/davi/.local/share/applications/superseedr.desktop '' davi davi
 SetFileProperty /home/davi/.local/share/applications group davi
 SetFileProperty /home/davi/.local/share/applications mode 700
 SetFileProperty /home/davi/.local/share/applications owner davi
+
+# Torrent client for searching and downloading without browser
+AddPackage --foreign torlink # A sleek, zero-setup torrent finder and downloader that lives right in your terminal
+CopyFile /home/davi/.config/torlink/config.json '' davi davi
+SetFileProperty /home/davi/.config/torlink group davi
+SetFileProperty /home/davi/.config/torlink owner davi
 
 AddPackage --foreign zen-browser-bin # Performance oriented Firefox-based web browser
 

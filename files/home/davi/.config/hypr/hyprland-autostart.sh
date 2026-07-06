@@ -14,7 +14,7 @@
 
 # Remember to always start applications and processes using uwsm
 # Reference: https://github.com/Vladimir-csp/uwsm?tab=readme-ov-file#3-applications-and-slices
-uwsm="uwsm app -t service --"
+uwsm="uwsm-app -t service --"
 
 # When using other window managers alongside with hyprland they can overide this
 # environment variable. It is good to set this everytime hyprland starts to

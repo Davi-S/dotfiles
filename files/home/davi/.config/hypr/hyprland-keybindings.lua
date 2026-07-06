@@ -9,13 +9,16 @@
 --#################################
 
 -- Remember to always use uwsm to start apps
-local uwsm = "uwsm app -t service --"
+local uwsm = "uwsm-app -t service --"
 
 -- Not using uwsm to launch calculator because it will run just for a
 -- short period of time; making it open quickly is more important
 local calculator = "qalculate-gtk"
 
-local terminal = uwsm .. " kitty"
+-- Using "--single-instance" to speedup startup time of new windows. See at:
+-- https://man.archlinux.org/man/kitty.1#single.
+-- Note that the windows opened at startup are not using this single instance.
+local terminal = uwsm .. " kitty --single-instance"
 
 -- Set rofi to use uwsm to launch apps, but not using uwsm to launch rofi it self
 -- because rofi will run just for a short period of time, and making it open
@@ -41,11 +44,11 @@ local screenshots_folder = "~/Pictures/screenshots"
 -- Not using uwsm here because these terminal/apps will run for a short period of
 -- time. It is more important to make them open faster.
 local bluetooth = ubin ..
-    "/toggle-float-app bluetui_float \"kitty -o confirm_os_window_close=0 --class bluetui_float -e bluetui\""
+    "/toggle-float-app bluetui_float \"kitty --override confirm_os_window_close=0 --class bluetui_float -e bluetui\""
 local wifi = ubin ..
-    "/toggle-float-app impala_float \"kitty -o confirm_os_window_close=0 --class impala_float -e impala\""
+    "/toggle-float-app impala_float \"kitty --override confirm_os_window_close=0 --class impala_float -e impala\""
 local audio = ubin ..
-    "/toggle-float-app pulsemixer_float \"kitty -o confirm_os_window_close=0 --class pulsemixer_float -e pulsemixer\""
+    "/toggle-float-app pulsemixer_float \"kitty --override confirm_os_window_close=0 --class pulsemixer_float -e pulsemixer\""
 
 
 --############

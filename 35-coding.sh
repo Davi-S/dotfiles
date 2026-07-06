@@ -32,6 +32,3 @@ SetFileProperty /home/davi/.config/lazygit owner davi
 # Configuration for the C lang formatter
 CopyFile /home/davi/.clang-format '' davi davi
 
-# Installed as a requirement for a Revelo project
-AddPackage tmux # Terminal multiplexer
-CopyFile /home/davi/.tmux.conf '' davi davi

@@ -42,10 +42,22 @@ COMMAND="$2"
 WINDOW_ADDRESS=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$WINDOW_CLASS\") | .address" | head -n 1)
 
 if [[ -n "$WINDOW_ADDRESS" ]]; then
-    # If active, focus it
-    hyprctl dispatch "hl.dsp.focus({ address = \"$WINDOW_ADDRESS\" })"
+    # Get the address of the currently focused window
+    ACTIVE_WINDOW_ADDRESS=$(hyprctl activewindow -j | jq -r .address)
+    if [[ "$ACTIVE_WINDOW_ADDRESS" == "$WINDOW_ADDRESS" ]]; then
+        # if the window exists and is currently focused, then close it
+        hyprctl dispatch "hl.dsp.window.close({ window=[=[address:$WINDOW_ADDRESS]=] })"
+    else
+        # If not, then move it to the current workspace and focus
+        # Get the ID of the workspace you are currently on
+        ACTIVE_WORKSPACE=$(hyprctl activeworkspace -j | jq -r .id)
+        # Move the target window to this workspace
+        hyprctl dispatch "hl.dsp.window.move({ workspace=[=[$ACTIVE_WORKSPACE]=], follow=\"true\", window=[=[address:$WINDOW_ADDRESS]=] })"
+        # Force focus on the window
+        hyprctl dispatch "hl.dsp.focus({ window=[=[address:$WINDOW_ADDRESS]=] })"
+    fi
 else
-    # If not active, launch it with dynamic Hyprland window rules
-    # This applies float, size, and center rules to the spawned process
-    hyprctl dispatch "hl.dsp.exec_cmd([=[[float; size 800 500; center] $COMMAND]=])"
+    # If not active, launch it with. Hyprland windowrules should take care of
+    # floating and resizing for specific classes.
+    hyprctl dispatch "hl.dsp.exec_cmd( [=[$COMMAND]=] )"
 fi
