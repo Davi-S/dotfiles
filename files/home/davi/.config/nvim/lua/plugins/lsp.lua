@@ -11,7 +11,7 @@ return {
     "mason-org/mason.nvim",
     dependencies = {
         -- mason-lspconfig:
-        -- - Bridges the gap between LSP config names (e.g. "lua_ls") and actual Mason package names (e.g. "lua-language-server").
+        -- - Bridges the gap between LSP config names (e.g. "lua_ls" in https://github.com/neovim/nvim-lspconfig/tree/master/lsp) and actual Mason package names (e.g. "lua-language-server").
         -- - Used here only to allow specifying language servers by their LSP name (like "lua_ls") in `ensure_installed` used by 'WhoIsSethDaniel/mason-tool-installer.nvim.'
         -- - It is a optional dependency of the 'WhoIsSethDaniel/mason-tool-installer.nvim' plugin. it does not even need to be setup; only need to be installed.
         -- - It does not auto-configure servers; we use vim.lsp.enable() explicitly for full control.
@@ -33,37 +33,46 @@ return {
         -- Enable the following language servers
         -- These will be managed by Mason
         local mason_servers_list = {
-            "lua_ls",         -- Lua
-            "basedpyright",   -- Python
-            "ruff",           -- Python
-            "bashls",         -- Bash
-            "markdown_oxide", -- Markdown
-            "dockerls",       -- Docker
-            "clangd",         -- C
-            "taplo",          -- TOML
-            "hyprls",         -- Hyprland config
-            "cssls",          -- CSS
+            -- Python
+            "basedpyright", -- Type checker
+            "ruff",         -- Linter and code formatter
+            -- JS/TS
+            "vtsls",        -- LSP
+            "oxlint",       -- Linter
+            "oxfmt",        -- Formatter
+            -- HTML
+            "html",         -- LSP
+            -- CSS
+            "cssls",        -- LSP
+            "tailwindcss",  -- LSP
+            -- TOML
+            "taplo",        -- LSP/Formatter/Linter
+            -- JSON
+            "jsonls",       -- LSP
+            -- BASH
+            "bashls",       -- LSP
+            "shfmt",        -- Bash
+            "shellcheck",   -- Bash
+
+            -- LUA
+            "lua_ls",         -- LSP
+            -- MARKDOWN
+            "markdown_oxide", -- LSP
+            "prettier",       -- Formatter
+            -- C
+            "clangd",         -- LSP
+            -- HYPRLAND
+            "hyprls",         -- LSP
         }
 
         -- Other servers that will be enable, but not managed by Mason; they
         -- need to be installed manually
         local other_servers_list = {
-            -- "sourcery", -- Python
         }
 
-        -- Enable the following tools
-        -- These will be managed by mason
-        local mason_tools_list = {
-            "shfmt",      -- Bash
-            "shellcheck", -- Bash
-            "prettier",   -- Markdown
-        }
-
-        -- Combine the server list and tool list for mason-tool-installer
+        -- Install with mason
         local mason_ensure_installed = {}
         vim.list_extend(mason_ensure_installed, mason_servers_list)
-        vim.list_extend(mason_ensure_installed, mason_tools_list)
-
         require("mason-tool-installer").setup({
             ensure_installed = mason_ensure_installed,
             auto_update = true,
@@ -101,6 +110,46 @@ return {
 
         ------------------------------------------------------------------------
 
+        -- Custom function to restart LSP for the current buffer natively
+        local function restart_lsp()
+            -- Get active clients for the current buffer
+            local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+            if #clients == 0 then
+                print("No LSP clients attached to this buffer.")
+                return
+            end
+
+            -- Track all buffers attached to these clients before stopping them
+            local affected_buffers = {}
+            for _, client in ipairs(clients) do
+                for buf, _ in pairs(client.attached_buffers) do
+                    affected_buffers[buf] = true
+                end
+                client:stop()
+            end
+
+            -- Wait a moment for clients to detach, then re-trigger the FileType
+            -- autocmd for EVERY affected buffer to force reattachment
+            vim.defer_fn(function()
+                for buf, _ in pairs(affected_buffers) do
+                    -- Ensure the buffer still exists before trying to interact with it
+                    if vim.api.nvim_buf_is_valid(buf) then
+                        -- Execute the autocmd in the context of the specific buffer
+                        vim.api.nvim_buf_call(buf, function()
+                            local ft = vim.bo.filetype
+                            if ft and ft ~= "" then
+                                vim.api.nvim_exec_autocmds("FileType", { pattern = ft, modeline = false })
+                            end
+                        end)
+                    end
+                end
+                print("LSP restarted for all affected buffers.")
+            end, 500)
+        end
+
+        ------------------------------------------------------------------------
+
         -- Create a autocmd for when a lsp server attaches a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -119,11 +168,21 @@ return {
             end,
         })
 
+        ------------------------------------------------------------------------
+
         vim.keymap.set(
             "n",
             "<leader>fu",
             lsp_helpers.smart_definition,
             { desc = "MiniPick [f]ind [u]sages" }
+        )
+
+        -- Map the custom restart function globally
+        vim.keymap.set(
+            "n",
+            "<leader>lr",
+            restart_lsp,
+            { desc = "[l]sp [r]estart", silent = true }
         )
     end,
 }

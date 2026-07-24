@@ -9,7 +9,8 @@
 --- npm i -g oxlint
 --- ```
 
-local util = require("lspconfig.util")
+-- local util = require("lspconfig.util")
+local util = dofile(vim.fn.stdpath("config") .. "/lsp/_util.lua")
 
 ---@type vim.lsp.Config
 return {

@@ -16,6 +16,7 @@ image/jpeg=zen.desktop
 image/webp=zen.desktop
 image/gif=zen.desktop
 x-scheme-handler/magnet=superseedr.desktop
+x-scheme-handler/antigravity=antigravity.desktop
 
 [Added Associations]
 x-scheme-handler/http=userapp-Zen-RNQH92.desktop;userapp-Zen-2FMM92.desktop;zen.desktop;
