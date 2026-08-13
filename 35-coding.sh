@@ -32,5 +32,8 @@ SetFileProperty /home/davi/.config/lazygit owner davi
 # Configuration for the C lang formatter
 CopyFile /home/davi/.clang-format '' davi davi
 
-# Google terminal AI for using Gemini 
+# Google terminal AI for using Gemini
 AddPackage --foreign antigravity-cli # Google's agentic development platform (CLI companion)
+
+# For linting and formatting python
+AddPackage ruff # An extremely fast Python linter, written in Rust

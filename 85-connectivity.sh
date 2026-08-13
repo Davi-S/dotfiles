@@ -26,6 +26,8 @@ CopyFile /var/lib/iwd/Nobreza\ DDOS.psk 600
 CopyFile /var/lib/iwd/UaiFai.psk 600
 CopyFile /var/lib/iwd/Uai\ Fai.psk 600
 CopyFile /var/lib/iwd/eduroam.8021x
+CopyFile /var/lib/iwd/CAAD\ VIP.psk 600
+CreateFile /var/lib/iwd/UFPR-SEM-FIO.open 600 >/dev/null
 CreateDir /etc/iwd
 CreateDir /var/lib/iwd/hotspot 700
 CreateFile /var/lib/iwd/UFPR_SEM_FIO.open 600 >/dev/null

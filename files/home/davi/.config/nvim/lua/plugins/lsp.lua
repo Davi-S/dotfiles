@@ -110,46 +110,6 @@ return {
 
         ------------------------------------------------------------------------
 
-        -- Custom function to restart LSP for the current buffer natively
-        local function restart_lsp()
-            -- Get active clients for the current buffer
-            local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-            if #clients == 0 then
-                print("No LSP clients attached to this buffer.")
-                return
-            end
-
-            -- Track all buffers attached to these clients before stopping them
-            local affected_buffers = {}
-            for _, client in ipairs(clients) do
-                for buf, _ in pairs(client.attached_buffers) do
-                    affected_buffers[buf] = true
-                end
-                client:stop()
-            end
-
-            -- Wait a moment for clients to detach, then re-trigger the FileType
-            -- autocmd for EVERY affected buffer to force reattachment
-            vim.defer_fn(function()
-                for buf, _ in pairs(affected_buffers) do
-                    -- Ensure the buffer still exists before trying to interact with it
-                    if vim.api.nvim_buf_is_valid(buf) then
-                        -- Execute the autocmd in the context of the specific buffer
-                        vim.api.nvim_buf_call(buf, function()
-                            local ft = vim.bo.filetype
-                            if ft and ft ~= "" then
-                                vim.api.nvim_exec_autocmds("FileType", { pattern = ft, modeline = false })
-                            end
-                        end)
-                    end
-                end
-                print("LSP restarted for all affected buffers.")
-            end, 500)
-        end
-
-        ------------------------------------------------------------------------
-
         -- Create a autocmd for when a lsp server attaches a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -177,12 +137,5 @@ return {
             { desc = "MiniPick [f]ind [u]sages" }
         )
 
-        -- Map the custom restart function globally
-        vim.keymap.set(
-            "n",
-            "<leader>lr",
-            restart_lsp,
-            { desc = "[l]sp [r]estart", silent = true }
-        )
     end,
 }

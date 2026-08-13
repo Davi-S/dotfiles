@@ -30,8 +30,10 @@ ignore_paths=(
 
 # Do not ignore icons nor fonts in ".local/share/" if you have manully put them there. It is ok to ignore if it comes from packages
 IgnorePath ".config/Antigravity/*"
-IgnorePath "/var/lib/logmein-hamachi/*"
-IgnorePath "/home/davi/.config/Antigravity/*"
+IgnorePath "/home/davi/.local/share/kpeople/*"
+IgnorePath "/etc/tpm2-tss/fapi-profiles/*"
+IgnorePath "/etc/locale.gen.pacnew"
+IgnorePath "/usr/lib32/gconv/gconv-modules.cache"
 IgnorePath "/etc/fuse.conf"
 IgnorePath "/etc/texmf/web2c/fmtutil.cnf.pacsave"
 IgnorePath "/home/davi/.agents/skills"
@@ -41,6 +43,7 @@ IgnorePath "/home/davi/.cache/*"
 IgnorePath "/home/davi/.cargo/*"
 IgnorePath "/home/davi/.claude-hfi/*"
 IgnorePath "/home/davi/.claude/*"
+IgnorePath "/home/davi/.config/Antigravity/*"
 IgnorePath "/home/davi/.config/Code/*"
 IgnorePath "/home/davi/.config/Code/logs/*"
 IgnorePath "/home/davi/.config/GIMP"
@@ -88,6 +91,7 @@ IgnorePath "/home/davi/.config/user-dirs.locale"
 IgnorePath "/home/davi/.config/yazi/keymap.toml-*"
 IgnorePath "/home/davi/.copilot/*"
 IgnorePath "/home/davi/.dotnet/*"
+IgnorePath "/home/davi/.gemini/*"
 IgnorePath "/home/davi/.gnupg/*"
 IgnorePath "/home/davi/.gradle/*" # Came with Logisim-evolution
 IgnorePath "/home/davi/.java/*"   # Came with Logisim-evolution
@@ -192,6 +196,7 @@ IgnorePath "/home/davi/Videos/*"
 IgnorePath "/home/davi/bin/.git/*"
 IgnorePath "/home/davi/go"
 IgnorePath "/home/davi/nltk_data/*"
+IgnorePath "/var/lib/logmein-hamachi/*"
 IgnorePath "/var/lib/tor"
 
 # Root

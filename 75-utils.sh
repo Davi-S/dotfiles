@@ -99,4 +99,4 @@ AddPackage trash-cli # Command line trashcan (recycle bin) interface
 CopyFile /etc/pacman.conf
 
 # To see PDF files on the terminal
-AddPackage --foreign tdf # A TUI-based PDF viewer
+AddPackage tdf # A TUI-based PDF viewer
