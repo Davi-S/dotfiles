@@ -19,10 +19,10 @@ local util = require("lspconfig.util")
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "pasls" },
-	filetypes = { "pascal" },
-	root_dir = function(bufnr, on_dir)
-		local fname = vim.api.nvim_buf_get_name(bufnr)
-		on_dir(util.root_pattern("*.lpi", "*.lpk", ".git")(fname))
-	end,
+    cmd = { "pasls" },
+    filetypes = { "pascal" },
+    root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        on_dir(util.root_pattern("*.lpi", "*.lpk", ".git")(fname))
+    end,
 }

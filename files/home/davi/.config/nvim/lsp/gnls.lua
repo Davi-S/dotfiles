@@ -15,7 +15,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "gnls", "--stdio" },
-	filetypes = { "gn" },
-	root_markers = { ".gn", ".git" },
+    cmd = { "gnls", "--stdio" },
+    filetypes = { "gn" },
+    root_markers = { ".gn", ".git" },
 }

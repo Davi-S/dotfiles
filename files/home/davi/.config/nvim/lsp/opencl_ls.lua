@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "opencl-language-server" },
-	filetypes = { "opencl" },
-	root_markers = { ".git" },
+    cmd = { "opencl-language-server" },
+    filetypes = { "opencl" },
+    root_markers = { ".git" },
 }

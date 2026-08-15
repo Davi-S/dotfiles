@@ -10,7 +10,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "coffeesense-language-server", "--stdio" },
-	filetypes = { "coffee" },
-	root_markers = { "package.json" },
+    cmd = { "coffeesense-language-server", "--stdio" },
+    filetypes = { "coffee" },
+    root_markers = { "package.json" },
 }

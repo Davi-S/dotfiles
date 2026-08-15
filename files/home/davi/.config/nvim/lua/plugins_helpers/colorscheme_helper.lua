@@ -3,7 +3,7 @@ local function lazy_highlights(colors)
         -- Keyboard shortcuts in buttons (i.e. the I in install)
         LazySpecial = { fg = colors.sapphire },
         -- The reason indicator
-        LazyReasonPlugin = { fg = colors.sapphire }
+        LazyReasonPlugin = { fg = colors.sapphire },
     }
 end
 

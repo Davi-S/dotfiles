@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "mm0-rs", "server" },
-	root_markers = { ".git" },
-	filetypes = { "metamath-zero" },
+    cmd = { "mm0-rs", "server" },
+    root_markers = { ".git" },
+    filetypes = { "metamath-zero" },
 }

@@ -23,8 +23,8 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "glasgow" },
-	filetypes = { "wgsl" },
-	root_markers = { ".git" },
-	settings = {},
+    cmd = { "glasgow" },
+    filetypes = { "wgsl" },
+    root_markers = { ".git" },
+    settings = {},
 }

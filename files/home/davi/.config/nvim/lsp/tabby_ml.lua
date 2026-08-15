@@ -12,7 +12,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "tabby-agent", "--lsp", "--stdio" },
-	filetypes = {},
-	root_markers = { ".git" },
+    cmd = { "tabby-agent", "--lsp", "--stdio" },
+    filetypes = {},
+    root_markers = { ".git" },
 }

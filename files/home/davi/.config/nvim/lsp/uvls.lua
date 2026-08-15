@@ -17,7 +17,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "uvls" },
-	filetypes = { "uvl" },
-	root_markers = { ".git" },
+    cmd = { "uvls" },
+    filetypes = { "uvl" },
+    root_markers = { ".git" },
 }

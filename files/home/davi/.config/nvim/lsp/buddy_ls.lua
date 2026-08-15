@@ -7,7 +7,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "buddy-lsp-server" },
-	filetypes = { "mlir" },
-	root_markers = { ".git" },
+    cmd = { "buddy-lsp-server" },
+    filetypes = { "mlir" },
+    root_markers = { ".git" },
 }

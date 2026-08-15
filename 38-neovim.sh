@@ -4,13 +4,15 @@
 
 # Main editor and its configuration
 AddPackage neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs
+CopyFile /home/davi/.config/nvim/.luarc.json '' davi davi
+CopyFile /home/davi/.config/nvim/.stylua.toml '' davi davi
 CopyFile /home/davi/.config/nvim/init.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lazy-lock.json '' davi davi
 CopyFile /home/davi/.config/nvim/lsp/_util.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/config/autocmds.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/keymaps.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/lazy.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/config/options.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins/_mini-input.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/colorscheme.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/completion.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/file-explorer.lua '' davi davi
@@ -23,8 +25,8 @@ CopyFile /home/davi/.config/nvim/lua/plugins/picker.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/spell.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/statusline.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/treesitter.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/unicode-highlight.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/colorscheme_helper.lua '' davi davi
-CopyFile /home/davi/.config/nvim/lua/plugins_helpers/completions_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/lsp_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins_helpers/nvim-obsidian_helper.lua '' davi davi
 CopyFile /home/davi/.config/nvim/nvim-pack-lock.json '' davi davi

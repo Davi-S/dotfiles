@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "crystalline" },
-	filetypes = { "crystal" },
-	root_markers = { "shard.yml", ".git" },
+    cmd = { "crystalline" },
+    filetypes = { "crystal" },
+    root_markers = { "shard.yml", ".git" },
 }

@@ -24,7 +24,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "alloy", "lsp" },
-	filetypes = { "alloy" },
-	root_markers = { ".git" },
+    cmd = { "alloy", "lsp" },
+    filetypes = { "alloy" },
+    root_markers = { ".git" },
 }

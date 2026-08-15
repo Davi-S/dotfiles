@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "circom-lsp" },
-	filetypes = { "circom" },
-	root_markers = { ".git" },
+    cmd = { "circom-lsp" },
+    filetypes = { "circom" },
+    root_markers = { ".git" },
 }

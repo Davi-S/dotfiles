@@ -24,7 +24,7 @@ return {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
 
         -- This is for the keybind that picks lsp definitions
-        'nvim-mini/mini.extra',
+        "nvim-mini/mini.extra",
     },
     config = function()
         require("mason").setup()
@@ -35,40 +35,40 @@ return {
         local mason_servers_list = {
             -- Python
             "basedpyright", -- Type checker
-            "ruff",         -- Linter and code formatter
+            "ruff", -- Linter and code formatter
             -- JS/TS
-            "vtsls",        -- LSP
-            "oxlint",       -- Linter
-            "oxfmt",        -- Formatter
+            "vtsls", -- LSP
+            "oxlint", -- Linter
+            "oxfmt", -- Formatter
             -- HTML
-            "html",         -- LSP
+            "html", -- LSP
             -- CSS
-            "cssls",        -- LSP
-            "tailwindcss",  -- LSP
+            "cssls", -- LSP
+            "tailwindcss", -- LSP
             -- TOML
-            "taplo",        -- LSP/Formatter/Linter
+            "taplo", -- LSP/Formatter/Linter
             -- JSON
-            "jsonls",       -- LSP
+            "jsonls", -- LSP
             -- BASH
-            "bashls",       -- LSP
-            "shfmt",        -- Bash
-            "shellcheck",   -- Bash
+            "bashls", -- LSP
+            "shfmt", -- Bash
+            "shellcheck", -- Bash
 
             -- LUA
-            "lua_ls",         -- LSP
+            "lua_ls", -- LSP
+            "stylua", -- Formatter
             -- MARKDOWN
             "markdown_oxide", -- LSP
-            "prettier",       -- Formatter
+            "prettier", -- Formatter
             -- C
-            "clangd",         -- LSP
+            "clangd", -- LSP
             -- HYPRLAND
-            "hyprls",         -- LSP
+            "hyprls", -- LSP
         }
 
         -- Other servers that will be enable, but not managed by Mason; they
         -- need to be installed manually
-        local other_servers_list = {
-        }
+        local other_servers_list = {}
 
         -- Install with mason
         local mason_ensure_installed = {}
@@ -90,14 +90,13 @@ return {
             -- so there is no need to call `vim.lsp.config()`. The configurations under
             -- 'nvim/lsp/[server_name].lua' were downloaded from the lspconfig and edited as I
             -- please. I prefer to have the settings locally instead of a plugin dependency.
-            vim.lsp.enable(server_name)
+            vim.lsp.enable(server_name, true)
         end
 
         ------------------------------------------------------------------------
 
-        -- Doing this to override the max size of the `lsp.hover` window (and
-        -- any other lsp floating windows apparently)
-        local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+        -- Override maximum width and height for all LSP floating windows (hover, signature help)
+        local orig_open_floating_preview = vim.lsp.util.open_floating_preview
         ---@diagnostic disable-next-line: duplicate-set-field
         function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
             opts = opts or {}
@@ -105,8 +104,16 @@ return {
             opts.max_width = 80
             -- height same as the completion window
             opts.max_height = 10
-            return orig_util_open_floating_preview(contents, syntax, opts, ...)
+            return orig_open_floating_preview(contents, syntax, opts, ...)
         end
+
+        -- More layout configurations
+        -- Diagnostic UI appearance settings
+        vim.diagnostic.config({
+            virtual_text = true,
+            severity_sort = true,
+            float = { source = true },
+        })
 
         ------------------------------------------------------------------------
 
@@ -130,12 +137,6 @@ return {
 
         ------------------------------------------------------------------------
 
-        vim.keymap.set(
-            "n",
-            "<leader>fu",
-            lsp_helpers.smart_definition,
-            { desc = "MiniPick [f]ind [u]sages" }
-        )
-
+        vim.keymap.set("n", "<leader>fu", lsp_helpers.smart_definition, { desc = "MiniPick [f]ind [u]sages" })
     end,
 }

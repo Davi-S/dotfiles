@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "flux-lsp" },
-	filetypes = { "flux" },
-	root_markers = { ".git" },
+    cmd = { "flux-lsp" },
+    filetypes = { "flux" },
+    root_markers = { ".git" },
 }

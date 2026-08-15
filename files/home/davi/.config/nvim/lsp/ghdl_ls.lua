@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "ghdl-ls" },
-	filetypes = { "vhdl" },
-	root_markers = { "hdl-prj.json", ".git" },
+    cmd = { "ghdl-ls" },
+    filetypes = { "vhdl" },
+    root_markers = { "hdl-prj.json", ".git" },
 }

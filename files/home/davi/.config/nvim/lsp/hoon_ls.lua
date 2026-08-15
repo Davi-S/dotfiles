@@ -11,7 +11,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "hoon-language-server" },
-	filetypes = { "hoon" },
-	root_markers = { ".git" },
+    cmd = { "hoon-language-server" },
+    filetypes = { "hoon" },
+    root_markers = { ".git" },
 }

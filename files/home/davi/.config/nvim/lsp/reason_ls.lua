@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "reason-language-server" },
-	filetypes = { "reason" },
-	root_markers = { "bsconfig.json", ".git" },
+    cmd = { "reason-language-server" },
+    filetypes = { "reason" },
+    root_markers = { "bsconfig.json", ".git" },
 }

@@ -8,7 +8,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "pug-lsp" },
-	filetypes = { "pug" },
-	root_markers = { "package.json" },
+    cmd = { "pug-lsp" },
+    filetypes = { "pug" },
+    root_markers = { "package.json" },
 }

@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "pli_language_server" },
-	filetypes = { "pli" },
-	root_markers = { ".pliplugin" },
+    cmd = { "pli_language_server" },
+    filetypes = { "pli" },
+    root_markers = { ".pliplugin" },
 }

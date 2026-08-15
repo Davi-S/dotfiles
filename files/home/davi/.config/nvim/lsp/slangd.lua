@@ -25,7 +25,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "slangd" },
-	filetypes = { "hlsl", "shaderslang" },
-	root_markers = { ".git" },
+    cmd = { "slangd" },
+    filetypes = { "hlsl", "shaderslang" },
+    root_markers = { ".git" },
 }

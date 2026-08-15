@@ -12,6 +12,6 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "Contextive.LanguageServer" },
-	root_markers = { ".contextive", ".git" },
+    cmd = { "Contextive.LanguageServer" },
+    root_markers = { ".contextive", ".git" },
 }

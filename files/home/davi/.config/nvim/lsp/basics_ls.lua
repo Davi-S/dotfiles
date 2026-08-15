@@ -10,18 +10,18 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "basics-language-server" },
-	settings = {
-		buffer = {
-			enable = true,
-			minCompletionLength = 4,
-		},
-		path = {
-			enable = true,
-		},
-		snippet = {
-			enable = false,
-			sources = {},
-		},
-	},
+    cmd = { "basics-language-server" },
+    settings = {
+        buffer = {
+            enable = true,
+            minCompletionLength = 4,
+        },
+        path = {
+            enable = true,
+        },
+        snippet = {
+            enable = false,
+            sources = {},
+        },
+    },
 }

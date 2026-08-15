@@ -2,7 +2,7 @@ return {
     "Davi-S/nvim-obsidian",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        'nvim-mini/mini.pick',
+        "nvim-mini/mini.pick",
         "saghen/blink.cmp",
         "nvim-treesitter/nvim-treesitter",
     },
@@ -56,8 +56,8 @@ return {
                 floating = {
                     height = 20,
                     width = 50,
-                }
-            }
+                },
+            },
         })
 
         obsidian_helper.register_template_placeholders(obsidian)
@@ -102,14 +102,17 @@ return {
             end,
         })
 
-
         ----------------------------------------------------------------------------
         -- Set keymaps
         ----------------------------------------------------------------------------
         vim.keymap.set("n", "<leader>dt", "<cmd>ObsidianToday<cr>", { desc = "Obsidian [d]aily [t]oday" })
         vim.keymap.set("n", "<leader>dn", "<cmd>ObsidianNext<cr>", { desc = "Obsidian [d]aily [n]ext" })
         vim.keymap.set("n", "<leader>dp", "<cmd>ObsidianPrev<cr>", { desc = "Obsidian [d]aily [p]revious" })
-        vim.keymap.set("n", "<leader>dc", "<cmd>ObsidianJournalCalendarFloat<cr>",
-            { desc = "Obsidian [d]aily [c]alendar" })
+        vim.keymap.set(
+            "n",
+            "<leader>dc",
+            "<cmd>ObsidianJournalCalendarFloat<cr>",
+            { desc = "Obsidian [d]aily [c]alendar" }
+        )
     end,
 }

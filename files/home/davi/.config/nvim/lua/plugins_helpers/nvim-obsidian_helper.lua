@@ -16,18 +16,18 @@ local M = {}
 -- - Locale and vault root are read from `ctx.config`.
 
 local reminders_data = {
-    { "Pessoal",      "S1",  "T - Ver nota mensal" },
-    { "Pessoal",      "S7",  "T - Lavar roupa" },
-    { "Pessoal",      "M1",  "T - Ver nota anual" },
-    { "Pessoal",      "M1",  "T - Limpar e organizar meu quarto e setup" },
-    { "Pessoal",      "M1",  "T - Tirar fotos do corpo para comparação" },
-    { "Pessoal",      "M1",  "T - Acessar emails das contas alternativas" },
-    { "Pessoal",      "M15", "T - Limpar e organizar meu quarto e setup" },
+    { "Pessoal", "S1", "T - Ver nota mensal" },
+    { "Pessoal", "S7", "T - Lavar roupa" },
+    { "Pessoal", "M1", "T - Ver nota anual" },
+    { "Pessoal", "M1", "T - Limpar e organizar meu quarto e setup" },
+    { "Pessoal", "M1", "T - Tirar fotos do corpo para comparação" },
+    { "Pessoal", "M1", "T - Acessar emails das contas alternativas" },
+    { "Pessoal", "M15", "T - Limpar e organizar meu quarto e setup" },
     { "Profissional", "M23", "T - Pagar cartao de credito da Rico" },
-    { "Profissional", "M1",  "T - Pagar cartao de credito da Nubank" },
-    { "Profissional", "M1",  "T - Adicionar informacoes sobre a carteira de investimentos na nota mensal" },
-    { "Profissional", "M1",  "T - Pagar mensalidade da CELU e mandar comprovante para a universidade" },
-    { "Social",       "S1",  "T - Ver se está tudo certo com os diretores departamentais" },
+    { "Profissional", "M1", "T - Pagar cartao de credito da Nubank" },
+    { "Profissional", "M1", "T - Adicionar informacoes sobre a carteira de investimentos na nota mensal" },
+    { "Profissional", "M1", "T - Pagar mensalidade da CELU e mandar comprovante para a universidade" },
+    { "Social", "S1", "T - Ver se está tudo certo com os diretores departamentais" },
 }
 
 local function escape_lua_pattern(text)
@@ -65,8 +65,12 @@ local function parse_daily_title_timestamp(ctx)
         end
 
         local ok, obsidian = pcall(require, "nvim_obsidian")
-        if ok and type(obsidian) == "table" and type(obsidian.journal) == "table"
-            and type(obsidian.journal.parse_month_token) == "function" then
+        if
+            ok
+            and type(obsidian) == "table"
+            and type(obsidian.journal) == "table"
+            and type(obsidian.journal.parse_month_token) == "function"
+        then
             return obsidian.journal.parse_month_token(token, locale)
         end
 
@@ -87,8 +91,10 @@ local function parse_daily_title_timestamp(ctx)
     end
 
     local function parse_with_title_format(kind_name, value)
-        local journal_cfg = type(ctx.config) == "table" and type(ctx.config.journal) == "table"
-            and ctx.config.journal[kind_name] or nil
+        local journal_cfg = type(ctx.config) == "table"
+                and type(ctx.config.journal) == "table"
+                and ctx.config.journal[kind_name]
+            or nil
         local format = type(journal_cfg) == "table" and journal_cfg.title_format or nil
         if type(format) ~= "string" or format == "" then
             return nil
@@ -278,7 +284,7 @@ end
 local function render_journal_title(format, ts, locale, journal)
     local rendered = journal.render_title(format, os.date("*t", ts), locale)
     local iso_week = tonumber(os.date("%V", ts)) or 0
-    return tostring(rendered):gsub("{{iso_week_unpadded}}", tostring(iso_week))
+    return (tostring(rendered):gsub("{{iso_week_unpadded}}", tostring(iso_week)))
 end
 
 -- Scan vault markdown files and collect birthday reminders for `target_time`.
@@ -318,7 +324,7 @@ local function get_birthdays(target_time, vault_path)
             end
         end
 
-        if meta.is_person and (not meta.obito) and meta.birthday then
+        if meta.is_person and not meta.obito and meta.birthday then
             local birthday = tostring(meta.birthday)
             local by, bm, bd = birthday:match("(%d%d%d%d)%-(%d%d)%-(%d%d)")
             if tonumber(bm) == target_date.month and tonumber(bd) == target_date.day then
@@ -449,7 +455,7 @@ local function next_month_end_iso(ctx)
         year = year + 1
     end
     local end_ts = os.time({ year = year, month = month, day = 0, hour = 12 })
-    return os.date("%Y-%m-%d", end_ts)
+    return tostring(os.date("%Y-%m-%d", end_ts))
 end
 
 -- Journal placeholders are used by `journal.*.title_format` in plugin setup.

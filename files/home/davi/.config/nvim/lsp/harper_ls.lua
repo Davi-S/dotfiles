@@ -53,5 +53,5 @@ return {
         PossessiveNoun = true,
         BoringWords = true,
         UseGenitive = true,
-    }
+    },
 }

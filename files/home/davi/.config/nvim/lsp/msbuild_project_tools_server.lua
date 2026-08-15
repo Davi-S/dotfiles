@@ -37,11 +37,11 @@ local util = require("lspconfig.util")
 
 ---@type vim.lsp.Config
 return {
-	filetypes = { "msbuild" },
-	root_dir = function(bufnr, on_dir)
-		local fname = vim.api.nvim_buf_get_name(bufnr)
-		on_dir(util.root_pattern("*.sln", "*.slnx", "*.*proj", ".git")(fname))
-	end,
-	init_options = {},
-	cmd = { "dotnet", host_dll_name },
+    filetypes = { "msbuild" },
+    root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        on_dir(util.root_pattern("*.sln", "*.slnx", "*.*proj", ".git")(fname))
+    end,
+    init_options = {},
+    cmd = { "dotnet", host_dll_name },
 }

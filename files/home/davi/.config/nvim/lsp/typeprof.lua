@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "typeprof", "--lsp", "--stdio" },
-	filetypes = { "ruby", "eruby" },
-	root_markers = { "Gemfile", ".git" },
+    cmd = { "typeprof", "--lsp", "--stdio" },
+    filetypes = { "ruby", "eruby" },
+    root_markers = { "Gemfile", ".git" },
 }

@@ -22,7 +22,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = {},
-	filetypes = { "raku" },
-	root_markers = { ".git" },
+    cmd = {},
+    filetypes = { "raku" },
+    root_markers = { ".git" },
 }

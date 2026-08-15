@@ -11,7 +11,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "nxls", "--stdio" },
-	filetypes = { "json", "jsonc" },
-	root_markers = { "nx.json", ".git" },
+    cmd = { "nxls", "--stdio" },
+    filetypes = { "json", "jsonc" },
+    root_markers = { "nx.json", ".git" },
 }

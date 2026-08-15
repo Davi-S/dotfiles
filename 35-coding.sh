@@ -37,3 +37,8 @@ AddPackage --foreign antigravity-cli # Google's agentic development platform (CL
 
 # For linting and formatting python
 AddPackage ruff # An extremely fast Python linter, written in Rust
+
+# For linting and formatting lua files
+AddPackage lua-language-server # Lua Language Server coded by Lua
+AddPackage stylua # Deterministic code formatter for Lua
+

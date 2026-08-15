@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "bsc", "--lsp", "--stdio" },
-	filetypes = { "brs" },
-	root_markers = { "makefile", "Makefile", ".git" },
+    cmd = { "bsc", "--lsp", "--stdio" },
+    filetypes = { "brs" },
+    root_markers = { "makefile", "Makefile", ".git" },
 }

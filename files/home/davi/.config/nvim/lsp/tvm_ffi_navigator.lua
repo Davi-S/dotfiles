@@ -9,7 +9,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "python", "-m", "ffi_navigator.langserver" },
-	filetypes = { "python", "cpp" },
-	root_markers = { "pyproject.toml", ".git" },
+    cmd = { "python", "-m", "ffi_navigator.langserver" },
+    filetypes = { "python", "cpp" },
+    root_markers = { "pyproject.toml", ".git" },
 }

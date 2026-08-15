@@ -13,7 +13,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "erg", "--language-server" },
-	filetypes = { "erg" },
-	root_markers = { "package.er", ".git" },
+    cmd = { "erg", "--language-server" },
+    filetypes = { "erg" },
+    root_markers = { "package.er", ".git" },
 }

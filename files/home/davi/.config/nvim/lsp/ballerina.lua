@@ -7,7 +7,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "bal", "start-language-server" },
-	filetypes = { "ballerina" },
-	root_markers = { "Ballerina.toml" },
+    cmd = { "bal", "start-language-server" },
+    filetypes = { "ballerina" },
+    root_markers = { "Ballerina.toml" },
 }

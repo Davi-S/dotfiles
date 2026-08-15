@@ -6,9 +6,10 @@ return {
         "onsails/lspkind.nvim",
         "nvim-mini/mini.icons",
     },
-    config = function()
+    opts = function()
         local unpack_fn = table.unpack or unpack
 
+        -- Helper to check if cursor is currently inside a code comment block
         local function is_comment_context()
             local row, col = unpack_fn(vim.api.nvim_win_get_cursor(0))
             local ts_ok, captures = pcall(vim.treesitter.get_captures_at_pos, 0, row - 1, math.max(col - 1, 0))
@@ -26,20 +27,22 @@ return {
             return type(syn_name) == "string" and syn_name:find("Comment", 1, true) ~= nil
         end
 
-        require("blink.cmp").setup({
+        -- Helper to fetch file/OS icon from mini.icons for Path completions
+        local UNKNOWN_TYPES = { "link", "socket", "fifo", "char", "block", "unknown" }
+        local function get_path_icon(ctx)
+            local is_unknown = vim.tbl_contains(UNKNOWN_TYPES, ctx.item.data and ctx.item.data.type)
+            local icon_type = is_unknown and "os" or (ctx.item.data and ctx.item.data.type)
+            local icon_name = is_unknown and "" or ctx.label
+            return require("mini.icons").get(icon_type, icon_name)
+        end
 
-
+        return {
+            --------------------------------------------------------------------
+            -- COMPLETION TRIGGER & MATCHING RULES
+            --------------------------------------------------------------------
             completion = {
-
-                --------------------------------------------------------------
-                -- General completion
-                --------------------------------------------------------------
-
                 keyword = {
-                    -- 'prefix' will fuzzy match on the text before the cursor
-                    -- 'full' will fuzzy match on the text before _and_ after the cursor
-                    -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
-                    range = 'full',
+                    range = "full", -- Fuzzy match text before and after cursor
                 },
                 trigger = {
                     -- Prefetch completions when entering insert mode so the menu is ready immediately.
@@ -54,75 +57,68 @@ return {
                 list = {
                     selection = {
                         preselect = false,
-                        auto_insert = false
-                    }
+                        auto_insert = false,
+                    },
                 },
 
-                --------------------------------------------------------------
-                -- Menu
-                --------------------------------------------------------------
-
-                -- Uses mini.icons to display icons for filetypes and lspkind for LSP kinds.
+                ----------------------------------------------------------------
+                -- MENU DRAWING & ICONS (lspkind + mini.icons)
+                ----------------------------------------------------------------
                 menu = {
                     draw = {
                         components = {
                             kind_icon = {
                                 text = function(ctx)
                                     if ctx.source_name ~= "Path" then
-                                        return require("lspkind").symbol_map[ctx.kind] or "" .. ctx.icon_gap
+                                        local symbol = require("lspkind").symbol_map[ctx.kind] or ""
+                                        return symbol .. ctx.icon_gap
                                     end
 
-                                    local is_unknown_type = vim.tbl_contains(
-                                        { "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
-                                    local mini_icon, _ = require("mini.icons").get(
-                                        is_unknown_type and "os" or ctx.item.data.type,
-                                        is_unknown_type and "" or ctx.label
-                                    )
-
+                                    local mini_icon, _ = get_path_icon(ctx)
                                     return (mini_icon or ctx.kind_icon) .. ctx.icon_gap
                                 end,
 
                                 highlight = function(ctx)
-                                    if ctx.source_name ~= "Path" then return ctx.kind_hl end
+                                    if ctx.source_name ~= "Path" then
+                                        return ctx.kind_hl
+                                    end
 
-                                    local is_unknown_type = vim.tbl_contains(
-                                        { "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
-                                    local mini_icon, mini_hl = require("mini.icons").get(
-                                        is_unknown_type and "os" or ctx.item.data.type,
-                                        is_unknown_type and "" or ctx.label
-                                    )
+                                    local mini_icon, mini_hl = get_path_icon(ctx)
                                     return mini_icon ~= nil and mini_hl or ctx.kind_hl
                                 end,
-                            }
-                        }
-                    }
+                            },
+                        },
+                    },
                 },
 
-                --------------------------------------------------------------
-                -- Other
-                --------------------------------------------------------------
-
+                ----------------------------------------------------------------
+                -- DOCUMENTATION & GHOST TEXT
+                ----------------------------------------------------------------
                 documentation = {
                     auto_show = true,
-                    auto_show_delay_ms = 500
+                    auto_show_delay_ms = 500,
                 },
                 ghost_text = {
-                    enabled = true
+                    enabled = true,
                 },
             },
 
+            --------------------------------------------------------------------
+            -- KEYMAPS, FUZZY SEARCH & SIGNATURE HELP
+            --------------------------------------------------------------------
+            keymap = {
+                preset = "default",
+            },
             fuzzy = {
                 implementation = "prefer_rust_with_warning",
             },
-
-            keymap = {
-                preset = "default"
-            },
-
             signature = {
                 enabled = true,
             },
 
+            --------------------------------------------------------------------
+            -- SOURCES & CUSTOM PROVIDERS
+            --------------------------------------------------------------------
             sources = {
                 default = {
                     "lsp",
@@ -141,9 +137,7 @@ return {
                     },
                 },
                 providers = {
-                    -- Disable only LSP fallback so it does not implicitly chain into
-                    -- buffer suggestions. Other providers keep defaults for their
-                    -- normal behavior and source-specific fallback semantics.
+                    -- Suppress LSP and Buffer completion when typing inside code comments
                     lsp = {
                         fallbacks = {},
                         should_show_items = function()
@@ -156,6 +150,7 @@ return {
                         end,
                     },
 
+                    -- Custom Emoji provider (triggered with ':')
                     emoji = {
                         name = "Emoji",
                         module = "blink-emoji",
@@ -167,6 +162,8 @@ return {
                             end,
                         },
                     },
+
+                    -- Custom Obsidian vault adapter provider
                     nvim_obsidian = {
                         name = "nvim_obsidian",
                         module = "nvim_obsidian.adapters.completion.blink_source",
@@ -174,6 +171,9 @@ return {
                 },
             },
 
+            --------------------------------------------------------------------
+            -- COMMAND-LINE COMPLETION
+            --------------------------------------------------------------------
             cmdline = {
                 sources = function()
                     local cmd_type = vim.fn.getcmdtype()
@@ -186,7 +186,6 @@ return {
                     return {}
                 end,
             },
-
-        })
+        }
     end,
 }

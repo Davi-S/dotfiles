@@ -6,7 +6,7 @@
 
 ---@type vim.lsp.Config
 return {
-	cmd = { "poryscript-pls" },
-	filetypes = { "pory" },
-	root_markers = { ".git" },
+    cmd = { "poryscript-pls" },
+    filetypes = { "pory" },
+    root_markers = { ".git" },
 }
