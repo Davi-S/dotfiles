@@ -9,6 +9,7 @@ AddPackage python-pip  # The PyPA recommended tool for installing Python package
 AddPackage python-pipx # Install and Run Python Applications in Isolated Environments
 
 AddPackage git # the fast distributed version control system
+AddPackage github-cli # The GitHub CLI
 CopyFile /home/davi/.gitconfig '' davi davi
 
 # Primarily required by git for some commands. Is not a mandatory dependency
@@ -42,3 +43,12 @@ AddPackage ruff # An extremely fast Python linter, written in Rust
 AddPackage lua-language-server # Lua Language Server coded by Lua
 AddPackage stylua # Deterministic code formatter for Lua
 
+# AI for coding
+AddPackage --foreign claude-code # An agentic coding tool that lives in your terminal
+
+# Haskell
+AddPackage --foreign ghcup-hs-bin # an installer for the general purpose language Haskell
+AddPackage ghc # The Glasgow Haskell Compiler
+
+# Shell formatter
+AddPackage shfmt # Format shell programs

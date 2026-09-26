@@ -9,9 +9,6 @@
 -- Vim.lsp.on_type_formatting:      Configured here and working.
 -- Vim.lsp.semantic_tokens:         Enabled by default. No need to configure.
 
--- Get the default keymap for formatting
-local FORMAT_KEY = "<leader>cf"
-local RENAME_KEY = "<leader>r"
 
 -- Auto format the file.
 -- You may need to edit the lsp config file to enable/configure this
@@ -20,7 +17,7 @@ local function setup_formatting(args)
 
     -- Keymap for formatting the file
     if client:supports_method("textDocument/formatting") then
-        vim.keymap.set("n", FORMAT_KEY, function()
+        vim.keymap.set("n", "<leader>cf", function()
             vim.lsp.buf.format({ async = true, bufnr = args.buf })
         end, { buffer = args.buf, desc = "LSP [c]ode [f]ormat" })
     end
@@ -31,11 +28,9 @@ local function setup_formatting(args)
     if vim.bo[args.buf].filetype == "markdown" then
         -- Define a custom format function that uses Prettier for
         -- markdown formatting asynchronously
-        vim.keymap.set("n", FORMAT_KEY, function()
+        vim.keymap.set("n", "<leader>cf", function()
             local filepath = vim.api.nvim_buf_get_name(args.buf)
-            -- Construct command: prettier --stdin-filepath <path>
-            -- We use stdin so it works even if you haven't saved the file yet
-            local cmd = "prettier --prose-wrap always --stdin-filepath " .. vim.fn.shellescape(filepath)
+            local cmd = { "prettier", "--prose-wrap", "always", "--stdin-filepath", filepath }
 
             -- Get current buffer content
             local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
@@ -65,14 +60,24 @@ local function setup_highlight_under_cursor(args)
     if client:supports_method("textDocument/documentHighlight") then
         local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 
-        -- Highlight references when cursor moves
-        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+        -- Highlight references once the cursor rests (after 'updatetime' ms),
+        -- instead of sending a request to the server on every cursor movement
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = args.buf,
             group = highlight_augroup,
-            desc = "Highlight references when cursor moves",
+            desc = "Highlight references when cursor rests",
+            callback = function()
+                vim.lsp.buf.document_highlight()
+            end,
+        })
+
+        -- Clear stale highlights as soon as the cursor moves (no server request)
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            buffer = args.buf,
+            group = highlight_augroup,
+            desc = "Clear reference highlights when cursor moves",
             callback = function()
                 vim.lsp.buf.clear_references()
-                vim.lsp.buf.document_highlight()
             end,
         })
 
@@ -101,7 +106,7 @@ local function setup_renaming(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     if client:supports_method("textDocument/rename") then
-        vim.keymap.set("n", RENAME_KEY, vim.lsp.buf.rename, { desc = "LSP [r]ename" })
+        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP [r]ename" })
     end
 end
 

@@ -47,3 +47,17 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         end
     end,
 })
+
+-- Prose filetypes (markdown and plain text): line wrapping and Portuguese spell checking
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("wrap_prose", { clear = true }),
+    pattern = { "markdown", "text" },
+    desc = "Enable line wrapping and Portuguese spell checking for markdown and text files",
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.linebreak = true -- Break at word boundaries instead of mid-word
+        -- The 2.6 MB Portuguese dictionary then loads only when a prose file is opened
+        vim.opt_local.spelllang = { "en", "pt" }
+    end,
+})
+

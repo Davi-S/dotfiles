@@ -2,6 +2,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     build = ":TSUpdate",
+    -- Lazy-load when opening an existing file or creating a new buffer, or on TS commands
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSUpdate", "TSInstall", "TSLog" },
     config = function()
         local treesitter = require("nvim-treesitter")
 

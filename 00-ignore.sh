@@ -29,6 +29,16 @@ ignore_paths=(
 # ====
 
 # Do not ignore icons nor fonts in ".local/share/" if you have manully put them there. It is ok to ignore if it comes from packages
+IgnorePath "/home/davi/.config/anthropic"
+IgnorePath "/home/davi/.claude.json"
+IgnorePath "/home/davi/.config/gh/config.yml"
+IgnorePath "/home/davi/.config/gh/hosts.yml"
+IgnorePath "/home/davi/.config/ghc/ghci_history"
+IgnorePath "/home/davi/.config/gtk-3.0/bookmarks"
+IgnorePath "/home/davi/.config/nvim/.claude/.cc-writes"
+IgnorePath "CopyFile /home/davi/.local/share/applications/claude-code-url-handler.desktop"
+IgnorePath "/home/davi/.codex/*"
+IgnorePath "/home/davi/.ghcup/*"
 IgnorePath ".config/Antigravity/*"
 IgnorePath "/home/davi/.local/share/kpeople/*"
 IgnorePath "/etc/tpm2-tss/fapi-profiles/*"

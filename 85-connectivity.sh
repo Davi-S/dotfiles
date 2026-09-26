@@ -41,6 +41,9 @@ AddPackage bluez   # Daemons for the bluetooth protocol stack
 AddPackage bluetui # TUI for managing bluetooth devices
 
 AddPackage openssh # SSH protocol implementation for remote login, command execution and file transfer
+CopyFile /home/davi/.ssh/colosso_deploy 600 davi davi
+CopyFile /home/davi/.ssh/colosso_deploy.pub '' davi davi
+CopyFile /home/davi/.ssh/config 600 davi davi
 CopyFile /home/davi/.ssh/id_ed25519 600 davi davi
 CopyFile /home/davi/.ssh/id_ed25519.pub '' davi davi
 CopyFile /home/davi/.ssh/known_hosts 600 davi davi

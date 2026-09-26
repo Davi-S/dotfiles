@@ -24,11 +24,14 @@ return {
                 return ""
             end
 
+            -- Single pass over the buffer's diagnostics, counted by severity
+            local c = vim.diagnostic.count(0)
+            local S = vim.diagnostic.severity
             local counts = {
-                errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }),
-                warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }),
-                info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO }),
-                hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT }),
+                errors = c[S.ERROR] or 0,
+                warnings = c[S.WARN] or 0,
+                info = c[S.INFO] or 0,
+                hints = c[S.HINT] or 0,
             }
 
             local parts = {}

@@ -100,3 +100,11 @@ CopyFile /etc/pacman.conf
 
 # To see PDF files on the terminal
 AddPackage tdf # A TUI-based PDF viewer
+
+# For generating my passwords
+AddPackage argon2 # A password-hashing function (reference C implementation)
+
+# For testing and accessing the hostinger servers for the Colosso project
+AddPackage rsync # A fast and versatile file copying tool for remote and local files
+AddPackage socat # Multipurpose relay
+

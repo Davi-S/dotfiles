@@ -1,7 +1,7 @@
 return {
     "nvim-mini/mini.files",
     version = false,
-    lazy = false, 
+    lazy = false,
     dependencies = {
         "nvim-mini/mini.icons",
     },
@@ -50,6 +50,7 @@ return {
                 local buf_id = args.data.buf_id
                 map_split(buf_id, "<C-j>", "belowright horizontal")
                 map_split(buf_id, "<C-l>", "belowright vertical")
+                vim.keymap.set("n", "<Esc>", MiniFiles.close, { buffer = buf_id, desc = "Close file explorer" })
             end,
         })
 

@@ -1,5 +1,23 @@
 return {
     "Davi-S/nvim-obsidian",
+    -- Lazy-load when opening markdown files, running Obsidian commands, or pressing vault shortcuts
+    ft = { "markdown" },
+    cmd = {
+        "ObsidianToday",
+        "ObsidianNext",
+        "ObsidianPrev",
+        "ObsidianJournalCalendarFloat",
+        "ObsidianOmni",
+        "ObsidianSearch",
+        "ObsidianFollow",
+        "ObsidianBacklinks",
+    },
+    keys = {
+        { "<leader>dt", desc = "Obsidian [d]aily [t]oday" },
+        { "<leader>dn", desc = "Obsidian [d]aily [n]ext" },
+        { "<leader>dp", desc = "Obsidian [d]aily [p]revious" },
+        { "<leader>dc", desc = "Obsidian [d]aily [c]alendar" },
+    },
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-mini/mini.pick",
@@ -82,9 +100,9 @@ return {
                     vim.cmd("ObsidianOmni")
                 end, { buffer = args.buf, desc = "Find files (Omni in vault)" })
 
-                -- Override <leader>lg from this plugin config:
+                -- Override <leader>fg from this plugin config:
                 -- inside vault -> ObsidianSearch
-                vim.keymap.set("n", "<leader>lg", function()
+                vim.keymap.set("n", "<leader>fg", function()
                     vim.cmd("ObsidianSearch")
                 end, { buffer = args.buf, desc = "Live grep (ObsidianSearch in vault)" })
 

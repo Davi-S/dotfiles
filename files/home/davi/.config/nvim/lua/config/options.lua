@@ -18,10 +18,21 @@ vim.opt.sidescrolloff = 10 -- Minimum screen columns to keep left and right of c
 --------------------------------------------------------------------------------
 -- Spell Checking
 --------------------------------------------------------------------------------
-vim.opt.spell = true
-vim.opt.spelllang = { "en", "pt" }
+vim.opt.spelllang = { "en" } -- Portuguese is added only for prose buffers (see autocmds.lua)
 vim.opt.spelloptions = { "camel" }
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+
+-- Turning spell on loads the dictionaries (~40 ms for en + pt), so do it after
+-- the first screen is drawn (deferred to make startup faster)
+vim.schedule(function()
+    vim.go.spell = true -- Default for windows created from now on
+    -- 'spell' is window-local: also enable it in the windows already open (e.g. `nvim -O a b`)
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.api.nvim_win_get_config(win).relative == "" then -- Skip floating windows
+            vim.wo[win].spell = true
+        end
+    end
+end)
 
 --------------------------------------------------------------------------------
 -- Indentation & Tabs
@@ -46,7 +57,7 @@ vim.opt.inccommand = "nosplit" -- Preview substitution results dynamically in bu
 vim.opt.termguicolors = true -- Enable 24-bit RGB color in the terminal
 vim.opt.conceallevel = 0 -- Show concealed text normally unless custom character set
 vim.opt.signcolumn = "yes" -- Always show sign column to avoid buffer layout shifting
-vim.opt.colorcolumn = "80" -- Highlight column 80 as line-length guide
+-- vim.opt.colorcolumn = "80" -- Highlight column 80 as line-length guide
 vim.o.winborder = "single" -- Global border style for floating windows
 
 --------------------------------------------------------------------------------
@@ -60,7 +71,12 @@ vim.opt.undofile = true -- Maintain persistent undo history on disk across sessi
 --------------------------------------------------------------------------------
 vim.opt.iskeyword:append("-") -- Treat hyphenated words ('foo-bar') as single words for motions
 vim.opt.mouse = "a" -- Enable full mouse support in all modes
-vim.opt.clipboard = "unnamedplus" -- Sync Neovim yank/paste with system clipboard
+vim.opt.updatetime = 250 -- Delay (ms) before CursorHold fires (used for LSP reference highlighting)
+
+-- Sync Neovim yank/paste with system clipboard (deferred to make startup faster)
+vim.schedule(function()
+    vim.opt.clipboard = "unnamedplus"
+end)
 
 --------------------------------------------------------------------------------
 -- Split Behavior

@@ -1,6 +1,8 @@
 return {
     "saghen/blink.cmp",
     version = "v1",
+    -- Lazy-load on typing in Insert mode or when executing commands in the command-line
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
         "moyiz/blink-emoji.nvim",
         "onsails/lspkind.nvim",

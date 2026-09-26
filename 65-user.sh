@@ -8,12 +8,13 @@ CopyFile /home/davi/bin/brightness-control 755 davi davi
 CopyFile /home/davi/bin/check-hyprland-slice 755 davi davi
 CopyFile /home/davi/bin/datetime-notify 755 davi davi
 CopyFile /home/davi/bin/find-obsidian-dead-links 755 davi davi
+CopyFile /home/davi/bin/generate-password 755 davi davi
 CopyFile /home/davi/bin/list-user-units-type 755 davi davi
 CopyFile /home/davi/bin/test-nerd-fonts 755 davi davi
+CopyFile /home/davi/bin/toggle-bluetooth-mic 755 davi davi
+CopyFile /home/davi/bin/toggle-float-app 755 davi davi
 CopyFile /home/davi/bin/utils.sh '' davi davi
 CopyFile /home/davi/bin/volume-control 755 davi davi
-CopyFile /home/davi/bin/toggle-float-app 755 davi davi
-CopyFile /home/davi/bin/toggle-bluetooth-mic 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
