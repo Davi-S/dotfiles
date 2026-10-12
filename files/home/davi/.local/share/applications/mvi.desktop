@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=mvi
+Exec=/home/davi/bin/mvi %F
+MimeType=image/jpeg;image/png;image/webp;image/gif;image/bmp;image/heic;
+NoDisplay=true

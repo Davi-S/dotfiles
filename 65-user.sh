@@ -15,6 +15,7 @@ CopyFile /home/davi/bin/toggle-bluetooth-mic 755 davi davi
 CopyFile /home/davi/bin/toggle-float-app 755 davi davi
 CopyFile /home/davi/bin/utils.sh '' davi davi
 CopyFile /home/davi/bin/volume-control 755 davi davi
+CopyFile /home/davi/bin/mvi 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
@@ -66,3 +67,9 @@ SetFileProperty /home/davi/.local/share group davi
 SetFileProperty /home/davi/.local/share owner davi
 SetFileProperty /home/davi/.local group davi
 SetFileProperty /home/davi/.local owner davi
+
+# What to do when the battery is now
+CopyFile /etc/UPower/UPower.conf.d/50-battery-action.conf
+
+# To make the mvi the default app for opening images
+CopyFile /home/davi/.local/share/applications/mvi.desktop '' davi davi

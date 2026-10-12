@@ -73,7 +73,7 @@ hl.bind("SUPER + Prior", hl.dsp.exec_cmd(ubin .. "/datetime-notify 3"))
 -- SUPER+Y is already being triggered by the F5 key.
 -- I don't know why, but this is the default behaviour of F5 and I didn't manage
 -- to change it, so I'll make use of it as it is
-hl.bind("SUPER + Y", hl.dsp.exec_cmd("battery-notify"))
+hl.bind("SUPER + Y", hl.dsp.exec_cmd("battery-notify show"))
 -- For me, using a custom keyboard layout, "Tab" is basically "J" in terms of
 -- qwerty layout
 hl.bind("SUPER + TAB", hl.dsp.exec_cmd(cliphist))
@@ -85,8 +85,6 @@ hl.bind("SUPER + Q", hl.dsp.exec_cmd(bluetooth))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(wifi))
 hl.bind("SUPER + A", hl.dsp.exec_cmd(audio))
 hl.bind("SUPER + M", hl.dsp.exec_cmd(ubin .. "/toggle-bluetooth-mic"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd("expresso menu"))
-hl.bind("SUPER + SHIFT + I", hl.dsp.exec_cmd("decaf menu"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client -t"))
 
 -- Screenshots

@@ -81,6 +81,7 @@ return {
             content = {
                 active = function()
                     local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
+
                     local git = statusline.section_git({ trunc_width = 75 })
                     local diff = statusline.section_diff({ trunc_width = 75 })
                     local diagnostics = get_diagnostics()

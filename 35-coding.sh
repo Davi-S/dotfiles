@@ -50,5 +50,11 @@ AddPackage --foreign claude-code # An agentic coding tool that lives in your ter
 AddPackage --foreign ghcup-hs-bin # an installer for the general purpose language Haskell
 AddPackage ghc # The Glasgow Haskell Compiler
 
-# Shell formatter
+# Shell tools 
+AddPackage bats # Bash Automated Testing System
 AddPackage shfmt # Format shell programs
+AddPackage shellcheck # Shell script analysis tool
+
+# For easily publish AUR packages
+AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
+CopyFile /home/davi/.ssh/aur_ci.pub '' davi davi

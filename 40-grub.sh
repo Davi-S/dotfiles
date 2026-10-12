@@ -11,6 +11,7 @@ CopyFile /etc/default/grub.d/disable_os_prober.cfg
 CopyFile /etc/default/grub.d/minegrub_theme.cfg
 CopyFile /etc/default/grub.d/recall_previous_entry.cfg.disabled
 CopyFile /etc/default/grub.d/set_standart_kernel_to_the_top.cfg
+CopyFile /etc/default/grub.d/disable_bootnext.cfg
 
 # GRUB dependency
 AddPackage efibootmgr # Linux user-space application to modify the EFI Boot Manager

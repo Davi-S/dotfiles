@@ -26,6 +26,7 @@ CopyFile /home/davi/.config/nvim/lua/plugins/icons.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/indent.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/lsp.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/nvim-obsidian.lua '' davi davi
+CopyFile /home/davi/.config/nvim/lua/plugins/nvim-whatsapp.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/pairs.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/picker.lua '' davi davi
 CopyFile /home/davi/.config/nvim/lua/plugins/spell.lua '' davi davi

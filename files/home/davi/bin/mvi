@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Use mpv as an image viewer (https://github.com/occivink/mpv-image-viewer)
+# Also set class so it is pickable with `hyprctl clients`
+exec mpv --config-dir="$HOME/.config/mvi" --wayland-app-id=mvi "$@"

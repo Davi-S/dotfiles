@@ -131,6 +131,9 @@ return {
                     "nvim_obsidian",
                 },
                 per_filetype = {
+                    -- WhatsApp's input: "@" offers the group's members (mentions), on top of the
+                    -- usual sources.
+                    whatsapp_compose = { "whatsapp", inherit_defaults = true },
                     markdown = {
                         "lsp",
                         "path",
@@ -163,6 +166,13 @@ return {
                                 return { ":" }
                             end,
                         },
+                    },
+
+                    -- WhatsApp mentions: the group's members after "@" (nvim-whatsapp).
+                    whatsapp = {
+                        name = "WhatsApp",
+                        module = "whatsapp.blink",
+                        score_offset = 20, -- above buffer words after "@"
                     },
 
                     -- Custom Obsidian vault adapter provider

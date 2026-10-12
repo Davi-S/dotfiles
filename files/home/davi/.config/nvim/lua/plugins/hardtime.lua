@@ -44,6 +44,9 @@ return {
             ["minipick"] = true,
             ["ministarter"] = true,
             ["gitsigns%-blame"] = true,
+            -- Every nvim-whatsapp buffer (chat list, chats, compose, login). Keys are
+            -- Lua patterns, anchored at both ends by hardtime.
+            ["whatsapp_.*"] = true,
         },
     },
 }

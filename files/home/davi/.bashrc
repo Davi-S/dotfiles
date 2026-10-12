@@ -34,10 +34,6 @@ function y() {
     trm -f -- "$tmp"
 }
 
-# Use mpv as an image viewer (https://github.com/occivink/mpv-image-viewer)
-# Also set class so it is pickable with `hyprctl clients`
-alias mvi='mpv --config-dir=$HOME/.config/mvi --wayland-app-id=mvi'
-
 # My scripts
 export PATH="$HOME/bin:$PATH"
 
