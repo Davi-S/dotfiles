@@ -54,7 +54,6 @@ AddPackage shellcheck # Shell script analysis tool
 
 # For easily publish AUR packages
 AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
-CopyFile /home/davi/.ssh/aur_ci.pub '' davi davi
 
 # Go
 AddPackage go # Core compiler tools for the Go programming language

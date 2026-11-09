@@ -1,3 +1,5 @@
+-- Git: signs and actions for changed lines (gitsigns), and lazygit in a float
+
 return {
     {
         "lewis6991/gitsigns.nvim",
@@ -10,27 +12,27 @@ return {
                 on_attach = function(bufnr)
                     vim.keymap.set(
                         "n",
-                        "<Leader>gv",
-                        ":Gitsigns preview_hunk<CR>",
-                        { buffer = bufnr, desc = "[g]itsigns [v]iew hunk in popup" }
+                        "<leader>gv",
+                        "<cmd>Gitsigns preview_hunk<CR>",
+                        { buffer = bufnr, desc = "[g]it hunk [v]iew in a popup" }
                     )
                     vim.keymap.set(
                         "n",
-                        "<Leader>gr",
-                        ":Gitsigns reset_hunk<CR>",
-                        { buffer = bufnr, desc = "[g]itsigns [r]eset hunk" }
+                        "<leader>gr",
+                        "<cmd>Gitsigns reset_hunk<CR>",
+                        { buffer = bufnr, desc = "[g]it hunk [r]eset" }
                     )
                     vim.keymap.set(
                         "n",
-                        "<Leader>gn",
-                        ":Gitsigns nav_hunk next<CR>",
-                        { buffer = bufnr, desc = "[g]itsigns [n]ext hunk" }
+                        "<leader>gn",
+                        "<cmd>Gitsigns nav_hunk next<CR>",
+                        { buffer = bufnr, desc = "[g]it hunk: [n]ext" }
                     )
                     vim.keymap.set(
                         "n",
-                        "<Leader>gp",
-                        ":Gitsigns nav_hunk prev<CR>",
-                        { buffer = bufnr, desc = "[g]itsigns [p]rev hunk" }
+                        "<leader>gp",
+                        "<cmd>Gitsigns nav_hunk prev<CR>",
+                        { buffer = bufnr, desc = "[g]it hunk: [p]revious" }
                     )
                 end,
             })
@@ -53,7 +55,7 @@ return {
         -- setting the keybinding for LazyGit with 'keys' is recommended in
         -- order to load the plugin when the command is run for the first time
         keys = {
-            { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+            { "<leader>lg", "<cmd>LazyGit<CR>", desc = "[l]azy[g]it" },
         },
         init = function()
             -- lazygit.nvim ignores 'winborder' and draws a rounded border by

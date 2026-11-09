@@ -1,3 +1,5 @@
+-- Highlights confusing characters (look-alikes and invisible ones)
+
 return {
     "racakenon/vscode-unicode-highlight.nvim",
     -- Load right after the first screen is drawn (loading its data costs ~13 ms).
@@ -33,6 +35,6 @@ return {
 
             -- Jump to next diagnostic in unicode-highlight namespace
             vim.diagnostic.jump({ count = 1, namespace = ns_diag, wrap = true })
-        end, { desc = "Jump to [n]ext [c]onfusing char" })
+        end, { desc = "[n]ext [c]onfusing character" })
     end,
 }

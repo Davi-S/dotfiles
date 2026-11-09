@@ -56,19 +56,19 @@ map_all_modes("<End>", "<Nop>", { remap = false })
 -- Window Navigation & Management
 --------------------------------------------------------------------------------
 -- Explicitly map <C-w> + Shift-Arrows to swap windows (preserves <C-w> shift behavior)
-vim.keymap.set("n", "<C-w><S-Left>", "<C-w>H", { desc = "Move window Left" })
-vim.keymap.set("n", "<C-w><S-Down>", "<C-w>J", { desc = "Move window Down" })
-vim.keymap.set("n", "<C-w><S-Up>", "<C-w>K", { desc = "Move window Up" })
-vim.keymap.set("n", "<C-w><S-Right>", "<C-w>L", { desc = "Move window Right" })
+vim.keymap.set("n", "<C-w><S-Left>", "<C-w>H", { desc = "Move window left" })
+vim.keymap.set("n", "<C-w><S-Down>", "<C-w>J", { desc = "Move window down" })
+vim.keymap.set("n", "<C-w><S-Up>", "<C-w>K", { desc = "Move window up" })
+vim.keymap.set("n", "<C-w><S-Right>", "<C-w>L", { desc = "Move window right" })
 
 -- Focus window with Ctrl + Direction
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window Left" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window Down" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window Up" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window Right" })
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus window left" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Focus window down" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Focus window up" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Focus window right" })
 
 -- Move/Swap window with Alt + Direction
-vim.keymap.set("n", "<A-h>", "<C-w>H", { desc = "Move window Left" })
-vim.keymap.set("n", "<A-j>", "<C-w>J", { desc = "Move window Down" })
-vim.keymap.set("n", "<A-k>", "<C-w>K", { desc = "Move window Up" })
-vim.keymap.set("n", "<A-l>", "<C-w>L", { desc = "Move window Right" })
+vim.keymap.set("n", "<A-h>", "<C-w>H", { desc = "Move window left" })
+vim.keymap.set("n", "<A-j>", "<C-w>J", { desc = "Move window down" })
+vim.keymap.set("n", "<A-k>", "<C-w>K", { desc = "Move window up" })
+vim.keymap.set("n", "<A-l>", "<C-w>L", { desc = "Move window right" })

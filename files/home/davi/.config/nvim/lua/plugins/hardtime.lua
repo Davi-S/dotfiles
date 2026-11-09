@@ -1,3 +1,5 @@
+-- Breaks bad motion habits (repeating hjkl, arrow keys...) by limiting them
+--
 -- Note on arrow keys (see lua/config/layout_keymaps.lua):
 -- The Colemak/Kanata navigation layer sends <Up>/<Down>/<Left>/<Right>, which
 -- layout_keymaps.lua remaps to k/j/h/l with `remap = true`. Hardtime's default
@@ -11,8 +13,8 @@ return {
     lazy = false,
     dependencies = { "MunifTanjim/nui.nvim" },
     keys = {
-        { "<leader>th", "<cmd>Hardtime toggle<CR>", desc = "[t]oggle [h]ardtime" },
-        { "<leader>tH", "<cmd>Hardtime report<CR>", desc = "Hardtime report" },
+        { "<leader>ht", "<cmd>Hardtime toggle<CR>", desc = "[h]ardtime [t]oggle" },
+        { "<leader>hr", "<cmd>Hardtime report<CR>", desc = "[h]ardtime [r]eport" },
     },
     opts = {
         -- `false` per key removes hardtime's mapping entirely (an empty table
@@ -39,10 +41,9 @@ return {
         disable_mouse = false,
 
         -- Filetypes of the plugins used in this config where hardtime must not
-        -- interfere 
+        -- interfere
         disabled_filetypes = {
             ["minipick"] = true,
-            ["ministarter"] = true,
             ["gitsigns%-blame"] = true,
             -- Every nvim-whatsapp buffer (chat list, chats, compose, login). Keys are
             -- Lua patterns, anchored at both ends by hardtime.

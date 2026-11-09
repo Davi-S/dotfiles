@@ -1,3 +1,5 @@
+-- File explorer (replaces netrw)
+
 return {
     "nvim-mini/mini.files",
     version = false,
@@ -21,8 +23,12 @@ return {
             },
         })
 
+        local group = vim.api.nvim_create_augroup("file-explorer", { clear = true })
+
         -- Auto-open mini.files when starting Neovim on a directory (e.g. `nvim .`)
         vim.api.nvim_create_autocmd("VimEnter", {
+            group = group,
+            desc = "Open the file explorer when starting on a directory",
             callback = function(data)
                 if vim.fn.isdirectory(data.file) == 1 then
                     files.open(data.file, false)
@@ -45,7 +51,9 @@ return {
         end
 
         vim.api.nvim_create_autocmd("User", {
+            group = group,
             pattern = "MiniFilesBufferCreate",
+            desc = "Set the file explorer's buffer keymaps",
             callback = function(args)
                 local buf_id = args.data.buf_id
                 map_split(buf_id, "<C-j>", "belowright horizontal")
@@ -54,9 +62,9 @@ return {
             end,
         })
 
-        vim.keymap.set({ "n", "v" }, "<leader>y", files.open, { desc = "Open file explorer" })
-        vim.keymap.set({ "n", "v" }, "<leader>cy", function()
+        vim.keymap.set({ "n", "v" }, "<leader>e", files.open, { desc = "File [e]xplorer" })
+        vim.keymap.set({ "n", "v" }, "<leader>E", function()
             files.open(vim.api.nvim_buf_get_name(0))
-        end, { desc = "Open file explorer in current file's directory" })
+        end, { desc = "File [E]xplorer at the current file" })
     end,
 }

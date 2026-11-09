@@ -6,15 +6,15 @@
 
 -- Highlight text temporarily after yanking (copying)
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
     desc = "Highlight selection post yank for visual feedback",
     callback = function()
-        vim.highlight.on_yank({ timeout = 200, visual = true })
+        vim.hl.on_yank({ timeout = 200, visual = true })
     end,
 })
 
 -- Display cursorline exclusively in the currently focused window/buffer
-local active_cursorline_group = vim.api.nvim_create_augroup("active_cursorline", { clear = true })
+local active_cursorline_group = vim.api.nvim_create_augroup("active-cursorline", { clear = true })
 
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     group = active_cursorline_group,
@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 
 -- Automatically restore cursor position from last edit session when opening a file
 vim.api.nvim_create_autocmd("BufReadPost", {
-    group = vim.api.nvim_create_augroup("restore_cursor_position", { clear = true }),
+    group = vim.api.nvim_create_augroup("restore-cursor-position", { clear = true }),
     desc = "Restore cursor to file position in previous editing session",
     callback = function(args)
         local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- Prose filetypes (markdown and plain text): line wrapping and Portuguese spell checking
 vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("wrap_prose", { clear = true }),
+    group = vim.api.nvim_create_augroup("wrap-prose", { clear = true }),
     pattern = { "markdown", "text" },
     desc = "Enable line wrapping and Portuguese spell checking for markdown and text files",
     callback = function()
@@ -60,4 +60,3 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.spelllang = { "en", "pt" }
     end,
 })
-

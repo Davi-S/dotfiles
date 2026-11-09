@@ -1,9 +1,11 @@
+-- Code formatting (formatter tools, falling back to the language server)
+
 return {
     "stevearc/conform.nvim",
     -- Lazy-load before writing a buffer, or when pressing format keymap
     event = { "BufWritePre" },
     keys = {
-        { "<leader>cf", desc = "LSP [c]ode [f]ormat" },
+        { "<leader>cf", desc = "[c]ode [f]ormat" },
     },
     config = function()
         local conform = require("conform")
@@ -34,6 +36,6 @@ return {
         -- Single unified format keymap for all filetypes.
         vim.keymap.set("n", "<leader>cf", function()
             conform.format({ bufnr = vim.api.nvim_get_current_buf() })
-        end, { desc = "LSP [c]ode [f]ormat" })
+        end, { desc = "[c]ode [f]ormat" })
     end,
 }

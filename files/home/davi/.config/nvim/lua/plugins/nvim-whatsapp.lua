@@ -1,18 +1,20 @@
+-- WhatsApp in Neovim (my own plugin, loaded from its local folder)
+
 return {
     dir = "~/Documents/projects/nvim-whatsapp",
     dependencies = { "MunifTanjim/nui.nvim" },
     build = "make build",
     cmd = "WhatsApp",
     keys = {
-        { "<leader>mm", "<cmd>WhatsApp<cr>", desc = "WhatsApp" },
-        { "<leader>md", "<cmd>WhatsApp drafts<cr>", desc = "WhatsApp [d]rafts" },
+        { "<leader>mm", "<cmd>WhatsApp<CR>", desc = "[m]essages: [m]ain list (WhatsApp)" },
+        { "<leader>md", "<cmd>WhatsApp drafts<CR>", desc = "[m]essages: [d]rafts (WhatsApp)" },
         -- Find a chat from anywhere (inside WhatsApp buffers <leader>ff does the same).
         {
             "<leader>fw",
             function()
                 require("whatsapp").actions.find_chat()
             end,
-            desc = "Find WhatsApp chat",
+            desc = "[f]ind [w]hatsApp chat",
         },
     },
     -- A function, so the colours come from catppuccin's palette (same flavour as the colorscheme).

@@ -1,10 +1,9 @@
+-- Closes brackets and quotes automatically
+
 return {
     "nvim-mini/mini.pairs",
     version = false,
-    -- Lazy-load when entering Insert mode 
+    -- Lazy-load when entering Insert mode
     event = "InsertEnter",
-    config = function()
-        local pairs = require("mini.pairs")
-        pairs.setup()
-    end,
+    opts = {},
 }

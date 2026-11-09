@@ -1,3 +1,5 @@
+-- Completion menu (language servers, paths, snippets, buffer words, emoji, vault links)
+
 return {
     "saghen/blink.cmp",
     version = "v1",

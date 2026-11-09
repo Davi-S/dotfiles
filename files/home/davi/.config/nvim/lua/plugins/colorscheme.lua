@@ -1,35 +1,35 @@
+-- Color scheme: Catppuccin Mocha, with a few highlights matched to the desktop
+
 return {
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,
-        config = function()
-            local colorscheme_helpers = require("plugins_helpers.colorscheme_helper")
-            require("catppuccin").setup({
-                flavour = "mocha",
-                default_integrations = true,
-                auto_integrations = true,
-                custom_highlights = function(colors)
-                    return vim.tbl_deep_extend("force", {
-                        -- Set Line Numbers to a slighter lighter color
-                        LineNr = { fg = colors.overlay1 },
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+        local colorscheme_helpers = require("plugins_helpers.colorscheme_helper")
+        require("catppuccin").setup({
+            flavour = "mocha",
+            default_integrations = true,
+            auto_integrations = true,
+            custom_highlights = function(colors)
+                return vim.tbl_deep_extend("force", {
+                    -- Set Line Numbers to a slighter lighter color
+                    LineNr = { fg = colors.overlay1 },
 
-                        -- Split separators like unfocused Hyprland window borders
-                        WinSeparator = { fg = colors.surface1 },
+                    -- Split separators like unfocused Hyprland window borders
+                    WinSeparator = { fg = colors.surface1 },
 
-                        -- Set some elements as the accent color (sapphire)
-                        -- Floating window borders (Mason, Lazy, LSP Info)
-                        FloatBorder = { fg = colors.sapphire },
-                        -- Autocompletion Menu (blink.cmp)
-                        BlinkCmpMenuBorder = { fg = colors.sapphire },
-                        -- lazygit.nvim float border (defaults to Normal)
-                        LazyGitBorder = { link = "FloatBorder" },
-                    }, colorscheme_helpers.lazy_highlights(colors), colorscheme_helpers.markdown_highlights(
-                        colors
-                    ))
-                end,
-            })
-            vim.cmd.colorscheme("catppuccin")
-        end,
-    },
+                    -- Set some elements as the accent color (sapphire)
+                    -- Floating window borders (Mason, Lazy, LSP Info)
+                    FloatBorder = { fg = colors.sapphire },
+                    -- Autocompletion Menu (blink.cmp)
+                    BlinkCmpMenuBorder = { fg = colors.sapphire },
+                    -- lazygit.nvim float border (defaults to Normal)
+                    LazyGitBorder = { link = "FloatBorder" },
+                }, colorscheme_helpers.lazy_highlights(colors), colorscheme_helpers.markdown_highlights(
+                    colors
+                ))
+            end,
+        })
+        vim.cmd.colorscheme("catppuccin")
+    end,
 }

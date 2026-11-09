@@ -1,3 +1,5 @@
+-- Icons for the other plugins (also stands in for nvim-web-devicons)
+
 return {
     "nvim-mini/mini.icons",
     version = false,

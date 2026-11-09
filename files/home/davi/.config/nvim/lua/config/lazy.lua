@@ -19,9 +19,11 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- They are loaded first in `init.lua`
 vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("lazy-close", { clear = true }),
     pattern = "lazy",
+    desc = "Close the Lazy window with Esc",
     callback = function(event)
-        vim.keymap.set("n", "<Esc>", "<cmd>close<cr>", {
+        vim.keymap.set("n", "<Esc>", "<cmd>close<CR>", {
             buffer = event.buf,
             silent = true,
             desc = "Close Lazy",

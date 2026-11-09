@@ -1,3 +1,5 @@
+-- Status line
+
 return {
     "nvim-mini/mini.statusline",
     version = false,
@@ -7,14 +9,14 @@ return {
     config = function()
         local statusline = require("mini.statusline")
 
-        -- Get file icon from mini.icons based on current buffer
+        -- Get file icon from mini.icons based on current buffer. The "file"
+        -- category also knows names without an extension (Makefile, .bashrc...)
         local function get_file_icon()
             local filename = vim.api.nvim_buf_get_name(0)
             if filename == "" then
                 return "󰈔 "
             end
-            local extension = vim.fn.fnamemodify(filename, ":e")
-            local icon, _ = require("mini.icons").get("extension", extension)
+            local icon, _ = require("mini.icons").get("file", vim.fn.fnamemodify(filename, ":t"))
             return (icon or "󰈔") .. " "
         end
 

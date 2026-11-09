@@ -23,7 +23,6 @@ CopyFile /home/davi/bin/volume-notify-daemon 755 davi davi
 CopyFile /home/davi/.config/systemd/user/volume-notify.service '' davi davi
 
 # Battery notifications
-# also on the AUR
 CopyFile /home/davi/bin/battery-notify 755 davi davi
 CopyFile /home/davi/.config/systemd/user/battery-notify.service '' davi davi
 

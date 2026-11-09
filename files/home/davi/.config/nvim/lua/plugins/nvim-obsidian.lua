@@ -1,3 +1,5 @@
+-- Obsidian vault in Neovim: daily notes, links, templates (my own plugin)
+
 return {
     "Davi-S/nvim-obsidian",
     -- Lazy-load when opening markdown files, running Obsidian commands, or pressing vault shortcuts
@@ -13,10 +15,10 @@ return {
         "ObsidianBacklinks",
     },
     keys = {
-        { "<leader>dt", desc = "Obsidian [d]aily [t]oday" },
-        { "<leader>dn", desc = "Obsidian [d]aily [n]ext" },
-        { "<leader>dp", desc = "Obsidian [d]aily [p]revious" },
-        { "<leader>dc", desc = "Obsidian [d]aily [c]alendar" },
+        { "<leader>dt", desc = "[d]aily note: [t]oday" },
+        { "<leader>dn", desc = "[d]aily note: [n]ext" },
+        { "<leader>dp", desc = "[d]aily note: [p]revious" },
+        { "<leader>dc", desc = "[d]aily note: [c]alendar" },
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -81,7 +83,8 @@ return {
         obsidian_helper.register_template_placeholders(obsidian)
 
         ----------------------------------------------------------------------------
-        -- Override telescope keymaps
+        -- Inside the vault, the picker keymaps (mini.pick) use the vault's own
+        -- finders instead
         ----------------------------------------------------------------------------
         local vault_keymaps_group = vim.api.nvim_create_augroup("nvim-obsidian-vault-keymaps", {
             clear = true,
@@ -89,25 +92,24 @@ return {
 
         vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
             group = vault_keymaps_group,
+            desc = "Set the vault keymaps once per vault buffer",
             callback = function(args)
-                if not obsidian.is_inside_vault() then
+                if vim.b[args.buf].obsidian_vault_keymaps or not obsidian.is_inside_vault() then
                     return
                 end
+                vim.b[args.buf].obsidian_vault_keymaps = true
 
-                -- Override Telescope's <leader>ff from this plugin config:
-                -- inside vault -> ObsidianOmni
+                -- <leader>ff inside the vault -> ObsidianOmni
                 vim.keymap.set("n", "<leader>ff", function()
                     vim.cmd("ObsidianOmni")
-                end, { buffer = args.buf, desc = "Find files (Omni in vault)" })
+                end, { buffer = args.buf, desc = "[f]ind [f]iles in the vault" })
 
-                -- Override <leader>fg from this plugin config:
-                -- inside vault -> ObsidianSearch
+                -- <leader>fg inside the vault -> ObsidianSearch
                 vim.keymap.set("n", "<leader>fg", function()
                     vim.cmd("ObsidianSearch")
-                end, { buffer = args.buf, desc = "Live grep (ObsidianSearch in vault)" })
+                end, { buffer = args.buf, desc = "[f]ind with live [g]rep in the vault" })
 
-                -- Override <leader>fu from this plugin config:
-                -- inside vault -> Follow if on wiki-link, otherwise Backlinks
+                -- <leader>fu inside the vault -> Follow if on a wiki-link, otherwise Backlinks
                 vim.keymap.set("n", "<leader>fu", function()
                     local parsed = obsidian.wiki_link_under_cursor()
                     if parsed and parsed.target then
@@ -116,21 +118,21 @@ return {
                     end
 
                     vim.cmd("ObsidianBacklinks")
-                end, { buffer = args.buf, desc = "Find usages (Follow/Backlinks in vault)" })
+                end, { buffer = args.buf, desc = "[f]ind [u]sages in the vault (link or backlinks)" })
             end,
         })
 
         ----------------------------------------------------------------------------
         -- Set keymaps
         ----------------------------------------------------------------------------
-        vim.keymap.set("n", "<leader>dt", "<cmd>ObsidianToday<cr>", { desc = "Obsidian [d]aily [t]oday" })
-        vim.keymap.set("n", "<leader>dn", "<cmd>ObsidianNext<cr>", { desc = "Obsidian [d]aily [n]ext" })
-        vim.keymap.set("n", "<leader>dp", "<cmd>ObsidianPrev<cr>", { desc = "Obsidian [d]aily [p]revious" })
+        vim.keymap.set("n", "<leader>dt", "<cmd>ObsidianToday<CR>", { desc = "[d]aily note: [t]oday" })
+        vim.keymap.set("n", "<leader>dn", "<cmd>ObsidianNext<CR>", { desc = "[d]aily note: [n]ext" })
+        vim.keymap.set("n", "<leader>dp", "<cmd>ObsidianPrev<CR>", { desc = "[d]aily note: [p]revious" })
         vim.keymap.set(
             "n",
             "<leader>dc",
-            "<cmd>ObsidianJournalCalendarFloat<cr>",
-            { desc = "Obsidian [d]aily [c]alendar" }
+            "<cmd>ObsidianJournalCalendarFloat<CR>",
+            { desc = "[d]aily note: [c]alendar" }
         )
     end,
 }

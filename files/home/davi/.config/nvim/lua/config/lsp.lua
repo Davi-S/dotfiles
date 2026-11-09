@@ -9,7 +9,7 @@
 -- - https://neovim.io/doc/user/lsp.html#lsp-attach
 -- - https://neovim.io/doc/user/lsp/#_quickstart
 --
--- This file does not depend on Mason. Mason (lua/plugins/lsp.lua) only installs
+-- This file does not depend on Mason. Mason (lua/plugins/mason.lua) only installs
 -- and updates the tools; the servers are started by Neovim's built-in LSP client,
 -- which only needs their executables to be on PATH.
 -- =============================================================================
@@ -17,7 +17,7 @@
 local M = {}
 
 -- Language servers to enable. These are also installed by Mason (see
--- lua/plugins/lsp.lua). Each name must match a config file in 'nvim/lsp/[server_name].lua'.
+-- lua/plugins/mason.lua). Each name must match a config file in 'nvim/lsp/[server_name].lua'.
 M.mason_servers = {
     -- Python
     "basedpyright", -- Type checker
@@ -112,16 +112,14 @@ local function setup()
             lsp_helpers.setup_codelens(args)
             lsp_helpers.setup_linked_editing_range(args)
             lsp_helpers.setup_on_type_formatting(args)
-            -- Formatting is already covered by conform-nvim plugin. If the plugin is not configured, you can use it from lsp_helpers.setup_formatting(args)
-            -- lsp_helpers.setup_inlay_hint(args)
-            -- lsp_helpers.setup_inline_completion(args)
+            -- Formatting is done by conform.nvim (lua/plugins/formatter.lua)
         end,
     })
 
     ------------------------------------------------------------------------
 
     -- mini.extra is loaded automatically by lazy.nvim when smart_definition requires it
-    vim.keymap.set("n", "<leader>fu", lsp_helpers.smart_definition, { desc = "MiniPick [f]ind [u]sages" })
+    vim.keymap.set("n", "<leader>fu", lsp_helpers.smart_definition, { desc = "[f]ind [u]sages" })
 
     -- Diagnostic navigation (next / previous error, warning, hint, diagnostic)
     vim.keymap.set("n", "]d", function()

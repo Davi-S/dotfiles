@@ -110,7 +110,8 @@ function M.setup()
 
     -- Automatically save stats on exit
     vim.api.nvim_create_autocmd("VimLeavePre", {
-        group = vim.api.nvim_create_augroup("keymap_tracker_save", { clear = true }),
+        group = vim.api.nvim_create_augroup("keymap-tracker-save", { clear = true }),
+        desc = "Save the keymap usage statistics",
         callback = save_stats,
     })
 
@@ -185,8 +186,8 @@ function M.show_stats()
         title_pos = "center",
     })
 
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true })
-    vim.keymap.set("n", "<Esc>", "<cmd>close<cr>", { buffer = buf, silent = true })
+    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = buf, silent = true })
+    vim.keymap.set("n", "<Esc>", "<cmd>close<CR>", { buffer = buf, silent = true })
 end
 
 return M

@@ -3,55 +3,12 @@
 -- Vim.lsp.completion:              Not configured here. Use a dedicated plugin instead.
 -- Vim.lsp.diagnostic:              Not configured here because `vim.diagnostic` is enough. Configure it here for LSPs only if you need finetunning (not usually a thing).
 -- Vim.lsp.document_color:          Enabled by default. No need to configure it unless you need finetunning.
--- Vim.lsp.inlay_hint:              Configured here and working.
--- Vim.lsp.inline_completion:       Configured here, but untested. I probably wont use as I prefer the normal completion instead.
+-- Vim.lsp.formatting:              Not configured here. conform.nvim formats (see lua/plugins/formatter.lua).
+-- Vim.lsp.inlay_hint:              Not used.
+-- Vim.lsp.inline_completion:       Not used. I prefer the normal completion instead.
 -- Vim.lsp.linked_editing_range:    Configured here, but untested.
 -- Vim.lsp.on_type_formatting:      Configured here and working.
 -- Vim.lsp.semantic_tokens:         Enabled by default. No need to configure.
-
-
--- Auto format the file.
--- You may need to edit the lsp config file to enable/configure this
-local function setup_formatting(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-    -- Keymap for formatting the file
-    if client:supports_method("textDocument/formatting") then
-        vim.keymap.set("n", "<leader>cf", function()
-            vim.lsp.buf.format({ async = true, bufnr = args.buf })
-        end, { buffer = args.buf, desc = "LSP [c]ode [f]ormat" })
-    end
-
-    -- Format for markdown
-    -- Override the keybind for Markdown to use other formatter, since it the
-    -- one I usually use (markdown-oxide) does not supports "textDocument/formatting"
-    if vim.bo[args.buf].filetype == "markdown" then
-        -- Define a custom format function that uses Prettier for
-        -- markdown formatting asynchronously
-        vim.keymap.set("n", "<leader>cf", function()
-            local filepath = vim.api.nvim_buf_get_name(args.buf)
-            local cmd = { "prettier", "--prose-wrap", "always", "--stdin-filepath", filepath }
-
-            -- Get current buffer content
-            local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
-            local input = table.concat(lines, "\n")
-
-            vim.system(cmd, { stdin = input }, function(obj)
-                vim.schedule(function()
-                    if obj.code == 0 and obj.stdout then
-                        local new_lines = vim.split(obj.stdout:gsub("\r\n", "\n"), "\n")
-                        if #new_lines > 1 and new_lines[#new_lines] == "" then
-                            table.remove(new_lines)
-                        end
-                        vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, new_lines)
-                    else
-                        vim.notify("Prettier Error:\n" .. (obj.stderr or ""), vim.log.levels.ERROR)
-                    end
-                end)
-            end)
-        end, { buffer = args.buf, desc = "LSP [c]ode [f]ormat" })
-    end
-end
 
 local function setup_highlight_under_cursor(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -106,7 +63,7 @@ local function setup_renaming(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     if client:supports_method("textDocument/rename") then
-        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP [r]ename" })
+        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = args.buf, desc = "[r]ename symbol" })
     end
 end
 
@@ -116,7 +73,7 @@ local function setup_code_actions(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     if client:supports_method("textDocument/codeAction") then
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP [c]ode [a]ction" })
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = args.buf, desc = "[c]ode [a]ction" })
     end
 end
 
@@ -126,7 +83,7 @@ local function setup_codelens(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     if client:supports_method("textDocument/codeLens") then
-        vim.lsp.codelens.enable(true, { bufnr = args.bufnr })
+        vim.lsp.codelens.enable(true, { bufnr = args.buf })
     end
 end
 
@@ -140,35 +97,13 @@ local function setup_linked_editing_range(args)
     end
 end
 
--- Show the type of the parameters of the functions and other hints
--- You may need to edit the lsp config file to enable/configure this
-local function setup_inlay_hint(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-    if client:supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true, { bufnr = args.bufnr })
-    end
-end
-
--- TODO: Still need to test if this inline completion thing is working
--- This is like vim.lsp.completion, but shows only one option which can be
--- accepted of denied. It is like copilot suggestions, while vim.lsp.completion
--- Is a table of options.
-local function setup_inline_completion(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-    if client:supports_method("textDocument/inlineCompletion") then
-        vim.lsp.inline_completion.enable(true, { bufnr = args.bufnr })
-    end
-end
-
 -- Just like the normal formatting. But instead of formatting the whole file,
 -- it will do micro formatting around the cursor when a specific key is pressed.
 local function setup_on_type_formatting(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     if client:supports_method("textDocument/onTypeFormatting") then
-        vim.lsp.on_type_formatting.enable(true, { bufnr = args.bufnr })
+        vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
     end
 end
 
@@ -226,14 +161,11 @@ end
 
 local M = {}
 
-M.setup_formatting = setup_formatting
 M.setup_highlight_under_cursor = setup_highlight_under_cursor
 M.setup_renaming = setup_renaming
 M.setup_code_actions = setup_code_actions
 M.setup_codelens = setup_codelens
 M.setup_linked_editing_range = setup_linked_editing_range
-M.setup_inlay_hint = setup_inlay_hint
-M.setup_inline_completion = setup_inline_completion
 M.setup_on_type_formatting = setup_on_type_formatting
 
 M.smart_definition = smart_definition
