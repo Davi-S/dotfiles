@@ -9,7 +9,10 @@
 ### User ###
 ############
 
-CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/battery-notify.service /usr/lib/systemd/user/battery-notify.service davi davi
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/airplane-notify.service /home/davi/.config/systemd/user/airplane-notify.service davi davi     # Airplane mode notifications
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/battery-notify.service /home/davi/.config/systemd/user/battery-notify.service davi davi       # Battery notifications
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/brightness-notify.service /home/davi/.config/systemd/user/brightness-notify.service davi davi # Brightness notifications
+CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/volume-notify.service /home/davi/.config/systemd/user/volume-notify.service davi davi         # Volume notifications
 CreateLink /home/davi/.config/systemd/user/default.target.wants/udiskie.service /home/davi/.config/systemd/user/udiskie.service davi davi                 # udiskie for automatically mounting removable drives
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/cliphist.service /home/davi/.config/systemd/user/cliphist.service davi davi     # Clipboard history
 CreateLink /home/davi/.config/systemd/user/graphical-session.target.wants/hypridle.service /usr/lib/systemd/user/hypridle.service davi davi               # Automatically lock the screen and suspend the computer

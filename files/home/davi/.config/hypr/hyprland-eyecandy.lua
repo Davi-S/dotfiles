@@ -24,41 +24,62 @@ hl.curve("easeInOutCirc", { type = "bezier", points = { { 0.85, 0 }, { 0.15, 1 }
 hl.curve("easeOutCirc", { type = "bezier", points = { { 0, 0.55 }, { 0.45, 1 } } })
 hl.curve("easeOutExpo", { type = "bezier", points = { { 0.16, 1 }, { 0.3, 1 } } })
 
-hl.animation({
-    leaf = "windows",
-    enabled = true,
-    speed = 3,
-    bezier = "easeOutExpo",
-    style = "slide",
+-- One motion for everything: every animation inherits it from "global". The
+-- other leaves only add a style, but hl.animation needs the speed and curve on
+-- every call, so they all reuse this table.
+local motion = { speed = 3, bezier = "easeOutExpo" }
+
+local function animation(leaf, style)
+    hl.animation({
+        leaf = leaf,
+        enabled = true,
+        speed = motion.speed,
+        bezier = motion.bezier,
+        style = style,
+    })
+end
+
+animation("global")
+animation("windows", "slide")
+animation("workspaces", "slide")
+animation("specialWorkspace", "slidevert")
+animation("layers", "fade")
+
+-- Floating windows come from below, like the floating apps in their special
+-- workspaces
+hl.window_rule({
+    name = "float-from-below",
+    match = {
+        float = true,
+    },
+    animation = "slide bottom",
 })
-hl.animation({
-    leaf = "workspaces",
-    enabled = true,
-    speed = 3,
-    bezier = "easeOutExpo",
-    style = "slide",
-})
-hl.animation({
-    leaf = "specialWorkspace",
-    enabled = true,
-    speed = 3,
-    bezier = "easeOutExpo",
-    style = "slidevert",
+
+-- The notification panel is on the right edge, so it comes from the right
+hl.layer_rule({
+    name = "notification-panel-from-right",
+    match = {
+        namespace = "^swaync-control-center$",
+    },
+    animation = "slide right",
 })
 
 hl.config({
-    animations = {
-        enabled = true,
-    },
     general = {
-        border_size = 1,
         gaps_in = 0,
         gaps_out = 0,
         col = {
             inactive_border = colors.surface1,
             active_border = colors.sapphire
         },
-        layout = "dwindle",
+    },
+    decoration = {
+        -- No darkening behind special workspaces (the floating apps), like any
+        -- other floating window
+        dim_special = 0,
+        shadow = {
+            enabled = false,
+        },
     },
     dwindle = {
         force_split = 2,
@@ -68,7 +89,6 @@ hl.config({
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
         force_default_wallpaper = 0,
-        enable_swallow = true,
         background_color = colors.mantle,
     },
 })

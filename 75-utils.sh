@@ -19,8 +19,10 @@ AddPackage libnotify # Library for sending desktop notifications
 # Primarily used to build packages from code
 AddPackage base-devel # Basic tools to build Arch Linux packages
 
-# For controlling brightness
+# For controlling brightness of the laptop screen and of external monitors
 AddPackage brightnessctl # Lightweight brightness control tool
+AddPackage ddcutil # Query and change Linux monitor settings using DDC/CI and USB.
+AddPackage ddcui # Graphical user interface for ddcutil - control monitor settings
 
 # The aconfmgr itself
 AddPackage --foreign aconfmgr-git # A configuration manager for Arch Linux
@@ -40,6 +42,23 @@ CopyFile /etc/mkinitcpio.conf.d/hooks.conf
 AddPackage hyprshot # Hyprland screenshot utility
 # This will replace grim and slurp by automating the processes of taking the
 # screenshot and saving it
+
+# For editing screenshots
+AddPackage satty # Modern screenshot annotation tool, inspired by Swappy and Flameshot
+CopyFile /home/davi/.config/satty/config.toml '' davi davi
+SetFileProperty /home/davi/.config/satty group davi
+SetFileProperty /home/davi/.config/satty owner davi
+
+# Terminal calendar
+AddPackage calcurse # A text-based personal organizer
+CopyFile /home/davi/.config/calcurse/conf '' davi davi
+SetFileProperty /home/davi/.config/calcurse group davi
+SetFileProperty /home/davi/.config/calcurse mode 700
+SetFileProperty /home/davi/.config/calcurse owner davi
+
+# Speech to text, and typing/clicking from scripts
+AddPackage whisper-cpp # Port of OpenAI's Whisper model in C/C++
+AddPackage ydotool # Generic command-line automation tool (no X!)
 
 # For locking the pc
 AddPackage hyprlock # hyprland's GPU-accelerated screen locking utility

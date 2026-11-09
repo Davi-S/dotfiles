@@ -3,24 +3,34 @@
 # User scripts, executables and per-user configuration
 
 # My scripts
-CopyFile /home/davi/bin/airplane-mode-control 755 davi davi
 CopyFile /home/davi/bin/brightness-control 755 davi davi
-CopyFile /home/davi/bin/check-hyprland-slice 755 davi davi
 CopyFile /home/davi/bin/datetime-notify 755 davi davi
 CopyFile /home/davi/bin/find-obsidian-dead-links 755 davi davi
 CopyFile /home/davi/bin/generate-password 755 davi davi
-CopyFile /home/davi/bin/list-user-units-type 755 davi davi
-CopyFile /home/davi/bin/test-nerd-fonts 755 davi davi
 CopyFile /home/davi/bin/toggle-bluetooth-mic 755 davi davi
-CopyFile /home/davi/bin/toggle-float-app 755 davi davi
 CopyFile /home/davi/bin/utils.sh '' davi davi
 CopyFile /home/davi/bin/volume-control 755 davi davi
 CopyFile /home/davi/bin/mvi 755 davi davi
 SetFileProperty /home/davi/bin group davi
 SetFileProperty /home/davi/bin owner davi
 
-# My script published on AUR to notify about the battery
-AddPackage --foreign simple-battery-notify # A customizable, D-Bus driven battery notification daemon and CLI
+# Notifications for system changes (airplane mode, brightness, volume)
+CopyFile /home/davi/bin/airplane-notify-daemon 755 davi davi
+CopyFile /home/davi/.config/systemd/user/airplane-notify.service '' davi davi
+CopyFile /home/davi/bin/brightness-notify-daemon 755 davi davi
+CopyFile /home/davi/.config/systemd/user/brightness-notify.service '' davi davi
+CopyFile /home/davi/bin/volume-notify-daemon 755 davi davi
+CopyFile /home/davi/.config/systemd/user/volume-notify.service '' davi davi
+
+# Battery notifications
+# also on the AUR
+CopyFile /home/davi/bin/battery-notify 755 davi davi
+CopyFile /home/davi/.config/systemd/user/battery-notify.service '' davi davi
+
+# For copying the text of an area of the screen (OCR), in Portuguese and English
+CopyFile /home/davi/bin/ocr-region 755 davi davi
+AddPackage tesseract-data-eng # Tesseract OCR data (eng)
+AddPackage tesseract-data-por # Tesseract OCR data (por)
 
 # A script to easily use the phone as the laptop webcam
 CopyFile /home/davi/bin/phone-as-webcam 755 davi davi

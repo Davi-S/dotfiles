@@ -110,7 +110,7 @@ for file in "${md_files[@]}"; do
 
         if [[ -z "${note_exists[$target]:-}" ]]; then
             if $VERBOSE; then
-                key="$rel → [[${link}]]"
+                key="$rel -> [[${link}]]"
                 verbose_lines["$rel|$link"]="$key"
                 (( ${#rel} > max_path_len )) && max_path_len=${#rel}
             else
@@ -124,8 +124,8 @@ done
 if $VERBOSE; then
     for key in "${!verbose_lines[@]}"; do
         rel="${key%%|*}"
-        rest="${verbose_lines[$key]#"$rel → "}"
-        printf "%-*s → %s\n" "$max_path_len" "$rel" "$rest"
+        rest="${verbose_lines[$key]#"$rel -> "}"
+        printf "%-*s -> %s\n" "$max_path_len" "$rel" "$rest"
     done | sort 
 else
     for t in "${!dead_targets[@]}"; do

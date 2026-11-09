@@ -1,0 +1,2 @@
+/* Same theme as GTK3: the colors and corners live in ~/.config/gtk-3.0/gtk.css */
+@import url("../gtk-3.0/gtk.css");

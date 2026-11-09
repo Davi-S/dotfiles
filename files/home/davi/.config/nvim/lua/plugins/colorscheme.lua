@@ -14,11 +14,16 @@ return {
                         -- Set Line Numbers to a slighter lighter color
                         LineNr = { fg = colors.overlay1 },
 
+                        -- Split separators like unfocused Hyprland window borders
+                        WinSeparator = { fg = colors.surface1 },
+
                         -- Set some elements as the accent color (sapphire)
                         -- Floating window borders (Mason, Lazy, LSP Info)
                         FloatBorder = { fg = colors.sapphire },
                         -- Autocompletion Menu (blink.cmp)
                         BlinkCmpMenuBorder = { fg = colors.sapphire },
+                        -- lazygit.nvim float border (defaults to Normal)
+                        LazyGitBorder = { link = "FloatBorder" },
                     }, colorscheme_helpers.lazy_highlights(colors), colorscheme_helpers.markdown_highlights(
                         colors
                     ))

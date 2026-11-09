@@ -1,0 +1,19 @@
+# Wiremix
+# =======
+# Reference: https://github.com/tsowell/wiremix/blob/main/wiremix.toml
+# Only what differs from the defaults: sapphire accent (default is LightCyan),
+# subtle selection in dropdowns, and square popup borders (Catppuccin Mocha).
+# Gray parts follow the terminal palette (see ~/.config/kitty/float-tui.conf).
+
+[themes.default]
+selector = { fg = "#74c7ec" }
+tab_selected = { fg = "#74c7ec" }
+tab_marker = { fg = "#74c7ec" }
+volume_filled = { fg = "#74c7ec" }
+dropdown_border = { fg = "#74c7ec" }
+dropdown_selected = { fg = "#cdd6f4", bg = "#45475a" }
+help_border = { fg = "#74c7ec" }
+
+[char_sets.default]
+dropdown_border = "Plain"
+help_border = "Plain"

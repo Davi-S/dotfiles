@@ -29,6 +29,9 @@
 #     - A2DP provides high-quality stereo audio but no microphone
 #     - HFP provides microphone access but lower audio quality (both directions)
 #     - If multiple Bluetooth cards are connected, pass the card name explicitly
+#     - WirePlumber switches to HFP by itself when an app
+#       records from the headset (bluetooth.autoswitch-to-headset-profile) and
+#       back to A2DP when it stops. This script is kept as a manual override.
 # ==========================
 ### END USAGE
 

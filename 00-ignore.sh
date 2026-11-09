@@ -28,8 +28,37 @@ ignore_paths=(
 # Home
 # ====
 
+# Files created by Claude Code
+IgnorePath "/home/davi/.config/BraveSoftware"
+IgnorePath "/home/davi/.config/BraveSoftware/*"
+IgnorePath "/home/davi/.config/microsoft-edge"
+IgnorePath "/home/davi/.config/microsoft-edge/*"
+IgnorePath "/home/davi/.config/opera"
+IgnorePath "/home/davi/.config/opera/*"
+IgnorePath "/home/davi/.config/vivaldi"
+IgnorePath "/home/davi/.config/vivaldi/*"
+IgnorePath "/home/davi/.config/chromium-headless"
+IgnorePath "/home/davi/.local/share/applications/claude-code-url-handler.desktop"
+IgnorePath "*/.claude"
+IgnorePath "*/.claude/*"
+
+# Runtime and generated files
+IgnorePath "/home/davi/.local/share/vulkan"
+IgnorePath "/home/davi/.local/share/vulkan/*"
+IgnorePath "/home/davi/.pulse-cookie"
+IgnorePath "/home/davi/.local/share/calcurse"
+IgnorePath "/home/davi/.local/share/calcurse/*"
+IgnorePath "/home/davi/.config/calcurse/keys"
+IgnorePath "/home/davi/.config/calcurse/hooks"
+
+# Temporary notes, not a config
+IgnorePath "/home/davi/.config/hypr/session-changes.md"
+
 # Do not ignore icons nor fonts in ".local/share/" if you have manully put them there. It is ok to ignore if it comes from packages
 IgnorePath ".config/Antigravity/*"
+IgnorePath "/home/davi/.config/chromium/*"
+IgnorePath "/home/davi/.local/share/whisper/*"
+IgnorePath "/home/davi/.config/libreoffice/*"
 IgnorePath "/home/davi/.config/Claude/Code\ Cache/*"
 IgnorePath "/home/davi/.config/google-chrome/*"
 IgnorePath "/home/davi/.config/Claude/local-agent-mode-sessions/*"
@@ -145,7 +174,6 @@ IgnorePath "/home/davi/.local/share/qBittorrent/rss/articles"
 IgnorePath "/home/davi/.local/share/qalculate/*"
 IgnorePath "/home/davi/.local/share/qmlls/*"
 IgnorePath "/home/davi/.local/share/recently-used.xbel"
-IgnorePath "/home/davi/.local/share/rofi/rofi_calc_history"
 IgnorePath "/home/davi/.local/share/sddm/*"
 IgnorePath "/home/davi/.local/share/sourcery/*"
 IgnorePath "/home/davi/.local/share/torlink/*"
@@ -213,7 +241,6 @@ IgnorePath "/home/davi/nltk_data/*"
 IgnorePath "/usr/lib32/gconv/gconv-modules.cache"
 IgnorePath "/var/lib/logmein-hamachi/*"
 IgnorePath "/var/lib/tor"
-IgnorePath "CopyFile /home/davi/.local/share/applications/claude-code-url-handler.desktop"
 
 # Root
 # ====
@@ -278,9 +305,12 @@ IgnorePath "/etc/vconsole.conf"
 IgnorePath "/opt/containerd/*"
 IgnorePath "/swap/*"
 IgnorePath "/swap"
+IgnorePath "/home/davi/.config/mpv/.git"
 IgnorePath "/usr/bin/*"
 IgnorePath "/usr/lib/*"
 IgnorePath "/usr/share/applications/mimeinfo.cache"
+# Changed by VS Code's own updates
+IgnorePath "/usr/share/code/*"
 IgnorePath "/usr/share/glib-2.0/*"
 IgnorePath "/usr/share/grub/*"
 IgnorePath "/usr/share/icons/*"

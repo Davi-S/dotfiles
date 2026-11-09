@@ -1,0 +1,9 @@
+[submodule "vendor/thumbfast"]
+	path = vendor/thumbfast
+	url = https://github.com/po5/thumbfast
+[submodule "vendor/ModernX"]
+	path = vendor/ModernX
+	url = https://github.com/zydezu/ModernX
+[submodule "vendor/autosubsync-mpv"]
+	path = vendor/autosubsync-mpv
+	url = https://github.com/Ajatt-Tools/autosubsync-mpv

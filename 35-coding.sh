@@ -33,9 +33,6 @@ SetFileProperty /home/davi/.config/lazygit owner davi
 # Configuration for the C lang formatter
 CopyFile /home/davi/.clang-format '' davi davi
 
-# Google terminal AI for using Gemini
-AddPackage --foreign antigravity-cli # Google's agentic development platform (CLI companion)
-
 # For linting and formatting python
 AddPackage ruff # An extremely fast Python linter, written in Rust
 
@@ -58,3 +55,9 @@ AddPackage shellcheck # Shell script analysis tool
 # For easily publish AUR packages
 AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
 CopyFile /home/davi/.ssh/aur_ci.pub '' davi davi
+
+# Go
+AddPackage go # Core compiler tools for the Go programming language
+
+# npm settings
+CopyFile /home/davi/.npmrc 600 davi davi

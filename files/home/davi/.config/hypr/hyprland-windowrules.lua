@@ -1,13 +1,16 @@
 -- Hyprland Windowrules
 -- ====================
 -- Reference: https://wiki.hyprland.org/Configuring/Window-Rules/
--- Reference:  https://wiki.hyprland.org/Configuring/Workspace-Rules/
+-- Reference: https://wiki.hyprland.org/Configuring/Workspace-Rules/
 -- Use `hyprctl clients` to see the windows
+--
+-- Rule names describe what the rule does, so they are readable in hyprctl
+-- output and can be referenced later.
 
 
--- Ignore maximize requests from apps. You'll probably like this.
+-- Ignore maximize requests from apps
 hl.window_rule({
-    name = "windowrule-1",
+    name = "ignore-maximize-requests",
     match = {
         class = ".*",
     },
@@ -16,30 +19,62 @@ hl.window_rule({
 
 -- Fix some dragging issues with XWayland
 hl.window_rule({
-    name = "windowrule-2",
+    name = "xwayland-drag-fix",
     match = {
         class = "^$",
         title = "^$",
-        xwayland = 1,
-        float = 1,
-        fullscreen = 0,
-        pin = 0,
+        xwayland = true,
+        float = true,
+        fullscreen = false,
+        pin = false,
     },
     no_focus = true,
 })
 
--- Open browser on the first workspace
+-- Prevent Bisq tooltips from stealing focus, which causes a loop of tooltips
+-- spawning and vanishing
 hl.window_rule({
-    name = "windowrule-3",
+    name = "bisq-tooltips-no-focus",
+    match = {
+        class = "^(bisq\\.desktop_app\\.JavaFXApplication)$",
+        title = "^$",
+    },
+    no_initial_focus = true,
+})
+
+-- Apps that always open on the same workspace. The terminal classes are set
+-- when the terminals are launched (see hyprland-autostart.lua).
+hl.window_rule({
+    name = "browser-on-workspace-1",
     match = {
         class = "zen",
     },
     workspace = "1 silent",
 })
 
--- Usually for Youtube videos. Make  them floating and pinned
 hl.window_rule({
-    name = "windowrule-4",
+    name = "whatsapp-on-workspace-9",
+    match = {
+        class = "nvim_whatsapp",
+    },
+    workspace = "9 silent",
+})
+
+hl.window_rule({
+    name = "obsidian-on-workspace-10",
+    match = {
+        class = "obsidian_tui",
+    },
+    workspace = "10 silent",
+})
+
+-- Floating windows. The floating TUIs have their own rules in
+-- hyprland-float-tuis.lua.
+
+-- Picture-in-Picture (usually YouTube videos): floating, pinned, in the
+-- bottom-right corner
+hl.window_rule({
+    name = "picture-in-picture",
     match = {
         title = "Picture-in-Picture",
     },
@@ -50,22 +85,55 @@ hl.window_rule({
     keep_aspect_ratio = true,
 })
 
--- For opening mvi (mpv with scripts for acting as image viewer) in floating mode
+-- File dialogs (open, save) shown through the GTK portal, e.g. by Zen:
+-- floating and centered, so they don't fill the screen and their borders stay
+-- visible
 hl.window_rule({
-    name = "windowrule-7",
+    name = "file-dialog-float",
+    match = {
+        class = "^xdg-desktop-portal-gtk$",
+    },
+    float = true,
+    size = "(monitor_w*0.5) (monitor_h*0.9)",
+    center = true,
+})
+
+-- App launcher and clipboard history (fzf in kitty, see hyprland-keybindings.lua):
+-- floating and centered
+hl.window_rule({
+    name = "menu-float",
+    match = {
+        class = "^(launcher|clipboard)_float$",
+    },
+    float = true,
+    size = "800 500",
+    center = true,
+})
+
+-- Satty (screenshot editor): floating and centered over the current work
+hl.window_rule({
+    name = "satty-float",
+    match = {
+        class = "^(com\\.gabm\\.satty|org\\.satty\\.satty)$",
+    },
+    float = true,
+    center = true,
+})
+
+-- mvi (mpv with scripts to act as an image viewer)
+hl.window_rule({
+    name = "mvi-float",
     match = {
         class = "mvi",
     },
     float = true,
 })
 
--- For the qualculate app to open as a floting window with some cool features
--- The settings bellow are used to center the window on the right half of the screen.
--- The formula is:
--- size: a%        b%
--- move: (b/2+25)% (a/2)%
+-- Qalculate: floating, pinned and half transparent when not focused, centered
+-- on the right half of the screen. For a size of w% x h%, the position is
+-- (75 - w/2)% (50 - h/2)%.
 hl.window_rule({
-    name = "windowrule-8",
+    name = "qalculate-float",
     match = {
         initial_title = "Qalculate!",
     },
@@ -75,45 +143,4 @@ hl.window_rule({
     no_blur = true,
     size = "(monitor_w*0.3) (monitor_h*0.7)",
     move = "((monitor_w*0.6)) ((monitor_h*0.15))",
-})
-
--- For opening custom terminals on specific workspaces.
--- These classes are defined when opening the terminal sessions using the kitty
--- command. You can find some of these on `hyprland-autostart.sh` file
-hl.window_rule({
-    name = "windowrule-9",
-    match = {
-        class = "nchat",
-    },
-    workspace = "9 silent",
-})
-
-hl.window_rule({
-    name = "windowrule-10",
-    match = {
-        class = "obsidian_tui",
-    },
-    workspace = "10 silent",
-})
-
--- Prevent Bisq tooltips from stealing focus, causing an loop of tooltips
--- spawning and vanishing.
-hl.window_rule({
-    name = "windowrule-11",
-    match = {
-        class = "^(bisq\\.desktop_app\\.JavaFXApplication)$",
-        title = "^$",
-    },
-    no_initial_focus = true,
-})
-
--- For floating terminal apps spawned by toggle-float-app
-hl.window_rule({
-    name = "windowrule-12",
-    match = {
-        class = "^(bluetui_float|impala_float|pulsemixer_float)$",
-    },
-    float = true,
-    size = "800 500",
-    center = true,
 })

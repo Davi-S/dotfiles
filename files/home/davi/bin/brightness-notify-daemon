@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+# Brightness Notify Daemon
+# ========================
+# Watches the brightness of every screen and sends a notification whenever it
+# changes, e.g. "50% - AOC 27G2G4":
+#     - Laptop screens: kernel backlight events, so any change is noticed
+#       (keybindings, hypridle dimming, other apps, etc.)
+#     - External monitors (DDC/CI): they send no events, so changes made with
+#       brightness-control are noticed through the level files it writes.
+#       Changes made with the monitor's own buttons are not noticed.
+#
+# Usage:
+#     $0
+#
+# Notes:
+#     - Requires `udevadm`, `inotifywait`, `brightnessctl`, `hyprctl`, `jq` and
+#       `notify-send` (with SwayNC support)
+#     - Meant to run as a systemd user service (brightness-notify.service)
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+LEVEL_DIR="$BRIGHTNESS_STATE_DIR/level"
+mkdir -p "$LEVEL_DIR"
+
+# Last known level of each monitor (by connector name), so only real changes
+# notify
+declare -A last
+
+for device in /sys/class/backlight/*; do
+    [[ -e "$device" ]] || continue
+    device=$(basename "$device")
+    monitor=$(backlight_connector "$device")
+    last[${monitor:-$device}]=$(backlight_percentage "$device")
+done
+
+for file in "$LEVEL_DIR"/*; do
+    [[ -f "$file" ]] && last[$(basename "$file")]=$(< "$file")
+done
+
+# Notifies about the level of a monitor if it changed. Each monitor has its own
+# notification, so dimming every screen shows them side by side.
+# $1: monitor, $2: percentage
+notify_monitor() {
+    [[ -z "$2" || "${last[$1]}" == "$2" ]] && return
+    notify_level "brightness-$1" "Brightness" "$2% - $(monitor_label "$1")" "$2"
+    last[$1]="$2"
+}
+
+# Both event sources write lines into the same loop:
+#     "backlight <device>"  from the kernel, for laptop screens
+#     "ddc <monitor>"       from the level files, for external monitors
+{
+    udevadm monitor --udev --subsystem-match=backlight \
+        | sed -nuE 's#^UDEV .* change +.*/([^/ ]+) \(backlight\)$#backlight \1#p' &
+    inotifywait -m -q -e close_write --format 'ddc %f' "$LEVEL_DIR" &
+    wait
+} | while read -r kind name; do
+    case "$kind" in
+        backlight)
+            monitor=$(backlight_connector "$name")
+            notify_monitor "${monitor:-$name}" "$(backlight_percentage "$name")"
+            ;;
+        ddc)
+            notify_monitor "$name" "$(cat "$LEVEL_DIR/$name" 2>/dev/null)"
+            ;;
+    esac
+done

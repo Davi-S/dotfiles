@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# Volume Notify Daemon
+# ====================
+# Watches the default audio devices and sends a notification whenever something
+# changes, no matter what changed it (keybindings, headphone buttons, apps,
+# etc.):
+#     - Output volume or mute status   -> "Volume" notification
+#     - Microphone volume or mute      -> "Microphone" notification
+#     - Output or microphone device switch (e.g. connecting headphones)
+#                                      -> same notification, with the device name
+#
+# Usage:
+#     $0
+#
+# Notes:
+#     - Requires `pactl`, `wpctl` and `notify-send` (with SwayNC support)
+#     - Meant to run as a systemd user service (volume-notify.service)
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+SINK="@DEFAULT_AUDIO_SINK@"
+SOURCE="@DEFAULT_AUDIO_SOURCE@"
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+# Prints the device id and its volume, e.g. "57 Volume: 0.75 [MUTED]".
+# Prints nothing if there is no such device.
+# $1: device
+get_state() {
+    local id
+    id=$(wpctl inspect "$1" 2>/dev/null | sed -n '1s/^id \([0-9]*\),.*/\1/p')
+    [[ -n "$id" ]] && echo "$id $(wpctl get-volume "$1" 2>/dev/null)"
+}
+
+# Prints the human readable name of a device, e.g. "Davi's Moondrop Space"
+# $1: device
+device_name() {
+    wpctl inspect "$1" 2>/dev/null \
+        | sed -n 's/^[ *]*node\.description = "\(.*\)"$/\1/p' \
+        | head -n 1
+}
+
+# Sends the notification of a device, e.g. "75% (Muted) - Davi's Moondrop Space"
+# $1: device, $2: notification id, $3: title
+# $4: "switched" if the device itself changed (adds the device name)
+notify_device() {
+    local percentage body
+    percentage=$(volume_percentage "$1")
+    [[ -z "$percentage" ]] && return
+
+    body="$percentage%"
+    [[ "$(wpctl get-volume "$1" 2>/dev/null)" == *"[MUTED]"* ]] && body="$body (Muted)"
+    [[ "$4" == "switched" ]] && body="$body - $(device_name "$1")"
+
+    notify_level "$2" "$3" "$body" "$percentage"
+}
+
+# Notifies if the state of a device changed. Uses and updates the variable
+# named by $4, which holds the last known state.
+# $1: device, $2: notification id, $3: title, $4: name of the state variable
+check_device() {
+    local -n last="$4"
+    local state switched=""
+    state=$(get_state "$1")
+
+    # Devices emit "change" events for many reasons (e.g. going idle), so only
+    # notify when the state actually changed
+    [[ "$state" == "$last" ]] && return
+
+    # The first word of the state is the device id
+    [[ "${state%% *}" != "${last%% *}" ]] && switched="switched"
+    [[ -n "$state" ]] && notify_device "$1" "$2" "$3" "$switched"
+    last="$state"
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+# Last known states, updated by check_device through their names
+# shellcheck disable=SC2034
+last_sink=$(get_state "$SINK")
+# shellcheck disable=SC2034
+last_source=$(get_state "$SOURCE")
+
+pactl subscribe | grep --line-buffered -E "on (sink|source|server) #" | while read -r _; do
+    check_device "$SINK" volume "Volume" last_sink
+    check_device "$SOURCE" microphone "Microphone" last_source
+done

@@ -1,0 +1,35 @@
+# Satty
+# =====
+# Screenshot editor, opened by SHIFT+PRINT (see hyprland-keybindings.lua). Only
+# the settings that differ from the defaults.
+# Reference: https://github.com/Satty-org/Satty#configuration-file
+#
+# Enter copies and closes, Ctrl+S saves and closes, Esc closes without keeping
+# anything.
+
+[general]
+# Close after copying or saving
+early-exit = ["copy", "save"]
+# Square shapes, like the rest of the desktop
+corner-roundness = 0
+# wl-copy keeps the image in the clipboard after Satty closes
+copy-command = "wl-copy"
+# Same folder as the other screenshots
+output-filename = "~/Pictures/screenshots/%Y-%m-%d-%H%M%S_satty.png"
+
+[font]
+family = "Atkinson Mono NF"
+style = "Regular"
+
+# Catppuccin Mocha: red, peach, yellow, green, sapphire, mauve, text, crust
+[color-palette]
+palette = [
+    "#f38ba8ff",
+    "#fab387ff",
+    "#f9e2afff",
+    "#a6e3a1ff",
+    "#74c7ecff",
+    "#cba6f7ff",
+    "#cdd6f4ff",
+    "#11111bff",
+]

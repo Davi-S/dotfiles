@@ -1,0 +1,23 @@
+# calcurse
+# ========
+# Only the settings that differ from calcurse's defaults. Leaving the in-app
+# configuration menu ("C") rewrites this file with every setting (comments are
+# kept).
+#
+# calcurse only uses the 8 basic terminal colors. It runs in the float-tui kitty
+# (see ~/.config/kitty/float-tui.conf), where green is remapped to sapphire, so
+# the theme below is sapphire: focused panel border, titles, day names and the
+# selected item. The other colors are fixed in calcurse: today is yellow, the
+# selected day red, days with appointments cyan (teal) and days with all-day
+# events green (sapphire).
+
+appearance.theme=green on default
+appearance.notifybar=no
+general.confirmquit=no
+general.firstdayofweek=sunday
+format.inputdate=2
+
+# The appointments come from the daily notes (converter script), so calcurse is
+# only a viewer: saving on quit could overwrite a newer file written by the
+# converter.
+general.autosave=no

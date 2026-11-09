@@ -181,7 +181,6 @@ function M.show_stats()
         row = row,
         col = col,
         style = "minimal",
-        border = "rounded",
         title = " Keymap Usage Statistics ",
         title_pos = "center",
     })

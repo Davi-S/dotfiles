@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+# Airplane Notify Daemon
+# ======================
+# Watches the radios (rfkill) and sends a notification whenever the airplane
+# mode state changes, no matter what changed it (the airplane mode key, which
+# the kernel handles by itself, the rfkill command, other apps, etc.):
+#     - Enabled   every radio is blocked
+#     - Disabled  every radio is active
+#     - Mixed     some radio types are blocked and others are not, e.g.
+#                 "Wi-Fi disabled, Bluetooth active"
+#
+# Usage:
+#     $0
+#
+# Notes:
+#     - Requires `rfkill` and `notify-send` (with SwayNC support)
+#     - To change the radios from a terminal: `rfkill block all` or
+#       `rfkill unblock all`
+#     - Meant to run as a systemd user service (airplane-notify.service)
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# How long to wait for more events before reading the state, in seconds. One key
+# press changes every radio switch one after the other (measured: up to about
+# 1 second apart); without this, the states in between would look "Mixed".
+SETTLE_TIME=1.5
+
+NOTIFY_TIMEOUT=2000
+
+# ==============================================================================
+# FUNCTIONS
+# ==============================================================================
+
+# Prints a readable name for an rfkill radio type
+# $1: type, e.g. wlan
+type_label() {
+    case "$1" in
+        wlan)      echo "Wi-Fi" ;;
+        bluetooth) echo "Bluetooth" ;;
+        wwan)      echo "Mobile broadband" ;;
+        *)         echo "$1" ;;
+    esac
+}
+
+# Prints one line per radio type: "<type> blocked" or "<type> active". A type
+# is blocked if any of its switches is blocked (soft or hard), because a radio
+# only works when all its switches allow it.
+radio_states() {
+    local switch type
+    declare -A blocked
+    for switch in /sys/class/rfkill/rfkill*; do
+        [[ -e "$switch" ]] || continue
+        type=$(< "$switch/type")
+        [[ -n "${blocked[$type]}" ]] || blocked[$type]=0
+        if [[ "$(< "$switch/soft")" == 1 || "$(< "$switch/hard")" == 1 ]]; then
+            blocked[$type]=1
+        fi
+    done
+    for type in "${!blocked[@]}"; do
+        if [[ "${blocked[$type]}" == 1 ]]; then
+            echo "$type blocked"
+        else
+            echo "$type active"
+        fi
+    done | sort
+}
+
+# Prints the overall state: "Enabled", "Disabled" or "Mixed"
+# $1: output of radio_states
+overall_state() {
+    if [[ "$1" != *active* ]]; then
+        echo "Enabled"
+    elif [[ "$1" != *blocked* ]]; then
+        echo "Disabled"
+    else
+        echo "Mixed"
+    fi
+}
+
+# Sends the notification for a state
+# $1: output of radio_states
+notify_user() {
+    local state body type status
+    state=$(overall_state "$1")
+    case "$state" in
+        Enabled)  body="All radios disabled" ;;
+        Disabled) body="Radios active" ;;
+        Mixed)
+            body=""
+            while read -r type status; do
+                [[ "$status" == "blocked" ]] && status="disabled"
+                body="${body:+$body, }$(type_label "$type") $status"
+            done <<< "$1"
+            ;;
+    esac
+
+    notify-send \
+        -h string:x-canonical-private-synchronous:airplane_mode \
+        -t "$NOTIFY_TIMEOUT" \
+        "Airplane Mode: $state" "$body"
+}
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+last=$(radio_states)
+
+rfkill event | while read -r _; do
+    # Wait until the events stop coming (see SETTLE_TIME)
+    while read -r -t "$SETTLE_TIME" _; do :; done
+
+    states=$(radio_states)
+    [[ "$states" == "$last" ]] && continue
+
+    # Only notify when the overall state changed, or when a mixed state changed
+    # which radios are blocked
+    if [[ "$(overall_state "$states")" != "$(overall_state "$last")" ||
+          "$(overall_state "$states")" == "Mixed" ]]; then
+        notify_user "$states"
+    fi
+    last="$states"
+done

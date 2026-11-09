@@ -74,7 +74,7 @@ sudo modprobe v4l2loopback \
     exclusive_caps=1 \
     card_label="$CARD_LABEL"
 
-echo "Streaming from http://$PHONE_IP:$PORT — press Ctrl+C to detach."
+echo "Streaming from http://$PHONE_IP:$PORT - press Ctrl+C to detach."
 
 ffmpeg \
     -hide_banner \

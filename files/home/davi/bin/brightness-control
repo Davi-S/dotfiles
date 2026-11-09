@@ -2,18 +2,32 @@
 
 # Brightness Control
 # ==================
-# A utility script to manage screen brightness using brightnessctl.
-# It forces "clean" percentage steps to avoid rounding errors (e.g., 31%).
+# A utility script to manage the brightness of every screen: the laptop
+# backlight (brightnessctl) and external monitors (DDC/CI, ddcutil).
+# It works in whole percentages, so steps are always clean (e.g. 40% -> 50%).
+# This script only changes the brightness: notifications are sent by
+# brightness-notify-daemon whenever the brightness changes.
 #
 # Usage:
 #     $0 <action>
 #
-# Actions:
+# Actions on the focused monitor:
 #     +<amount>   - Increase brightness by amount%
 #     -<amount>   - Decrease brightness by amount%
 #     <amount>    - Set brightness to absolute percentage
-#     status      - Show current brightness notification
 #
+# Actions on every monitor:
+#     dim         - Save the current brightness and set it to 0
+#     restore     - Restore the brightness saved by "dim"
+#
+# Notes:
+#     - Requires `hyprctl`, `jq`, `brightnessctl`, `ddcutil` and `flock`
+#     - Brightness 0 does not turn the screens off; they just get very dark.
+#     - External monitors are slow (about 0.25s per step), so presses that
+#       arrive while a step is still running are skipped.
+#     - DDC/CI monitors send no events, so after every change their level is
+#       written to $XDG_RUNTIME_DIR/brightness/level/<monitor>, which
+#       brightness-notify-daemon watches.
 # ==========================
 ### END USAGE
 
@@ -21,76 +35,198 @@ SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 source "$SCRIPT_DIR/utils.sh"
 check_help_flag "$@"
 
-# ==============================================================================
-# CONFIGURATION
-# ==============================================================================
-
-NOTI_TIMEOUT=1000
+# Monitors are identified by their connector name (e.g. eDP-1, HDMI-A-1). Each
+# folder holds one file per monitor:
+#     level/    current level of DDC/CI monitors (for brightness-notify-daemon)
+#     saved/    level saved by "dim", removed by "restore"
+#     lock/     lock files, so two changes never use a monitor at the same time
+#     ddc-bus/  I2C bus of DDC/CI monitors (detecting them is slow)
+STATE_DIR="$BRIGHTNESS_STATE_DIR"
+mkdir -p "$STATE_DIR"/{level,saved,lock,ddc-bus}
 
 # ==============================================================================
 # FUNCTIONS
 # ==============================================================================
 
-# Get current brightness percentage (rounded to nearest integer)
-get_brightness_pct() {
-    local current=$(brightnessctl g)
-    local max=$(brightnessctl m)
-    # Calculate percentage: (current / max) * 100
-    awk -v cur="$current" -v max="$max" 'BEGIN { printf "%.0f", (cur / max) * 100 }'
+# Prints the connector names of all enabled monitors
+all_monitors() {
+    hyprctl monitors -j | jq -r '.[].name'
 }
 
-# Send notification
-notify_user() {
-    local percentage=$(get_brightness_pct)
-    
-    notify-send \
-        -h string:x-canonical-private-synchronous:brightness_control \
-        -h int:value:"$percentage" \
-        -t "$NOTI_TIMEOUT" \
-        "Brightness" "${percentage}%"
+# Prints the connector name of the focused monitor
+focused_monitor() {
+    hyprctl monitors -j | jq -r '.[] | select(.focused) | .name'
+}
+
+# Prints the backlight device of a monitor, if it has one (laptop screens)
+# $1: monitor
+backlight_device() {
+    local device
+    for device in /sys/class/backlight/*; do
+        [[ -e "$device" ]] || continue
+        device=$(basename "$device")
+        if [[ "$(backlight_connector "$device")" == "$1" ]]; then
+            echo "$device"
+            return
+        fi
+    done
+}
+
+# Finds the I2C bus of every DDC/CI monitor and caches them
+detect_ddc_buses() {
+    rm -f "$STATE_DIR"/ddc-bus/*
+    ddcutil detect --terse 2>/dev/null | awk '
+        /^Display/               { valid = 1; next }
+        /^Invalid/               { valid = 0; next }
+        valid && /I2C bus/       { sub(/.*i2c-/, ""); bus = $0 }
+        valid && /DRM connector/ { sub(/.*card[0-9]+-/, ""); print $0, bus; valid = 0 }
+    ' | while read -r monitor bus; do
+        echo "$bus" > "$STATE_DIR/ddc-bus/$monitor"
+    done
+}
+
+# Prints the I2C bus of a DDC/CI monitor
+# $1: monitor
+ddc_bus() {
+    [[ -f "$STATE_DIR/ddc-bus/$1" ]] || detect_ddc_buses
+    cat "$STATE_DIR/ddc-bus/$1" 2>/dev/null
+}
+
+# Prints the DDC/CI brightness of a bus. Fails if the monitor does not answer.
+# DDC/CI brightness (VCP code 10) goes from 0 to 100 on practically every
+# monitor, so it is used as a percentage directly.
+# $1: bus
+ddc_get() {
+    # Output of --brief is "VCP 10 C <current> <max>"
+    ddcutil --bus "$1" getvcp 10 --brief 2>/dev/null \
+        | awk '$4 != "" { print $4; found = 1 } END { exit !found }'
+}
+
+# Prints the brightness of a monitor as a whole percentage.
+# Fails if it cannot be read.
+# $1: monitor
+get_level() {
+    local device bus
+    device=$(backlight_device "$1")
+    if [[ -n "$device" ]]; then
+        backlight_percentage "$device"
+        return
+    fi
+
+    bus=$(ddc_bus "$1")
+    [[ -n "$bus" ]] && ddc_get "$bus" && return
+
+    # The cached bus may be outdated (e.g. the monitor was plugged elsewhere)
+    detect_ddc_buses
+    bus=$(ddc_bus "$1")
+    [[ -n "$bus" ]] && ddc_get "$bus"
+}
+
+# Sets the brightness of a monitor. Fails if it cannot be set.
+# $1: monitor, $2: percentage
+set_level() {
+    local device bus
+    device=$(backlight_device "$1")
+    if [[ -n "$device" ]]; then
+        brightnessctl -q -d "$device" set "$2%"
+        return
+    fi
+
+    bus=$(ddc_bus "$1")
+    [[ -n "$bus" ]] || return 1
+    ddcutil --bus "$bus" --noverify setvcp 10 "$2" > /dev/null 2>&1 || return 1
+    # Tell brightness-notify-daemon about the change
+    echo "$2" > "$STATE_DIR/level/$1"
+}
+
+# Runs a command while holding the lock of a monitor
+# $1: monitor
+# $2: "skip" to give up at once if the lock is taken, "wait" to wait for it
+# $3...: command
+with_lock() {
+    local monitor="$1" mode="$2"
+    shift 2
+    (
+        if [[ "$mode" == "skip" ]]; then
+            flock -n 9 || exit 0
+        else
+            flock 9
+        fi
+        "$@"
+    ) 9> "$STATE_DIR/lock/$monitor"
+}
+
+# Changes the brightness of a monitor by an action (+N, -N or N)
+# $1: monitor, $2: action
+step() {
+    local current target
+    if ! current=$(get_level "$1"); then
+        echo "Error: cannot read the brightness of $1" >&2
+        return 1
+    fi
+    target=$(target_percentage "$current" "$2")
+    [[ "$target" == "$current" ]] && return
+    set_level "$1" "$target"
+}
+
+# Saves the brightness of a monitor and sets it to 0
+# $1: monitor
+dim_monitor() {
+    local level
+    # Already dimmed: keep the level saved before, not the 0
+    [[ -f "$STATE_DIR/saved/$1" ]] && return
+    level=$(get_level "$1") || return
+    echo "$level" > "$STATE_DIR/saved/$1"
+    set_level "$1" 0
+}
+
+# Restores the brightness saved by dim_monitor
+# $1: monitor
+restore_monitor() {
+    local saved="$STATE_DIR/saved/$1"
+    # Monitors waking up from standby may not answer right away
+    for _ in 1 2 3 4 5; do
+        if set_level "$1" "$(cat "$saved")"; then
+            rm -f "$saved"
+            return
+        fi
+        sleep 1
+    done
 }
 
 # ==============================================================================
 # MAIN LOGIC
 # ==============================================================================
 
-ARG="$1"
-
-case "$ARG" in
-    status)
-        notify_user
+case "$1" in
+    dim)
+        for monitor in $(all_monitors); do
+            with_lock "$monitor" wait dim_monitor "$monitor" &
+        done
+        wait
+        ;;
+    restore)
+        monitors=" $(all_monitors | tr '\n' ' ') "
+        for saved in "$STATE_DIR"/saved/*; do
+            [[ -f "$saved" ]] || continue
+            monitor=$(basename "$saved")
+            # The monitor was disconnected while dimmed
+            if [[ "$monitors" != *" $monitor "* ]]; then
+                rm -f "$saved"
+                continue
+            fi
+            with_lock "$monitor" wait restore_monitor "$monitor" &
+        done
+        wait
         ;;
     *)
-        # Get current percentage once
-        CURRENT_PCT=$(get_brightness_pct)
-
-        # Check for relative increase
-        if [[ "$ARG" =~ ^\+([0-9]+)$ ]]; then
-            AMOUNT="${BASH_REMATCH[1]}"
-            # Calculate target in pure percentage math
-            TARGET=$(( CURRENT_PCT + AMOUNT ))
-
-        # Check for relative decrease
-        elif [[ "$ARG" =~ ^-([0-9]+)$ ]]; then
-            AMOUNT="${BASH_REMATCH[1]}"
-            TARGET=$(( CURRENT_PCT - AMOUNT ))
-
-        # Check for absolute set
-        elif [[ "$ARG" =~ ^([0-9]+)$ ]]; then
-            TARGET="${BASH_REMATCH[1]}"
-
-        else
-            echo "Error: Invalid argument '$ARG'"
+        if ! target_percentage 0 "$1" > /dev/null; then
+            echo "Error: Invalid argument '$1'"
+            echo "Try '$0 --help' for usage."
             exit 1
         fi
-
-        # CLAMPING: Ensure target is between 0 and 100
-        # This prevents errors if you go above 100% or below 0%
-        if (( TARGET > 100 )); then TARGET=100; fi
-        if (( TARGET < 0 )); then TARGET=0; fi
-
-        # Apply the exact percentage
-        brightnessctl set "${TARGET}%" -q
-        notify_user
+        monitor=$(focused_monitor)
+        [[ -n "$monitor" ]] || exit 1
+        with_lock "$monitor" skip step "$monitor" "$1"
         ;;
 esac

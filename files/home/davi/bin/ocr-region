@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# OCR Region
+# ==========
+# Select an area of the screen, read its text (OCR) and copy it to the
+# clipboard. A notification shows the beginning of the copied text, or says
+# that no text was found.
+#
+# Usage:
+#     $0
+#
+# Notes:
+#     - Requires `hyprshot`, `tesseract`, `wl-copy` and `notify-send`
+#     - Uses every installed tesseract language (e.g. Portuguese and English).
+#       Add languages with the tesseract-data-<language> packages.
+#     - Cancelling the selection (Esc) does nothing.
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+NOTIFY_TIMEOUT=3000
+
+# How many characters of the copied text to show in the notification
+PREVIEW_LENGTH=100
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+# Every installed language, e.g. "eng+por". "osd" is not a language (it detects
+# the text orientation), so it is left out.
+LANGUAGES=$(tesseract --list-langs 2>/dev/null | tail -n +2 | grep -v -x osd | paste -sd+)
+
+IMAGE=$(mktemp --tmpdir="${XDG_RUNTIME_DIR:-/tmp}" ocr-XXXXXX.png)
+trap 'rm -f "$IMAGE"' EXIT
+
+# Raw mode only writes the image to stdout: no file, clipboard or notification
+hyprshot -m region --raw > "$IMAGE" 2>/dev/null
+
+# The selection was cancelled
+[[ -s "$IMAGE" ]] || exit 0
+
+# tesseract ends pages with a form feed; $(...) drops the trailing newlines
+TEXT=$(tesseract "$IMAGE" stdout -l "$LANGUAGES" 2>/dev/null | tr -d '\f')
+
+if [[ -z "${TEXT//[[:space:]]/}" ]]; then
+    notify-send -t "$NOTIFY_TIMEOUT" "OCR" "No text found"
+    exit 0
+fi
+
+printf '%s' "$TEXT" | wl-copy
+
+# One-line preview. The notification body is Pango markup, so &, < and > are
+# escaped to show up as typed.
+PREVIEW=$(printf '%s' "$TEXT" | tr '\n' ' ' | tr -s ' ')
+(( ${#PREVIEW} > PREVIEW_LENGTH )) && PREVIEW="${PREVIEW:0:PREVIEW_LENGTH}..."
+PREVIEW=$(printf '%s' "$PREVIEW" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g')
+
+notify-send -t "$NOTIFY_TIMEOUT" "Text copied" "$PREVIEW"

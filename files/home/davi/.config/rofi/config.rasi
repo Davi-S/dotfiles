@@ -1,6 +1,0 @@
-configuration {
-    font: "Atkinson Mono NF 12";
-    show-icons: true;
-}
-
-@import "terminal-catppuccin-mocha.rasi"

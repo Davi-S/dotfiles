@@ -1,1 +1,14 @@
-# Foo
+# Lazygit
+# =======
+# Reference: `lazygit --config` prints the full default config.
+# Only what differs from the defaults: square borders, sapphire for the focused
+# panel, overlay1 for unfocused borders (they also color the unfocused panel
+# titles, so they use Catppuccin's "subtle" text color), surface1 for the
+# selected line (Catppuccin Mocha).
+
+gui:
+  border: single
+  theme:
+    activeBorderColor: ["#74c7ec", bold]
+    inactiveBorderColor: ["#7f849c"]
+    selectedLineBgColor: ["#45475a"]

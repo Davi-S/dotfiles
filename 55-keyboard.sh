@@ -13,3 +13,5 @@ CopyFile /etc/kanata/kanata-linux.kbd.bak
 #  - https://github.com/jtroo/kanata?tab=readme-ov-file#usage
 #  - https://github.com/jtroo/kanata/discussions/130#discussioncomment-10227272
 CopyFile /etc/systemd/system/kanata.service
+# Lets my user start and stop the kanata service without a password
+CopyFile /etc/polkit-1/rules.d/50-kanata.rules

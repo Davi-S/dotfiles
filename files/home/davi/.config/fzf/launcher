@@ -1,0 +1,3 @@
+--layout=reverse
+--ellipsis=...
+--color=bg+:#45475a,fg+:#cdd6f4,hl:#74c7ec,hl+:#74c7ec,info:#6c7086,prompt:#74c7ec,pointer:#74c7ec,marker:#74c7ec,spinner:#74c7ec,header:#6c7086,gutter:-1

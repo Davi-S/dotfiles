@@ -55,6 +55,12 @@ return {
         keys = {
             { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
         },
+        init = function()
+            -- lazygit.nvim ignores 'winborder' and draws a rounded border by
+            -- default. Pass it the global border style like every other float
+            -- (the value goes straight to nvim_open_win, which accepts it).
+            vim.g.lazygit_floating_window_border_chars = vim.o.winborder
+        end,
         config = function()
             -- lazygit.nvim positions its float with
             --     row = (vim.o.lines - height) / 2        (lua/lazygit/window.lua)

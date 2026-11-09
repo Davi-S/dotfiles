@@ -20,7 +20,6 @@ hl.config({
         -- Other layouts ar here as falback if kanata fails
         kb_layout = "br,us",
         sensitivity = 0.60,
-        force_no_accel = 0,
         accel_profile = "flat",
         touchpad = {
             scroll_factor = 0.5,

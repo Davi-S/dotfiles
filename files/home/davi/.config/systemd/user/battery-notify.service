@@ -1,0 +1,18 @@
+[Unit]
+Description=Battery notifications from UPower
+# Notifications need a desktop session; stop with it.
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/bin/battery-notify daemon
+# Exit 4 (UPower unreachable, connection lost) is worth retrying.
+Restart=on-failure
+RestartSec=5
+# 2 usage error, 3 config error, 5 no battery: retrying would not help.
+# A config error is notified once; fix the file, then restart the service.
+RestartPreventExitStatus=2 3 5
+
+[Install]
+WantedBy=graphical-session.target

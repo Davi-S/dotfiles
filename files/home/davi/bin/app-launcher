@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+# App Launcher
+# ============
+# Lists the installed apps in fzf and starts the chosen one through uwsm. Only
+# the app names are visible, but the generic names and keywords are searchable
+# too, so searching "minecraft" also finds Prism Launcher. The most used apps
+# come first.
+#
+# Usage:
+#     $0
+#
+# Notes:
+#     - Requires `fzf`, `uwsm` and, for terminal apps (btop, nvim...),
+#       `xdg-terminal-exec`
+#     - Meant to run in a terminal window: SUPER+Home opens it in a floating
+#       kitty (see ~/.config/hypr/hyprland-keybindings.lua), which also points
+#       fzf to its options and colors (FZF_DEFAULT_OPTS_FILE)
+#     - Apps come from the .desktop files in the XDG data folders. Entries
+#       with NoDisplay or Hidden, or meant only for other desktops, are left
+#       out. A user entry replaces a system entry with the same id.
+#     - Closing fzf without a choice (Esc) does nothing.
+# ==========================
+### END USAGE
+
+SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+check_help_flag "$@"
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+
+# One line per launch, with the app's id. Used to put the most used apps first.
+USAGE_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/app-launcher/usage"
+
+# fzf can only search what is on the line, so the generic name and keywords
+# are on it too, after this many spaces: far enough to always be past the
+# right edge of the window
+PADDING=300
+
+# ==============================================================================
+# MAIN LOGIC
+# ==============================================================================
+
+# Folders with .desktop files, most important first
+dirs=("${XDG_DATA_HOME:-$HOME/.local/share}/applications")
+IFS=: read -ra data_dirs <<< "${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+for dir in "${data_dirs[@]}"; do
+    dirs+=("$dir/applications")
+done
+
+files=()
+for dir in "${dirs[@]}"; do
+    [ -d "$dir" ] && while IFS= read -r -d '' file; do
+        files+=("$file")
+    done < <(find "$dir" -name '*.desktop' -print0)
+done
+
+mkdir -p "$(dirname "$USAGE_FILE")"
+touch "$USAGE_FILE"
+
+# Prints one line per app: launches <TAB> id <TAB> name <TAB> extra text, where
+# the id is the file's path below "applications/" with "/" turned into "-"
+# (the Desktop Entry ID that uwsm expects). Only the first file of each id
+# counts, so user entries win over system ones.
+list_apps() {
+    awk -v padding="$PADDING" '
+        function flush() {
+            if (id == "" || id in seen) return
+            seen[id] = 1
+            if (skip || type != "Application" || name == "") return
+            gsub(";", " ", keywords)
+            if (generic == name) generic = ""
+            extra = generic " " keywords
+            gsub(/ +/, " ", extra)
+            sub(/^ /, "", extra)
+            sub(/ $/, "", extra)
+            print (launches[id] + 0) "\t" id "\t" name "\t" sprintf("%" padding "s", "") extra
+        }
+        # The usage file comes first: count the launches of each id
+        FILENAME == ARGV[1] { launches[$0]++; next }
+        FNR == 1 {
+            flush()
+            id = FILENAME
+            sub(/.*\/applications\//, "", id)
+            gsub("/", "-", id)
+            section = name = generic = keywords = type = ""
+            skip = 0
+        }
+        /^\[/ { section = $0; next }
+        section != "[Desktop Entry]" { next }
+        /^Name=/ { name = substr($0, 6) }
+        /^GenericName=/ { generic = substr($0, 13) }
+        /^Keywords=/ { keywords = substr($0, 10) }
+        /^Type=/ { type = substr($0, 6) }
+        /^(NoDisplay|Hidden)=true/ { skip = 1 }
+        /^OnlyShowIn=/ && !/Hyprland/ { skip = 1 }
+        /^NotShowIn=.*Hyprland/ { skip = 1 }
+        END { flush() }
+    ' "$USAGE_FILE" "${files[@]}"
+}
+
+# Most launched first, then by name. fzf searches the name and the padded extra
+# text, prefers matches near the start (the name), and prints the id of the
+# chosen app. --no-hscroll keeps every line starting at the name even when the
+# match is in the extra text, and the empty ellipsis hides where the line is
+# cut.
+id=$(list_apps \
+    | sort -t $'\t' -k1,1nr -k3,3f \
+    | fzf --delimiter='\t' --with-nth=3,4 --accept-nth=2 --tiebreak=begin,index \
+        --no-hscroll --ellipsis='')
+
+[ -n "$id" ] || exit 0
+
+echo "$id" >> "$USAGE_FILE"
+uwsm-app -t service -- "$id"
