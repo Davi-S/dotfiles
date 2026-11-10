@@ -178,7 +178,13 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
 -- In order from left to right
 
--- F1 - XF86Sleep - Sleep the computer
+-- F1 - XF86Sleep - Sleep the computer. logind ignores this key
+-- (/etc/systemd/logind.conf.d/sleep-key.conf) so the lock screen can finish
+-- fading in before the computer sleeps. If the screen is already locked, it
+-- sleeps right away.
+hl.bind("XF86Sleep", hl.dsp.exec_cmd(
+    "pidof hyprlock || { loginctl lock-session; sleep 0.5; }; systemctl suspend"
+), { locked = true })
 
 -- F2 - XF86RFKill - Toggle airplane mode. The kernel handles this key by itself
 -- (rfkill-input), so there is no bind for it. The notification is sent by

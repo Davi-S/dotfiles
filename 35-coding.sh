@@ -58,5 +58,8 @@ AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
 # Go
 AddPackage go # Core compiler tools for the Go programming language
 
+# Java
+AddPackage jdk-openjdk # OpenJDK Java 27 development kit
+
 # npm settings
 CopyFile /home/davi/.npmrc 600 davi davi

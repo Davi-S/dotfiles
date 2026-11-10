@@ -63,6 +63,8 @@ AddPackage ydotool # Generic command-line automation tool (no X!)
 # For locking the pc
 AddPackage hyprlock # hyprland's GPU-accelerated screen locking utility
 CopyFile /home/davi/.config/hypr/hyprlock.conf '' davi davi
+# Leaves the sleep key to Hyprland, which locks before suspending
+CopyFile /etc/systemd/logind.conf.d/sleep-key.conf
 
 # For managing idle time. It reduces brightness, locks, and suspends the pc when idle
 AddPackage hypridle # hyprland's idle daemon

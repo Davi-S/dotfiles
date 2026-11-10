@@ -59,22 +59,18 @@ local function setup_highlight_under_cursor(args)
     end
 end
 
+-- Rename and code action keymaps are set without checking supports_method():
+-- some servers (e.g. jdtls) register these capabilities dynamically, after
+-- LspAttach has already fired, so the check would wrongly fail.
+-- vim.lsp.buf.rename/code_action check for support themselves when called.
 local function setup_renaming(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-    if client:supports_method("textDocument/rename") then
-        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = args.buf, desc = "[r]ename symbol" })
-    end
+    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = args.buf, desc = "[r]ename symbol" })
 end
 
 -- This will help fixing obvious problems on the code. It shows a list with
 -- contextual options on the code
 local function setup_code_actions(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-    if client:supports_method("textDocument/codeAction") then
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = args.buf, desc = "[c]ode [a]ction" })
-    end
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = args.buf, desc = "[c]ode [a]ction" })
 end
 
 -- Show functions usage and other metrics on the code

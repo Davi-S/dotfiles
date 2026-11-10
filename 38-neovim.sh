@@ -76,6 +76,7 @@ AddPackage wget # Network utility to retrieve files from the web
 # needed for the LSP servers of these specific languages
 AddPackage --foreign clangd-bin # Clangd Language Server
 AddPackage --foreign hyprls     # A LSP server for Hyprland config files
+AddPackage --foreign jdtls      # Eclipse Java language server
 
 # These are the configurations recipes from the nvim-lspconfig plugin which I
 # downloaded locally and edited so I do not have to rely on another plugin and

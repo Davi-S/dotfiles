@@ -25,6 +25,7 @@ CopyFile /home/davi/.config/kitty/diff-mocha.conf '' davi davi
 CopyFile /home/davi/.config/kitty/float-tui.conf '' davi davi
 CopyFile /home/davi/.config/kitty/kitty.conf '' davi davi
 CopyFile /home/davi/.config/kitty/mocha.conf '' davi davi
+CopyFile /home/davi/.config/kitty/mocha-overrides.conf '' davi davi
 CopyFile /home/davi/.config/kitty/sessions/nchat.session '' davi davi
 CopyFile /home/davi/.config/kitty/sessions/nvim_whatsapp.session '' davi davi
 CopyFile /home/davi/.config/kitty/sessions/obsidian_tui.session '' davi davi

@@ -60,6 +60,10 @@ AddPackage acpi # Client for battery, power, and thermal readings
 CopyFile /home/davi/.bash_profile '' davi davi
 CopyFile /home/davi/.bashrc '' davi davi
 
+# Shell tools set up in .bashrc
+AddPackage vivid  # LS_COLORS manager with multiple themes
+AddPackage zoxide # A smarter cd command for your terminal
+
 # A Python script to derive my colors from the catppuccin theme. I use the same
 # theme, but with slightly "saturated" colors.
 CopyFile /home/davi/.config/colors/create_catppuccin_high_contrast_version.py '' davi davi

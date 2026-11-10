@@ -45,6 +45,8 @@ M.mason_servers = {
     "clangd", -- LSP
     -- HYPRLAND
     "hyprls", -- LSP
+    -- Java
+    "jdtls", -- LSP
 }
 
 -- Tools installed by Mason that are not language servers (formatters/linters
