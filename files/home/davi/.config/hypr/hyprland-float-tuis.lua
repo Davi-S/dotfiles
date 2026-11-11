@@ -32,7 +32,7 @@ local float_tui = "uwsm-app -t service -- kitty --single-instance --instance-gro
 local tuis = {
     { workspace = "bluetooth", class = "bluetui_float", command = "bluetui", autostart = true },
     { workspace = "wifi",      class = "impala_float",  command = "impala",  autostart = true },
-    { workspace = "audio",     class = "wiremix_float", command = "wiremix", autostart = true },
+    { workspace = "audio",     class = "pulsemixer_float", command = "pulsemixer", autostart = true },
     { workspace = "calendar",  class = "calcurse_float", command = "calcurse", autostart = true },
 }
 

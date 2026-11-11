@@ -180,10 +180,11 @@ AddPackage prismlauncher # Minecraft launcher with ability to manage multiple in
 AddPackage steam # Valve's digital software delivery system
 
 # Used to control audio input/output via TUI
-AddPackage wiremix # A simple TUI audio mixer for PipeWire
-CopyFile /home/davi/.config/wiremix/wiremix.toml '' davi davi
-SetFileProperty /home/davi/.config/wiremix group davi
-SetFileProperty /home/davi/.config/wiremix owner davi
+AddPackage pulsemixer # CLI and curses mixer for pulseaudio
+CopyFile /home/davi/.config/pulsemixer.cfg '' davi davi
+
+# Settings for the Galaxy Buds 
+AddPackage --foreign galaxybudsclient-bin # Unofficial manager for the Samsung Galaxy Buds, Buds+, Buds Live and Buds Pro
 
 # Configures gaming mice
 AddPackage piper # GTK application to configure gaming mice

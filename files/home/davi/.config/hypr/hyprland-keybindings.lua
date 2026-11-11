@@ -42,7 +42,11 @@ local menu = float_menu("launcher_float", "~/bin/app-launcher")
 -- closed without a choice. setsid keeps wl-copy (which serves the clipboard)
 -- alive after the kitty window closes, and its output goes to /dev/null, since
 -- kitty keeps the window open while anything still writes to it.
-local cliphist = float_menu("clipboard_float", "sh -c 'sel=$(cliphist list | fzf --no-sort)"
+-- Ctrl+O opens the highlighted entry in mvi (images only; text entries do
+-- nothing) and returns to the list when mvi closes. mvi needs its full path,
+-- since ~/bin is not in Hyprland's PATH.
+local cliphist = float_menu("clipboard_float", "sh -c 'sel=$(cliphist list | fzf --no-sort"
+    .. " --bind \"ctrl-o:execute-silent(cliphist decode {} | ~/bin/mvi - >/dev/null 2>&1)\")"
     .. " && printf \"%s\" \"$sel\" | cliphist decode | setsid -f wl-copy >/dev/null 2>&1'")
 
 -- Opens a menu, or closes it if it is already open (so there is never a second

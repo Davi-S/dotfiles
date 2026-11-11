@@ -3,15 +3,18 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    build = ":TSUpdate",
-    -- Lazy-load when opening an existing file or creating a new buffer, or on TS commands
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSUpdate", "TSInstall", "TSLog" },
-    config = function()
+    -- The main branch does not support lazy-loading. If it loads on BufReadPost, the
+    -- FileType autocmd below is created too late for the first file opened, and that
+    -- file never gets treesitter highlighting.
+    lazy = false,
+    -- Runs only when the plugin is installed or updated, not on every launch:
+    -- install any missing parsers, then update the installed ones
+    build = function()
         local treesitter = require("nvim-treesitter")
-
-        treesitter.install("all")
-
+        treesitter.install("all"):wait(300000) -- wait max. 5 minutes
+        treesitter.update():wait(300000)
+    end,
+    config = function()
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
             desc = "Enable treesitter highlighting and indentation",

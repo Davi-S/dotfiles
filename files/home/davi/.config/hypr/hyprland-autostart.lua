@@ -53,8 +53,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(uwsm .. " kitty --single-instance --class nvim_whatsapp"
         .. " --session /home/davi/.config/kitty/sessions/nvim_whatsapp.session")
 
-    -- Floating TUIs (bluetui, impala, wiremix), started hidden in their special
-    -- workspaces (see hyprland-float-tuis.lua)
+    -- Floating TUIs, started hidden in their special workspaces (see
+    -- hyprland-float-tuis.lua)
     float_tuis.autostart()
 
     -- -------------------------------------------------------------------------
