@@ -19,3 +19,6 @@ AddPackage sudo           # Give certain users the ability to run some commands 
 
 # `nano`` is just a "fallback" for the main editor `nvim`.`
 AddPackage nano # Pico editor clone with enhancements
+
+# systemd sets the root directory to 555 at every boot (tmpfiles.d/root.conf)
+SetFileProperty / mode 555
